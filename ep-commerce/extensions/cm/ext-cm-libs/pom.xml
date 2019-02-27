@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>ext-commerce-engine-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+
+	<groupId>com.elasticpath.extensions.cm</groupId>
+	<artifactId>ext-cm-libs</artifactId>
+
+	<packaging>bundle</packaging>
+
+	<name>Extension CM Libs</name>
+	<description>Extension CM Libs - A bundle of jars wrapped with an OSGi manifest for use with ext-CM's OSGi environment</description>
+
+	<build>
+		<plugins>
+			<plugin>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>maven-bundle-plugin</artifactId>
+			<configuration>
+				<rebuildBundle>true</rebuildBundle>
+				<instructions>
+					<Eclipse-BuddyPolicy>registered</Eclipse-BuddyPolicy>
+					<Bundle-Name>Extension CM Libs</Bundle-Name>
+					<Bundle-Vendor>Elastic Path Software</Bundle-Vendor>
+					<Embed-Dependency>ext-core</Embed-Dependency>
+					<Embed-Transitive>true</Embed-Transitive>
+					<_nouses>true</_nouses>
+					<_exportcontents>
+						com.elasticpath.extensions.*
+					</_exportcontents>
+					<Import-Package>
+						!*
+					</Import-Package>
+					<Eclipse-RegisterBuddy>com.elasticpath.cmclient.core</Eclipse-RegisterBuddy>
+					<Require-Bundle>com.elasticpath.cmclient.core;visibility:=reexport</Require-Bundle>
+				</instructions>
+			</configuration>
+		</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath.extensions</groupId>
+			<artifactId>ext-core</artifactId>
+		</dependency>
+
+	</dependencies>
+</project>
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="statePolicyResolver" name="State Policy Resolver" schema="schema/statePolicyResolver.exsd"/>
+   <extension
+         point="com.elasticpath.cmclient.policy.statePolicyResolver">
+      <statePolicyResolver
+            resolverClass="com.elasticpath.cmclient.policy.framework.PriorityStatePolicyResolver">
+      </statePolicyResolver>
+   </extension>
+</plugin>

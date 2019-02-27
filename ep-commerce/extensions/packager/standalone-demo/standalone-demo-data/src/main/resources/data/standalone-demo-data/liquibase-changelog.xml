@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+  logicalFilePath="standalone-demo-data/liquibase-changelog.xml">
+
+
+	<changeSet id="standalone-demo-data${importexport.test-data.qualifier}" author="com.elasticpath.extensions" context="standalone-demo-data">
+		<comment>Import of the commerce demo data</comment>
+
+		<customChange class="com.elasticpath.datapopulation.importexport.ImportExportChange">
+			<param name="dataSet" value="standalone-demo-data" />
+		</customChange>
+	</changeSet>
+
+</databaseChangeLog>

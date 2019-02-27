@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>shipments</name>
+		<description><![CDATA[Represents shipment line items.]]></description>
+
+		<resource>
+			<name>shipment-line-items</name>
+			<description><![CDATA[A list of line items associated with a given shipment.]]></description>
+			<uri>{shipment}/lineitems</uri>
+			<list-of>shipment-line-item</list-of>
+		</resource>
+
+		<uri-part>
+			<name>shipment-line-item-id</name>
+			<description><![CDATA[The shipment line item ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>shipment-line-item</name>
+			<description><![CDATA[A line item associated with a given shipment.]]></description>
+			<uri>{shipment-line-items}/{shipment-line-item-id}</uri>
+			<entity>shipment-line-item</entity>
+		</resource>
+
+		<resource>
+			<name>shipment-line-item-options</name>
+			<description><![CDATA[A list of options associated with a given shipment line item.]]></description>
+			<uri>{shipment-line-item}/options</uri>
+			<list-of>shipment-line-item-option</list-of>
+		</resource>
+
+		<uri-part>
+			<name>shipment-line-item-option-id</name>
+			<description><![CDATA[The shipment line item option ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>shipment-line-item-option</name>
+			<description><![CDATA[A line item option associated with a given shipment line item.]]></description>
+			<uri>{shipment-line-item-options}/{shipment-line-item-option-id}</uri>
+			<entity>shipment-line-item-option</entity>
+		</resource>
+
+		<uri-part>
+			<name>shipment-line-item-option-value-id</name>
+			<description><![CDATA[The shipment line item option value ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>shipment-line-item-option-value</name>
+			<description><![CDATA[The option value associated with a given shipment line item.]]></description>
+			<uri>{shipment-line-item-option}/values/{shipment-line-item-option-value-id}</uri>
+			<entity>shipment-line-item-option-value</entity>
+		</resource>
+
+		<relationship>
+			<name>line-items-for-shipment</name>
+			<description><![CDATA[Retrieve the shipment line items associated with a shipment.]]></description>
+			<rel>lineitems</rel>
+			<rev>shipment</rev>
+			<from>shipment</from>
+			<to>shipment-line-items</to>
+		</relationship>
+
+		<relationship>
+			<name>options-for-shipment-line-item</name>
+			<description><![CDATA[Retrieve the options associated with a shipment line item.]]></description>
+			<rel>options</rel>
+			<rev>lineitem</rev>
+			<from>shipment-line-item</from>
+			<to>shipment-line-item-options</to>
+		</relationship>
+
+		<relationship>
+			<name>value-for-shipment-line-item-option</name>
+			<description><![CDATA[Retrieve the option value associated with a shipment line item.]]></description>
+			<rel>value</rel>
+			<rev>option</rev>
+			<from>shipment-line-item-option</from>
+			<to>shipment-line-item-option-value</to>
+		</relationship>
+
+		<relationship>
+			<name>options-for-shipment-line-item-option</name>
+			<description><![CDATA[Retrieve the options that the option is contained in.]]></description>
+			<rel>list</rel>
+			<from>shipment-line-item-option</from>
+			<to>shipment-line-item-options</to>
+		</relationship>
+
+		<relationship>
+			<name>shipment-line-items-for-line-item</name>
+			<description><![CDATA[ Retrieve the line item list that the line item is contained in.]]></description>
+			<rel>list</rel>
+			<from>shipment-line-item</from>
+			<to>shipment-line-items</to>
+		</relationship>
+
+		<relationship>
+			<name>shipment-for-shipment-line-item</name>
+			<description><![CDATA[ Retrieve the shipment for line item.]]></description>
+			<rel>shipment</rel>
+			<from>shipment-line-item</from>
+			<to>shipment</to>
+		</relationship>
+
+		<entity>
+			<name>shipment-line-item</name>
+			<description><![CDATA[The shipment line item entity.]]></description>
+			<property>
+				<name>purchase-id</name>
+				<description><![CDATA[The purchase identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>line-item-id</name>
+				<description><![CDATA[The line item identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>parent-line-item-id</name>
+				<description><![CDATA[The parent line item identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>parent-uri</name>
+				<description><![CDATA[The parent resource uri.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>name</name>
+				<description><![CDATA[The name.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>quantity</name>
+				<description><![CDATA[The quantity.]]></description>
+				<integer/>
+			</property>
+			<property>
+				<name>shipment-id</name>
+				<description><![CDATA[The shipment identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<entity-type>shipments.line-item</entity-type>
+		</entity>
+
+		<entity>
+			<name>shipment-line-item-option</name>
+			<description><![CDATA[The shipment line item option entity.]]></description>
+			<property>
+				<name>purchase-id</name>
+				<description><![CDATA[The purchase identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>line-item-id</name>
+				<description><![CDATA[The line item identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>line-item-option-id</name>
+				<description><![CDATA[The line item option identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>line-item-option-value-id</name>
+				<description><![CDATA[The line item option value identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>name</name>
+				<description><![CDATA[The name.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[The display name.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>line-item-uri</name>
+				<description><![CDATA[The line item uri.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>shipment-id</name>
+				<description><![CDATA[The shipment identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<entity-type>shipments.option</entity-type>
+		</entity>
+
+		<entity>
+			<name>shipment-line-item-option-value</name>
+			<description><![CDATA[The shipment line item option value entity.]]></description>
+			<property>
+				<name>name</name>
+				<description><![CDATA[The name.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[The display name.]]></description>
+				<string/>
+			</property>
+			<entity-type>shipments.value</entity-type>
+		</entity>
+
+	</family>
+</definitions>

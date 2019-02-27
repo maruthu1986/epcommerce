@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+">
+
+    <!--
+        Java uses "POSIX-style signs" in the Zone names, which means that the sign is reversed from what every person
+        on the planet expects the sign to be. For instance, Vancouver is in Etc/GMT+8, which is actually UTC-8:00.
+
+
+        The following list is the displayed in the CM for the end-user to choose if don't want to use their Browser's timezone.
+        It is not exhaustive, and can be overridden in an extension to provide more entries.
+
+        The Key to the map is the java.util.TimeZone ID,
+        and the value is the localization Key, referenced in the CoreMessage.java and CorePluginResources.properties files.
+    -->
+
+    <util:map id="timezoneFormattingMap" map-class="java.util.LinkedHashMap">
+        <entry key="Etc/GMT-12" value="UTCp12"/>
+        <entry key="Etc/GMT-11" value="UTCp11"/>
+        <entry key="Etc/GMT-10" value="UTCp10"/>
+        <entry key="ACT" value="ACT"/>
+        <entry key="Etc/GMT-9" value="UTCp9"/>
+        <entry key="Etc/GMT-8" value="UTCp8"/>
+        <entry key="Etc/GMT-7" value="UTCp7"/>
+        <entry key="Etc/GMT-6" value="UTCp6"/>
+        <entry key="IST" value="IST"/>
+        <entry key="Etc/GMT-5" value="UTCp5"/>
+        <entry key="Etc/GMT-4" value="UTCp4"/>
+        <entry key="Etc/GMT-3" value="UTCp3"/>
+        <entry key="Etc/GMT-2" value="UTCp2"/>
+        <entry key="Etc/GMT-1" value="UTCp1"/>
+        <entry key="Etc/GMT" value="UTC"/>
+        <entry key="Etc/GMT+1" value="UTCm1"/>
+        <entry key="Etc/GMT+2" value="UTCm2"/>
+        <entry key="Etc/GMT+3" value="UTCm3"/>
+        <entry key="Etc/GMT+4" value="UTCm4"/>
+        <entry key="Etc/GMT+5" value="UTCm5"/>
+        <entry key="Etc/GMT+6" value="UTCm6"/>
+        <entry key="Etc/GMT+7" value="UTCm7"/>
+        <entry key="Etc/GMT+8" value="UTCm8"/>
+        <entry key="Etc/GMT+9" value="UTCm9"/>
+        <entry key="Etc/GMT+10" value="UTCm10"/>
+        <entry key="Etc/GMT+11" value="UTCm11"/>
+        <entry key="Etc/GMT+12" value="UTCm12"/>
+
+    </util:map>
+
+
+    <bean id="uiDateFormatter" class="com.elasticpath.cmclient.core.formatting.UIDateTimeUtilImpl">
+    </bean>
+
+
+</beans>

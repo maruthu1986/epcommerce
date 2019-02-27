@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		">
+
+	<util:map id="validationConstraintsToMessageId">
+		<entry key="{javax.validation.constraints.NotNull.message}" value="field.required"/>
+		<entry key="{javax.validation.constraints.Size.message}" value="field.invalid.size"/>
+
+		<entry key="{com.elasticpath.validation.constraints.requiredAttribute}"
+			   value="field.required"/>
+		<entry key="{com.elasticpath.validation.constraints.CustomerUsernameUserIdModeEmail.message}"
+			   value="field.required"/>
+		<entry key="{com.elasticpath.validation.constraints.emailPattern}"
+			   value="field.invalid.email.format"/>
+		<entry key="{com.elasticpath.validation.constraints.LongTextValueSize.message}"
+			   value="field.invalid.size"/>
+		<entry key="{com.elasticpath.validation.constraints.notBlank}"
+			   value="field.required"/>
+		<entry key="{com.elasticpath.validation.constraints.RegisteredCustomerPasswordNotBlankWithSize.message}"
+			   value="field.invalid.size"/>
+		<entry key="{com.elasticpath.validation.constraints.ShortTextMultiValuesElementSize.message}"
+			   value="field.invalid.size"/>
+		<entry key="{com.elasticpath.validation.constraints.ShortTextValueSize.message}"
+			   value="field.invalid.size"/>
+		<entry key="{com.elasticpath.validation.constraints.validCountry}"
+			   value="field.invalid.country.format"/>
+		<entry key="{com.elasticpath.validation.constraints.validSubCountry}"
+			   value="field.invalid.subcountry.format"/>
+		<entry key="{com.elasticpath.validation.constraints.subCountry.missing}"
+			   value="field.required"/>
+
+		<entry key="{field.required}" value="field.required"/>
+		<entry key="{field.invalid.email.format}" value="field.invalid.email.format"/>
+		<entry key="{field.invalid.boolean.format}" value="field.invalid.boolean.format"/>
+		<entry key="{field.invalid.decimal.format}" value="field.invalid.decimal.format"/>
+		<entry key="{field.invalid.date.format}" value="field.invalid.date.format"/>
+		<entry key="{field.invalid.datetime.format}" value="field.invalid.datetime.format"/>
+		<entry key="{field.invalid.integer.format}" value="field.invalid.integer.format"/>
+		<entry key="{field.invalid.size}" value="field.invalid.size"/>
+		<entry key="{field.invalid.option.value}" value="field.invalid.option.value"/>
+
+		<entry key="{com.elasticpath.validation.validators.impl.RegisteredCustomerPasswordNotBlankWithSizeValidator.size.message}"
+			   value="field.invalid.size"/>
+		<entry key="{com.elasticpath.validation.validators.impl.RegisteredCustomerPasswordNotBlankWithSizeValidator.blank.message}"
+			   value="field.required"/>
+	</util:map>
+
+	<bean id="constraintViolationTransformer" class="com.elasticpath.validation.impl.ConstraintViolationTransformerImpl">
+		<property name="idMap" ref="validationConstraintsToMessageId" />
+	</bean>
+
+</beans>

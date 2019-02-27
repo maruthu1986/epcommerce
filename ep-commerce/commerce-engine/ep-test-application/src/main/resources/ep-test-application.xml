@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<context:annotation-config/>
+
+	<import resource="classpath:liquibase-for-testapplication.xml"/>
+	<import resource="test-datasource.xml"/>
+	<import resource="persisters.xml"/>
+	<import resource="builders.xml"/>
+
+	<!-- Make sure that the database is created before we try to connect to it through OpenJPA --> 
+	<bean id="entityManagerFactory" parent="abstractEntityManagerFactory"
+		depends-on="preEntityManagerInitializationList">
+        <property name="jpaPropertyMap">
+            <map>
+                <entry key="openjpa.MetaDataRepository" value="Preload=false"/>
+            </map>
+        </property>
+	</bean>
+
+	<bean id="preEntityManagerInitializationList" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<ref bean="liquibaseCoreSchemaInitializerForTestApplication"/>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="testApplicationContext" class="com.elasticpath.test.persister.TestApplicationContext"
+		init-method="init"/>
+
+	<bean id="testConfigFactory" class="com.elasticpath.test.persister.TestConfigurationFactory">
+		<property name="resourceProvider">
+			<bean class="com.elasticpath.test.persister.TestConfigurationFactory.FileSystemResourceProvider"/>
+		</property>
+	</bean>
+	
+	<bean id="testConfig" class="com.elasticpath.test.persister.TestConfig" 
+		factory-bean="testConfigFactory" 
+		factory-method="createTestConfig"/>
+
+	<bean id="testDataPersisterFactory" class="com.elasticpath.test.persister.TestDataPersisterFactory"/>
+
+	<bean id="dataSourceInitializerFactory" class="com.elasticpath.test.persister.DatasourceInitializerFactory"/>
+
+	<bean id="productsScenario" class="com.elasticpath.test.persister.testscenarios.ProductsScenario">
+		<property name="simpleStoreScenario" ref="simpleStoreScenario"/>
+	</bean>
+
+	<bean id="customerScenario" class="com.elasticpath.test.persister.testscenarios.CustomerScenario"/>
+
+	<bean id="customerAndCustomerSessionsScenario" class="com.elasticpath.test.persister.testscenarios.CustomerAndCustomerSessionsScenario">
+		<property name="simpleStoreScenario" ref="simpleStoreScenario"/>
+	</bean>
+
+	<bean id="simpleStoreScenario" class="com.elasticpath.test.persister.testscenarios.SimpleStoreScenario"/>
+
+	<bean id="importJobScenario" class="com.elasticpath.test.persister.testscenarios.ImportJobScenario"/>
+
+	<bean id="shoppingCartSimpleStoreScenario" class="com.elasticpath.test.persister.testscenarios.ShoppingCartSimpleStoreScenario">
+		<property name="simpleStoreScenario" ref="simpleStoreScenario"/>
+		<property name="productsScenario" ref="productsScenario"/>
+		<property name="customerAndCustomerSessionsScenario" ref="customerAndCustomerSessionsScenario"/>
+	</bean>
+	
+	<bean id="singleStoreMultiCatalogScenario" class="com.elasticpath.test.persister.testscenarios.SingleStoreMultiCatalogScenario"/>
+
+	<bean id="paymentGatewayFactory" class="com.elasticpath.domain.factory.TestPaymentGatewayPluginFactoryImpl">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="paymentGatewayPlugins">
+			<set>
+				<bean class="com.elasticpath.service.payment.gateway.impl.NullPaymentGatewayPluginImpl"/>
+				<bean class="com.elasticpath.service.payment.gateway.impl.NullExternalAuthPaymentGatewayPluginImpl"/>
+				<bean class="com.elasticpath.service.payment.gateway.impl.NullExternalAuthPaymentGatewayPluginImpl"/>
+				<bean class="com.elasticpath.paymentgateways.testdouble.PaymentGatewayPluginTestDouble"/>
+				<bean class="com.elasticpath.service.payment.gateway.impl.GiftCertificatePaymentGatewayPluginImpl">
+					<property name="giftCertificateTransactionService" ref="giftCertificateTransactionService" />
+				</bean>
+				<bean class="com.elasticpath.service.payment.gateway.impl.ExchangePaymentGatewayPluginImpl"/>
+			</set>
+		</property>
+	</bean>
+	
+	<bean id="shoppingCartTaxTestVerifier" class="com.elasticpath.tax.ShoppingCartTaxTestVerifier"/>
+
+	<bean id="orderTaxTestVerifier" class="com.elasticpath.tax.OrderTaxTestVerifier"/>
+</beans>

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) Elastic Path Software Inc., 2018
+  -->
+
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="comments">Copyright (c) 2018 Elastic Path</property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.6.0.v201606072122</property>
+    <html-property name="description">Data Point Values Report</html-property>
+    <simple-property-list name="includeResource">
+        <value>src/main/java/com/elasticpath/cmclient/reporting/customerpersonaldata/CustomerPersonalDataMessages</value>
+    </simple-property-list>
+    <property name="units">in</property>
+    <text-property name="displayName">Data Point Values Report</text-property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">fixed layout</property>
+    <list-property name="cssStyleSheets">
+        <structure>
+            <property name="fileName">cm-modules/cm-plugins/com.elasticpath.cmclient.reporting/css/report.css</property>
+            <property name="useExternalCss">false</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="store" id="99">
+            <text-property name="promptText">store</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="userId" id="752">
+            <text-property name="promptText">userId</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="EPScriptedDataSource" id="66">
+            <method name="open"><![CDATA[
+            	customerPersonalDataReportService = new Packages.com.elasticpath.cmclient.reporting.customerpersonaldata.service.impl.CustomerPersonalDataServiceImpl;
+			]]></method>
+        </script-data-source>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="CustomerPersonalDataReport dataset" id="134">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">Customer Full Name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">Data Point Name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">Data Point Value</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">Created</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">Last Updated</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">Customer Full Name</property>
+                    <text-property name="displayName">Customer Full Name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">Data Point Name</property>
+                    <text-property name="displayName">Data Point Name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">Data Point Value</property>
+                    <text-property name="displayName">Data Point Value</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">Created</property>
+                    <text-property name="displayName">Created</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">Last Updated</property>
+                    <text-property name="displayName">Last Updated</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">Customer Full Name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">Data Point Name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">Data Point Value</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">Created</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">Last Updated</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">EPScriptedDataSource</property>
+            <method name="open"><![CDATA[
+dataPointValues = customerPersonalDataReportService.getData();
+
+totalRows = dataPointValues.size();
+
+currentRow = 0;
+]]></method>
+            <method name="fetch"><![CDATA[
+if (currentRow >= totalRows) {
+    return false;
+}
+var dataPointValue = dataPointValues.get(currentRow);
+	
+currentRow++;
+	
+row["Customer Full Name"] = dataPointValue[0];
+row["Data Point Name"] = dataPointValue[1];
+row["Data Point Value"] = dataPointValue[2];
+row["Created"] = dataPointValue[3];
+row["Last Updated"] = dataPointValue[4];
+
+return true;
+]]></method>
+            <method name="close"><![CDATA[dataPointValues = null;
+totalRows = null;
+currentRow = null;]]></method>
+        </script-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">custom</property>
+            <property name="orientation">landscape</property>
+            <property name="topMargin">0.5in</property>
+            <property name="leftMargin">1in</property>
+            <property name="bottomMargin">0.5in</property>
+            <property name="rightMargin">1in</property>
+            <property name="height">8.5in</property>
+            <property name="width">11in</property>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid name="Data Point Values Sheet" id="6">
+            <column id="7"/>
+            <row id="8">
+                <cell id="9">
+                    <text id="65">
+                        <property name="style">table-header-cell</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[Customer Personal Data for <VALUE-OF>params["store"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="743">
+                <cell id="744">
+                    <text id="745">
+                        <property name="style">table-header-line-2-cell</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<b>User ID:</b> <VALUE-OF>params["userId"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="10">
+                <cell id="11">
+                    <table name="Report Table" id="12">
+                        <property name="width">8.895833333333334in</property>
+                        <property name="dataSet">CustomerPersonalDataReport dataset</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">Customer Full Name</property>
+                                <expression name="expression" type="javascript">dataSetRow["Customer Full Name"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Data Point Name</property>
+                                <expression name="expression" type="javascript">dataSetRow["Data Point Name"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Data Point Value</property>
+                                <expression name="expression" type="javascript">dataSetRow["Data Point Value"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Created</property>
+                                <expression name="expression" type="javascript">dataSetRow["Created"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Last Updated</property>
+                                <expression name="expression" type="javascript">dataSetRow["Last Updated"]</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="pageBreakInterval">0</property>
+                        <column id="31">
+                            <property name="width">1.4in</property>
+                        </column>
+                        <column id="32">
+                            <property name="width">0.5in</property>
+                        </column>
+                        <column id="33">
+                            <property name="width">0.8in</property>
+                        </column>
+                        <column id="35">
+                            <property name="width">0.9in</property>
+                        </column>
+                        <group id="78">
+                            <property name="groupName">CustomerFullName</property>
+                            <property name="interval">none</property>
+                            <property name="sortDirection">asc</property>
+                            <expression name="keyExpr" type="javascript">row["Customer Full Name"]</expression>
+                            <structure name="toc">
+                                <expression name="expressionValue" type="javascript">row["Customer Full Name"]</expression>
+                            </structure>
+                            <property name="repeatHeader">true</property>
+                            <property name="hideDetail">false</property>
+                            <property name="pageBreakAfter">auto</property>
+                            <property name="pageBreakBefore">auto</property>
+                            <property name="pageBreakInside">auto</property>
+                            <header>
+                                <row id="79">
+                                    <cell id="80">
+                                        <property name="colSpan">4</property>
+                                        <property name="rowSpan">1</property>
+                                        <text-data id="247">
+                                            <property name="style">table-group-header-emphasis</property>
+                                            <expression name="valueExpr">"Customer: " + row["Customer Full Name"]</expression>
+                                            <property name="contentType">html</property>
+                                        </text-data>
+                                    </cell>
+                                </row>
+                                <row id="128">
+                                    <cell id="129">
+                                        <label id="68">
+                                            <text-property name="text">Data Point Name</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="130">
+                                        <label id="70">
+                                            <text-property name="text">Data Point Value</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="131">
+                                        <label id="116">
+                                            <text-property name="text">Created</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="133">
+                                        <label id="76">
+                                            <text-property name="text">Last Updated</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                            </header>
+                        </group>
+                        <detail>
+                            <row id="19">
+                                <cell id="20">
+                                    <data id="136">
+                                        <property name="resultSetColumn">Data Point Name</property>
+                                    </data>
+                                </cell>
+                                <cell id="21">
+                                    <data id="224">
+                                        <property name="resultSetColumn">Data Point Value</property>
+                                    </data>
+                                </cell>
+                                <cell id="22">
+                                    <data id="200">
+                                        <property name="resultSetColumn">Created</property>
+                                    </data>
+                                </cell>
+                                <cell id="24">
+                                    <data id="201">
+                                        <property name="resultSetColumn">Last Updated</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                    </table>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>

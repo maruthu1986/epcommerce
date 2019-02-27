@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: status; singleton:=true
+Bundle-Version: 0.0.0.qualifier
+Bundle-Vendor: %providerName
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.rap.rwt,
+ javax.servlet;resolution:=optional,
+ org.eclipse.osgi,
+ com.elasticpath.extensions.cm.ext-cm-libs,
+ com.elasticpath.cmclient.libs

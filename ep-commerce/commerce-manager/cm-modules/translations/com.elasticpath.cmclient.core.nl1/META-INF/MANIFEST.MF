@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %fragmentName
+Bundle-SymbolicName: com.elasticpath.cmclient.core.nl1
+Bundle-Version: 703.0.0.qualifier
+Bundle-Vendor: %fragmentProdiver
+Bundle-Localization: nl_fragment
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Fragment-Host: com.elasticpath.cmclient.core

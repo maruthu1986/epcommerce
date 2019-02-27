@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>orders</name>
+		<plan>
+			<name>read-order</name>
+			<description>
+				<![CDATA[
+Retrieves the cart's [order][orders]. An order may have NeedInfos. Needinfos identify a condition that must be satisfied before a transaction can complete.
+Needinfos link to a selector where the customer can select the missing condition. Once the Needinfos are
+satisfied the order can be submitted to a purchase.
+
+[orders]: #order
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Read an order from a cart.]]></description>
+				<start>carts.cart</start>
+				<follow-link>order</follow-link>
+				<link-back>cart</link-back>
+				<result>order</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-order-email</name>
+			<description><![CDATA[Read email address associated with order.]]></description>
+			<step>
+				<description><![CDATA[Read emailinfo of the order.]]></description>
+				<start>order</start>
+				<follow-link>emailinfo</follow-link>
+				<link-back>order</link-back>
+				<result>email-info</result>
+			</step>
+			<step>
+				<description><![CDATA[Read email used for the order.]]></description>
+				<start>email-info</start>
+				<follow-link>email</follow-link>
+				<result>emails.email</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-email-needinfo-from-order</name>
+			<description><![CDATA[Read the order's email needinfo. When an email needinfo appears on
+			the order, it means the customer's email has not been selected for the purchase. Likely,
+			this customer does not have an account. Follow the workflow to read the email needinfo.]]></description>
+			<step>
+				<description><![CDATA[Read order email needinfo from order.]]></description>
+				<start>order</start>
+				<follow-link>needinfo</follow-link>
+				<result>email-info</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-email-needinfo-from-purchaseform</name>
+			<description><![CDATA[Read order email needinfo. When an email needinfo appears on the
+			purchase form, it means the customer's email has not been selected for the purchase. Likely, this customer does not have an account. Follow the workflow to read the email needinfo.]]></description>
+			<step>
+				<description><![CDATA[Read order email needinfo from purchaseform.]]></description>
+				<start>purchases.create-purchase-form</start>
+				<follow-link>needinfo</follow-link>
+				<result>email-info</result>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

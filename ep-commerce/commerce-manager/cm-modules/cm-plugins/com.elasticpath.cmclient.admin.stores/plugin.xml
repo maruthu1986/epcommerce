@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="Extender" name="Extender"   schema="../com.elasticpath.cmclient.core/schema/extender.exsd"/>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="com.elasticpath.cmclient.admin.stores.category"
+            name="%storesCategory.name"
+            parentCategory="com.elasticpath.cmclient.admin.category.main">
+      </category>
+      <view
+            class="com.elasticpath.cmclient.admin.stores.views.StoreListView"
+            icon="icons/store_default_22.png"
+            id="com.elasticpath.cmclient.admin.stores.views.StoreListView"
+            name="%storesView.name">
+      </view>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.admin.adminSections">
+      <adminSection
+            class="com.elasticpath.cmclient.admin.stores.StoreAdminSection"
+            id="com.elasticpath.cmclient.admin.stores.StoreAdminSection"
+            name="%adminSection.name">
+      </adminSection>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.core.authorizations">
+      <permissions>
+         <permission
+               activityId="com.elasticpath.cmclient.admin.authorization.activity"
+               key="ADMIN_STORES_MANAGE"
+               name="%manageStoresPermission.name">
+         </permission>
+      </permissions>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.elasticpath.cmclient.admin.stores.editors.StoreEditor"
+            icon="icons/store_default_22.png"
+            id="com.elasticpath.cmclient.admin.stores.editors.StoreEditor"
+            contributorClass="com.elasticpath.cmclient.core.editors.BaseCmClientEditorContributor"
+            name="%storeEditor.name">
+      </editor>
+      <editor
+            name="EP Browser Editor"
+            icon="icons/store_default_22.png"
+            class="com.elasticpath.cmclient.admin.stores.browser.EpBrowserEditor"
+            id="com.elasticpath.cmclient.admin.stores.browser.EpBrowserEditor">
+      </editor>
+   </extension>
+</plugin>

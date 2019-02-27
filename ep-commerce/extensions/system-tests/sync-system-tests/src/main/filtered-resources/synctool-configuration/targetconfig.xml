@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<connectionconfiguration type="local">
+	<url>jdbc:h2:file://${project.build.directory}/target-system/SMOKETESTDB</url>
+	<login>sa</login>
+	<pwd>sa</pwd>
+	<driver>org.h2.Driver</driver>
+</connectionconfiguration>

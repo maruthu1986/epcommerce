@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<import resource="classpath:spring/prototypes/prototypes.xml"/>
+
+	<import resource="classpath:spring/models/domainModel.xml" />
+
+	<import resource="dataaccess/importexport-dao.xml" />
+
+	<import resource="service/importexport-service.xml" />
+
+	<import resource="service/messages.xml" />
+
+	<import resource="classpath:spring/service/serviceEPQL.xml" />
+
+	<import resource="classpath:spring/commons/util-config.xml" />
+	<import resource="classpath:spring/commons/validators.xml" />
+
+	<import resource="classpath:spring/dataaccess/openjpa/openjpa.xml" />
+
+	<import resource="importexport-adapters.xml" />
+	
+	<import resource="importexport-domain.xml" />
+
+	<alias name="basePersistenceUnitManager" alias="persistenceUnitManager"/>
+
+	<bean id="entityManagerFactory" parent="abstractEntityManagerFactory">
+		<property name="jpaPropertyMap">
+			<map>
+				<entry key="openjpa.jdbc.EagerFetchMode" value="join" />
+				<entry key="openjpa.jdbc.SubclassFetchMode" value="join" />
+                <entry key="openjpa.MetaDataRepository" value="Preload=false"/>
+            </map>
+		</property>
+	</bean>
+	
+	 <bean id="utility" class="com.elasticpath.importexport.common.util.ExtendedUtility" scope="singleton">
+		<property name="dateFormatterPattern"  value="EEE MMM dd HH:mm:ss yyyy" />
+		<property name="dateFormatterLocale"> 
+		 	<bean class= "java.util.Locale"> 
+		 		<constructor-arg value="en" /> 
+		 	</bean>
+		 </property>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/plugin.xml"/>
+
+	<!-- Opt out of messaging. -->
+	<bean id="eventMessageFactory" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.factory.EventMessageFactory"/>
+	</bean>
+
+	<bean id="customerEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher" />
+	</bean>
+
+	<bean id="customerEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+	</bean>
+
+	<bean id="orderEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher"/>
+	</bean>
+
+	<bean id="orderEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+	</bean>
+
+	<import resource="classpath*:META-INF/conf/ep-core-plugin.xml" />
+	<import resource="classpath*:META-INF/conf/ep-importexport-plugin.xml" />
+
+</beans>

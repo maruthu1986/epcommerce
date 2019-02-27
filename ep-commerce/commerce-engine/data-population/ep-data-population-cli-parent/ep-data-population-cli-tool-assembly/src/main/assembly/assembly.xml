@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assembly xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+		  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+	<id>package</id>
+
+	<formats>
+		<format>${assembly.format}</format>
+	</formats>
+
+	<!-- Don't include the base directory as this assembly is consumed by the Inception data-population cli assembly
+		and it's easier if there is top level directory in this packaged zip. -->
+	<includeBaseDirectory>false</includeBaseDirectory>
+
+	<fileSets>
+		<fileSet>
+			<directory>${project.build.outputDirectory}</directory>
+			<outputDirectory/>
+			<includes>
+				<include>**/*</include>
+			</includes>
+			<excludes>
+				<!-- We'll include shell script files and the ant scripts below and make them executable -->
+				<exclude>**/*.sh</exclude>
+			</excludes>
+		</fileSet>
+		<fileSet>
+			<directory>${project.build.outputDirectory}</directory>
+			<outputDirectory/>
+			<includes>
+				<include>**/*.sh</include>
+			</includes>
+			<!-- Make shell script files executable -->
+			<fileMode>555</fileMode>
+		</fileSet>
+	</fileSets>
+
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>lib</outputDirectory>
+			<excludes>
+				<!-- We don't need to recursively include the assembly jar in the lib as it's unpacked in the zipped assembly. -->
+				<exclude>com.elasticpath:ep-data-population-cli-tool-assembly</exclude>
+			</excludes>
+		</dependencySet>
+	</dependencySets>
+</assembly>

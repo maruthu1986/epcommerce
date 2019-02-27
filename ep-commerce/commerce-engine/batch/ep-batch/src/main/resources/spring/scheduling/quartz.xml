@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2017 Elastic Path Software Inc. All rights reserved.
+  -->
+
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:settings="http://www.elasticpath.com/schema/settings"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.elasticpath.com/schema/settings http://www.elasticpath.com/schema/settings/settings.xsd
+		">
+
+	<import resource="quartz-setup.xml"/>
+
+	<bean id="topSellerJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="topSellerService"/>
+		<property name="targetMethod" value="updateTopSellers"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+
+	<!-- This is a trigger for calculating top sellers that should be used for testing and demos -->
+	<bean id="topSellerTrigger"	class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="topSellerJob" />
+		<!-- Start delay in milliseconds: server will wait for this long before starting to calculate the top sellers -->
+		<property name="startDelay" value="${ep.cm.topseller.delay}" />
+		<!-- Repeat interval in milliseconds: after the initial delay and first run, the server will recalculate the top sellers every 'x' milliseconds -->
+		<property name="repeatInterval" value="${ep.cm.topseller.interval}" />
+	</bean>
+
+
+	<bean id="productRecommendationJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="productRecommendationService"/>
+		<property name="targetMethod" value="updateRecommendations"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	
+	<bean id="releaseShipmentsJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="orderService"/>
+		<property name="targetMethod" value="updateOrderShipmentStatus"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+
+	<!-- This is the production product recommendation calculation trigger. -->
+	<bean id="productRecommendationTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="productRecommendationJob"/>
+		<property name="cronExpression" value="0 0 0 * * ?"/>
+	</bean>
+	
+	<!-- This is the order release for shipment job trigger. -->
+	<bean id="releaseShipmentTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="releaseShipmentsJob"/>
+		<!-- to be run hourly by default -->
+		<property name="cronExpression" value="0 0 * * * ?"/>
+	</bean>
+
+
+	<!-- This is a trigger for calculating product recommendations that should be used for testing and demos -->
+	<bean id="demoProductRecommendationTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="productRecommendationJob" />
+		<!-- Start delay is 30000 milliseconds (30 sec) -->
+		<!-- Start delay in milliseconds: server will wait for this long before starting to calculate the product recommendations -->
+		<property name="startDelay" value="${ep.cm.productrecommendation.delay}" />
+		<!-- repeat every 30000 milliseconds (30 sec) -->
+		<!-- Repeat interval in milliseconds: after the initial delay and first run, the server will recalculate the product recommendations every 'x' milliseconds -->
+		<property name="repeatInterval" value="${ep.cm.productrecommendation.interval}" />
+	</bean>
+
+	<bean id="importJobCleanupTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="importJobCleanupProcessorJob"/>
+		<property name="startDelay" value="30000" /> <!-- wait 30 seconds after startup -->
+		<property name="repeatInterval" value="259200000" /> <!-- then run every 72 hours -->
+	</bean>
+
+	<bean id="importJobCleanupProcessorJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="importJobCleanupProcessor"/>
+		<property name="targetMethod" value="cleanupImportJobData"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+
+	<bean id="staleImportJobTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="staleImportJobProcessorJob"/>
+		<property name="startDelay" value="30000" /> <!-- wait 30 seconds after startup -->
+		<property name="repeatInterval" value="60000" /> <!-- then run every minute -->
+	</bean>
+
+	<bean id="staleImportJobProcessorJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="importJobCleanupProcessor"/>
+		<property name="targetMethod" value="processStaleImportJobs"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+	
+	<bean id="cleanupOrderLocksTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="cleanupOrderLocksJob" />
+		<!-- run every hour -->
+		<property name="cronExpression" value="0 0 * * * ?"/>
+	</bean>
+
+	<bean id="cleanupOrderLocksJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="cleanupOrderLocksJobTarget"/>
+		<property name="targetMethod" value="cleanUpOrderLocks"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+
+	<bean id="cleanupOrderLocksJobTargetTemplate" class="com.elasticpath.domain.order.jobs.impl.OrderLockCleanupJobImpl" abstract="true">
+		<property name="orderLockService" ref="orderLockService"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="batchSizeProvider">
+			<settings:setting path="COMMERCE/SYSTEM/ORDERLOCK/batchSize"/>
+		</property>
+		<property name="staleLockThresholdMinsProvider">
+			<settings:setting path="COMMERCE/SYSTEM/ORDERLOCK/minsBeforeCleanUp"/>
+		</property>
+	</bean>
+
+	<bean id="cleanupOrderLocksJobTarget" parent="cleanupOrderLocksJobTargetTemplate"/>
+
+	<!--
+	 	Job to purge the session history. This will remove all customer session records that have a last accessed date older 
+	 	than the number of days specified by a system setting 'COMMERCE/STORE/SESSIONCLEANUP/maxHistory'.
+	 	
+	 	It will then remove all the orphaned Shoppers and only delete the ones that do not have Customers associated with it
+	 	or if it does, the only the ones that have Customers with empty ShoppingCarts and Wishlists.  When shoppers are deleted,
+	 	it cascade deletes ShoppingCarts and Wishlists.
+	 	
+	 	It will cap how many CustomerSessions and Shoppers it deletes in 1 pass.  That is defined in the system setting
+	 	'"COMMERCE/SYSTEM/SESSIONCLEANUP/batchSize'
+	-->
+	<bean id="cleanupSessionsJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="cleanupSessionsJobTarget"/>
+		<property name="targetMethod" value="purgeSessionHistory"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+
+	<bean id="cleanupSessionsJobTargetTemplate" class="com.elasticpath.domain.customer.impl.SessionCleanupJob" abstract="true">
+		<property name="timeService" ref="timeService"/>
+		<property name="customerSessionCleanupService" ref="customerSessionCleanupService" />
+		<property name="shopperCleanupService" ref="shopperCleanupService"/>
+		<property name="wishlistService" ref="wishListService"/>
+		<property name="shoppingCartService" ref="shoppingCartService"/>
+		<property name="batchSizeProvider">
+			<settings:setting path="COMMERCE/SYSTEM/SESSIONCLEANUP/batchSize"/>
+		</property>
+		<property name="maxDaysHistoryProvider">
+			<settings:setting path="COMMERCE/SYSTEM/SESSIONCLEANUP/maxHistory"/>
+		</property>
+	</bean>
+
+	<bean id="cleanupSessionsJobTarget" parent="cleanupSessionsJobTargetTemplate"/>
+
+	<bean id="cleanupSessionsTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="cleanupSessionsJob" />
+		<!-- run every hour at 15 minutes past the hour -->
+		<property name="cronExpression" value="0 15 * * * ?"/>
+	</bean>
+    
+	<!-- Cleanup for OAuth2 tokens -->
+	<bean id="cleanupExpiredOAuth2TokensJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+            <bean class="com.elasticpath.service.auth.impl.ExpiredOAuth2TokenRemovalJob">
+               <property name="timeService" ref="timeService"/>
+               <property name="oAuth2AccessTokenService" ref="oAuth2AccessTokenService"/>
+            </bean>
+		</property>
+		<property name="targetMethod" value="cleanUpExpiredOAuth2Tokens"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+
+	<bean id="cleanupExpiredOAuth2TokensTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="cleanupExpiredOAuth2TokensJob" />
+        <!-- run every day at midnight -->
+		<property name="cronExpression" value="0 0 0 * * ?"/>
+	</bean>
+	
+	<!-- Inventory Journal rollup -->
+	<bean id="inventoryJournalRollupJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+            <bean class="com.elasticpath.inventory.strategy.impl.InventoryJournalRollupJobImpl">
+                <property name="inventoryJournalRollupService" ref="inventoryJournalRollupService" />
+				<property name="inventoryLogSupport" ref="inventoryLogSupport"/>
+            </bean>
+		</property>
+		<property name="targetMethod" value="rollup"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+
+	<bean id="inventoryJournalRollupTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="inventoryJournalRollupJob" />
+		<property name="startDelay" value="30000" /> <!-- wait 30 seconds after startup -->
+		<property name="repeatInterval" value="86400000" /> <!-- then run every 24 hours -->
+	</bean>
+
+    <!-- 
+        Job to purge abandoned shopping carts. This will remove all shopping cart records that have a last modified date older 
+        than the number of days specified by a system setting 'COMMERCE/STORE/ABANDONEDCARTCLEANUP/maxHistory'.
+        
+        It will cap how many shopping carts it deletes in 1 pass.  That is defined in the system setting
+        'COMMERCE/SYSTEM/ABANDONEDCARTCLEANUP/batchSize'
+    -->
+    <bean id="cleanupAbandonedCartsJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="abandonedCartsCleanupJob"/>
+        <property name="targetMethod" value="purgeAbandonedShoppingCarts"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+	<bean id="abandonedCartsCleanupJobTemplate" class="com.elasticpath.domain.shoppingcart.impl.AbandonedCartsCleanupJob"
+		abstract="true">
+		<property name="shoppingCartCleanupService" ref="shoppingCartCleanupService"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="batchSizeProvider">
+			<settings:setting path="COMMERCE/SYSTEM/ABANDONEDCARTCLEANUP/batchSize"/>
+		</property>
+		<property name="maxDaysHistoryProvider">
+			<settings:setting path="COMMERCE/SYSTEM/ABANDONEDCARTCLEANUP/maxHistory"/>
+		</property>
+	</bean>
+
+	<bean id="abandonedCartsCleanupJob" parent="abandonedCartsCleanupJobTemplate"/>
+
+    <bean id="cleanupAbandonedCartsTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="cleanupAbandonedCartsJob" />
+        <!-- run every hour at 30 minutes past the hour  -->
+        <property name="cronExpression" value="0 30 * * * ?"/>
+    </bean>
+
+	<bean id="cleanupInactiveCartsTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="cleanupInactiveCartsJob" />
+		<!-- run every hour at 15 minutes past the hour -->
+		<property name="cronExpression" value="0 15 * * * ?"/>
+	</bean>
+
+	<!--
+        Job to purge inactive shopping carts. A cart becomes inactive after every purchase and can be removed as soon as possible.
+
+        The number of inactive carts to be deleted in 1 pass is determined by the system setting
+        'COMMERCE/SYSTEM/ABANDONEDCARTCLEANUP/batchSize'
+    -->
+	<bean id="cleanupInactiveCartsJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="abandonedCartsCleanupJob"/>
+		<property name="targetMethod" value="purgeInactiveShoppingCarts"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+    
+     <!-- 
+        Job to purge anonymous customers. This will remove all anonymous customer records that have a last modified date older 
+        than the number of days specified by a system setting 'COMMERCE/STORE/ANONYMOUSCUSTOMERCLEANUP/maxHistory'.
+        
+        It will cap how many anonymous customers it deletes in 1 pass.  That is defined in the system setting
+        '"COMMERCE/SYSTEM/ANONYMOUSCUSTOMERCLEANUP/batchSize'
+    -->
+    <bean id="cleanupAnonymousCustomerJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="cleanupAnonymousCustomerJobTarget"/>
+        <property name="targetMethod" value="purgeAnonymousCustomers"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+	<bean id="cleanupAnonymousCustomerJobTargetTemplate" class="com.elasticpath.domain.customer.impl.AnonymousCustomerCleanupJob" abstract="true">
+		<property name="anonymousCustomerCleanupService" ref="anonymousCustomerCleanupService"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="batchSizeProvider">
+			<settings:setting path="COMMERCE/SYSTEM/ANONYMOUSCUSTOMERCLEANUP/batchSize"/>
+		</property>
+		<property name="maxDaysHistoryProvider">
+			<settings:setting path="COMMERCE/SYSTEM/ANONYMOUSCUSTOMERCLEANUP/maxHistory"/>
+		</property>
+	</bean>
+
+	<bean id="cleanupAnonymousCustomerJobTarget" parent="cleanupAnonymousCustomerJobTargetTemplate"/>
+
+    <bean id="cleanupAnonymousCustomersTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="cleanupAnonymousCustomerJob" />
+        <!-- run every hour at 5 minutes past the hour  -->
+        <property name="cronExpression" value="0 5 * * * ?"/>
+    </bean>
+    
+    <!-- 
+        Job to purge failed orders. This will remove all records of failed order that are created before 
+        the number of days specified by a system setting 'COMMERCE/SYSTEM/FAILEDORDERCLEANUP/maxHistory'.
+        
+        It will cap how many orders it deletes in 1 pass.  That is defined in the system setting
+        'COMMERCE/SYSTEM/FAILEDORDERCLEANUP/batchSize'
+    -->
+    <bean id="cleanupFailedOrdersJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="cleanupFailedOrdersJobTarget"/>
+        <property name="targetMethod" value="removeFailedOrders"/>
+        <property name="concurrent" value="false"/>
+    </bean>
+
+	<bean id="cleanupFailedOrdersJobTargetTemplate" class="com.elasticpath.domain.order.jobs.impl.FailedOrdersCleanupJob" abstract="true">
+		<property name="timeService" ref="timeService"/>
+		<property name="orderService" ref="orderService" />
+		<property name="batchSizeProvider">
+			<settings:setting path="COMMERCE/SYSTEM/FAILEDORDERCLEANUP/batchSize" />
+		</property>
+		<property name="maxDaysHistoryProvider">
+			<settings:setting path="COMMERCE/SYSTEM/FAILEDORDERCLEANUP/maxHistory" />
+		</property>
+	</bean>
+
+	<bean id="cleanupFailedOrdersJobTarget" parent="cleanupFailedOrdersJobTargetTemplate"/>
+
+    <bean id="cleanupFailedOrdersTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="cleanupFailedOrdersJob" />
+        <!-- run every hour at 45 minutes past the hour  -->
+        <property name="cronExpression" value="0 45 * * * ?"/>
+    </bean>
+
+	<!-- Job to aggregate seach terms. -->
+	<bean id="searchTermsAggregatorJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<bean parent="txProxyTemplate">
+				<property name="target">
+					<bean class="com.elasticpath.batch.jobs.impl.SearchTermsAggregatorJobImpl">
+						<property name="persistenceEngine" ref="persistenceEngine" />
+						<property name="timeService" ref="timeService" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+		<property name="targetMethod" value="updateSearchTermsActivity" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<bean id="searchTermsAggregatorTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="searchTermsAggregatorJob" />
+		<property name="startDelay" value="${ep.cm.searchterms.aggregator.delay}" />
+		<property name="repeatInterval" value="${ep.cm.searchterms.aggregator.interval}" />
+	</bean>
+
+	<!--Data point value job triggers-->
+	<!--ExpiredDataPointValuesJobProcessor-->
+	<bean id="expiredDataPointValuesJobProcessorTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="expiredDataPointValuesJob"/>
+		<!-- run every day at 2 am -->
+		<property name="cronExpression" value="0 0 1 * * ?"/>
+	</bean>
+
+	<bean id="expiredDataPointValuesJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="expiredDataPointValuesJobProcessor"/>
+		<property name="targetMethod" value="process"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+
+	<!--DataPointRevokedConsentsJobProcessor-->
+	<bean id="dataPointRevokedConsentsJobProcessorTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="dataPointRevokedConsentsJob"/>
+		<!-- run every day at 1 am -->
+		<property name="cronExpression" value="0 0 2 * * ?"/>
+	</bean>
+
+	<bean id="dataPointRevokedConsentsJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="dataPointRevokedConsentsJobProcessor"/>
+		<property name="targetMethod" value="process"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+
+</beans>

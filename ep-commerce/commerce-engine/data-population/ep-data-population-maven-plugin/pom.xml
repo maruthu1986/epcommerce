@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath</groupId>
+		<artifactId>data-population</artifactId>
+		<version>703.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ep-data-population-maven-plugin</artifactId>
+	<packaging>maven-plugin</packaging>
+	<name>EP Data Population Maven Plugin</name>
+	<description>Maven plugin for data population</description>
+
+	<properties>
+		<epLicense.failOnError>false</epLicense.failOnError>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath</groupId>
+			<artifactId>ep-data-population-core</artifactId>
+		</dependency>
+		<!-- dependencies to annotations -->
+		<dependency>
+			<groupId>org.apache.maven.plugin-tools</groupId>
+			<artifactId>maven-plugin-annotations</artifactId>
+			<version>3.4</version>
+			<!-- annotations are not needed for plugin execution so you can remove this dependency
+				 for execution with using provided scope -->
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>3.3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/resources</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<!-- Use annotations to generate mojo-descriptor -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-plugin-plugin</artifactId>
+				<version>3.4</version>
+				<executions>
+					<execution>
+						<id>default-descriptor</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>descriptor</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>generated-helpmojo</id>
+						<goals>
+							<goal>helpmojo</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- This profile is for testing purposes only -->
+	<profiles>
+		<profile>
+			<id>run-data-pop</id>
+			<build>
+				<plugins>
+					<!-- Use annotations to generate mojo-descriptor -->
+					<plugin>
+						<groupId>com.elasticpath.repo</groupId>
+						<artifactId>ep-data-population-maven-plugin</artifactId>
+						<version>${project.version}</version>
+						<executions>
+							<execution>
+								<id>data-pop-with-maven</id>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<dataDirectory>../ep-data-population-core/src/test/resources/dataDirectory/</dataDirectory>
+									<configDirectory>../ep-data-population-core/src/test/resources/environmentDirectory/</configDirectory>
+									<workingDirectory>tmp</workingDirectory>
+									<outputDirectory>tmpOutput</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>${epdb.maven.groupId}</groupId>
+								<artifactId>${epdb.maven.artifactId}</artifactId>
+								<version>${epdb.maven.version}</version>
+							</dependency>
+							<dependency>
+								<groupId>com.elasticpath.db</groupId>
+								<artifactId>core-schema</artifactId>
+								<version>${platform.version}</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

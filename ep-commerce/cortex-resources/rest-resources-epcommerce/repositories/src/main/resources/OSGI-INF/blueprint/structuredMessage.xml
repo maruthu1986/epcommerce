@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		">
+
+	<bean id="structuredErrorMessageTransformerTemplate"
+		  class="com.elasticpath.rest.resource.integration.epcommerce.repository.transform.impl.StructuredErrorMessageTransformerImpl"
+		  abstract="true">
+		<property name="fieldMap">
+			<map>
+				<entry key="customerProfile.profileValueMap[CP_FIRST_NAME]" value="given-name"/>
+				<entry key="customerProfile.profileValueMap[CP_LAST_NAME]" value="family-name"/>
+				<entry key="customerProfile.profileValueMap[CP_EMAIL]" value="email"/>
+				<entry key="firstName" value="given-name"/>
+				<entry key="lastName" value="family-name"/>
+				<entry key="country" value="country-name"/>
+				<entry key="city" value="locality"/>
+				<entry key="zipOrPostalCode" value="postal-code"/>
+				<entry key="subCountry" value="region"/>
+				<entry key="street1" value="street-address"/>
+			</map>
+		</property>
+		<property name="resolutionStrategies" ref="resolutionStrategiesList"/>
+	</bean>
+
+	<bean id="resolutionStrategiesListParent" class="com.elasticpath.commons.beanframework.config.ExtensibleListFactoryBean" abstract="true">
+		<property name="targetListClass">
+			<value>java.util.ArrayList</value>
+		</property>
+		<property name="sourceList">
+			<list merge="true">
+				<ref bean="shoppingItemResolutionStrategy"/>
+				<ref bean="invalidEmailResolutionStrategy"/>
+				<ref bean="noPaymentMethodResolutionStrategy"/>
+				<ref bean="shippingOptionResolutionStrategy"/>
+				<ref bean="billingAddressResolutionStrategy"/>
+				<ref bean="shippingAddressResolutionStrategy"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="resolutionStrategiesList" parent="resolutionStrategiesListParent"/>
+
+	<bean id="structuredErrorMessageTransformer" parent="structuredErrorMessageTransformerTemplate"/>
+
+	<bean id="shoppingItemResolutionStrategy"
+		  class="com.elasticpath.rest.resource.integration.epcommerce.repository.transform.impl.ShoppingItemResolutionStrategy">
+		<property name="shoppingCartRepository" ref="shoppingCartRepository"/>
+	</bean>
+
+	<bean id="billingAddressResolutionStrategy"
+		  class="com.elasticpath.rest.resource.integration.epcommerce.repository.transform.impl.BillingAddressResolutionStrategy">
+		<property name="shoppingCartRepository" ref="shoppingCartRepository"/>
+		<property name="cartOrderRepository" ref="cartOrderRepository"/>
+	</bean>
+
+	<bean id="invalidEmailResolutionStrategy"
+		  class="com.elasticpath.rest.resource.integration.epcommerce.repository.transform.impl.InvalidEmailResolutionStrategy">
+		<property name="shoppingCartRepository" ref="shoppingCartRepository"/>
+		<property name="cartOrderRepository" ref="cartOrderRepository"/>
+	</bean>
+
+	<bean id="noPaymentMethodResolutionStrategy"
+		  class="com.elasticpath.rest.resource.integration.epcommerce.repository.transform.impl.NoPaymentMethodResolutionStrategy">
+		<property name="shoppingCartRepository" ref="shoppingCartRepository"/>
+		<property name="cartOrderRepository" ref="cartOrderRepository"/>
+	</bean>
+
+	<bean id="shippingOptionResolutionStrategy"
+		  class="com.elasticpath.rest.resource.integration.epcommerce.repository.transform.impl.ShippingOptionResolutionStrategy">
+		<property name="shoppingCartRepository" ref="shoppingCartRepository"/>
+		<property name="cartOrderRepository" ref="cartOrderRepository"/>
+	</bean>
+
+	<bean id="shippingAddressResolutionStrategy"
+		  class="com.elasticpath.rest.resource.integration.epcommerce.repository.transform.impl.ShippingAddressResolutionStrategy">
+		<property name="shoppingCartRepository" ref="shoppingCartRepository"/>
+		<property name="cartOrderRepository" ref="cartOrderRepository"/>
+	</bean>
+
+</beans>

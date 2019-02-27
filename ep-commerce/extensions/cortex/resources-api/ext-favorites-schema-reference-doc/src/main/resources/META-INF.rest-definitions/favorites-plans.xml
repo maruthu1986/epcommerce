@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>favorites</name>
+
+		<plan>
+			<name>favorites</name>
+			<description><![CDATA[Returns a list of links to the shopper’s favorites. Only the default favorite is currently supported, so responses will contain only one link..]]></description>
+			<step>
+				<description>Read favorites</description>
+				<start>favorites</start>
+				<read-self/>
+			</step>
+		</plan>
+		<plan>
+			<name>favorite</name>
+			<description><![CDATA[Retrieves a collection of links to favorite lineitems.]]></description>
+			<step>
+				<description>Read a favorite</description>
+				<start>favorite</start>
+				<read-self/>
+			</step>
+		</plan>
+
+		<plan>
+			<name>default-favorite</name>
+			<description><![CDATA[Retrieves the shopper’s default favorite.]]></description>
+			<step>
+				<description>Read the default favorite</description>
+				<start>default-favorite</start>
+				<read-self/>
+			</step>
+		</plan>
+
+		<plan>
+			<name>favorite-line-items</name>
+			<description><![CDATA[Retrieves a collection of links to favorite items and a link to the favorite.]]></description>
+			<step>
+				<description>Read favorite items</description>
+				<start>favorite-line-items</start>
+				<read-self/>
+			</step>
+		</plan>
+
+
+		<plan>
+			<name>favorite-line-item</name>
+			<description><![CDATA[
+			Retrieves favorite item details, which include:
+			 - A link to the list of favorite items
+			 - A link to the favorite
+			 - A link to the item in the items resource
+			 - A link to the movetocart form
+			]]></description>
+			<template>
+				<name>collections.list-element-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>favorite</value>
+				</replace>
+				<replace>
+					<key>start-name</key>
+					<value>favorite</value>
+				</replace>
+				<replace>
+					<key>list-resource</key>
+					<value>favorite-line-items</value>
+				</replace>
+				<replace>
+					<key>list-name</key>
+					<value>lineitems</value>
+				</replace>
+				<replace>
+					<key>element-resource</key>
+					<value>favorite-line-item</value>
+				</replace>
+			</template>
+		</plan>
+
+		<plan>
+			<name>delete-favorite-items</name>
+			<description><![CDATA[Deletes the items from a shopper’s favorite.
+]]></description>
+			<step>
+				<description><![CDATA[Start at the favorite line items]]></description>
+				<start>favorite-line-items</start>
+				<delete-self/>
+			</step>
+		</plan>
+
+
+		<plan>
+			<name>delete-favorite-item</name>
+			<description><![CDATA[Delete item from favorite.]]></description>
+			<step>
+				<description><![CDATA[Delete item from favorite.]]></description>
+				<start>favorite-line-item</start>
+				<delete-self/>
+			</step>
+		</plan>
+
+		<plan>
+			<name>add-item-to-default-favorite</name>
+			<description><![CDATA[Adds an item to the default favorite.
+			After executing the add item to default favorite action a redirect link is provided to the newly added item on the favorite.]]></description>
+			<step>
+				<description><![CDATA[Start at an item]]></description>
+				<start>items.item</start>
+				<follow-link>addtofavoriteform</follow-link>
+				<result>add-item-to-favorite-form</result>
+			</step>
+			<step>
+				<description><![CDATA[Submit the form]]></description>
+				<start>add-item-to-favorite-form</start>
+				<submit>add-item-to-favorite-form</submit>
+				<to>add-item-to-favorite-action</to>
+				<via-link>addtodefaultfavoriteaction</via-link>
+				<result>favorite-line-item</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>move-from-favorite-to-cart</name>
+			<description><![CDATA[Moves a line item from the favorite to the cart. You must specify the quantity in the request body.<br/><br/>
+Once posted, the item deletes from the favorite and adds to the cart. Then Cortex returns a redirect link to the newly added cart line item.
+You can also get to the movetocart form by following the link in a favorite line item. The movetocart form contains an action link to move the item to the cart. Note that the action link will only be present
+if the favorite line item is purchasable. If the favorite line item is not purchasable, the action link will not appear on the form.
+Only purchasable items can be moved from favorites into a cart.]]></description>
+			<step>
+				<description><![CDATA[Start at a favorite list line item]]></description>
+				<start>favorite-line-item</start>
+				<follow-link>movetocartform</follow-link>
+				<result>move-to-cart-form</result>
+			</step>
+			<step>
+				<description><![CDATA[Submit the form]]></description>
+				<start>move-to-cart-form</start>
+				<submit>move-to-cart-form</submit>
+				<to>add-to-default-cart-action</to>
+				<via-link>movetocartaction</via-link>
+				<result>carts.line-item</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>move-from-cart-to-favorite</name>
+			<description><![CDATA[Moves a line item from the cart to the favorite.<br/><br/>
+Once posted, Cortex will return a redirect link to the newly added favorite line item. You can also get to the movetofavorite form by following the link in a cart line item.
+The movetofavorite form contains an action link to move the item to the favorite.]]></description>
+			<step>
+				<description><![CDATA[Start at a cart line item]]></description>
+				<start>carts.line-item</start>
+				<follow-link>movetofavoriteform</follow-link>
+				<result>move-to-favorite-form</result>
+			</step>
+			<step>
+				<description><![CDATA[Start at a cart line item]]></description>
+				<start>move-to-favorite-form</start>
+				<submit>move-to-favorite-form</submit>
+				<to>move-to-favorite-action</to>
+				<via-link>movetofavoriteaction</via-link>
+				<result>favorite-line-item</result>
+			</step>
+		</plan>
+
+		<plan>
+		<name>read-favorite-memberships</name>
+		<description><![CDATA[
+Retrieves the list of favorites that the item has been added to.
+
+	GET:{cortex}/favorites/memberships/{item_uri}
+
+The list is empty if the item is not in your favorite.]]></description>
+			<step>
+				<description><![CDATA[Retrieves the list of favorites that the item has been added to.]]></description>
+				<start>items.item</start>
+				<follow-link>favoritememberships</follow-link>
+				<result>read-favorite-memberships</result>
+			</step>
+		</plan>
+
+	</family>
+
+</definitions>

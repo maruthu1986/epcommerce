@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>discounts</name>
+		<plan>
+			<name>read-discount-applied-to-cart</name>
+			<description>
+				<![CDATA[
+Retrieve the discount amount applied to a cart [total][totals], excluding line item discounts.
+
+[totals]: #totals
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Read discount for specific cart.]]></description>
+				<start>carts.cart</start>
+				<follow-link>discount</follow-link>
+				<link-back>cart</link-back>
+				<result>discount-for-cart</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-discount-applied-to-purchase</name>
+			<description>
+				<![CDATA[
+Retrieve the discount amount applied to a [purchase][purchases].
+
+[purchases]: #purchases
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Read discount for specific purchase.]]></description>
+				<start>purchases.purchase</start>
+				<follow-link>discount</follow-link>
+				<link-back>purchase</link-back>
+				<result>discount-for-purchase</result>
+			</step>
+		</plan>
+	</family>
+</definitions>

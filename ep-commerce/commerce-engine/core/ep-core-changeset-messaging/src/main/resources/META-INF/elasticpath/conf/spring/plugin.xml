@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xmlns:camel="http://camel.apache.org/schema/spring"
+		xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+				http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+		">
+
+	<camel:camelContext id="ep-changeSet-messaging" xmlns="http://camel.apache.org/schema/spring"
+						threadNamePattern="Camel (#camelId#) thread ##counter#">
+		<routeBuilder ref="changeSetEventBuilder" />
+		<endpoint id="changeSetEventInternalEndpoint" uri="direct:ep.changesets" />
+	</camel:camelContext>
+
+	<bean name="ep-changeSet-messaging:beanPostProcessor" class="com.elasticpath.messaging.impl.FastCamelBeanPostProcessor">
+		<property name="annotatedClassList" ref="camelAnnotatedClassList"/>
+		<property name="camelId" value="ep-changeSet-messaging"/>
+	</bean>
+
+	<!-- This explicitly creates a Camel Proxy (http://camel.apache.org/using-camelproxy.html). -->
+	<!-- This works around a known defect; see https://issues.apache.org/jira/browse/CAMEL-5956. -->
+	<!-- Once that defect is resolved, this bean can be substituted by an XML declaration as per the documentation. -->
+	<bean id="changeSetEventMessagePublisher" class="org.apache.camel.component.bean.PojoProxyHelper" factory-method="createProxy">
+		<constructor-arg ref="changeSetEventInternalEndpoint" />
+		<constructor-arg>
+			<util:list>
+				<value>com.elasticpath.messaging.EventMessagePublisher</value>
+			</util:list>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="changeSetEventExternalEndpoint" class="com.elasticpath.messaging.camel.SettingValueBackedCamelEndpointFactoryBean" abstract="true">
+		<property name="path" value="COMMERCE/SYSTEM/MESSAGING/CHANGESETS/channelUri" />
+		<property name="settingsReader" ref="settingsReader"/>
+	</bean>
+	
+	<!-- Concrete bean to facilitate testing.  Used in changeSetEventBuilder; should not be used in other routes. -->
+	<bean id="epChangeSetMessagingChangeSetEventExternalEndpoint" parent="changeSetEventExternalEndpoint">
+		<property name="camelContextId" value="ep-changeSet-messaging"/>
+	</bean>
+	
+	<bean id="changeSetEventBuilder" class="com.elasticpath.messaging.camel.EventRouteBuilder">
+		<property name="incomingEndpoint" ref="changeSetEventInternalEndpoint" />
+		<property name="outgoingEndpoint" ref="epChangeSetMessagingChangeSetEventExternalEndpoint" />
+		<property name="eventMessageDataFormat" ref="eventMessageDataFormat"/>
+	</bean>
+	
+	<bean id="changeSetEventTypeProvider" class="com.elasticpath.messaging.spi.impl.EventTypeProviderImpl">
+		<property name="eventTypeClass" value="com.elasticpath.core.messaging.changeset.ChangeSetEventType"/>
+		<property name="eventTypeLookup">
+				<bean class="com.elasticpath.core.messaging.changeset.ChangeSetEventType$ChangeSetEventTypeLookup"/>
+		</property>
+	</bean>
+
+</beans>

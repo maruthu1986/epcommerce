@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<bean id="customerRegistrationEmailProducerTemplate" class="com.elasticpath.email.handler.customer.producer.impl.CustomerRegistrationEmailProducer"
+		abstract="true">
+		<property name="emailComposer" ref="emailComposer" />
+		<property name="customerEmailPropertyHelper" ref="emailPropertyHelperCustomer" />
+		<property name="customerService" ref="customerService" />
+	</bean>
+
+	<bean id="customerRegistrationEmailProducer" parent="customerRegistrationEmailProducerTemplate" />
+
+	<bean id="customerRegistrationEmailHandlingRouteBuilderTemplate" parent="abstractEventMessageTriggeredEmailRouteBuilder"
+		  abstract="true">
+		<property name="routeId" value="customerRegistrationEmailHandler"/>
+		<property name="incomingEndpoint">
+			<bean parent="customerEventExternalEndpoint">
+				<property name="camelContextId" value="ep-customer-email-handler" />
+				<property name="context" value="customerRegistrationEmailHandler"/>
+			</bean>
+		</property>
+		<property name="outgoingEndpoint">
+			<bean parent="emailSendingEndpoint">
+				<property name="camelContextId" value="ep-customer-email-handler" />
+			</bean>
+		</property>
+		<property name="eventMessagePredicateFilter" ref="customerRegisteredEventTypePredicate" />
+		<property name="emailProducer" ref="customerRegistrationEmailProducer" />
+	</bean>
+
+	<bean id="customerRegistrationEmailHandlingRouteBuilder" parent="customerRegistrationEmailHandlingRouteBuilderTemplate"/>
+
+</beans>

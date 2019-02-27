@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>discounts</name>
+		<description>
+			<![CDATA[
+The Discounts resource provides the discount amount for a [cart][carts] or the discount amount for a [purchase][purchases].
+
+[carts]: #carts
+			]]>
+		</description>
+
+		<relationship>
+			<name>discount-to-cart</name>
+			<description>
+				<![CDATA[
+Retrieve the discount amount applied to a cart [total][totals], excluding line item discounts.
+
+[totals]: #totals
+				]]>
+			</description>
+			<rel>cart</rel>
+			<rev>discount</rev>
+			<from>discount-for-cart</from>
+			<to>carts.cart</to>
+		</relationship>
+
+		<resource>
+			<name>discount-for-cart</name>
+			<description><![CDATA[A discount resource that identifies discount amount applied to a cart, excluding line item discounts.]]></description>
+			<uri>{base.family}/{carts.cart}</uri>
+			<entity>discount</entity>
+		</resource>
+
+		<relationship>
+			<name>discount-to-purchase</name>
+			<description>
+				<![CDATA[
+Retrieve the discount amount applied to a [purchase][purchases].
+
+[purchases]: #purchases
+				]]>
+			</description>
+			<rel>purchase</rel>
+			<rev>discount</rev>
+			<from>discount-for-purchase</from>
+			<to>purchases.purchase</to>
+		</relationship>
+
+		<resource>
+			<name>discount-for-purchase</name>
+			<description><![CDATA[A discount resource that identifies discount amount applied to a purchase.]]></description>
+			<uri>{base.family}/{purchases.purchase}</uri>
+			<entity>discount</entity>
+		</resource>
+
+		<entity>
+			<name>discount</name>
+			<description><![CDATA[A discount of a cart.]]></description>
+			<property>
+				<name>discount</name>
+				<description>
+					<![CDATA[
+The amount of the discount. Similar to prices, discount is an array because the total may be a combination
+of amounts in multiple currencies, for example $20 CAD + 20000 points.
+					]]>
+				</description>
+				<array>
+					<is-a>base.cost</is-a>
+				</array>
+			</property>
+			<property>
+				<name>cart-id</name>
+				<description><![CDATA[The internal cart identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>purchase-id</name>
+				<description><![CDATA[The internal purchase identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<entity-type>discounts.discount</entity-type>
+		</entity>
+
+	</family>
+</definitions>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<context:annotation-config/>
+	<context:component-scan base-package="cucumber.runtime.java.spring"/>
+	<context:component-scan base-package="checkout"/>
+
+
+	<import resource="classpath:integration-core-context.xml"/>
+	<import resource="classpath:integration-checkout-context.xml"/>
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/ep-itest-plugin.xml"/>
+	<import resource="classpath:persisters.xml"/>
+	<import resource="classpath:builders.xml"/>
+
+	<bean id="entityManagerFactory" parent="abstractEntityManagerFactory"
+		  depends-on="preEntityManagerInitializationList">
+		<property name="jpaPropertyMap">
+			<map>
+				<entry key="openjpa.MetaDataRepository" value="Preload=false"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="preEntityManagerInitializationList" class="java.util.ArrayList"/>
+
+	<bean id="testApplicationContext" class="com.elasticpath.test.persister.TestApplicationContext"
+		  init-method="init"/>
+
+	<bean id="testConfigFactory" class="com.elasticpath.test.persister.TestConfigurationFactory">
+		<property name="resourceProvider">
+			<bean class="com.elasticpath.test.persister.TestConfigurationFactory.FileSystemResourceProvider"/>
+		</property>
+	</bean>
+
+
+	<bean id="testDataPersisterFactory" class="com.elasticpath.test.persister.TestDataPersisterFactory"/>
+
+	<bean id="dataSourceInitializerFactory" class="com.elasticpath.test.persister.DatasourceInitializerFactory"/>
+
+	<bean id="dataSource" class="org.h2.jdbcx.JdbcConnectionPool" destroy-method="dispose">
+		<constructor-arg>
+			<bean class="org.h2.jdbcx.JdbcDataSource">
+				<property name="URL" value="jdbc:h2:file:..\tests-data\target\ep-core-cucumber-itests-db"/>
+				<property name="user" value="sa"/>
+				<property name="password" value="sa"/>
+			</bean>
+		</constructor-arg>
+	</bean>
+
+	<bean id="testConfig" class="com.elasticpath.test.persister.TestConfig"
+		  factory-bean="testConfigFactory"
+		  factory-method="createTestConfig"/>
+
+
+</beans>

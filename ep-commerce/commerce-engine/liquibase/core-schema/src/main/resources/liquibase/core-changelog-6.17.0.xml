@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+				   logicalFilePath="com/elasticpath/core/db/core-changelog-6.17.0.xml">
+
+	<changeSet id="6.17.0-cart-item-modifiers" author="elasticpath">
+		<comment>Creating Cart Item Modifier related tables</comment>
+
+		<insert tableName="JPA_GENERATED_KEYS">
+			<column name="ID" value="TPRODTYPECARTITEMMODIFIERGRP" />
+			<column name="LAST_VALUE" valueNumeric="100000" />
+		</insert>
+
+		<createTable tableName="TCARTITEMMODIFIERGROUP">
+			<column name="UIDPK" type="BIGINT">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="CODE" type="VARCHAR(64)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="CATALOG_UID" type="BIGINT">
+				<constraints nullable="false" unique="false"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint baseTableName="TCARTITEMMODIFIERGROUP" baseColumnNames="CATALOG_UID"
+								 constraintName="TCARTITEMMODIFIERGROUP_IBFK_1" referencedTableName="TCATALOG"
+								 referencedColumnNames="UIDPK"/>
+
+		<createTable tableName="TPRODTYPECARTITEMMODIFIERGRP">
+			<column name="PRODUCT_TYPE_UID" type="BIGINT">
+				<constraints nullable="false" unique="false"/>
+			</column>
+			<column name="CART_ITEM_MOD_GRP_UID" type="BIGINT">
+				<constraints nullable="false" unique="false"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint baseTableName="TPRODTYPECARTITEMMODIFIERGRP" baseColumnNames="PRODUCT_TYPE_UID"
+								 constraintName="TPRODTYPECARTITEMMODGRP_IBFK_1" referencedTableName="TPRODUCTTYPE"
+								 referencedColumnNames="UIDPK"/>
+		<addForeignKeyConstraint baseTableName="TPRODTYPECARTITEMMODIFIERGRP" baseColumnNames="CART_ITEM_MOD_GRP_UID"
+								 constraintName="TPRODTYPECARTITEMMODGRP_IBFK_2" referencedTableName="TCARTITEMMODIFIERGROUP"
+								 referencedColumnNames="UIDPK"/>
+
+		<insert tableName="JPA_GENERATED_KEYS">
+			<column name="ID" value="TCARTITEMMODIFIERGROUP" />
+			<column name="LAST_VALUE" valueNumeric="100000" />
+		</insert>
+
+		<createTable tableName="TCARTITEMMODIFIERGROUPLDF">
+			<column name="UIDPK" type="BIGINT">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="LOCALE" type="VARCHAR(16)">
+				<constraints nullable="false" unique="false"/>
+			</column>
+			<column name="DISPLAY_NAME" type="VARCHAR(512)">
+				<constraints nullable="false" unique="false"/>
+			</column>
+			<column name="CART_ITEM_MODIFIER_GROUP_UID" type="BIGINT">
+				<constraints nullable="false" unique="false"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint baseTableName="TCARTITEMMODIFIERGROUPLDF" baseColumnNames="CART_ITEM_MODIFIER_GROUP_UID"
+								 constraintName="TCARTITEMMODGROUPLDF_IBFK_1" referencedTableName="TCARTITEMMODIFIERGROUP"
+								 referencedColumnNames="UIDPK"/>
+
+		<insert tableName="JPA_GENERATED_KEYS">
+			<column name="ID" value="TCARTITEMMODIFIERGROUPLDF" />
+			<column name="LAST_VALUE" valueNumeric="100000" />
+		</insert>
+
+		<createTable tableName="TCARTITEMMODIFIERFIELD">
+			<column name="UIDPK" type="BIGINT">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="CODE" type="VARCHAR(64)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="REQUIRED" type="BOOLEAN" defaultValue="FALSE">
+				<constraints nullable="false" unique="false"/>
+			</column>
+			<column name="ORDERING" type="BIGINT">
+				<constraints nullable="false" unique="false"/>
+			</column>
+			<column name="MAX_SIZE" type="BIGINT">
+				<constraints nullable="true" unique="false"/>
+			</column>
+			<column name="ATTRIBUTE_TYPE" type="BIGINT">
+				<constraints nullable="false" unique="false"/>
+			</column>
+			<column name="CART_ITEM_MODIFIER_GROUP_UID" type="BIGINT">
+				<constraints nullable="false" unique="false"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint baseTableName="TCARTITEMMODIFIERFIELD" baseColumnNames="CART_ITEM_MODIFIER_GROUP_UID"
+								 constraintName="TCARTITEMMODIFIERFIELD_IBFK_1" referencedTableName="TCARTITEMMODIFIERGROUP"
+								 referencedColumnNames="UIDPK"/>
+
+		<insert tableName="JPA_GENERATED_KEYS">
+			<column name="ID" value="TCARTITEMMODIFIERFIELD" />
+			<column name="LAST_VALUE" valueNumeric="100000" />
+		</insert>
+
+
+		<createTable tableName="TCARTITEMMODIFIERFIELDLDF">
+			<column name="UIDPK" type="BIGINT">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="LOCALE" type="VARCHAR(16)">
+				<constraints nullable="false" unique="false"/>
+			</column>
+			<column name="DISPLAY_NAME" type="VARCHAR(512)">
+				<constraints nullable="false" unique="false"/>
+			</column>
+			<column name="CART_ITEM_MODIFIER_FIELD_UID" type="BIGINT">
+				<constraints nullable="false" unique="false"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint baseTableName="TCARTITEMMODIFIERFIELDLDF" baseColumnNames="CART_ITEM_MODIFIER_FIELD_UID"
+								 constraintName="TCARTITEMMODFIELDLDF_IBFK_1" referencedTableName="TCARTITEMMODIFIERFIELD"
+								 referencedColumnNames="UIDPK"/>
+
+		<insert tableName="JPA_GENERATED_KEYS">
+			<column name="ID" value="TCARTITEMMODIFIERFIELDLDF" />
+			<column name="LAST_VALUE" valueNumeric="100000" />
+		</insert>
+
+		<createTable tableName="TCARTITEMMODIFIERFIELDOPTION">
+			<column name="UIDPK" type="BIGINT">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="OPTION_VALUE" type="VARCHAR(512)">
+				<constraints nullable="false" unique="false"/>
+			</column>
+			<column name="ORDERING" type="BIGINT">
+				<constraints nullable="false" unique="false"/>
+			</column>
+			<column name="CART_ITEM_MODIFIER_FIELD_UID" type="BIGINT">
+				<constraints nullable="false" unique="false"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint baseTableName="TCARTITEMMODIFIERFIELDOPTION" baseColumnNames="CART_ITEM_MODIFIER_FIELD_UID"
+								 constraintName="TCARTITEMMODFIELDOPTION_IBFK_1" referencedTableName="TCARTITEMMODIFIERFIELD"
+								 referencedColumnNames="UIDPK"/>
+
+		<insert tableName="JPA_GENERATED_KEYS">
+			<column name="ID" value="TCARTITEMMODIFIERFIELDOPTION" />
+			<column name="LAST_VALUE" valueNumeric="100000" />
+		</insert>
+
+		<createTable tableName="TCARTITEMMODIFIERFIELDOPTNLDF">
+			<column name="UIDPK" type="BIGINT">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="LOCALE" type="VARCHAR(16)">
+				<constraints nullable="false" unique="false"/>
+			</column>
+			<column name="DISPLAY_NAME" type="VARCHAR(512)">
+				<constraints nullable="false" unique="false"/>
+			</column>
+			<column name="CART_ITEM_MOD_FIELD_OPTION_UID" type="BIGINT">
+				<constraints nullable="false" unique="false"/>
+			</column>
+		</createTable>
+		<addForeignKeyConstraint baseTableName="TCARTITEMMODIFIERFIELDOPTNLDF" baseColumnNames="CART_ITEM_MOD_FIELD_OPTION_UID"
+								 constraintName="TCARTITEMMODFIELDOPTLDF_IBFK_1" referencedTableName="TCARTITEMMODIFIERFIELDOPTION"
+								 referencedColumnNames="UIDPK"/>
+
+		<insert tableName="JPA_GENERATED_KEYS">
+			<column name="ID" value="TCARTITEMMODIFIERFIELDOPTNLDF" />
+			<column name="LAST_VALUE" valueNumeric="100000" />
+		</insert>
+
+	</changeSet>
+
+	<changeSet id="6.17.0-add new ITEM KEY column with VARCHAR type" author="elasticpath" context="expand">
+		<comment>[PB-2005] Preventing Duplicate Entries in TSHOPPINGITEMDATA, TORDERITEMDATA AND TORDERDATA</comment>
+
+		<addColumn tableName="TSHOPPINGITEMDATA">
+			<column name="VARCHAR_ITEM_KEY" type="VARCHAR(255)"/>
+		</addColumn>
+
+		<addColumn tableName="TORDERITEMDATA">
+			<column name="VARCHAR_ITEM_KEY" type="VARCHAR(255)"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="6.17.0-move ITEM KEY data from old column to new column" author="elasticpath" context="migrate-data">
+		<comment>[PB-2005] Preventing Duplicate Entries in TSHOPPINGITEMDATA, TORDERITEMDATA AND TORDERDATA</comment>
+
+		<sql>
+			UPDATE TSHOPPINGITEMDATA SET VARCHAR_ITEM_KEY = ITEM_KEY
+		</sql>
+
+		<sql>
+			UPDATE TORDERITEMDATA SET VARCHAR_ITEM_KEY = ITEM_KEY
+		</sql>
+	</changeSet>
+
+	<changeSet id="6.17.0-replace old ITEM KEY columns and add constraints" author="elasticpath" context="contract">
+		<comment>[PB-2005] Preventing Duplicate Entries in TSHOPPINGITEMDATA, TORDERITEMDATA AND TORDERDATA</comment>
+
+		<dropColumn tableName="TSHOPPINGITEMDATA" columnName="ITEM_KEY"/>
+		<renameColumn tableName="TSHOPPINGITEMDATA" columnDataType="VARCHAR(255)" oldColumnName="VARCHAR_ITEM_KEY" newColumnName="ITEM_KEY"/>
+
+		<dropColumn tableName="TORDERITEMDATA" columnName="ITEM_KEY"/>
+		<renameColumn tableName="TORDERITEMDATA" columnDataType="VARCHAR(255)" oldColumnName="VARCHAR_ITEM_KEY" newColumnName="ITEM_KEY"/>
+
+		<addNotNullConstraint tableName="TSHOPPINGITEMDATA" columnName="ITEM_KEY" columnDataType="VARCHAR(255)"/>
+		<addNotNullConstraint tableName="TORDERITEMDATA" columnName="ITEM_KEY" columnDataType="VARCHAR(255)"/>
+
+		<addUniqueConstraint tableName="TORDERDATA" columnNames="ITEM_KEY, ORDER_UID" constraintName="TORDERDATA_UNIQUE"/>
+		<addUniqueConstraint tableName="TSHOPPINGITEMDATA" columnNames="ITEM_KEY, CARTITEM_UID" constraintName="TSHOPPINGITEMDATA_UNIQUE"/>
+		<addUniqueConstraint tableName="TORDERITEMDATA" columnNames="ITEM_KEY, ORDERSKU_UID" constraintName="TORDERITEMDATA_UNIQUE"/>
+	</changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!--
+	This is required to bring in the ootb platform.feature to extensions cm.
+	We need to reference the feature in the target platform, but since we don't have an actual P2 repository site,
+	we need to create a local version.
+	This is implicitly pulled into the target platform since it is part of the same reactor.
+	-->
+
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>ext-commerce-engine-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+		<relativePath>../../../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>ext-cm-repository</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Extension CM Repository</name>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-p2-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.elasticpath.cmclient</groupId>
+									<artifactId>cm-p2-repository</artifactId>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/p2-repo</outputDirectory>
+									<includes>**</includes>
+									<type>zip</type>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-p2-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.elasticpath.cmclient</groupId>
+									<artifactId>cm-p2-repository</artifactId>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/p2-repo</outputDirectory>
+									<includes>**</includes>
+									<type>zip</type>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+

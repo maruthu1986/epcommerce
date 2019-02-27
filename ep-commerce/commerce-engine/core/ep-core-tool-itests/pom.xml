@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath</groupId>
+		<artifactId>itests-parent</artifactId>
+		<version>0-SNAPSHOT</version>
+		<relativePath>../../itests-parent</relativePath>
+	</parent>
+
+	<artifactId>ep-core-tool-itests</artifactId>
+	<packaging>jar</packaging>
+	<name>Settings JUnit Integrations Tests</name>
+	<description>Settings JUnit Integrations Tests</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath</groupId>
+			<artifactId>ep-test-application</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.tools</groupId>
+			<artifactId>ep-core-tool-logic</artifactId>
+            <version>0-SNAPSHOT</version>
+		</dependency>
+        <dependency>
+            <groupId>com.elasticpath.tools</groupId>
+            <artifactId>ep-core-tool-cli</artifactId>
+            <version>0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.elasticpath.tools</groupId>
+            <artifactId>ep-core-tool</artifactId>
+            <version>0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-pmd-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+            <plugin>
+                    <groupId>com.elasticpath.tools</groupId>
+                    <artifactId>ep-core-tool</artifactId>
+                    <configuration>
+                        <jdbcUrl>jdbc:mysql://localhost:3306/COMMERCEDB</jdbcUrl>
+                        <jdbcDriverClass>com.mysql.jdbc.Driver</jdbcDriverClass>
+                        <jdbcPassword>ep</jdbcPassword>
+                        <jdbcUsername>ep</jdbcUsername>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>override-settings</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>set-setting</goal>
+                            </goals>
+                            <configuration>
+                                <settingName>COMMERCE/SYSTEM/ASSETS/assetLocation</settingName>
+                                <settingValue>../assets</settingValue>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+		</plugins>
+	</build>
+</project>

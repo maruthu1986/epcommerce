@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+
+	<!-- Database Connection Properties (initialized using databaseProperties).
+		 There is only one instance during the life of one data population command. -->
+	<bean id="databaseConnectionProperties" class="com.elasticpath.datapopulation.core.context.DatabaseConnectionProperties"
+		  init-method="initialize" scope="singleton">
+		<property name="candidateDatabaseTypes" ref="candidateDatabaseTypes"/>
+	</bean>
+
+	<!-- Properties (loaded from property files) -->
+	<bean id="liquibaseContextProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="file:///#{configDirectory.getAbsolutePath()}/data-population.properties"/>
+	</bean>
+	<bean id="databaseProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="file:///#{configDirectory.getAbsolutePath()}/database.properties"/>
+	</bean>
+	<bean id="environmentFilteringProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="file:///#{configDirectory.getAbsolutePath()}/filtering.properties"/>
+	</bean>
+	<bean id="globalFilteringProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="file:///#{dataDirectory.getAbsolutePath()}/config/filtering.properties"/>
+	</bean>
+
+	<!-- Properties created from FilteredPropertiesFactory -->
+	<bean id="filteredPropertiesForDatabaseInitialization"
+		  class="com.elasticpath.datapopulation.core.service.filtering.FilteredPropertiesFactory">
+		<property name="sourceProperties" value="#{databaseConnectionProperties.getProperties()}"/>
+		<property name="includeSourceProperties" value="true"/>
+	</bean>
+	<bean id="filteredPropertiesForImportExport" class="com.elasticpath.datapopulation.core.service.filtering.FilteredPropertiesFactory">
+		<property name="sourceProperties" value="#{databaseConnectionProperties.getProperties()}"/>
+		<property name="propertiesToFilter" ref="environmentFilteringProperties"/>
+		<property name="includeSourceProperties" value="true"/>
+	</bean>
+	<bean id="filterPropertiesForFilteringData" class="com.elasticpath.datapopulation.core.service.filtering.FilteredPropertiesFactory">
+		<property name="sourceLocations" value="file:///#{dataDirectory.getAbsolutePath()}/config/filtering.properties"/>
+		<property name="sourceProperties" ref="dataDirectoryProperties"/>
+		<property name="propertiesToFilter" ref="environmentFilteringProperties"/>
+		<property name="ignoreSourceLocationNotFound" value="true"/>
+		<property name="includeSourceProperties" value="true"/>
+	</bean>
+
+	<util:properties id="dataDirectoryProperties">
+		<prop key="data.population.data.directory">#{workingDirectory.getAbsolutePath()}/filtered/data</prop>
+	</util:properties>
+
+	<!-- File and directory resources -->
+	<bean id="tempOutputDirectory" class="java.io.File">
+		<constructor-arg type="java.io.File" ref="workingDirectory"/>
+		<constructor-arg type="java.lang.String" value="filtered/data"/>
+	</bean>
+	<bean id="dataInputDirectory" class="java.io.File">
+		<constructor-arg type="java.io.File" ref="dataDirectory"/>
+		<constructor-arg type="java.lang.String" value="data"/>
+	</bean>
+	<bean id="schemaInitChangelog" class="java.io.File">
+		<constructor-arg type="java.io.File" ref="dataDirectory"/>
+		<constructor-arg type="java.lang.String" value="schema/schema-initializer-changelog.xml"/>
+	</bean>
+	<bean id="filteredSqlFile" class="java.io.File">
+		<constructor-arg type="java.io.File" ref="workingDirectory"/>
+		<constructor-arg type="java.lang.String" value="database-initializer.sql"/>
+	</bean>
+	<bean id="filteredImportExportConfigFile" class="java.io.File">
+		<constructor-arg type="java.io.File" ref="workingDirectory"/>
+		<constructor-arg type="java.lang.String" value="config/on-classpath/importexporttool.config"/>
+	</bean>
+	<bean id="rootLiquibaseChangeLogFile" class="java.io.File">
+		<constructor-arg type="java.io.File" ref="tempOutputDirectory"/>
+		<constructor-arg type="java.lang.String" value="liquibase-changelog.xml"/>
+	</bean>
+
+	<!-- List of accepted database vendors types. -->
+	<util:list id="candidateDatabaseTypes" list-class="java.util.ArrayList" value-type="java.lang.String">
+		<value>mysql</value>
+		<value>oracle</value>
+		<value>hsql</value>
+		<value>h2</value>
+		<value>derby</value>
+		<value>postgresql</value>
+		<value>sqlserver</value>
+	</util:list>
+
+	<!-- DynamicDataPropertiesGenerator (currently used only for timestamp generation) -->
+	<bean id="timestampGenerator" class="com.elasticpath.datapopulation.core.utils.DynamicDataPropertiesGenerator"/>
+</beans>

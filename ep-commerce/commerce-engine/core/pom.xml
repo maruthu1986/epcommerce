@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath</groupId>
+		<artifactId>parent</artifactId>
+		<version>703.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>core</artifactId>
+	<packaging>pom</packaging>
+	<name>Core Build Driver</name>
+
+	<modules>
+		<module>ep-base</module>
+		<module>ep-cache</module>
+		<module>ep-bean-framework</module>
+		<module>ep-persistence-api</module>
+		<module>ep-persistence-openjpa</module>
+		<module>ep-persistence-openjpa-itests</module>
+		<module>ep-core</module>
+		<module>shipping-calculation-epcommerce</module>
+		<module>ep-core-caching</module>
+		<module>ep-core-tool</module>
+		<module>ep-core-tool-cli</module>
+		<module>ep-core-tool-logic</module>		
+		<module>ep-core-test-utils</module>
+		<module>ep-core-itests</module>
+		<module>ep-core-uat-step-definitions</module>
+		<module>ep-money</module>
+		<module>ep-money-test-support</module>
+		<module>ep-converters</module>
+		<module>ep-settings</module>
+		<module>ep-settings-test-support</module>
+		<module>ep-settings-itests</module>
+		<module>ep-core-customer-messaging</module>
+		<module>ep-core-order-messaging</module>
+		<module>ep-core-changeset-messaging</module>
+		<module>ep-core-gift-certificate-messaging</module>
+		<module>ep-core-cm-user-messaging</module>
+		<module>ep-core-dataimport-messaging</module>
+		<module>ep-core-acceptance-tests</module>
+		<module>ep-core-cucumber-itests</module>
+		<module>openjpa-osgi-wrapper</module>
+		<module>shipping-calculation-plugin-epcommerce</module>
+	</modules>
+
+</project>

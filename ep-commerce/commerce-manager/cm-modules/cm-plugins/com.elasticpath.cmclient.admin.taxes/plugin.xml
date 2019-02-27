@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="Extender" name="Extender"   schema="../com.elasticpath.cmclient.core/schema/extender.exsd"/>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            class="com.elasticpath.cmclient.admin.taxes.views.TaxCodeListView"
+            id="com.elasticpath.cmclient.admin.taxes.views.TaxCodeListView"
+            icon="icons/tax-code_default_22.png"
+            name="%taxesView.name">
+      </view>
+      <view
+            class="com.elasticpath.cmclient.admin.taxes.views.TaxJurisdictionsListView"
+            id="com.elasticpath.cmclient.admin.taxes.views.TaxJurisdictionListView"
+			icon="icons/tax-jurisdiction_default_22.png"
+            name="%taxJurisdictionsView.name">
+      </view>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.admin.adminSections">
+      <adminSection
+            class="com.elasticpath.cmclient.admin.taxes.TaxesAdminSection"
+            id="com.elasticpath.cmclient.admin.taxes.TaxesAdminSection"
+            name="%adminSection.name">
+      </adminSection>
+   </extension>
+    <extension
+          point="com.elasticpath.cmclient.core.authorizations">
+       <permissions>
+          <permission
+                activityId="com.elasticpath.cmclient.admin.authorization.activity"
+                key="TAXES_MANAGE"
+                name="%manageTaxesPermission.name">
+          </permission>
+       </permissions>
+    </extension>
+
+</plugin>

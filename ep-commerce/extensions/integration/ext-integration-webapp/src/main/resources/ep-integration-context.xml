@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<import resource="classpath:spring/openjpa-osgi-wrapper/ehcache-jmx.xml" />
+	<import resource="classpath:spring/dataaccess/openjpa/openjpa.xml" />
+	<import resource="classpath:spring/prototypes/prototypes.xml"/>
+	<import resource="classpath:spring/models/domainSpecifications.xml" />
+	<import resource="classpath:spring/models/domainModel.xml" />
+	<import resource="classpath:spring/dataaccess/dao.xml" />
+	<import resource="classpath:spring/service/service.xml" />
+	<import resource="classpath:spring/service/checkout.xml" />
+	<import resource="classpath:spring/commons/util-config.xml" />
+	<import resource="classpath:spring/commons/validators.xml" />
+</beans>

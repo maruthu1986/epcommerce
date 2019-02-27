@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="com.elasticpath.cmclient.core">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="com.elasticpath.cmclient.core" id="bindings" name="Bindings"/>
+      </appInfo>
+      <documentation>
+         Is uesd for different bindings, for example to Bind Command Id and Perspective Id
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <complexType>
+         <sequence>
+            <element ref="perspectiveOpenCommand"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="perspectiveOpenCommand">
+      <complexType>
+         <attribute name="perspectiveId" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The Id of the Perspective which the will be handled using open command
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="openCommandId" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The command Id which is used to open perspective with Id.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         [Enter the first release in which this extension point appears.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         &lt;extension point=&quot;com.elasticpath.cmclient.core.bindings&quot;&gt;
+    &lt;perspectiveOpenCommand
+        openCommandId=&quot;com.elasticpath.cmclient.store.command.openPerspective&quot;
+        perspectiveId=&quot;com.elasticpath.cmclient.store.storeperspective&quot;&gt;
+    &lt;/perspectiveOpenCommand&gt;
+&lt;/extension&gt;
+    
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiInfo"/>
+      </appInfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+         Copyright (c) Elastic Path Software Inc., 2009
+      </documentation>
+   </annotation>
+
+</schema>

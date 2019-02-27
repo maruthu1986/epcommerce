@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:compendium="http://www.eclipse.org/gemini/blueprint/schema/blueprint-compendium"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			http://www.eclipse.org/gemini/blueprint/schema/blueprint-compendium
+			http://www.eclipse.org/gemini/blueprint/schema/blueprint-compendium/gemini-blueprint-compendium.xsd">
+
+	<bean name="resourceServerName" class="java.lang.String">
+		<constructor-arg value="itemdefinitions"/>
+	</bean>
+
+
+	<!-- role permission providers and resolvers -->
+
+	<bean name="permissionParameterResolver" class="com.elasticpath.rest.authorization.parameter.PermissionParameterResolver">
+		<constructor-arg>
+			<map>
+				<entry key="scope" value-ref="scopeParameterStrategy"/>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="permissionsTransformer" class="com.elasticpath.rest.authorization.rolepermissions.transformer.PermissionsTransformer"/>
+
+	<bean id="defaultRolePermissionsProvider" class="com.elasticpath.rest.authorization.rolepermissions.PropertiesFileRolePermissionsProvider">
+		<constructor-arg ref="resourceServerName"/>
+		<constructor-arg ref="permissionsTransformer"/>
+	</bean>
+
+	<bean id="overrideRolePermissionsProvider" class="com.elasticpath.rest.authorization.rolepermissions.ConfigAdminRolePermissionsProvider">
+		<constructor-arg ref="resourceServerName"/>
+		<constructor-arg ref="permissionsTransformer"/>
+		<compendium:managed-properties persistent-id="itemdefinitionsRolePermissions" update-method="updateProperties"/>
+	</bean>
+
+	<bean id="rolePermissionsResolver" class="com.elasticpath.rest.authorization.rolepermissions.RolePermissionsResolver">
+		<constructor-arg ref="defaultRolePermissionsProvider"/>
+		<constructor-arg ref="overrideRolePermissionsProvider"/>
+	</bean>
+
+	<bean name="permissionLookup" class="com.elasticpath.rest.authorization.parameter.PermissionLookupImpl">
+		<constructor-arg ref="permissionParameterResolver"/>
+		<constructor-arg ref="rolePermissionsResolver"/>
+	</bean>
+
+	<context:component-scan base-package="com.elasticpath.rest" scope-resolver="org.springframework.context.annotation.Jsr330ScopeMetadataResolver"/>
+</beans>

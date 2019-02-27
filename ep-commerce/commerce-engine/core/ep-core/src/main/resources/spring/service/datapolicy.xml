@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) Elastic Path Software Inc., 2018
+  -->
+
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		">
+
+
+	<bean id="customerConsentAssembler" class="com.elasticpath.common.dto.datapolicy.CustomerConsentDtoAssembler">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="dataPolicyService" ref="dataPolicyService"/>
+	</bean>
+
+	<bean id="dataPointService" parent="txProxyTemplate">
+		<property name="target" ref="dataPointServiceTarget"/>
+	</bean>
+
+	<bean id="dataPointServiceTarget" class="com.elasticpath.service.datapolicy.impl.DataPointServiceImpl">
+		<property name="persistenceEngine" ref="persistenceEngine" />
+		<property name="elasticPath" ref="elasticPath" />
+	</bean>
+
+	<bean id="dataPolicyService" parent="txProxyTemplate">
+		<property name="target" ref="dataPolicyServiceTarget"/>
+	</bean>
+
+	<bean id="dataPolicyServiceTarget" class="com.elasticpath.service.datapolicy.impl.DataPolicyServiceImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="settingsReader" ref="settingsReader"/>
+		<property name="elasticPath" ref="elasticPath"/>
+	</bean>
+
+	<bean id="customerConsentService" parent="txProxyTemplate">
+		<property name="target" ref="customerConsentServiceTarget"/>
+	</bean>
+
+	<bean id="customerConsentServiceTarget" class="com.elasticpath.service.datapolicy.impl.CustomerConsentServiceImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="elasticPath" ref="elasticPath"/>
+	</bean>
+
+	<!-- Data point value reader beans -->
+
+	<!-- abstract ones -->
+	<bean id="abstractDataPointValueReader" class="com.elasticpath.service.datapolicy.readers.AbstractDataPointValueReader" abstract="true">
+		<property name="dataPointValueService" ref="dataPointValueService"/>
+	</bean>
+
+	<bean id="abstractAddressFieldReader" class="com.elasticpath.service.datapolicy.readers.AbstractAddressFieldReader" abstract="true"
+		  parent="abstractDataPointValueReader"/>
+
+	<!-- implementations -->
+	<bean id="cartGiftCertificateFieldReader" class="com.elasticpath.service.datapolicy.readers.CartGiftCertificateFieldReader"
+		  parent="abstractDataPointValueReader" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="customerBillingAddressFieldReader" class="com.elasticpath.service.datapolicy.readers.CustomerBillingAddressFieldReader"
+		  parent="abstractAddressFieldReader" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="customerProfileValueReader" class="com.elasticpath.service.datapolicy.readers.CustomerProfileValueReader"
+		  parent="abstractDataPointValueReader" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="customerShippingAddressFieldReader" class="com.elasticpath.service.datapolicy.readers.CustomerShippingAddressFieldReader"
+		  parent="abstractAddressFieldReader" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="orderBillingAddressFieldReader" class="com.elasticpath.service.datapolicy.readers.OrderBillingAddressFieldReader"
+		  parent="abstractAddressFieldReader" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="orderDataValueReader" class="com.elasticpath.service.datapolicy.readers.OrderDataValueReader"
+		  parent="abstractDataPointValueReader" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="orderGiftCertificateFieldReader" class="com.elasticpath.service.datapolicy.readers.OrderGiftCertificateFieldReader"
+		  parent="abstractDataPointValueReader" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="orderIPAddressReader" class="com.elasticpath.service.datapolicy.readers.OrderIPAddressReader"
+		  parent="abstractDataPointValueReader" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="orderPaymentGiftCertificateFieldReader" class="com.elasticpath.service.datapolicy.readers.OrderPaymentGiftCertificateFieldReader"
+		  parent="abstractDataPointValueReader" depends-on="dataPointValueServiceTarget"/>
+
+	<util:list id="dataPointValueReaders">
+		<ref bean="cartGiftCertificateFieldReader"/>
+		<ref bean="customerBillingAddressFieldReader"/>
+		<ref bean="customerProfileValueReader"/>
+		<ref bean="customerShippingAddressFieldReader"/>
+		<ref bean="orderBillingAddressFieldReader"/>
+		<ref bean="orderDataValueReader"/>
+		<ref bean="orderGiftCertificateFieldReader"/>
+		<ref bean="orderIPAddressReader"/>
+		<ref bean="orderPaymentGiftCertificateFieldReader"/>
+	</util:list>
+
+	<!-- Data point value reader beans -->
+
+	<!-- abstract ones -->
+
+	<bean id="abstractDataPointValueRemover" class="com.elasticpath.service.datapolicy.removers.AbstractDataPointValueRemover" abstract="true">
+		<property name="dataPointValueService" ref="dataPointValueService"/>
+	</bean>
+
+	<!-- implementations -->
+	<bean id="cartGiftCertificateFieldRemover" class="com.elasticpath.service.datapolicy.removers.CartGiftCertificateFieldRemover"
+		  parent="abstractDataPointValueRemover" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="customerBillingAddressFieldRemover" class="com.elasticpath.service.datapolicy.removers.CustomerBillingAddressFieldRemover"
+		  parent="abstractDataPointValueRemover" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="customerProfileValueRemover" class="com.elasticpath.service.datapolicy.removers.CustomerProfileValueRemover"
+		  parent="abstractDataPointValueRemover" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="customerShippingAddressFieldRemover" class="com.elasticpath.service.datapolicy.removers.CustomerShippingAddressFieldRemover"
+		  parent="abstractDataPointValueRemover" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="orderBillingAddressFieldRemover" class="com.elasticpath.service.datapolicy.removers.OrderBillingAddressFieldRemover"
+		  parent="abstractDataPointValueRemover" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="orderDataValueRemover" class="com.elasticpath.service.datapolicy.removers.OrderDataValueRemover"
+		  parent="abstractDataPointValueRemover" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="orderGiftCertificateFieldRemover" class="com.elasticpath.service.datapolicy.removers.OrderGiftCertificateFieldRemover"
+		  parent="abstractDataPointValueRemover" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="orderIPAddressRemover" class="com.elasticpath.service.datapolicy.removers.OrderIPAddressRemover"
+		  parent="abstractDataPointValueRemover" depends-on="dataPointValueServiceTarget"/>
+
+	<bean id="orderPaymentGiftCertificateFieldRemover" class="com.elasticpath.service.datapolicy.removers.OrderPaymentGiftCertificateFieldRemover"
+		  parent="abstractDataPointValueReader" depends-on="dataPointValueServiceTarget"/>
+
+	<util:list id="dataPointValueRemovers">
+		<ref bean="cartGiftCertificateFieldRemover"/>
+		<ref bean="customerBillingAddressFieldRemover"/>
+		<ref bean="customerProfileValueRemover"/>
+		<ref bean="customerShippingAddressFieldRemover"/>
+		<ref bean="orderBillingAddressFieldRemover"/>
+		<ref bean="orderDataValueRemover"/>
+		<ref bean="orderGiftCertificateFieldRemover"/>
+		<ref bean="orderIPAddressRemover"/>
+		<ref bean="orderPaymentGiftCertificateFieldRemover"/>
+	</util:list>
+
+	<bean id="dataPointValueService" parent="txProxyTemplate">
+		<property name="target" ref="dataPointValueServiceTarget"/>
+	</bean>
+
+	<bean id="dataPointValueServiceTarget" class="com.elasticpath.service.datapolicy.impl.DataPointValueServiceImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="elasticPath" ref="elasticPath"/>
+		<property name="dataPointValueReaders" ref="dataPointValueReaders"/>
+		<property name="dataPointValueRemovers" ref="dataPointValueRemovers"/>
+		<property name="indexNotificationService" ref="indexNotificationService" />
+	</bean>
+
+	<bean id="customerPersonalDataReportingService" class="com.elasticpath.service.datapolicy.impl.CustomerPersonalDataReportingServiceImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="elasticPath" ref="elasticPath"/>
+		<property name="dataPointValueService" ref="dataPointValueService" />
+	</bean>
+
+	<!--Data point value jobs-->
+	<bean id="expiredDataPointValuesJobProcessorTarget" class="com.elasticpath.service.datapolicy.job.impl.ExpiredDataPointValuesJobProcessorImpl">
+		<property name="dataPointValueService" ref="dataPointValueService"/>
+		<property name="dataPointService" ref="dataPointService"/>
+		<property name="timeService" ref="timeService"/>
+	</bean>
+
+	<bean id="dataPointRevokedConsentsJobProcessorTarget"
+		  class="com.elasticpath.service.datapolicy.job.impl.DataPointRevokedConsentsJobProcessorImpl">
+		<property name="dataPointValueService" ref="dataPointValueService"/>
+		<property name="dataPointService" ref="dataPointService"/>
+	</bean>
+
+	<!--Transactional-->
+	<bean id="expiredDataPointValuesJobProcessor" parent="txProxyTemplate">
+		<property name="target" ref="expiredDataPointValuesJobProcessorTarget"/>
+	</bean>
+
+	<bean id="dataPointRevokedConsentsJobProcessor" parent="txProxyTemplate">
+		<property name="target" ref="dataPointRevokedConsentsJobProcessorTarget"/>
+	</bean>
+
+</beans>

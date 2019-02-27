@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>wishlists</name>
+		<resource>
+			<name>read-wishlist-memberships</name>
+			<description>Retrieve the list of wishlists that an item has been added to</description>
+			<uri>{base.family}/memberships/{items.item}</uri>
+			<list-of>wishlist</list-of>
+		</resource>
+		<relationship>
+			<name>wishlist-membership-from-item</name>
+			<description>Wishlist memberships for a given item</description>
+			<rel>wishlistmemberships</rel>
+			<from>items.item</from>
+			<to>read-wishlist-memberships</to>
+		</relationship>
+
+	</family>
+</definitions>

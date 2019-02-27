@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>totals</name>
+		<description>
+			<![CDATA[
+The totals resource calculates the total costs for:
+
+* **[cart][carts]**
+* **[line-item][carts]**
+* **[order][orders]**
+* **[shipment][shipments]**
+* **[shipment-line-item][shipments]**
+
+[carts]: #carts
+[orders]: #orders
+[shipments]: #shipments
+			]]>
+		</description>
+
+		<resource>
+			<name>cart-total</name>
+			<description><![CDATA[The cart total resource.]]></description>
+			<uri>{base.family}/{carts.cart}</uri>
+			<entity>total</entity>
+		</resource>
+
+		<resource>
+			<name>cart-line-item-total</name>
+			<description><![CDATA[The cart line item total resource.]]></description>
+			<uri>{base.family}/{carts.line-item}</uri>
+			<entity>total</entity>
+		</resource>
+
+		<resource>
+			<name>order-total</name>
+			<description><![CDATA[The order total resource.]]></description>
+			<uri>{base.family}/{orders.order}</uri>
+			<entity>total</entity>
+		</resource>
+
+		<resource>
+			<name>shipment-line-item-total</name>
+			<description><![CDATA[The shipment line item total resource.]]></description>
+			<uri>{base.family}/{shipments.shipment-line-item}</uri>
+			<entity>total</entity>
+		</resource>
+
+		<resource>
+			<name>shipment-total</name>
+			<description><![CDATA[The shipment total resource.]]></description>
+			<uri>{base.family}/{shipments.shipment}</uri>
+			<entity>total</entity>
+		</resource>
+
+		<relationship>
+			<name>total-for-cart</name>
+			<description><![CDATA[Retrieve the total cost of all cart line items before cart total discounts are applied.]]></description>
+			<rel>total</rel>
+			<rev>cart</rev>
+			<from>carts.cart</from>
+			<to>cart-total</to>
+		</relationship>
+
+		<relationship>
+			<name>total-for-cart-line-item</name>
+			<description><![CDATA[Retrieve the total cost of a single cart line item before cart line item discounts are applied.]]></description>
+			<rel>total</rel>
+			<rev>lineitem</rev>
+			<from>carts.line-item</from>
+			<to>cart-line-item-total</to>
+		</relationship>
+
+		<relationship>
+			<name>total-for-order</name>
+			<description><![CDATA[Retrieve the total cost of the shopper's order including taxes and shipping costs.]]></description>
+			<rel>total</rel>
+			<rev>order</rev>
+			<from>orders.order</from>
+			<to>order-total</to>
+		</relationship>
+
+		<relationship>
+			<name>total-for-shipment</name>
+			<description><![CDATA[Retrieve the total cost for a shipment.]]></description>
+			<rel>total</rel>
+			<rev>shipment</rev>
+			<from>shipments.shipment</from>
+			<to>shipment-total</to>
+		</relationship>
+
+		<relationship>
+			<name>total-for-shipment-line-item</name>
+			<description><![CDATA[Retrieve the total cost for a shipment line item.]]></description>
+			<rel>total</rel>
+			<rev>lineitem</rev>
+			<from>shipments.shipment-line-item</from>
+			<to>shipment-line-item-total</to>
+		</relationship>
+
+		<entity>
+			<name>total</name>
+			<description><![CDATA[A total cost.]]></description>
+			<property>
+				<name>cost</name>
+				<description><![CDATA[The total costs. This is an array because the total cost have multiple currencies. For example, $20 USD + 20,000 loyalty points.]]></description>
+				<array>
+					<is-a>base.cost</is-a>
+				</array>
+			</property>
+			<entity-type>totals.total</entity-type>
+		</entity>
+	</family>
+
+</definitions>

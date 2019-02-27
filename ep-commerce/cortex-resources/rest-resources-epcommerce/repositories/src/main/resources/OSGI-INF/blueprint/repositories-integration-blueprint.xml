@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint
+		xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<!-- Type converters -->
+	<type-converters>
+		<bean id="springBlueprintConverter" class="com.elasticpath.service.osgi.SpringBlueprintConverter"/>
+	</type-converters>
+
+	<!-- import services -->
+	<reference id="assetRepository"
+			   interface="com.elasticpath.commons.util.AssetRepository" />
+
+	<reference id="cartOrderCouponAutoApplier"
+			   interface="com.elasticpath.service.rules.CartOrderCouponAutoApplier" />
+
+	<reference id="resourceOperationContext"
+			interface="com.elasticpath.rest.resource.ResourceOperationContext"/>
+
+	<reference id="bundleIdentifier"
+			interface="com.elasticpath.service.catalog.BundleIdentifier"/>
+
+	<reference id="cartDirectorService"
+			interface="com.elasticpath.sellingchannel.director.CartDirectorService"/>
+
+	<reference id="cartOrderService"
+			interface="com.elasticpath.service.cartorder.CartOrderService"/>
+
+	<reference id="cartOrderShippingService"
+			interface="com.elasticpath.service.cartorder.CartOrderShippingService" />
+
+	<reference id="cartOrderCouponService"
+		 	interface="com.elasticpath.service.cartorder.CartOrderCouponService" />
+
+	<reference id="contentSpaceQueryService"
+			   interface="com.elasticpath.service.query.QueryService" filter="(typeArg=ContentSpace)"/>
+
+	<reference id="coreBeanFactory"
+			interface="com.elasticpath.commons.beanframework.BeanFactory"/>
+
+	<reference id="customerService"
+			interface="com.elasticpath.service.customer.CustomerService"/>
+
+	<reference id="customerRegistrationService"
+			interface="com.elasticpath.service.customer.CustomerRegistrationService"/>
+
+	<reference id="customerSessionService"
+			interface="com.elasticpath.service.customer.CustomerSessionService"/>
+
+	<reference id="dynamicContentRuntimeService"
+			   interface="com.elasticpath.service.contentspace.DynamicContentRuntimeService"/>
+
+	<reference id="indexSearchService"
+			interface="com.elasticpath.service.search.index.IndexSearchService"/>
+
+	<reference id="indexUtility"
+			interface="com.elasticpath.service.search.solr.IndexUtility"/>
+
+	<reference id="dataPolicyService"
+			   interface="com.elasticpath.service.datapolicy.DataPolicyService"/>
+
+	<reference id="customerConsentService"
+			   interface="com.elasticpath.service.datapolicy.CustomerConsentService"/>
+
+	<reference id="orderService"
+			interface="com.elasticpath.service.order.OrderService"/>
+
+	<reference id="priceLookupFacade"
+			interface="com.elasticpath.common.pricing.service.PriceLookupFacade"/>
+
+	<reference id="sessionPriceListLifecycle"
+			interface="com.elasticpath.service.pricing.SessionPriceListLifecycle" />
+
+	<reference id="priceListLookupService"
+			interface="com.elasticpath.common.pricing.service.PriceListLookupService"/>
+
+	<reference id="productLookup"
+			   interface="com.elasticpath.service.catalog.ProductLookup"
+			   filter="(caching=true)"/>
+
+	<reference id="productService"
+			interface="com.elasticpath.service.catalog.ProductService"/>
+
+	<reference id="productSkuLookup"
+			   interface="com.elasticpath.service.catalog.ProductSkuLookup"
+			   filter="(caching=true)"/>
+
+	<reference id="settingsService"
+			interface="com.elasticpath.settings.SettingsService"/>
+
+	<reference id="settingValueTypeConverter"
+			   interface="com.elasticpath.settings.provider.converter.SettingValueTypeConverter"/>
+
+	<reference id="shoppingCartService"
+			interface="com.elasticpath.service.shoppingcart.ShoppingCartService"/>
+
+	<reference id="pricingSnapshotService"
+			   interface="com.elasticpath.service.shoppingcart.PricingSnapshotService"/>
+
+	<reference id="taxSnapshotService"
+			   interface="com.elasticpath.service.shoppingcart.TaxSnapshotService"/>
+
+	<reference id="timeService"
+			   interface="com.elasticpath.service.misc.TimeService"/>
+
+	<reference id="shoppingItemAssembler"
+			interface="com.elasticpath.sellingchannel.director.ShoppingItemAssembler"/>
+
+	<reference id="shoppingItemDtoFactory"
+			interface="com.elasticpath.common.dto.sellingchannel.ShoppingItemDtoFactory"/>
+
+	<reference id="shopperService"
+			interface="com.elasticpath.service.shopper.ShopperService"/>
+
+	<reference id="shoppingCartRefresher"
+			interface="com.elasticpath.service.shoppingcart.ShoppingCartRefresher"/>
+
+	<reference id="skuOptionService"
+			interface="com.elasticpath.service.catalog.SkuOptionService"/>
+
+	<reference id="storeService"
+			interface="com.elasticpath.service.store.StoreService" filter="(caching=true)"/>
+
+	<reference id="storeProductService"
+			interface="com.elasticpath.service.catalogview.StoreProductService"/>
+
+	<reference id="tagFactory"
+			interface="com.elasticpath.tags.service.TagFactory"/>
+
+	<reference id="productAssociationService"
+		interface="com.elasticpath.service.catalog.ProductAssociationService" />
+
+	<reference id="taxDocumentService"
+			interface="com.elasticpath.service.tax.TaxDocumentService"/>
+
+	<reference id="ruleService"
+			interface="com.elasticpath.service.rules.RuleService" />
+
+	<reference id="couponService"
+			interface="com.elasticpath.service.rules.CouponService" />
+
+	<reference id="validCouponUseSpecification"
+			interface="com.elasticpath.domain.specifications.Specification"
+			component-name="validCouponUseSpecification"/>
+
+	<reference id="categoryLookup"
+			   interface="com.elasticpath.service.catalog.CategoryLookup" filter="(caching=true)"/>
+
+	<reference id="categoryService"
+			   interface="com.elasticpath.service.catalog.CategoryService"/>
+
+	<reference id="productTypeService"
+			   interface="com.elasticpath.service.catalog.ProductTypeService"/>
+
+	<reference id="paymentMethodTransformerFactory"
+			   interface="com.elasticpath.service.payment.gateway.PaymentMethodTransformerFactory"/>
+
+	<reference id="checkoutService"
+			   interface="com.elasticpath.service.shoppingcart.CheckoutService"/>
+
+	<reference id="oAuth2AccessTokenService"
+			   interface="com.elasticpath.service.auth.OAuth2AccessTokenService"/>
+
+	<reference id="cacheRemoveDecorator"
+			 interface="com.elasticpath.rest.cache.CacheRemoveDecorator"/>
+
+	<reference id="cacheResultDecorator"
+			 interface="com.elasticpath.rest.cache.CacheResultDecorator"/>
+
+	<reference id="wishListService"
+			   interface="com.elasticpath.service.shoppingcart.WishListService"/>
+
+	<reference-list
+			id="customerTagStrategies"
+			availability="optional"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.customer.CustomerTagStrategy">
+		<reference-listener
+				ref="customerTagStrategyRegistry"
+				bind-method="loadStrategy"
+				unbind-method="unloadStrategy"/>
+	</reference-list>
+
+	<reference id="cartItemModifierService"
+			   interface="com.elasticpath.service.cartitemmodifier.CartItemModifierService"/>
+
+	<reference id="shippingOptionService"
+			   interface="com.elasticpath.service.shipping.ShippingOptionService"/>
+
+	<reference id="moneyTransformer"
+			   interface="com.elasticpath.rest.resource.integration.epcommerce.transform.MoneyTransformer"/>
+
+	<reference id="dateTransformer"
+			   interface="com.elasticpath.rest.resource.integration.epcommerce.transform.DateTransformer"/>
+
+	<reference id="moneyFormatter"
+			   interface="com.elasticpath.money.MoneyFormatter"/>
+
+	<reference id="addressTransformer"
+			   interface="com.elasticpath.rest.resource.integration.commons.addresses.transform.AddressTransformer"/>
+
+	<reference id="addProductSkuToCartValidationService"
+			 interface="com.elasticpath.service.shoppingcart.validation.AddProductSkuToCartValidationService"/>
+
+	<reference id="purchaseCartValidationService"
+			 interface="com.elasticpath.service.shoppingcart.validation.PurchaseCartValidationService" />
+
+	<!-- export services -->
+
+	<service ref="paginatedResultTransformer"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.pagination.PaginatedResultTransformer"/>
+
+	<service ref="addressValidator"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.addresses.validator.AddressValidator"/>
+
+	<service ref="totalsCalculator"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.calc.TotalsCalculator"/>
+
+	<service ref="shipmentTotalsCalculator"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.calc.ShipmentTotalsCalculator"/>
+
+	<service ref="cartOrdersDefaultAddressPopulator"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.addresses.CartOrdersDefaultAddressPopulator"/>
+
+	<service ref="taxesCalculator"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.calc.TaxesCalculator"/>
+
+	<service ref="cartOrderRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.cartorder.CartOrderRepository"/>
+
+	<service ref="cartItemModifiersRepository"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.cartorder.CartItemModifiersRepository"/>
+
+	<service ref="customerPaymentMethodsRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.customer.paymentmethods.CustomerPaymentMethodsRepository"/>
+
+	<service ref="customerRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.customer.CustomerRepository"/>
+
+	<service ref="customerSessionRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.customer.CustomerSessionRepository"/>
+
+	<service ref="dataPolicyRepository"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.datapolicies.DataPolicyRepository"/>
+
+	<service ref="itemRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.item.ItemRepository"/>
+
+	<service ref="priceRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.price.PriceRepository"/>
+
+	<service ref="orderRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.order.OrderRepository"/>
+
+	<service ref="oAuth2AccessTokenRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.oauth2.OAuth2AccessTokenRepository"/>
+
+	<service ref="shipmentRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.shipment.ShipmentRepository"/>
+
+	<service ref="productSkuRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.sku.ProductSkuRepository"/>
+
+	<service ref="settingsRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.settings.SettingsRepository"/>
+
+	<service ref="shippingOptionRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.shipping.ShippingOptionRepository"/>
+
+	<service ref="shoppingCartRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.cartorder.ShoppingCartRepository"/>
+
+	<service ref="addToCartAdvisorService"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.cartorder.AddToCartAdvisorService"/>
+
+	<service ref="lineItemIdentifierRepository"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.carts.lineitems.LineItemIdentifierRepository"/>
+
+	<service ref="skuOptionRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.product.option.SkuOptionRepository"/>
+
+	<service ref="storeProductRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.product.StoreProductRepository"/>
+
+	<service ref="storeRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.store.StoreRepository"/>
+
+	<service ref="taxDocumentRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.taxdocument.TaxDocumentRepository"/>
+
+	<service ref="paymentTokenRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.customer.payment.token.PaymentTokenRepository"/>
+
+	<service ref="paymentMethodIdentifierResolver"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.customer.paymentmethods.PaymentMethodIdentifierResolver"/>
+
+	<service ref="itemRecommendationsRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.item.recommendations.ItemRecommendationsRepository" />
+
+	<service ref="couponRepository"
+		interface="com.elasticpath.rest.resource.integration.epcommerce.repository.coupon.CouponRepository" />
+
+	<service ref="promotionRepository"
+		interface="com.elasticpath.rest.resource.integration.epcommerce.repository.promotion.PromotionRepository" />
+
+	<service ref="categoryRepository"
+		interface="com.elasticpath.rest.resource.integration.epcommerce.repository.category.CategoryRepository" />
+
+	<service ref="wishlistRepository"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.wishlist.WishlistRepository"/>
+
+	<service ref="recommendedItemsPageSizeResolver">
+		<interfaces>
+			<value>org.osgi.service.cm.ManagedService</value>
+		</interfaces>
+		<service-properties>
+			<entry key="service.pid" value="recommendationsPageSize"/>
+		</service-properties>
+	</service>
+
+	<service ref="pricingSnapshotRepository"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.cartorder.PricingSnapshotRepository"/>
+
+	<!-- cache key variants -->
+	<service ref="categoryCacheKeyVariants"
+			 interface="com.elasticpath.rest.cache.CacheKeyVariants"/>
+
+	<service ref="customerCacheKeyVariants"
+			interface="com.elasticpath.rest.cache.CacheKeyVariants"/>
+
+	<service ref="customerSessionCacheKeyVariants"
+			interface="com.elasticpath.rest.cache.CacheKeyVariants"/>
+
+	<service ref="shoppingCartCacheKeyVariants"
+			interface="com.elasticpath.rest.cache.CacheKeyVariants"/>
+
+	<service ref="cartOrderCacheKeyVariants"
+			interface="com.elasticpath.rest.cache.CacheKeyVariants"/>
+
+	<service ref="oauth2AccessTokenMementoCacheKeyVariants"
+			 interface="com.elasticpath.rest.cache.CacheKeyVariants"/>
+
+	<service ref="productCacheKeyVariants"
+			 interface="com.elasticpath.rest.cache.CacheKeyVariants"/>
+
+	<service ref="conversionService"
+			 interface="org.springframework.core.convert.ConversionService"/>
+
+	<service ref="formEntityToCustomerEnhancer"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.customer.FormEntityToCustomerEnhancer"/>
+
+	<service ref="structuredErrorMessageTransformer"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.transform.StructuredErrorMessageTransformer"/>
+
+	<service ref="exceptionTransformer"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.transform.ExceptionTransformer"/>
+
+	<service ref="reactiveAdapter"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.transform.ReactiveAdapter"/>
+
+	<service ref="moneyWrapperTransformer"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.price.impl.MoneyWrapperTransformer"/>
+
+	<service ref="promotionTransformer"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.promotion.impl.promotions.PromotionTransformer"/>
+
+	<service ref="appliedPromotionTransformer"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.promotion.impl.promotions.applied.AppliedPromotionTransformer"/>
+
+	<service ref="globalMessageSource"
+			 interface="org.springframework.context.MessageSource"/>
+
+	<service ref="cartPostProcessor"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.cartorder.CartPostProcessor"/>
+
+</blueprint>

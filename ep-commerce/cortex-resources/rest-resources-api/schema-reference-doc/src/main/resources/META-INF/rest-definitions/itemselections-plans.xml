@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>itemselections</name>
+		<description>
+			<![CDATA[
+The Items selections resource provides [Selectors][selectors] to allow customers to select item options.
+
+[selectors]: #selectors
+			]]>
+		</description>
+
+		<plan>
+			<name>select-item-definition-option</name>
+			<description><![CDATA[Select an item definition option.]]></description>
+			<step>
+				<description><![CDATA[Retrieve the selector.]]></description>
+				<start>itemdefinitions.item-definition-option</start>
+				<follow-link>selector</follow-link>
+				<link-back>option</link-back>
+				<result>itemselections-option-selector</result>
+			</step>
+			<step>
+				<description><![CDATA[Retrieve a choice.]]></description>
+				<start>itemselections-option-selector</start>
+				<follow-link>choice</follow-link>
+				<link-back>selector</link-back>
+				<result>itemselections-option-value-selector</result>
+			</step>
+			<step>
+				<description><![CDATA[Retrieve a selected choice, if any.]]></description>
+				<start>itemselections-option-selector</start>
+				<follow-link>chosen</follow-link>
+				<link-back>selector</link-back>
+				<result>itemselections-option-value-selector</result>
+			</step>
+			<step>
+				<description><![CDATA[Retrieve the description of an option value choice.]]></description>
+				<start>itemselections-option-value-selector</start>
+				<follow-link>description</follow-link>
+				<result>itemdefinitions.item-definition-option-value</result>
+			</step>
+			<step>
+				<description><![CDATA[Select a choice.]]></description>
+				<start>itemselections-option-value-selector</start>
+				<submit/>
+				<to>itemselections-option-value-selector</to>
+				<via-link>selectaction</via-link>
+				<result>items.item</result>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

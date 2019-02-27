@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<exportconfiguration>
+	<exporters>
+		<exporter type="PRICELISTDESCRIPTOR">
+		</exporter>
+	</exporters>
+	<packager type="NONE"/>
+	<delivery>
+		<method>FILE</method>
+		<target>${project.build.directory}/target-system/exported</target>
+	</delivery>
+</exportconfiguration>

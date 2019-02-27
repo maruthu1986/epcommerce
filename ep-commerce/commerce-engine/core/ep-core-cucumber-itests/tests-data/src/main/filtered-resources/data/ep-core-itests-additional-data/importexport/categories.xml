@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<categories>
+    <category mastercatalog="MobileCatalog">
+        <guid>0f86f730-cb1d-45e3-bc53-3bb149777743</guid>
+        <parentcategory></parentcategory>
+        <code>mobileservices</code>
+        <name>
+            <value language="fr_CA"/>
+            <value language="fr"/>
+            <value language="en">Mobile Services</value>
+            <value language="en_US">Mobile Services</value>
+        </name>
+        <type>Phones</type>
+        <order>12</order>
+        <availability>
+            <storevisible>true</storevisible>
+            <enabledate>2017-12-01T13:09:00Z</enabledate>
+        </availability>
+        <attributes/>
+        <seo>
+            <url>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </url>
+            <title>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </title>
+            <keywords>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </keywords>
+            <description>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </description>
+        </seo>
+        <linkedcategories>
+            <linkedcategory virtualcatalog="Mobile">
+                <guid>a7a79229-273f-4be1-aef8-feaec34d0aae</guid>
+                <order>12</order>
+                <excluded>false</excluded>
+            </linkedcategory>
+        </linkedcategories>
+    </category>
+
+    <category mastercatalog="MobileCatalog">
+        <guid>e7f61b54-ee3c-4958-ba95-f3090af5e448</guid>
+        <parentcategory></parentcategory>
+        <code>mobilepackages</code>
+        <name>
+            <value language="fr_CA"/>
+            <value language="fr"/>
+            <value language="en">Mobile Packages</value>
+            <value language="en_US">Mobile Packages</value>
+        </name>
+        <type>Phones</type>
+        <order>13</order>
+        <availability>
+            <storevisible>true</storevisible>
+            <enabledate>2017-12-01T13:09:00Z</enabledate>
+        </availability>
+        <attributes/>
+        <seo>
+            <url>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </url>
+            <title>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </title>
+            <keywords>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </keywords>
+            <description>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </description>
+        </seo>
+        <linkedcategories>
+            <linkedcategory virtualcatalog="Mobile">
+                <guid>03742ce4-9778-4ba9-8f21-a1ab81d0ee83</guid>
+                <order>13</order>
+                <excluded>false</excluded>
+            </linkedcategory>
+        </linkedcategories>
+    </category>
+
+</categories>

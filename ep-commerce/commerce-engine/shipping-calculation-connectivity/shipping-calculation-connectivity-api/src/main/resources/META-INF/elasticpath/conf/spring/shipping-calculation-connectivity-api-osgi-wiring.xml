@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+
+	<!--
+		delegate of plugins, which may be imported from external bundles.
+		for internal reference and export.
+
+		e.g.,
+		shippingCalculationService
+		unpricedShippingCalculationPluginSelector
+		pricedShippingCalculationPluginSelector
+		unpricedShippingCalculationPluginList
+		pricedShippingCalculationPluginList
+
+	-->
+	<alias alias="unpricedShippingCalculationPluginList" name="optionalUnpricedShippingCalculationPluginList"/>
+	<alias alias="pricedShippingCalculationPluginList" name="optionalPricedShippingCalculationPluginList"/>
+
+	<bean id="shippingCalculationService" class="com.elasticpath.commons.beanframework.SwitchableProxyFactoryBean">
+		<description>
+			it is a wrapped version of shipping calculation service to represent optional caching version or default non caching version.
+			if caching version of shipping calculation service exported, it will delegate to the caching version.
+			if no caching version exists, it will delegate to its fallback implementation, which is the non caching version of shipping calculation service.
+		</description>
+		<property name="proxyInterface" value="com.elasticpath.shipping.connectivity.service.ShippingCalculationService"/>
+		<property name="proxy" ref="shippingCalculationServiceProxy"/>
+	</bean>
+
+	<bean id="unpricedShippingCalculationPluginSelector"
+		  class="com.elasticpath.commons.beanframework.SwitchableProxyFactoryBean">
+		<description>
+			delegate of optional unpriced shipping calculation plugin selector
+		</description>
+		<property name="proxyInterface" value="com.elasticpath.shipping.connectivity.service.selector.UnpricedShippingCalculationPluginSelector"/>
+		<property name="proxy" ref="unpricedShippingCalculationPluginSelectorProxy"/>
+	</bean>
+
+	<bean id="pricedShippingCalculationPluginSelector"
+		  class="com.elasticpath.commons.beanframework.SwitchableProxyFactoryBean">
+		<description>
+			delegate of optional priced shipping calculation plugin selector
+		</description>
+		<property name="proxyInterface" value="com.elasticpath.shipping.connectivity.service.selector.PricedShippingCalculationPluginSelector"/>
+		<property name="proxy" ref="pricedShippingCalculationPluginSelectorProxy"/>
+	</bean>
+
+	<!-- proxies of optional implementation from external bundles and also wiring core implementations as fallback-->
+	<bean id="shippingCalculationServiceProxy"
+		  class="com.elasticpath.commons.beanframework.SwitchableProxyBinder">
+		<description>proxy of optional shipping calculation service</description>
+		<property name="fallbackImplementation" ref="coreShippingCalculationService"/>
+	</bean>
+
+	<bean id="unpricedShippingCalculationPluginSelectorProxy"
+		  class="com.elasticpath.commons.beanframework.SwitchableProxyBinder">
+		<description>proxies of optional unpriced shipping calculation plugin selector</description>
+		<property name="fallbackImplementation" ref="coreStaticUnpricedShippingCalculationPluginSelector"/>
+	</bean>
+
+	<bean id="pricedShippingCalculationPluginSelectorProxy"
+		  class="com.elasticpath.commons.beanframework.SwitchableProxyBinder">
+		<description>proxies of optional priced shipping calculation plugin selector</description>
+		<property name="fallbackImplementation" ref="coreStaticPricedShippingCalculationPluginSelector"/>
+	</bean>
+
+</beans>

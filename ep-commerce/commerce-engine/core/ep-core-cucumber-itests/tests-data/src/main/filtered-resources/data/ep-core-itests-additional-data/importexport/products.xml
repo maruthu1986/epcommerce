@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<products>
+
+    <product bundle="true" pricingMechanism="calculated">
+        <code>galaxys2withphoneplan</code>
+        <name>
+            <value language="fr_CA"></value>
+            <value language="fr"></value>
+            <value language="en">Galaxy S2 with Phone Plan</value>
+            <value language="en_US">galaxys2withphoneplan</value>
+        </name>
+        <type>Phones</type>
+        <brand>None</brand>
+        <image></image>
+        <availability>
+            <storevisible>true</storevisible>
+            <notsoldseperately>false</notsoldseperately>
+            <enabledate>2017-12-01T13:22:00Z</enabledate>
+            <minorderqty>1</minorderqty>
+            <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+            <orderlimit>0</orderlimit>
+        </availability>
+        <attributes/>
+        <skus>
+            <sku guid="d571699f-5e90-4880-8dc9-a531e7d1c50d">
+                <code>galaxys2withphoneplan</code>
+                <shippable enabled="true">
+                    <weight units="KG">0</weight>
+                    <width units="CM">0</width>
+                    <length units="CM">0</length>
+                    <height units="CM">0</height>
+                </shippable>
+                <digitalasset enabled="false"/>
+            </sku>
+        </skus>
+        <seo>
+            <url>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </url>
+            <title>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </title>
+            <keywords>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </keywords>
+            <description>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </description>
+        </seo>
+    </product>
+
+    <product bundle="true" pricingMechanism="calculated">
+        <code>mobileservices</code>
+        <name>
+            <value language="fr_CA"></value>
+            <value language="fr"></value>
+            <value language="en">Mobile Services</value>
+            <value language="en_US">mobileservices</value>
+        </name>
+        <type>Phones</type>
+        <brand>None</brand>
+        <image></image>
+        <availability>
+            <storevisible>true</storevisible>
+            <notsoldseperately>false</notsoldseperately>
+            <enabledate>2017-12-01T13:16:00Z</enabledate>
+            <minorderqty>1</minorderqty>
+            <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+            <orderlimit>0</orderlimit>
+        </availability>
+        <attributes/>
+        <skus>
+            <sku guid="22f20bed-7c97-440b-bd18-a66a5c4d1cd0">
+                <code>mobileservices</code>
+                <shippable enabled="true">
+                    <weight units="KG">0</weight>
+                    <width units="CM">0</width>
+                    <length units="CM">0</length>
+                    <height units="CM">0</height>
+                </shippable>
+                <digitalasset enabled="false"/>
+            </sku>
+        </skus>
+        <seo>
+            <url>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </url>
+            <title>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </title>
+            <keywords>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </keywords>
+            <description>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </description>
+        </seo>
+    </product>
+
+    <product bundle="true" pricingMechanism="calculated">
+        <code>mobilefreebies</code>
+        <name>
+            <value language="fr_CA"></value>
+            <value language="fr"></value>
+            <value language="en">Mobile Freebies</value>
+            <value language="en_US">mobilefreebies</value>
+        </name>
+        <type>Phones</type>
+        <brand>None</brand>
+        <image></image>
+        <availability>
+            <storevisible>true</storevisible>
+            <notsoldseperately>false</notsoldseperately>
+            <enabledate>2017-12-01T13:17:00Z</enabledate>
+            <minorderqty>1</minorderqty>
+            <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+            <orderlimit>0</orderlimit>
+        </availability>
+        <attributes/>
+        <skus>
+            <sku guid="39ec4b1b-8971-40dc-8800-52e4f60cd4d6">
+                <code>mobilefreebies</code>
+                <shippable enabled="true">
+                    <weight units="KG">0</weight>
+                    <width units="CM">0</width>
+                    <length units="CM">0</length>
+                    <height units="CM">0</height>
+                </shippable>
+                <digitalasset enabled="false"/>
+            </sku>
+        </skus>
+        <seo>
+            <url>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </url>
+            <title>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </title>
+            <keywords>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </keywords>
+            <description>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </description>
+        </seo>
+    </product>
+
+    <product>
+        <code>nba</code>
+        <name>
+            <value language="fr_CA"></value>
+            <value language="fr"></value>
+            <value language="en">NBA</value>
+            <value language="en_US">nba</value>
+        </name>
+        <type>Phone Plan</type>
+        <taxcode>NONE</taxcode>
+        <brand>None</brand>
+        <image></image>
+        <availability>
+            <storevisible>true</storevisible>
+            <notsoldseperately>false</notsoldseperately>
+            <enabledate>2017-12-01T13:11:00Z</enabledate>
+            <minorderqty>1</minorderqty>
+            <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+            <orderlimit>0</orderlimit>
+        </availability>
+        <attributes/>
+        <skus>
+            <sku guid="9e73fb6b-a607-45ab-96ab-95d5761e9f9d">
+                <code>nba_mon</code>
+                <skuoptions>
+                    <skuoption code="Frequency">
+                        <skuoptionvalue>MONTHLY</skuoptionvalue>
+                    </skuoption>
+                </skuoptions>
+                <availability>
+                    <enabledate>2017-12-01T13:11:00Z</enabledate>
+                </availability>
+                <shippable enabled="false"/>
+                <digitalasset enabled="true"/>
+                <image></image>
+                <attributes/>
+            </sku>
+        </skus>
+        <seo>
+            <url>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </url>
+            <title>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </title>
+            <keywords>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </keywords>
+            <description>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </description>
+        </seo>
+    </product>
+
+    <product>
+        <code>spotify</code>
+        <name>
+            <value language="fr_CA"></value>
+            <value language="fr"></value>
+            <value language="en">Spotify</value>
+            <value language="en_US">spotify</value>
+        </name>
+        <type>Phone Plan</type>
+        <taxcode>NONE</taxcode>
+        <brand>None</brand>
+        <image></image>
+        <availability>
+            <storevisible>true</storevisible>
+            <notsoldseperately>false</notsoldseperately>
+            <enabledate>2017-12-01T13:12:00Z</enabledate>
+            <minorderqty>1</minorderqty>
+            <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+            <orderlimit>0</orderlimit>
+        </availability>
+        <attributes/>
+        <skus>
+            <sku guid="8fa75682-93ac-4c62-a3ae-5938f13b6f99">
+                <code>spotify_mon</code>
+                <skuoptions>
+                    <skuoption code="Frequency">
+                        <skuoptionvalue>MONTHLY</skuoptionvalue>
+                    </skuoption>
+                </skuoptions>
+                <availability>
+                    <enabledate>2017-12-01T13:12:00Z</enabledate>
+                </availability>
+                <shippable enabled="false"/>
+                <digitalasset enabled="true"/>
+                <image></image>
+                <attributes/>
+                <taxcodeoverride>NONE</taxcodeoverride>
+            </sku>
+        </skus>
+        <seo>
+            <url>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </url>
+            <title>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </title>
+            <keywords>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </keywords>
+            <description>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </description>
+        </seo>
+    </product>
+
+    <product>
+        <code>facebook</code>
+        <name>
+            <value language="fr_CA"></value>
+            <value language="fr"></value>
+            <value language="en">Facebook</value>
+            <value language="en_US">facebook</value>
+        </name>
+        <type>Phone Plan</type>
+        <taxcode>NONE</taxcode>
+        <brand>None</brand>
+        <image></image>
+        <availability>
+            <storevisible>true</storevisible>
+            <notsoldseperately>false</notsoldseperately>
+            <enabledate>2017-12-01T13:12:00Z</enabledate>
+            <minorderqty>1</minorderqty>
+            <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+            <orderlimit>0</orderlimit>
+        </availability>
+        <attributes/>
+        <skus>
+            <sku guid="6ffa4028-971c-4adf-955f-8200e2fe665c">
+                <code>facebook_mon</code>
+                <skuoptions>
+                    <skuoption code="Frequency">
+                        <skuoptionvalue>MONTHLY</skuoptionvalue>
+                    </skuoption>
+                </skuoptions>
+                <availability>
+                    <enabledate>2017-12-01T13:13:00Z</enabledate>
+                </availability>
+                <shippable enabled="false"/>
+                <digitalasset enabled="true"/>
+                <image></image>
+                <attributes/>
+            </sku>
+        </skus>
+        <seo>
+            <url>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </url>
+            <title>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </title>
+            <keywords>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </keywords>
+            <description>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en"/>
+                <value language="en_US"/>
+            </description>
+        </seo>
+    </product>
+
+</products>

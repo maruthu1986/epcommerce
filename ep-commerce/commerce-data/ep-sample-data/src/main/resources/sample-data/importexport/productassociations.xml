@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<productassociations>
+<productassociation catalog="Virtual_CatAB_SP">
+    <type>CrossSell</type>
+    <enabledate>2017-03-06T20:05:10-08:00</enabledate>
+    <sourceproductcode>merchandising_CrossSell</sourceproductcode>
+    <targetproductcode>usedMerchandising_CrossSell6</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>3</ordering>
+</productassociation>
+
+<productassociation catalog="Virtual_CatAB_SP">
+    <type>CrossSell</type>
+    <enabledate>2017-03-06T20:05:00-08:00</enabledate>
+    <sourceproductcode>merchandising_CrossSell</sourceproductcode>
+    <targetproductcode>usedMerchandising_CrossSell5</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>2</ordering>
+</productassociation>
+
+<productassociation catalog="Master_B">
+    <type>CrossSell</type>
+    <enabledate>2017-03-06T20:04:32-08:00</enabledate>
+    <sourceproductcode>merchandising_CrossSell</sourceproductcode>
+    <targetproductcode>usedMerchandising_CrossSell2</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>2</ordering>
+</productassociation>
+
+<productassociation catalog="Virtual_CatAB_SP">
+    <type>UpSell</type>
+    <enabledate>2017-03-06T20:14:16-08:00</enabledate>
+    <sourceproductcode>merchandising_Upsell</sourceproductcode>
+    <targetproductcode>usedMerchandising_UpSell3</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>2</ordering>
+</productassociation>
+
+<productassociation catalog="Virtual_CatAB_SP">
+    <type>UpSell</type>
+    <enabledate>2017-03-06T20:14:09-08:00</enabledate>
+    <sourceproductcode>merchandising_Upsell</sourceproductcode>
+    <targetproductcode>usedMerchandising_UpSell2</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>1</ordering>
+</productassociation>
+
+<productassociation catalog="Master_B">
+    <type>UpSell</type>
+    <enabledate>2017-03-06T20:13:53-08:00</enabledate>
+    <sourceproductcode>merchandising_Upsell</sourceproductcode>
+    <targetproductcode>usedMerchandising_UpSell1</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>1</ordering>
+</productassociation>
+
+<productassociation catalog="Master_B">
+    <type>UpSell</type>
+    <enabledate>2017-03-06T20:13:59-08:00</enabledate>
+    <sourceproductcode>merchandising_Upsell</sourceproductcode>
+    <targetproductcode>usedMerchandising_UpSell2</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>2</ordering>
+</productassociation>
+
+<productassociation catalog="Virtual_CatAB_SP">
+    <type>Accessory</type>
+    <enabledate>2017-03-06T20:24:17-08:00</enabledate>
+    <sourceproductcode>merchandising_Accessory</sourceproductcode>
+    <targetproductcode>usedMerchandising_Accessory1</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>4</ordering>
+</productassociation>
+
+<productassociation catalog="Virtual_CatAB_SP">
+    <type>Accessory</type>
+    <enabledate>2017-03-06T20:24:30-08:00</enabledate>
+    <sourceproductcode>merchandising_Accessory</sourceproductcode>
+    <targetproductcode>usedMerchandising_Accessory5</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>6</ordering>
+</productassociation>
+
+<productassociation catalog="Virtual_CatAB_SP">
+    <type>Warranty</type>
+    <enabledate>2017-03-06T20:20:17-08:00</enabledate>
+    <sourceproductcode>merchandising_Warranty</sourceproductcode>
+    <targetproductcode>usedMerchandising_Warrenty1</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>true</sourceproductdependent>
+    <ordering>1</ordering>
+</productassociation>
+
+<productassociation catalog="Master_B">
+    <type>Warranty</type>
+    <enabledate>2017-03-06T20:20:10-08:00</enabledate>
+    <sourceproductcode>merchandising_Warranty</sourceproductcode>
+    <targetproductcode>usedMerchandising_Warrenty1</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>true</sourceproductdependent>
+    <ordering>1</ordering>
+</productassociation>
+
+<productassociation catalog="Virtual_CatAB_SP">
+    <type>Accessory</type>
+    <enabledate>2017-03-06T20:24:09-08:00</enabledate>
+    <sourceproductcode>merchandising_Accessory</sourceproductcode>
+    <targetproductcode>usedMerchandising_Accessory4</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>3</ordering>
+</productassociation>
+
+<productassociation catalog="Virtual_CatAB_SP">
+    <type>Accessory</type>
+    <enabledate>2017-03-06T20:23:51-08:00</enabledate>
+    <sourceproductcode>merchandising_Accessory</sourceproductcode>
+    <targetproductcode>usedMerchandising_Accessory6</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>1</ordering>
+</productassociation>
+
+<productassociation catalog="Virtual_CatAB_SP">
+    <type>Accessory</type>
+    <enabledate>2017-03-06T20:24:00-08:00</enabledate>
+    <sourceproductcode>merchandising_Accessory</sourceproductcode>
+    <targetproductcode>usedMerchandising_Accessory2</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>2</ordering>
+</productassociation>
+
+<productassociation catalog="Virtual_CatAB_SP">
+    <type>Accessory</type>
+    <enabledate>2017-03-06T20:24:24-08:00</enabledate>
+    <sourceproductcode>merchandising_Accessory</sourceproductcode>
+    <targetproductcode>usedMerchandising_Accessory3</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>5</ordering>
+</productassociation>
+
+<productassociation catalog="Virtual_CatAB_SP">
+    <type>Replacement</type>
+    <enabledate>2017-03-06T20:27:16-08:00</enabledate>
+    <sourceproductcode>merchandising_Replacement</sourceproductcode>
+    <targetproductcode>usedMerchandising_Replacement1</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>1</ordering>
+</productassociation>
+
+<productassociation catalog="Master_B">
+    <type>CrossSell</type>
+    <enabledate>2017-03-06T20:04:16-08:00</enabledate>
+    <sourceproductcode>merchandising_CrossSell</sourceproductcode>
+    <targetproductcode>usedMerchandising_CrossSell1</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>1</ordering>
+</productassociation>
+
+<productassociation catalog="Master_B">
+    <type>CrossSell</type>
+    <enabledate>2017-03-06T20:04:39-08:00</enabledate>
+    <sourceproductcode>merchandising_CrossSell</sourceproductcode>
+    <targetproductcode>usedMerchandising_CrossSell3</targetproductcode>
+    <defaultquantity>1</defaultquantity>
+    <sourceproductdependent>false</sourceproductdependent>
+    <ordering>3</ordering>
+</productassociation>
+</productassociations>

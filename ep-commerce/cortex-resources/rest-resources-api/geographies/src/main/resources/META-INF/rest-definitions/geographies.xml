@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>geographies</name>
+		<description>
+			<![CDATA[
+####Entry Point: /geographies/{scope}/countries
+
+The geographies resource provides access to location related data, including lists of countries, and lists of regions by country.
+			]]>
+		</description>
+
+		<uri-part>
+			<name>country-id</name>
+			<description><![CDATA[The country id.]]></description>
+			<string/>
+		</uri-part>
+
+		<uri-part>
+			<name>region-id</name>
+			<description><![CDATA[The region id.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>countries</name>
+			<description><![CDATA[Provides all the countries available to a scope.]]></description>
+			<uri>{base.family}/{base.scope}/countries</uri>
+			<list-of>country</list-of>
+		</resource>
+
+		<resource>
+			<name>country</name>
+			<description><![CDATA[A specific country.]]></description>
+			<uri>{countries}/{country-id}</uri>
+			<entity>country</entity>
+		</resource>
+
+		<resource>
+			<name>regions</name>
+			<description><![CDATA[All the regions available for this country.]]></description>
+			<uri>{country}/regions</uri>
+			<list-of>region</list-of>
+		</resource>
+
+		<resource>
+			<name>region</name>
+			<description><![CDATA[All the regions available for this country.]]></description>
+			<uri>{regions}/{region-id}</uri>
+			<entity>region</entity>
+		</resource>
+
+		<relationship>
+			<name>root-to-countries</name>
+			<description><![CDATA[Countries can be discovered at the root.]]></description>
+			<rel>countries</rel>
+			<from>base.root</from>
+			<to>countries</to>
+		</relationship>
+
+		<relationship>
+			<name>regions-for-country</name>
+			<description><![CDATA[A list of regions for a country.]]></description>
+			<rel>regions</rel>
+			<from>country</from>
+			<to>regions</to>
+		</relationship>
+
+		<entity>
+			<name>country</name>
+			<description><![CDATA[Describes a country.]]></description>
+			<property>
+				<name>name</name>
+				<description><![CDATA[The name or code of the country.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[The localized country name, intended for display in the client application.]]></description>
+				<string/>
+			</property>
+			<entity-type>geographies.country</entity-type>
+		</entity>
+
+		<entity>
+			<name>region</name>
+			<description><![CDATA[Describes a region.]]></description>
+			<property>
+				<name>name</name>
+				<description><![CDATA[The name or code of the region.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[The localized region name, intended for display in the client application.]]></description>
+				<string/>
+			</property>
+			<entity-type>geographies.region</entity-type>
+		</entity>
+
+	</family>
+</definitions>

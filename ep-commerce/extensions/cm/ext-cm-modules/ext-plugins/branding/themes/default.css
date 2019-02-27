@@ -1,0 +1,1279 @@
+* {
+  background-color: #FFFFFF;
+  background-image: none;
+  color: #333;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+}
+
+*[BORDER] {
+  border: 1px solid #CCC;
+}
+
+Button {
+  background-color: #FFFFFF;
+  background-image: none;
+  border: 1px solid #CCC;
+  border-radius: 2px;
+  color: #333;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  padding: 10px 28px;
+  spacing: 3px;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+Button[PUSH] {
+  background-color: #FFFFFF;
+  background-image: none;
+  border: 1px solid #CCC;
+  color: #333;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  padding: 10px 28px;
+}
+
+Button[PUSH][FLAT] {
+  padding: 4px 20px 4px 18px;
+}
+
+Button:default, Button[PUSH]:default {
+  background-color: #00A1E0;
+  background-image: none;
+  border: 1px solid #0088CA;
+  color: #FFFFFF;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  text-shadow: none;
+}
+
+Button:default:hover, Button:default:focused, Button:default:selected, Button[PUSH]:default:hover, Button[PUSH]:default:focused, Button[PUSH]:default:selected {
+  background-color: #0088CA;
+  background-image: none;
+  border: 1px solid #0088CA;
+  color: #FFFFFF;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+}
+
+Button:default:disabled, Button[PUSH]:default:disabled {
+  opacity: 0.3;
+}
+
+Button:hover, Button[PUSH]:hover {
+  background-color: #FFFFFF;
+  background-image: none;
+  border: 1px solid #666;
+  color: #333;
+}
+
+Button:focused, Button:pressed, Button:selected, Button[PUSH]:focused, Button[PUSH]:pressed, Button[PUSH]:selected {
+  background-color: #0088CA;
+  background-image: none;
+  border: 1px solid #0088CA;
+  color: #FFFFFF;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+}
+
+Button[CHECK], Button[CHECK][ARROW], Button[CHECK][BORDER], Button[CHECK][FLAT], Button[RADIO], Button[RADIO][ARROW], Button[RADIO][BORDER], Button[RADIO][FLAT] {
+  border: none;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  padding: 0;
+  spacing: 5px;
+}
+
+Button[CHECK]:selected, Button[CHECK]:hover, Button[CHECK][ARROW]:selected, Button[CHECK][ARROW]:hover, Button[CHECK][BORDER]:selected, Button[CHECK][BORDER]:hover, Button[CHECK][FLAT]:selected, Button[CHECK][FLAT]:hover, Button[RADIO]:selected, Button[RADIO]:hover, Button[RADIO][ARROW]:selected, Button[RADIO][ARROW]:hover, Button[RADIO][BORDER]:selected, Button[RADIO][BORDER]:hover, Button[RADIO][FLAT]:selected, Button[RADIO][FLAT]:hover {
+  border: none;
+  padding: 0;
+}
+
+Button-CheckIcon {
+  background-image: url("themes/icons/Button-CheckIcon.png");
+}
+
+Button-CheckIcon:hover, Button-CheckIcon:disabled {
+  background-image: url("themes/icons/Button-CheckIcon_hover.png");
+}
+
+Button-CheckIcon:selected {
+  background-image: url("themes/icons/Button-CheckIcon_selected.png");
+}
+
+Button-CheckIcon:selected:hover {
+  background-image: url("themes/icons/Button-CheckIcon_selected.png");
+}
+
+Button-RadioIcon {
+  background-image: url("themes/icons/Button-RadioIcon.png");
+}
+
+Button-RadioIcon:hover, Button-RadioIcon:disabled {
+  background-image: url("themes/icons/Button-RadioIcon_hover.png");
+}
+
+Button-RadioIcon:selected {
+  background-image: url("themes/icons/Button-RadioIcon_selected.png");
+}
+
+Button-RadioIcon:selected:hover {
+  background-image: url("themes/icons/Button-RadioIcon_selected.png");
+}
+
+Button-FocusIndicator, Button-FocusIndicator[ARROW], Button-FocusIndicator[PUSH], Button-FocusIndicator[TOGGLE] {
+  background-color: transparent;
+  border: 1px dotted #CCC;
+  margin: 2px;
+  padding: 0;
+  opacity: 1;
+}
+
+Button-FocusIndicator[CHECK], Button-FocusIndicator[RADIO] {
+  background-color: transparent;
+  border: 1px dotted #CCC;
+  margin: 0;
+  padding: 2px 2px 2px 1px;
+  opacity: 1;
+}
+
+CCombo, CCombo[BORDER],
+Combo,
+Combo[BORDER] {
+  border: 1px solid #CCC;
+  border-radius: 0;
+  box-shadow: none;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  color: #333;
+}
+
+CCombo:focused, CCombo[BORDER]:focused,
+Combo:focused,
+Combo[BORDER]:focused {
+  border: 1px solid #00A1E0;
+  box-shadow: none;
+}
+
+CCombo:disabled, CCombo:read-only, CCombo[BORDER]:disabled, CCombo[BORDER]:read-only,
+Combo:disabled,
+Combo:read-only,
+Combo[BORDER]:disabled,
+Combo[BORDER]:read-only {
+  background-color: #E5E5E5;
+  box-shadow: none;
+}
+
+CCombo-Button, CCombo-Button[FLAT],
+Combo-Button,
+Combo-Button[FLAT] {
+  background-color: #FFFFFF;
+  background-image: none;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+}
+
+CCombo-Button-Icon,
+Combo-Button-Icon {
+  background-image: url("themes/icons/Spinner-DownButton-Icon.png");
+}
+
+CCombo-Button-Icon:hover,
+Combo-Button-Icon:hover {
+  background-image: url("themes/icons/Spinner-DownButton-Icon_hover.png");
+}
+
+CCombo-Field, CCombo-Field[FLAT],
+Combo-Field,
+Combo-Field[FLAT] {
+  padding: 4px 4px;
+}
+
+CCombo-List,
+Combo-List {
+  background-color: #FFFFFF;
+  background-image: none;
+  border: 1px solid #CCC;
+  border-radius: 0;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  color: #333;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+}
+
+CCombo-List-Item,
+Combo-List-Item {
+  background-color: transparent;
+  background-image: none;
+  padding: 5px 10px;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  text-shadow: none;
+}
+
+CCombo-List-Item:hover,
+Combo-List-Item:hover {
+  background-color: #E5E5E5;
+}
+
+CCombo-List-Item:selected,
+Combo-List-Item:selected {
+  background-color: rgba(0, 161, 224, 0.2);
+}
+
+CCombo-List-Item:selected,
+Combo-List-Item:selected {
+  background-color: #D6EAF8;
+}
+
+Composite {
+  padding: 0;
+  opacity: 1;
+  background-color: #FFFFFF;
+  background-image: none;
+  background-repeat: repeat;
+  background-position: left top;
+  border: none;
+  box-shadow: none;
+  animation: none;
+}
+
+Composite[BORDER] {
+  border: 1px solid #CCC;
+  border-radius: 2px;
+}
+
+CoolBar {
+  background-image: none;
+}
+
+CoolItem-Handle {
+  border: none;
+  border-right: 1px solid #CCC;
+  width: 2px;
+}
+
+CTabFolder {
+  border-color: #CCC;
+  border-radius: 2px;
+}
+
+CTabItem {
+  color: #333;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  padding: 7px 15px 7px 12px;
+  spacing: 3px;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+CTabItem:selected {
+  color: #333;
+}
+
+CTabItem:disabled {
+  background-color: #E5E5E5;
+  background-image: none;
+  color: #333;
+}
+
+CTabFolder-DropDownButton-Icon, CTabFolder-DropDownButton-Icon:pressed {
+  background-image: url("themes/icons/DateTime-Calendar-NextYearButton.png");
+}
+
+CTabFolder-DropDownButton-Icon:hover {
+  background-image: url("themes/icons/DateTime-Calendar-NextYearButton_hover.png");
+  border: none;
+}
+
+DateTime {
+  background-color: #FFFFFF;
+  background-image: none;
+  border: none;
+  border-radius: 6px;
+  color: #333;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  text-shadow: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+DateTime[BORDER] {
+  border: 10px solid #FFFFFF;
+  box-shadow: none;
+}
+
+DateTime[BORDER]:focused {
+  border: 10px solid #FFFFFF;
+  box-shadow: none;
+}
+
+DateTime[BORDER]:disabled {
+  border: 10px solid #FFFFFF;
+  box-shadow: none;
+}
+
+DateTime-Field {
+  background-color: transparent;
+  color: #666;
+  text-shadow: none;
+}
+
+DateTime-Field:selected {
+  border: 1px solid #00A1E0;
+}
+
+DateTime-Calendar-Day {
+  background-color: transparent;
+  padding: 10px;
+  color: inherit;
+  text-shadow: none;
+}
+
+DateTime-Calendar-Day:hover {
+  background-color: #E5E5E5;
+}
+
+DateTime-Calendar-Day:selected {
+  background-color: #00A1E0;
+  color: #FFFFFF;
+}
+
+DateTime-Calendar-Day:selected:hover {
+  background-color: #0088CA;
+}
+
+DateTime-Calendar-Day:selected:unfocused {
+  background-color: #999;
+}
+
+DateTime-Calendar-Day:today {
+  background-color: transparent;
+  border: none;
+  color: #E74C3C;
+}
+
+DateTime-Calendar-Day:otherMonth {
+  background-color: transparent;
+  color: #CCC;
+}
+
+DateTime-Calendar-Navbar {
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  border-bottom: 3px solid #FFFFFF;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  color: #000;
+  text-shadow: none;
+}
+
+DateTime-Calendar-PreviousMonthButton {
+  background-image: url("themes/icons/DateTime-Calendar-PreviousMonthButton.png");
+  cursor: pointer;
+}
+
+DateTime-Calendar-PreviousMonthButton:hover {
+  background-image: url("themes/icons/DateTime-Calendar-PreviousMonthButton_hover.png");
+}
+
+DateTime-Calendar-NextMonthButton {
+  background-image: url("themes/icons/DateTime-Calendar-NextMonthButton.png");
+  cursor: pointer;
+}
+
+DateTime-Calendar-NextMonthButton:hover {
+  background-image: url("themes/icons/DateTime-Calendar-NextMonthButton_hover.png");
+}
+
+DateTime-Calendar-PreviousYearButton {
+  background-image: url("themes/icons/DateTime-Calendar-PreviousYearButton.png");
+  cursor: pointer;
+}
+
+DateTime-Calendar-PreviousYearButton:hover {
+  background-image: url("themes/icons/DateTime-Calendar-PreviousYearButton_hover.png");
+}
+
+DateTime-Calendar-NextYearButton {
+  background-image: url("themes/icons/DateTime-Calendar-NextYearButton.png");
+  cursor: pointer;
+}
+
+DateTime-Calendar-NextYearButton:hover {
+  background-image: url("themes/icons/DateTime-Calendar-NextYearButton_hover.png");
+}
+
+DateTime-UpButton, DateTime-UpButton:disabled {
+  background-color: transparent;
+  background-image: none;
+  width: 30px;
+  border: none;
+  border-left: 0;
+  border-radius: 0;
+}
+
+DateTime-UpButton-Icon {
+  background-image: url("themes/icons/Spinner-UpButton-Icon.png");
+}
+
+DateTime-UpButton-Icon:hover {
+  background-image: url("themes/icons/Spinner-UpButton-Icon_hover.png");
+}
+
+DateTime-DownButton, DateTime-DownButton:disabled {
+  background-color: transparent;
+  background-image: none;
+  width: 30px;
+  border: none;
+  border-left: 0;
+  border-radius: 0;
+}
+
+DateTime-DownButton-Icon {
+  background-image: url("themes/icons/Spinner-DownButton-Icon.png");
+}
+
+DateTime-DownButton-Icon:hover {
+  background-image: url("themes/icons/Spinner-DownButton-Icon_hover.png");
+}
+
+DropDown {
+  border: 1px solid #CCC;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+DropDown-Item {
+  background-color: transparent;
+  background-image: none;
+  padding: 5px 10px;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  text-shadow: none;
+}
+
+DropDown-Item:hover {
+  background-color: #E5E5E5;
+}
+
+DropDown-Item:selected {
+  background-color: rgba(0, 161, 224, 0.2);
+}
+
+ExpandBar {
+  background-color: #FFFFFF;
+  color: #333;
+  font: 16px "Noto Sans", Arial, Helvetica, sans-serif;
+}
+
+ExpandBar[BORDER] {
+  border: 1px solid #E74C3C;
+  color: #333;
+  font: 16px "Noto Sans", Arial, Helvetica, sans-serif;
+}
+
+ExpandItem {
+  border: 1px solid #E74C3C;
+  border-radius: 2px;
+}
+
+ExpandItem-Header {
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  text-shadow: none;
+}
+
+ExpandItem-Button, ExpandItem-Button:hover {
+  background-image: url("themes/icons/Spinner-UpButton-Icon.png");
+}
+
+ExpandItem-Button:expanded, ExpandItem-Button:expanded:hover {
+  background-image: url("themes/icons/Spinner-DownButton-Icon.png");
+}
+
+FileUpload {
+  border: none;
+  padding: 5px 5px;
+  cursor: pointer;
+}
+
+Group {
+  font: 11px "Noto Sans", Arial, Helvetica, sans-serif;
+}
+
+Group-Frame {
+  margin: 26px 0px 10px;
+  padding: 30px 10px 20px;
+  border-radius: 8px;
+}
+
+Group-Label {
+  background-color: #F0F0F0;
+  background-image: none;
+  border-radius: 2px;
+  border: 1px solid #CCC;
+  color: #333;
+  margin: 16px 0px 0px 16px;
+  padding: 2px 10px;
+  text-shadow: none;
+}
+
+Label,
+CLabel {
+  background-color: #FFFFFF;
+  background-image: none;
+  border: none;
+  border-radius: 0;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  color: #333;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+Label[BORDER],
+CLabel[BORDER] {
+  background-color: #FFFFFF;
+  background-image: none;
+  border: 1px solid #CCC;
+}
+
+Label-SeparatorLine {
+  background-color: #FFFFFF;
+  background-image: none;
+  border: none;
+  border-radius: 0;
+  width: 0;
+}
+
+Link {
+  background-color: transparent;
+  background-image: none;
+  text-shadow: none;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  color: #00A1E0;
+}
+
+Link-Hyperlink {
+  color: #00A1E0;
+  text-shadow: none;
+  text-decoration: none;
+}
+
+Link-Hyperlink:disabled {
+  color: #999;
+}
+
+Link-Hyperlink:hover {
+  color: #0088CA;
+  text-decoration: none;
+}
+
+Link-Hyperlink:hover:disabled {
+  color: #999;
+  text-decoration: none;
+}
+
+List {
+  background-color: #FFFFFF;
+  color: #333;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  border: none;
+}
+
+List[BORDER] {
+  border: 1px solid #CCC;
+}
+
+List-Item {
+  background-color: transparent;
+  background-image: none;
+  padding: 5px 7px;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  text-shadow: none;
+}
+
+List-Item:hover {
+  background-color: #E5E5E5;
+}
+
+List-Item:selected {
+  background-color: rgba(0, 161, 224, 0.2);
+}
+
+List-Item:even {
+  background-color: #F0F0F0;
+}
+
+List-GridLine {
+  color: transparent;
+}
+
+Menu {
+  background-color: #FFFFFF;
+  background-image: none;
+  border: 1px solid #CCC;
+  border-radius: 0;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  color: #333;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  padding: 0;
+  animation: none;
+}
+
+MenuItem {
+  background-color: #FFFFFF;
+  background-image: none;
+  color: #333;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  padding: 4px 10px;
+}
+
+MenuItem[SEPARATOR] {
+  background-color: #E5E5E5;
+  border-top: 1px solid #E5E5E5;
+  padding: 4px 10px;
+}
+
+MenuItem:onMenuBar {
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  padding: 12px 20px;
+}
+
+MenuItem:disabled, MenuItem:onMenuBar:disabled {
+  color: #CCC;
+}
+
+MenuItem:disabled:hover, MenuItem:onMenuBar:disabled:hover {
+  background-color: #FFFFFF;
+  color: #CCC;
+}
+
+MenuItem:hover, MenuItem:onMenuBar:hover {
+  color: #666;
+  background-color: #E5E5E5;
+  background-image: none;
+}
+
+MenuItem:pressed, MenuItem:onMenuBar:pressed {
+  color: #00A1E0;
+  background-color: #FFFFFF;
+  background-image: none;
+  text-shadow: none;
+}
+
+MenuItem-CheckIcon {
+  background-image: url("themes/icons/MenuItem-CheckIcon_selected.png");
+}
+
+MenuItem-CheckIcon:disabled {
+  background-image: url("themes/icons/MenuItem-CheckIcon_disabled.png");
+}
+
+MenuItem-RadioIcon {
+  background-image: url("themes/icons/MenuItem-CheckIcon_selected.png");
+}
+
+MenuItem-RadioIcon:disabled {
+  background-image: url("themes/icons/MenuItem-CheckIcon_disabled.png");
+}
+
+MenuItem-CascadeIcon {
+  background-image: url("themes/icons/Spinner-DownButton-Icon.png");
+}
+
+MenuItem-CascadeIcon:disabled {
+  background-image: url("themes/icons/Spinner-DownButton-Icon_hover.png");
+}
+
+ProgressBar {
+  background-color: #F0F0F0;
+  background-image: none;
+  border: none;
+  border-radius: 0;
+}
+
+ProgressBar-Indicator {
+  background-color: #3498DB;
+  background-image: none;
+  opacity: 1;
+}
+
+ProgressBar-Indicator:paused {
+  background-color: #CCC;
+  background-image: none;
+}
+
+ProgressBar-Indicator:error {
+  background-color: #E74C3C;
+  background-image: none;
+}
+
+Scale-Thumb:focused {
+  background-color: #00A1E0;
+  border: 1px solid #00A1E0;
+}
+
+Shell[TITLE], Shell[TITLE]:inactive, Shell[TITLE]:maximized, Shell[TITLE]:maximized:inactive, Shell[BORDER], Shell[BORDER]:inactive, Shell[BORDER]:maximized, Shell[BORDER]:maximized:inactive {
+  background-color: #FFFFFF;
+  background-image: none;
+  border: 1px solid #CCC;
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 0 10px 10px;
+}
+
+Shell-Titlebar {
+  background-color: #E5E5E5;
+  background-image: none;
+  border: none;
+  border-bottom: 1px solid #CCC;
+  color: #333;
+  font: 16px "Noto Sans", Arial, Helvetica, sans-serif;
+  height: 46px;
+  padding: 15px 10px;
+  spacing: 3px;
+  text-shadow: none;
+}
+
+Shell-Titlebar:inactive {
+  background-color: #F0F0F0;
+  background-image: none;
+  border: none;
+  border-bottom: 1px solid #CCC;
+  color: #333;
+}
+
+Shell-MinButton {
+  margin: 0 5px;
+  background-image: url("themes/icons/Shell-MinButton.png");
+}
+
+Shell-MinButton:hover, Shell-MinButton:inactive {
+  margin: 0 5px;
+  background-image: url("themes/icons/Shell-MinButton_hover.png");
+}
+
+Shell-MaxButton {
+  margin: 0 5px;
+  background-image: url("themes/icons/Shell-MaxButton.png");
+}
+
+Shell-MaxButton:hover, Shell-MaxButton:inactive {
+  margin: 0 5px;
+  background-image: url("themes/icons/Shell-MaxButton_hover.png");
+}
+
+Shell-MaxButton:maximized {
+  margin: 0 5px;
+  background-image: url("themes/icons/Shell-MinButton.png");
+}
+
+Shell-MaxButton:maximized:hover, Shell-MaxButton:maximized:inactive {
+  margin: 0 5px;
+  background-image: url("themes/icons/Shell-MinButton_hover.png");
+}
+
+Shell-CloseButton {
+  margin: 0 5px;
+  background-image: url("themes/icons/Shell-CloseButton.png");
+}
+
+Shell-CloseButton:hover, Shell-CloseButton:inactive {
+  margin: 0 5px;
+  background-image: url("themes/icons/Shell-CloseButton_hover.png");
+}
+
+Spinner, Spinner[BORDER] {
+  border: 1px solid #CCC;
+  border-radius: 0;
+  box-shadow: none;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  color: #333;
+}
+
+Spinner:focused, Spinner[BORDER]:focused {
+  border: 1px solid #00A1E0;
+  box-shadow: none;
+}
+
+Spinner:disabled, Spinner:read-only, Spinner[BORDER]:disabled, Spinner[BORDER]:read-only {
+  background-color: #E5E5E5;
+  box-shadow: none;
+}
+
+Spinner-Field {
+  padding: 5px 5px;
+}
+
+Spinner-UpButton, Spinner-UpButton:disabled {
+  background-color: transparent;
+  background-image: none;
+  width: 30px;
+  border: none;
+  border-left: 0;
+  border-radius: 0;
+}
+
+Spinner-UpButton-Icon {
+  background-image: url("themes/icons/Spinner-UpButton-Icon.png");
+}
+
+Spinner-UpButton-Icon:hover {
+  background-image: url("themes/icons/Spinner-UpButton-Icon_hover.png");
+}
+
+Spinner-DownButton, Spinner-DownButton:disabled {
+  background-color: transparent;
+  background-image: none;
+  width: 30px;
+  border: none;
+  border-left: 0;
+  border-radius: 0;
+}
+
+Spinner-DownButton-Icon {
+  background-image: url("themes/icons/Spinner-DownButton-Icon.png");
+}
+
+Spinner-DownButton-Icon:hover {
+  background-image: url("themes/icons/Spinner-DownButton-Icon_hover.png");
+}
+
+TabFolder {
+  border-color: #CCC;
+  border-radius: 2px;
+}
+
+TabItem {
+  color: #333;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  padding: 7px 15px 7px 12px;
+  spacing: 3px;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+TabItem:selected {
+  color: #333;
+}
+
+TabItem:disabled {
+  background-color: #E5E5E5;
+  background-image: none;
+  color: #333;
+}
+
+TabFolder-DropDownButton-Icon, TabFolder-DropDownButton-Icon:pressed {
+  background-image: url("themes/icons/DateTime-Calendar-NextYearButton.png");
+}
+
+TabFolder-DropDownButton-Icon:hover {
+  background-image: url("themes/icons/DateTime-Calendar-NextYearButton_hover.png");
+  border: none;
+}
+
+Text {
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  box-shadow: none;
+}
+
+Text[BORDER], Text[BORDER][SINGLE], Text[BORDER][MULTI] {
+  border: 1px solid #CCC;
+  border-radius: 0;
+  box-shadow: none;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  color: #333;
+}
+
+Text[BORDER]:focused, Text[BORDER][SINGLE]:focused, Text[BORDER][MULTI]:focused {
+  border: 1px solid #00A1E0;
+  box-shadow: none;
+}
+
+Text[BORDER]:disabled, Text[BORDER]:read-only, Text[BORDER][SINGLE]:disabled, Text[BORDER][SINGLE]:read-only, Text[BORDER][MULTI]:disabled, Text[BORDER][MULTI]:read-only {
+  background-color: #E5E5E5;
+  box-shadow: none;
+}
+
+Text[BORDER], Text[BORDER][SINGLE], Text[BORDER][MULTI] {
+  padding: 5px 5px;
+}
+
+Text:disabled, Text:read-only {
+  background-color: #E5E5E5;
+}
+
+Text-Message {
+  color: #333;
+  text-shadow: none;
+}
+
+Text-Search-Icon {
+  spacing: 3px;
+}
+
+Text-Cancel-Icon {
+  background-image: url("themes/icons/Text-Cancel-Icon.png");
+  spacing: 3px;
+}
+
+ToolBar {
+  padding: 0;
+  spacing: 2px;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+}
+
+ToolBar[FLAT] {
+  padding: 3px;
+}
+
+ToolItem, ToolItem[FLAT] {
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  color: #333;
+  padding: 4px;
+  spacing: 5px;
+  text-shadow: none;
+}
+
+ToolItem:hover, ToolItem:first:hover, ToolItem:last:hover, ToolItem[FLAT]:hover, ToolItem[FLAT]:first:hover, ToolItem[FLAT]:last:hover {
+  background-color: #F0F0F0;
+  background-image: none;
+  border: 1px solid #CCC;
+}
+
+ToolItem:selected, ToolItem:pressed, ToolItem:first:selected, ToolItem:first:pressed, ToolItem:last:selected, ToolItem:last:pressed, ToolItem[FLAT]:selected, ToolItem[FLAT]:pressed, ToolItem[FLAT]:first:selected, ToolItem[FLAT]:first:pressed, ToolItem[FLAT]:last:selected, ToolItem[FLAT]:last:pressed {
+  border: 1px solid #00A1E0;
+}
+
+ToolItem:disabled, ToolItem:first:disabled, ToolItem:last:disabled, ToolItem[FLAT]:disabled, ToolItem[FLAT]:first:disabled, ToolItem[FLAT]:last:disabled {
+  color: #CCC;
+}
+
+ToolItem[VERTICAL], ToolItem[VERTICAL]:first, ToolItem[VERTICAL]:last, ToolItem[FLAT][VERTICAL], ToolItem[FLAT][VERTICAL]:first, ToolItem[FLAT][VERTICAL]:last {
+  padding: 4px;
+}
+
+ToolItem:disabled {
+  opacity: 1;
+}
+
+ToolItem-Separator {
+  width: 4px;
+}
+
+ToolItem-DropDownIcon {
+  background-image: url("themes/icons/ToolItem-DropDownIcon.png");
+}
+
+ToolItem-DropDownIcon:disabled {
+  background-image: url("themes/icons/ToolItem-DropDownIcon_hover.png");
+}
+
+ToolItem-DropDownIcon:selected {
+  background-image: url("themes/icons/ToolItem-DropDownIcon_selected.png");
+}
+
+Table,
+Grid {
+  background-color: #FFFFFF;
+  background-image: none;
+  color: #333;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  border: none;
+}
+
+Table[BORDER],
+Grid[BORDER] {
+  border: 1px solid #CCC;
+}
+
+Table-RowOverlay,
+Grid-RowOverlay {
+  background-color: transparent;
+  background-image: none;
+  padding: 2px 7px 4px;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  text-shadow: none;
+}
+
+Table-RowOverlay:hover,
+Grid-RowOverlay:hover {
+  background-color: #E5E5E5;
+}
+
+Table-RowOverlay:selected,
+Grid-RowOverlay:selected {
+  background-color: rgba(0, 161, 224, 0.2);
+}
+
+Table-RowOverlay:selected:unfocused,
+Grid-RowOverlay:selected:unfocused {
+  background-color: rgba(0, 161, 224, 0.1);
+}
+
+TableColumn,
+GridColumn {
+  background-color: #FFFFFF;
+  background-image: none;
+  border-bottom: 2px solid #E5E5E5;
+  color: #333;
+  font: bold 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  padding: 8px 7px 9px;
+}
+
+TableColumn-SortIndicator:down,
+GridColumn-SortIndicator:down {
+  background-image: url("themes/icons/Spinner-DownButton-Icon.png");
+}
+
+TableColumn-SortIndicator:down:hover,
+GridColumn-SortIndicator:down:hover {
+  background-image: url("themes/icons/Spinner-DownButton-Icon_hover.png");
+}
+
+TableColumn-SortIndicator:up,
+GridColumn-SortIndicator:up {
+  background-image: url("themes/icons/Spinner-UpButton-Icon.png");
+}
+
+TableColumn-SortIndicator:up:hover,
+GridColumn-SortIndicator:up:hover {
+  background-image: url("themes/icons/Spinner-UpButton-Icon_hover.png");
+}
+
+Table-Cell,
+Grid-Cell {
+  padding: 2px 7px 4px;
+  spacing: 5px;
+}
+
+Table-GridLine,
+Grid-GridLine {
+  color: transparent;
+}
+
+Table-GridLine:vertical, Table-GridLine:horizontal,
+Grid-GridLine:vertical,
+Grid-GridLine:horizontal {
+  color: transparent;
+}
+
+Table-GridLine:vertical:header,
+Grid-GridLine:vertical:header {
+  color: #E5E5E5;
+}
+
+Table-Checkbox,
+Grid-Checkbox {
+  background-image: url("themes/icons/Button-CheckIcon.png");
+}
+
+Table-Checkbox:hover, Table-Checkbox:disabled,
+Grid-Checkbox:hover,
+Grid-Checkbox:disabled {
+  background-image: url("themes/icons/Button-CheckIcon_hover.png");
+}
+
+Table-Checkbox:checked,
+Grid-Checkbox:checked {
+  background-image: url("themes/icons/Button-CheckIcon_selected.png");
+}
+
+Table-Checkbox:checked:hover,
+Grid-Checkbox:checked:hover {
+  background-image: url("themes/icons/Button-CheckIcon_selected.png");
+}
+
+TableItem:even,
+GridItem:even {
+  background-color: #F0F0F0;
+}
+
+Tree {
+  background-color: #FFFFFF;
+  background-image: none;
+  color: #333;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  border: none;
+}
+
+Tree[BORDER] {
+  border: 1px solid #CCC;
+}
+
+Tree-RowOverlay {
+  background-color: transparent;
+  background-image: none;
+  padding: 5px 7px;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  text-shadow: none;
+}
+
+Tree-RowOverlay:hover {
+  background-color: #E5E5E5;
+}
+
+Tree-RowOverlay:selected {
+  background-color: rgba(0, 161, 224, 0.2);
+}
+
+Tree-RowOverlay:selected:unfocused {
+  background-color: rgba(0, 161, 224, 0.1);
+}
+
+TreeColumn {
+  background-color: #FFFFFF;
+  background-image: none;
+  border-bottom: 2px solid #E5E5E5;
+  color: #333;
+  font: bold 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  padding: 8px 7px 9px;
+}
+
+TreeColumn-SortIndicator:down {
+  background-image: url("themes/icons/Spinner-DownButton-Icon.png");
+}
+
+TreeColumn-SortIndicator:down:hover {
+  background-image: url("themes/icons/Spinner-DownButton-Icon_hover.png");
+}
+
+TreeColumn-SortIndicator:up {
+  background-image: url("themes/icons/Spinner-UpButton-Icon.png");
+}
+
+TreeColumn-SortIndicator:up:hover {
+  background-image: url("themes/icons/Spinner-UpButton-Icon_hover.png");
+}
+
+Tree-Cell {
+  padding: 5px 7px;
+  spacing: 5px;
+}
+
+Tree-GridLine {
+  color: transparent;
+}
+
+Tree-GridLine:vertical, Tree-GridLine:horizontal {
+  color: transparent;
+}
+
+Tree-GridLine:vertical:header {
+  color: #E5E5E5;
+}
+
+Tree-Checkbox {
+  background-image: url("themes/icons/Button-CheckIcon.png");
+}
+
+Tree-Checkbox:hover, Tree-Checkbox:disabled {
+  background-image: url("themes/icons/Button-CheckIcon_hover.png");
+}
+
+Tree-Checkbox:checked {
+  background-image: url("themes/icons/Button-CheckIcon_selected.png");
+}
+
+Tree-Checkbox:checked:hover {
+  background-image: url("themes/icons/Button-CheckIcon_selected.png");
+}
+
+Tree-Indent {
+  width: 20px;
+}
+
+Tree-Indent:collapsed, Tree-Indent:collapsed:first, Tree-Indent:collapsed:last {
+  background-image: url("themes/icons/Spinner-DownButton-Icon.png");
+}
+
+Tree-Indent:collapsed:hover, Tree-Indent:collapsed:first:hover, Tree-Indent:collapsed:last:hover {
+  background-image: url("themes/icons/Spinner-DownButton-Icon_hover.png");
+}
+
+Tree-Indent:expanded, Tree-Indent:expanded:first, Tree-Indent:expanded:last {
+  background-image: url("themes/icons/Spinner-UpButton-Icon.png");
+}
+
+Tree-Indent:expanded:hover, Tree-Indent:expanded:first:hover, Tree-Indent:expanded:last:hover {
+  background-image: url("themes/icons/Spinner-UpButton-Icon_hover.png");
+}
+
+Display {
+  background-color: #FFFFFF;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  rwt-fontlist: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+}
+
+Widget-ToolTip {
+  background-color: #FFFFFF;
+  background-image: none;
+  border: 1px solid #CCC;
+  border-radius: 0;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  color: #333;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+}
+
+Widget-ToolTip-Pointer:up {
+  background-image: url("themes/icons/Widget-ToolTip-Pointer_up.png");
+}
+
+Widget-ToolTip-Pointer:down {
+  background-image: url("themes/icons/Widget-ToolTip-Pointer_down.png");
+}
+
+Widget-ToolTip-Pointer:left {
+  background-image: url("themes/icons/Widget-ToolTip-Pointer_left.png");
+}
+
+Widget-ToolTip-Pointer:right {
+  background-image: url("themes/icons/Widget-ToolTip-Pointer_right.png");
+}
+
+ErrorBox {
+  background-color: #FFFFFF;
+  color: #333;
+  border: 1px solid #E74C3C;
+  border-radius: 2px;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+ErrorBox-Titlebar {
+  background-color: #F9D2CE;
+  background-image: none;
+  border-bottom: 1px solid #E74C3C;
+  font: 16px "Noto Sans", Arial, Helvetica, sans-serif;
+  color: #E74C3C;
+}
+
+.Section_Twistie {
+  background-image: url("themes/icons/Spinner-DownButton-Icon.png");
+}
+
+.Section_Section {
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+}
+
+.Section_Label {
+  color: #333;
+  font: bold 12px "Noto Sans", Arial, Helvetica, sans-serif;
+}
+
+.ImageHyperlink {
+  background-color: #E74C3C;
+  background-image: url("themes/icons/Spinner-DownButton-Icon.png");
+  color: #00A1E0;
+  font: 12px "Noto Sans", Arial, Helvetica, sans-serif;
+  margin: 10px;
+  padding: 10px;
+  spacing: 10px;
+  text-decoration: underline;
+  text-shadow: none;
+}
+
+.Pagination_Composite {
+  padding: 0;
+}
+
+.Pagination_Label {
+  padding: 0;
+}

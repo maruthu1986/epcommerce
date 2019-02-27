@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<!-- Product Characteristics Service -->
+	<bean id="cachingProductCharacteristicsService" class="com.elasticpath.caching.core.catalog.CachingProductCharacteristicsServiceImpl">
+		<property name="cache">
+			<bean name="productCharacteristicsCache" parent="abstractCacheBean"/>
+		</property>
+		<property name="delegateService" ref="nonCachingProductCharacteristicsService"/>
+	</bean>
+
+	<!-- Category Reader -->
+	<bean id="categoryLookupCache"
+		  class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="categoryLookupCache"/>
+		<property name="cacheManager" ref="epEhcacheManager"/>
+		<property name="timeToLive">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/CATEGORY/timeToLive" />
+			</bean>
+		</property>
+		<property name="timeToIdle">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/CATEGORY/timeToIdle" />
+			</bean>
+		</property>
+		<property name="maxEntriesLocalHeap">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/CATEGORY/maxEntriesLocalHeap" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="childCategoryLookupEhcache"
+		  class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="childCategoryLookupCache"/>
+		<property name="cacheManager" ref="epEhcacheManager"/>
+		<property name="timeToLive">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/CATEGORY/timeToLive" />
+			</bean>
+		</property>
+		<property name="timeToIdle">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/CATEGORY/timeToIdle" />
+			</bean>
+		</property>
+		<property name="maxEntriesLocalHeap">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/CATEGORY/maxEntriesLocalHeap" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="categoryLookupEntityCache"
+		  factory-bean="localEntityCacheFactory" factory-method="createCache"
+		  depends-on="categoryLookupCache">
+		<constructor-arg value="categoryLookupCache"/>
+	</bean>
+
+	<bean id="childCategoryLookupCache"
+		  factory-bean="localCacheFactory" factory-method="createCache"
+		  depends-on="childCategoryLookupEhcache">
+		<constructor-arg value="childCategoryLookupCache"/>
+	</bean>
+
+	<bean id="cachingCategoryLookup"
+		  class="com.elasticpath.caching.core.catalog.CachingCategoryLookupImpl">
+		<property name="categoryCache">
+			<bean class="com.elasticpath.cache.impl.MultiKeyCacheImpl">
+				<property name="keyProperties">
+					<list>
+						<value>uidPk</value>
+						<value>guid</value>
+						<value>compoundGuid</value>
+					</list>
+				</property>
+				<property name="cache" ref="categoryLookupEntityCache"/>
+			</bean>
+		</property>
+		<property name="childCategoryCache" ref="childCategoryLookupCache"/>
+		<property name="fallbackReader" ref="nonCachingCategoryLookup"/>
+	</bean>
+
+	<!-- Product Lookup -->
+	<bean id="productLookupCache"
+		  class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="productLookupCache"/>
+		<property name="cacheManager" ref="epEhcacheManager"/>
+		<property name="timeToLive">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/PRODUCT/timeToLive" />
+			</bean>
+		</property>
+		<property name="timeToIdle">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/PRODUCT/timeToIdle" />
+			</bean>
+		</property>
+		<property name="maxEntriesLocalHeap">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/PRODUCT/maxEntriesLocalHeap" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="productLookupEntityCache"
+		  factory-bean="localEntityCacheFactory" factory-method="createCache"
+		  depends-on="productLookupCache">
+		<constructor-arg value="productLookupCache"/>
+	</bean>
+
+	<bean id="cachingProductLookup"
+		  class="com.elasticpath.caching.core.catalog.CachingProductLookupImpl">
+		<property name="cache">
+			<bean class="com.elasticpath.cache.impl.MultiKeyCacheImpl">
+				<property name="keyProperties">
+					<list>
+						<value>uidPk</value>
+						<value>guid</value>
+					</list>
+				</property>
+				<property name="cache" ref="productLookupEntityCache"/>
+			</bean>
+		</property>
+		<property name="fallbackLookup" ref="nonCachingProductLookup"/>
+	</bean>
+
+	<!-- ProductSku Lookup -->
+	<bean id="productSkuCacheTemplate" abstract="true"
+		  class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="cacheManager" ref="epEhcacheManager"/>
+		<property name="timeToLive">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/PRODUCTSKU/timeToLive" />
+			</bean>
+		</property>
+		<property name="timeToIdle">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/PRODUCTSKU/timeToIdle" />
+			</bean>
+		</property>
+		<property name="maxEntriesLocalHeap">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/PRODUCTSKU/maxEntriesLocalHeap" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="skuUidToProductEhcache" parent="productSkuCacheTemplate">
+		<property name="name" value="productUidBySkuUidCache"/>
+	</bean>
+
+	<bean id="skuUidToProductCache"
+		  factory-bean="localCacheFactory" factory-method="createCache"
+		  depends-on="skuUidToProductEhcache">
+		<constructor-arg value="productUidBySkuUidCache"/>
+	</bean>
+
+	<bean id="skuGuidToProductEhcache" parent="productSkuCacheTemplate">
+		<property name="name" value="productUidBySkuGuidCache"/>
+	</bean>
+
+	<bean id="skuGuidToProductCache"
+		  factory-bean="localCacheFactory" factory-method="createCache"
+		  depends-on="skuGuidToProductEhcache">
+		<constructor-arg value="productUidBySkuGuidCache"/>
+	</bean>
+
+	<bean id="skuCodeToProductEhcache" parent="productSkuCacheTemplate">
+		<property name="name" value="productUidBySkuCodeCache"/>
+	</bean>
+
+	<bean id="skuCodeToProductCache"
+		  factory-bean="localCacheFactory" factory-method="createCache"
+		  depends-on="skuCodeToProductEhcache">
+		<constructor-arg value="productUidBySkuCodeCache"/>
+	</bean>
+
+	<bean id="skuCodeToExistenceStatusEhCache" parent="productSkuCacheTemplate">
+		<property name="name" value="skuExistsBySkuCodeCache"/>
+	</bean>
+
+	<bean id="skuCodeToExistenceStatusCache"
+		  factory-bean="localCacheFactory" factory-method="createCache"
+		  depends-on="skuCodeToExistenceStatusEhCache">
+		<constructor-arg value="skuExistsBySkuCodeCache"/>
+	</bean>
+
+	<bean id="semiCachingProductSkuLookup"
+		  class="com.elasticpath.service.catalog.impl.ProductSkuLookupImpl">
+		<property name="productDao" ref="productDao"/>
+		<property name="productLookup" ref="cachingProductLookup"/>
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="cachingProductSkuLookup"
+		  class="com.elasticpath.caching.core.catalog.CachingProductSkuLookupImpl">
+		<property name="uidToProductCache" ref="skuUidToProductCache"/>
+		<property name="guidToProductCache" ref="skuGuidToProductCache"/>
+		<property name="skuCodeToProductCache" ref="skuCodeToProductCache"/>
+		<property name="skuCodeToExistenceStatusCache" ref="skuCodeToExistenceStatusCache"/>
+		<property name="fallbackProductSkuLookup" ref="semiCachingProductSkuLookup"/>
+		<property name="productLookup" ref="cachingProductLookup"/>
+	</bean>
+</beans>

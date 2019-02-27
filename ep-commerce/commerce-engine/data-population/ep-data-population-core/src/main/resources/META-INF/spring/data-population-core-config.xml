@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<context:property-placeholder ignore-unresolvable="true"/>
+	<context:annotation-config/>
+
+	<bean id="dataPopulationCore" class="com.elasticpath.datapopulation.core.DataPopulationCore" scope="prototype">
+		<property name="dataPopulationContext" ref="dataPopulationContext"/>
+		<property name="dataPopulationActions" ref="dataPopulationActions"/>
+	</bean>
+
+	<bean id="dataPopulationContext" class="com.elasticpath.datapopulation.core.context.impl.DataPopulationContextImpl" scope="singleton"/>
+
+	<util:map id="dataPopulationActions" key-type="java.lang.String">
+		<!-- high level actions -->
+		<entry key="reset-db" value-ref="resetDatabaseAction"/>
+		<entry key="update-db" value-ref="updateDatabaseAction"/>
+		<entry key="filter-data" value-ref="filterDataAction"/>
+	</util:map>
+
+	<bean id="resetDatabaseAction" class="com.elasticpath.datapopulation.core.action.CompositeDataPopulationAction">
+		<property name="dataPopulationActions">
+			<util:list list-class="java.util.ArrayList">
+				<ref bean="startupAction"/>
+				<ref bean="initializeDatabaseAction"/>
+				<ref bean="updateSchemaAndDataAction"/>
+			</util:list>
+		</property>
+	</bean>
+
+	<bean id="updateDatabaseAction" class="com.elasticpath.datapopulation.core.action.CompositeDataPopulationAction">
+		<property name="dataPopulationActions">
+			<util:list>
+				<ref bean="startupAction"/>
+				<ref bean="updateSchemaAndDataAction"/>
+			</util:list>
+		</property>
+	</bean>
+
+	<bean id="updateSchemaAndDataAction" class="com.elasticpath.datapopulation.core.action.CompositeDataPopulationAction">
+		<property name="dataPopulationActions">
+			<util:list>
+				<ref bean="filterDataAction"/>
+				<ref bean="initializeSchemaAction"/>
+				<ref bean="importDataAction"/>
+			</util:list>
+		</property>
+	</bean>
+
+	<bean id="startupAction" class="com.elasticpath.datapopulation.core.action.CompositeDataPopulationAction">
+		<property name="dataPopulationActions">
+			<util:list>
+				<ref bean="cleanWorkDirectoryAction"/>
+				<ref bean="generateImportExportAction"/>
+			</util:list>
+		</property>
+	</bean>
+
+	<!-- Action Types -->
+	<bean id="initializeDatabaseAction" class="com.elasticpath.datapopulation.core.action.impl.InitializeDatabaseActionImpl"/>
+	<bean id="filterDataAction" class="com.elasticpath.datapopulation.core.action.impl.FilterDataActionImpl"/>
+
+	<bean id="initializeSchemaAction" class="com.elasticpath.datapopulation.core.action.impl.InitializeSchemaActionImpl"/>
+	<bean id="importDataAction" class="com.elasticpath.datapopulation.core.action.impl.ImportDataActionImpl"/>
+
+	<bean id="generateImportExportAction" class="com.elasticpath.datapopulation.core.action.impl.GenerateImportExportFileActionImpl">
+		<property name="output" ref="filteredImportExportConfigFile"/>
+	</bean>
+	<bean id="invokeLiquibaseAction" class="com.elasticpath.datapopulation.core.action.impl.RunLiquibaseActionImpl"/>
+	<bean id="cleanWorkDirectoryAction" class="com.elasticpath.datapopulation.core.action.impl.CleanWorkDirectoryActionImpl">
+		<property name="workingDirectory" ref="workingDirectory"/>
+	</bean>
+	<bean id="runSqlAction" class="com.elasticpath.datapopulation.core.action.impl.RunSqlActionImpl"/>
+
+	<!-- Services -->
+	<bean id="filterService" class="com.elasticpath.datapopulation.core.service.FilterService" scope="singleton"/>
+	<bean id="sqlService" class="com.elasticpath.datapopulation.core.service.SqlService" scope="singleton"/>
+	<bean id="liquibaseService" class="com.elasticpath.datapopulation.core.service.LiquibaseService" scope="singleton">
+		<property name="standardSpringLiquibaseConfiguration" ref="serviceSpringLiquibaseConfiguration"/>
+	</bean>
+
+	<!-- Create the standard Spring-Liquibase configuration bean. -->
+	<bean id="serviceSpringLiquibaseConfiguration" parent="abstractServiceSpringLiquibaseConfiguration" lazy-init="true"/>
+
+	<!-- Create the abstract Spring-Liquibase configuration bean, using our sub-class.
+		Note: It must have a prototype scope since its super class (SpringLiquibase) is stateful. -->
+	<bean id="abstractServiceSpringLiquibaseConfiguration" abstract="true" scope="prototype"
+		  class="com.elasticpath.datapopulation.core.service.liquibase.DpServiceSpringLiquibase">
+		<!-- We have to set shouldRun to false, as otherwise Liquibase will try to run an update as part of this bean definition.
+		 	Instead we are using the class to run an update on demand. -->
+		<property name="shouldRun" value="false"/>
+	</bean>
+
+	<bean id="classpathResourceResolver" class="com.elasticpath.datapopulation.core.utils.ClasspathResourceResolverUtil"/>
+
+	<import resource="classpath*:META-INF/spring/standard-converters-config.xml"/>
+	<import resource="classpath*:META-INF/spring/resource-location.xml"/>
+	<import resource="classpath*:META-INF/spring/ep-data-population-plugin.xml"/>
+
+</beans>

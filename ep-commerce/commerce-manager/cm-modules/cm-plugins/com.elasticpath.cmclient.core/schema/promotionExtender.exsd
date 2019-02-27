@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="com.elasticpath.cmclient.core" xmlns="http://www.w3.org/2001/XMLSchema">
+   <annotation>
+      <appInfo>
+         <meta.schema plugin="com.elasticpath.cmclient.core" id="PromotionExtender" name="PromotionExtender"/>
+      </appInfo>
+      <documentation>
+         Definition for CM Extension points. Defines Promotion Extension points.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="0" maxOccurs="unbounded">
+            <element ref="Messaging"/>
+            <element ref="Widget"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="Messaging">
+      <complexType>
+         <attribute name="className" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Name of the Messaging extension class.
+                  Implements com.elasticpath.cmclient.core.helpers.extenders.MessageReader
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java"  basedOn=":com.elasticpath.cmclient.core.helpers.extenders.MessageReader" />
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="Widget">
+      <complexType>
+         <attribute name="className" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Name of the Widget extension class.
+                  Implements com.elasticpath.cmclient.core.helpers.extenders.PromotionWidgetCreator
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":com.elasticpath.cmclient.core.helpers.extenders.PromotionWidgetCreator"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+</schema>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:camel="http://camel.apache.org/schema/spring"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+		">
+
+	<camel:camelContext id="ep-dataimport-email-handler" xmlns="http://camel.apache.org/schema/spring">
+		<routeBuilder ref="importJobCompletedEmailHandlingRouteBuilder"/>
+	</camel:camelContext>
+
+	<bean name="ep-dataimport-email-handler:beanPostProcessor" class="com.elasticpath.messaging.impl.FastCamelBeanPostProcessor">
+		<property name="annotatedClassList" ref="camelAnnotatedClassList"/>
+		<property name="camelId" value="ep-dataimport-email-handler"/>
+	</bean>
+
+	<bean id="emailPropertyHelperImport" scope="prototype" class="com.elasticpath.email.handler.dataimport.helper.impl.ImportEmailPropertyHelperImpl" />
+
+	<import resource="classpath:/spring/dataimport-email/import-job-completed.xml"/>
+
+</beans>

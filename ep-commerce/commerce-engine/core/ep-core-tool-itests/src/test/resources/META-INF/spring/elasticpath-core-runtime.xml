@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+	<!-- No idea. -->
+	<bean id="servicePreInterceptors" class="java.util.ArrayList" />
+
+    <!--This is overriding the datasource for the ep-core-tool-logic so that spring can handle it and the test context can setup the data-->
+	<!--<bean id="dataSource" class="com.elasticpath.epcoretool.DataSourceFactory"/>-->
+    <jndi-lookup id="dataSource" jndi-name="jdbc/epjndi" resource-ref="true"
+                 xmlns="http://www.springframework.org/schema/jee"/>
+
+	<import resource="classpath:spring/service/service.xml" />
+	<import resource="classpath:spring/prototypes/prototypes.xml"/>
+	<import resource="classpath:spring/models/domainModel.xml" />
+	<import resource="classpath:spring/dataaccess/openjpa/openjpa.xml" />
+	<import resource="classpath:spring/dataaccess/dao.xml" />
+	<import resource="classpath:spring/commons/util-config.xml" />
+	<import resource="classpath:spring/commons/validators.xml" />
+	<import resource="classpath:spring/service/serviceSearch.xml" />
+	
+   	<bean id="elasticPath"
+		class="com.elasticpath.domain.impl.ElasticPathImpl"
+		factory-method="getInstance">
+		<property name="beanFactory" ref="coreBeanFactory" />
+		<property name="messageSource" ref="coreMessageSource" />
+		<property name="webInfPath" value="target"/>
+	</bean>
+
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/plugin.xml"/>
+
+</beans>

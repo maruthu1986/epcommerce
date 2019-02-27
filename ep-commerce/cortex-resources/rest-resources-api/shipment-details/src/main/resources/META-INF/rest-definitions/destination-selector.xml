@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>shipmentdetails</name>
+
+		<resource>
+			<name>destination-info-selector</name>
+			<description><![CDATA[Selector to choose the destination for the order.]]></description>
+			<uri>{destination-info}/selector</uri>
+			<selector-for>destination-info</selector-for>
+		</resource>
+
+		<resource>
+			<name>destination-info-selector-choice</name>
+			<description><![CDATA[An option for the destination shipping address.]]></description>
+			<uri>{destination-info-selector}/{addresses.address}</uri>
+			<choices-for>destination-info-selector</choices-for>
+		</resource>
+
+		<relationship>
+			<name>destination-info-selector-to-destination-info</name>
+			<description><![CDATA[Retrieve destination info.]]></description>
+			<rel>destinationinfo</rel>
+			<rev>selector</rev>
+			<from>destination-info-selector</from>
+			<to>destination-info</to>
+		</relationship>
+
+	</family>
+</definitions>

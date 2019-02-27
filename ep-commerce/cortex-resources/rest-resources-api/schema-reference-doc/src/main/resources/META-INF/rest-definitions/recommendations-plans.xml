@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>recommendations</name>
+
+		<plan>
+			<name>read-scope-recommendations</name>
+			<description><![CDATA[Read recommended items for a scope. This API is currently not available.]]></description>
+			<step>
+				<description><![CDATA[Read a specific recommendation group, by following the recommendation group's dynamically populated rel name: {recommendation-group-rel}.]]></description>
+				<start>item-recommendation-groups</start>
+				<follow-link>{recommendation-group-rel}</follow-link>
+				<result>item-recommendation-group</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-item-recommendations</name>
+			<description><![CDATA[Read other items recommended for an item.]]></description>
+			<step>
+				<description><![CDATA[Read all recommendation groups for an [item][items].]]></description>
+				<start>items.item</start>
+				<follow-link>recommendations</follow-link>
+				<result>item-recommendation-groups</result>
+			</step>
+			<step>
+				<description><![CDATA[Read a specific recommendation group, by following the recommendation group's dynamically populated rel name: {recommendation-group-rel}.]]></description>
+				<start>item-recommendation-groups</start>
+				<follow-link>{recommendation-group-rel}</follow-link>
+				<result>item-recommendation-group</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-navigation-node-recommendations</name>
+			<description><![CDATA[Read recommended items for a navigation node. This API is currently not available.]]></description>
+			<step>
+				<description>
+					<![CDATA[Read all recommendation groups for a [navigation node][navigations].]]></description>
+				<start>navigations.navigation</start>
+				<follow-link>recommendations</follow-link>
+				<result>item-recommendation-groups</result>
+			</step>
+			<step>
+				<description><![CDATA[Read a specific recommendation group, by following the recommendation group's dynamically populated rel name: {recommendation-group-rel}.]]></description>
+				<start>item-recommendation-groups</start>
+				<follow-link>{recommendation-group-rel}</follow-link>
+				<result>item-recommendation-group</result>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

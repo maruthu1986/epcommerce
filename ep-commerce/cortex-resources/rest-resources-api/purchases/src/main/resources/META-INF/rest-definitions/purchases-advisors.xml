@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>purchases</name>
+		<description><![CDATA[Advisors on the purchase form]]></description>
+
+		<advisor>
+			<name>purchase-form-validation-info</name>
+			<description>Advisor on the purchase form for validation violations.</description>
+			<blocks>create-purchase-form</blocks>
+		</advisor>
+	</family>
+</definitions>

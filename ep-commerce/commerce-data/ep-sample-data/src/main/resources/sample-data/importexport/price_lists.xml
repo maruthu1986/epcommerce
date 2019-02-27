@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<price_lists>
+<price_list>
+    <guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</guid>
+    <description>PL_List_Price_Only</description>
+    <currency_code>USD</currency_code>
+    <name>PL_List_Price-USD</name>
+    <hidden>false</hidden>
+</price_list>
+
+<price_list>
+    <guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</guid>
+    <description>PL_List_Price_Only-EUR</description>
+    <currency_code>EUR</currency_code>
+    <name>PL_List_Price-EUR</name>
+    <hidden>false</hidden>
+</price_list>
+</price_lists>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.rest.resource.cortex</groupId>
+		<artifactId>rest-resources</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ep-resource-promotions</artifactId>
+		<name>EP ∷ / Promotions</name>
+		<description>Elastic Path REST - Promotions Resource</description>
+	<packaging>bundle</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath.rest.resource.cortex</groupId>
+			<artifactId>ep-resource-uribuilder-apis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.definitions</groupId>
+			<artifactId>ep-resource-coupons-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.definitions</groupId>
+			<artifactId>ep-resource-promotions-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.definitions</groupId>
+			<artifactId>ep-resource-shipment-details-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.definitions</groupId>
+			<artifactId>ep-resource-items-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.definitions</groupId>
+			<artifactId>ep-resource-orders-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.definitions</groupId>
+			<artifactId>ep-resource-carts-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest</groupId>
+			<artifactId>ep-rs-annotated-dispatch</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.helix</groupId>
+			<artifactId>repository-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.helix</groupId>
+			<artifactId>helix-data-injectors</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.helix</groupId>
+			<artifactId>helix-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j</groupId>
+			<artifactId>peaberry</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.integration.epcommerce</groupId>
+			<artifactId>ep-rest-repositories-epcommerce</artifactId>
+		</dependency>
+</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.elasticpath.rest.helix</groupId>
+				<artifactId>helix-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<configuration>
+					<obrRepository>NONE</obrRepository>
+					<instructions>
+						<Require-Capability>osgi.service; filter:="(objectClass=com.elasticpath.rest.helix.client.extender.BootstrapExtender)"; effective:=active,</Require-Capability>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<bean id="bundlePriceAdjustmentCacheTemplate" abstract="true"
+		  class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="cacheManager" ref="epEhcacheManager"/>
+		<property name="timeToLive" value="600"/>
+		<property name="timeToIdle" value="600"/>
+	</bean>
+
+	<bean id="bundlePriceAdjustmentCacheEhcache" parent="bundlePriceAdjustmentCacheTemplate">
+		<property name="name" value="bundlePriceAdjustmentCache"/>
+	</bean>
+
+	<bean id="bundlePriceAdjustmentCache"
+		  factory-bean="localCacheFactory" factory-method="createCache"
+		  depends-on="bundlePriceAdjustmentCacheEhcache">
+		<constructor-arg value="bundlePriceAdjustmentCache"/>
+	</bean>
+
+	<bean id="cachingPriceAdjustmentService"
+		  class="com.elasticpath.caching.core.pricing.CachingPriceAdjustmentServiceImpl">
+		<property name="cache" ref="bundlePriceAdjustmentCache"/>
+		<property name="fallbackService" ref="nonCachingPriceAdjustmentService"/>
+	</bean>
+
+	<bean id="priceListAssignmentEhCache"
+		  class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="priceListAssignmentCache"/>
+		<property name="cacheManager" ref="epEhcacheManager"/>
+		<property name="timeToLive" value="600"/>
+		<property name="timeToIdle" value="600"/>
+	</bean>
+
+	<bean id="priceListAssignmentCache"
+		  factory-bean="localCacheFactory" factory-method="createCache"
+		  depends-on="priceListAssignmentEhCache">
+		<constructor-arg value="priceListAssignmentCache"/>
+	</bean>
+
+	<bean id="cachingPriceListAssignmentService" class="com.elasticpath.caching.core.pricing.CachingPriceListAssignmentServiceImpl">
+		<property name="fallbackService" ref="nonCachingPriceListAssignmentService"/>
+		<property name="priceListAssignmentCache" ref="priceListAssignmentCache"/>
+	</bean>
+
+	<bean id="baseAmountCacheTemplate" abstract="true"
+		  class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="cacheManager" ref="epEhcacheManager"/>
+		<property name="timeToLive" value="600"/>
+		<property name="timeToIdle" value="600"/>
+	</bean>
+
+	<bean id="baseAmountCacheEhcache" parent="baseAmountCacheTemplate">
+		<property name="name" value="baseAmountCache"/>
+	</bean>
+
+	<bean id="baseAmountCache"
+		  factory-bean="localCacheFactory" factory-method="createCache"
+		  depends-on="baseAmountCacheEhcache">
+		<constructor-arg value="baseAmountCache"/>
+	</bean>
+
+	<bean id="cachingBaseAmountFinder"
+		  class="com.elasticpath.caching.core.pricing.CachingBaseAmountFinderImpl">
+		<property name="cache" ref="baseAmountCache"/>
+		<property name="fallBackFinder" ref="nonCachingBaseAmountFinder"/>
+	</bean>
+</beans>

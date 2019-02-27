@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>navigations</name>
+		<plan>
+			<name>read-navigation</name>
+			<description><![CDATA[Read a single navigation node.]]></description>
+			<step>
+				<description><![CDATA[Read a navigation node.]]></description>
+				<start>navigations</start>
+				<follow-link>element</follow-link>
+				<link-back>top</link-back>
+				<result>navigation</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-navigation-item</name>
+			<description><![CDATA[Retrieve a paginated list of items associated with the navigation node.]]></description>
+			<step>
+				<description><![CDATA[Read the paginated list of items from the navigation node.]]></description>
+				<start>navigation</start>
+				<follow-link>items</follow-link>
+				<result>searches.navigation-search-result</result>
+			</step>
+			<step>
+				<description><![CDATA[Read an item from the navigation node's paginated items list.]]></description>
+				<start>searches.navigation-search-result</start>
+				<follow-link>element</follow-link>
+				<result>items.item</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-navigation-to-child</name>
+			<description><![CDATA[Read a navigation node's child node.]]></description>
+			<step>
+				<description><![CDATA[The child of the navigation node]]></description>
+				<start>navigation</start>
+				<follow-link>child</follow-link>
+				<result>navigation</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-navigation-to-parent</name>
+			<description><![CDATA[Read a navigation node's parent node.]]></description>
+			<step>
+				<description><![CDATA[The parent of the navigation node]]></description>
+				<start>navigation</start>
+				<follow-link>parent</follow-link>
+				<result>navigation</result>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

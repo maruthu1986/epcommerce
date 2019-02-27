@@ -1,0 +1,26 @@
+<customer guid="testGuid">
+	<status>0</status>
+	<addresses/>
+	<payment_methods>
+		<payment_token>
+			<payment_token_display_value>testPaymentTokenDisplayValue</payment_token_display_value>
+			<payment_token_value>testPaymentTokenValue</payment_token_value>
+		</payment_token>
+		<payment_token>
+			<payment_token_display_value>testPaymentTokenDisplayValue2</payment_token_display_value>
+			<payment_token_value>testPaymentTokenValue2</payment_token_value>
+		</payment_token>
+	</payment_methods>
+	<default_payment_method>
+		<payment_token>
+			<payment_token_display_value>testPaymentTokenDisplayValue2</payment_token_display_value>
+			<payment_token_value>testPaymentTokenValue2</payment_token_value>
+		</payment_token>
+		<payment_token>
+			<payment_token_display_value>testPaymentTokenDisplayValue</payment_token_display_value>
+			<payment_token_value>testPaymentTokenValue</payment_token_value>
+		</payment_token>
+	</default_payment_method>
+	<groups/>
+	<customer_profile/>
+</customer>

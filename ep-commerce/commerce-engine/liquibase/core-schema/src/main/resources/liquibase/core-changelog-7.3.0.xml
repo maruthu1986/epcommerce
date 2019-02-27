@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) Elastic Path Software Inc., 2018
+  -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+				   logicalFilePath="com/elasticpath/core/db/core-changelog-7.3.0.xml">
+
+	<changeSet id="7.3.0-update-Boolean-setting-definitions-to-boolean" author="elasticpath">
+		<comment>Updates all Setting Definitions of type 'boolean' to type 'Boolean'</comment>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="VALUE_TYPE" value="Boolean"/>
+			<where>VALUE_TYPE='boolean'</where>
+		</update>
+	</changeSet>
+
+	<changeSet id="7.3.0-stronger-types-for-search-setting-definitions" author="elasticpath">
+		<comment>Modifies the type of search-related Setting Definitions to match the types required in their usage.</comment>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="VALUE_TYPE" value="Integer"/>
+			<where>PATH='COMMERCE/SEARCH/minimumResultsThreshold'</where>
+		</update>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="VALUE_TYPE" value="Integer"/>
+			<where>PATH='COMMERCE/SEARCH/prefixLength'</where>
+		</update>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="VALUE_TYPE" value="Integer"/>
+			<where>PATH='COMMERCE/SEARCH/maximumResultsThreshold'</where>
+		</update>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="VALUE_TYPE" value="Integer"/>
+			<where>PATH='COMMERCE/SEARCH/maximumSuggestionsPerWord'</where>
+		</update>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="VALUE_TYPE" value="BigDecimal"/>
+			<where>PATH='COMMERCE/SEARCH/accuracy'</where>
+		</update>
+	</changeSet>
+
+	<changeSet id="7.3.0-rename-tcartorder-shipping-service-level" author="elasticpath">
+		<preConditions onFail="MARK_RAN">
+			<and>
+				<columnExists tableName="TCARTORDER" columnName="SHIPPING_SERVICE_LEVEL_GUID"/>
+				<not>
+					<columnExists tableName="TCARTORDER" columnName="SHIPPING_OPTION_CODE"/>
+				</not>
+			</and>
+		</preConditions>
+		<comment>Renames TCARTORDER's SHIPPING_SERVICE_LEVEL_GUID field to SHIPPING_OPTION_CODE to match the changes introduced by the Shipping SPI.</comment>
+		<renameColumn tableName="TCARTORDER"
+					  columnDataType="VARCHAR(64)"
+					  oldColumnName="SHIPPING_SERVICE_LEVEL_GUID"
+					  newColumnName="SHIPPING_OPTION_CODE"
+					  remarks="The Shipping Option Code currently selected in cart" />
+
+		<sql>
+			<comment>migrating existing records. populating the new field shipping option code against its value of service level guid.</comment>
+			update TCARTORDER
+			set SHIPPING_OPTION_CODE = (select CODE from TSHIPPINGSERVICELEVEL where GUID = TCARTORDER.SHIPPING_OPTION_CODE)
+			where SHIPPING_OPTION_CODE is not null and (select CODE from TSHIPPINGSERVICELEVEL where GUID = TCARTORDER.SHIPPING_OPTION_CODE) is not null
+		</sql>
+	</changeSet>
+
+	<changeSet id="7.3.0-update-tordershipment-shipping-option-fields" author="elasticpath">
+		<preConditions onFail="MARK_RAN">
+			<and>
+				<columnExists tableName="TORDERSHIPMENT" columnName="SERVICE_LEVEL_GUID"/>
+				<columnExists tableName="TORDERSHIPMENT" columnName="SERVICE_LEVEL"/>
+				<columnExists tableName="TORDERSHIPMENT" columnName="CARRIER"/>
+				<not>
+					<columnExists tableName="TORDERSHIPMENT" columnName="SHIPPING_OPTION_CODE"/>
+				</not>
+				<not>
+					<columnExists tableName="TORDERSHIPMENT" columnName="SHIPPING_OPTION_NAME"/>
+				</not>
+				<not>
+					<columnExists tableName="TORDERSHIPMENT" columnName="CARRIER_CODE"/>
+				</not>
+				<not>
+					<columnExists tableName="TORDERSHIPMENT" columnName="CARRIER_NAME"/>
+				</not>
+			</and>
+		</preConditions>
+		<comment>Updates TORDERSHIPMENT to use ShippingOption fields to match the changes introduced by the Shipping Calculation SPI.</comment>
+
+		<!-- Remove the foreign key constraint on TSHIPPINGSERVICELEVEL since the SERVICE_LEVEL_GUID is being renamed to SHIPPING_OPTION_CODE
+			as it no longer necessarily references a record in TSHIPPINGSERVICELEVEL as external Shipping Option providers can be used instead. -->
+		<dropForeignKeyConstraint baseTableName="TORDERSHIPMENT" constraintName="TORDERSHIPMENT_SHIPLEVEL_FK" />
+
+		<renameColumn tableName="TORDERSHIPMENT"
+					  columnDataType="VARCHAR(64)"
+					  oldColumnName="SERVICE_LEVEL_GUID"
+					  newColumnName="SHIPPING_OPTION_CODE"
+					  remarks="The Shipping Option Code selected for this shipment" />
+		<renameColumn tableName="TORDERSHIPMENT"
+					  columnDataType="VARCHAR(255)"
+					  oldColumnName="SERVICE_LEVEL"
+					  newColumnName="SHIPPING_OPTION_NAME"
+					  remarks="The Shipping Option display name selected for this shipment" />
+		<renameColumn tableName="TORDERSHIPMENT"
+					  columnDataType="VARCHAR(255)"
+					  oldColumnName="CARRIER"
+					  newColumnName="CARRIER_CODE"
+					  remarks="The Carrier Code selected for this shipment" />
+
+		<addColumn tableName="TORDERSHIPMENT">
+			<!-- migrating existing data, default value is copied from carrier code -->
+			<column name="CARRIER_NAME"
+					type="varchar(255)"
+					remarks="The Carrier display name selected for this shipment"
+					valueComputed="CARRIER_CODE"/>
+		</addColumn>
+
+		<sql>
+			<comment>migrating existing records, populating the new field shipping option code against its value of service level guid.</comment>
+			update TORDERSHIPMENT
+			set SHIPPING_OPTION_CODE = (select CODE from TSHIPPINGSERVICELEVEL where GUID = TORDERSHIPMENT.SHIPPING_OPTION_CODE)
+			where SHIPPING_OPTION_CODE is not null and (select CODE from TSHIPPINGSERVICELEVEL where GUID = TORDERSHIPMENT.SHIPPING_OPTION_CODE) is not null
+		</sql>
+	</changeSet>
+
+	<changeSet id="7.3.0-shipping-result-cache" author="elasticpath">
+		<comment>Adds default cache settings for shipping calculation results.</comment>
+
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="150" />
+			<column name="PATH" value="COMMERCE/SYSTEM/CACHING/SHIPPING_RESULT/timeToLive" />
+			<column name="VALUE_TYPE" value="Integer" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+			<column name="DEFAULT_VALUE" value="600" />
+			<column name="DESCRIPTION" value="The max number of seconds a shipping result should live in cache before it is evicted." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1400" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="150" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1401" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="150" />
+			<column name="METADATA_KEY" value="apiRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="151" />
+			<column name="PATH" value="COMMERCE/SYSTEM/CACHING/SHIPPING_RESULT/timeToIdle" />
+			<column name="VALUE_TYPE" value="Integer" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+			<column name="DEFAULT_VALUE" value="600" />
+			<column name="DESCRIPTION"
+					value="The max number of seconds a shipping result should live in cache without being touched before it is evicted." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1402" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="151" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1403" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="151" />
+			<column name="METADATA_KEY" value="apiRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="152" />
+			<column name="PATH" value="COMMERCE/SYSTEM/CACHING/SHIPPING_RESULT/maxElementsInMemory" />
+			<column name="VALUE_TYPE" value="Integer" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+			<column name="DEFAULT_VALUE" value="10000" />
+			<column name="DESCRIPTION" value="The max number of shipping result elements to store in memory (0 = no limit)." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1404" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="152" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1405" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="152" />
+			<column name="METADATA_KEY" value="apiRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="7.3.0-rename-shippingserviceLevelcode-to-shippingoptioncode-in-truleparameter" author="elasticpath">
+		<update tableName="TRULEPARAMETER" >
+			<column name="PARAM_KEY" value="shippingOptionCode"/>
+			<where> PARAM_KEY = 'shippingServiceLevelCode' </where>
+		</update>
+	</changeSet>
+
+	<changeSet id="7.3.0-remove-shippingservicelevel-from-tindexbuildstatus" author="elasticpath">
+		<delete tableName="TINDEXBUILDSTATUS" >
+			<where> index_type='shippingservicelevel' </where>
+		</delete>
+	</changeSet>
+
+	<changeSet id="7.3.0-delete-obsolete-rule-binaries" author="elasticpath">
+		<comment>[PB-3576] Remove obsolete rule binaries due to drools upgrade.</comment>
+		<delete tableName="TRULESTORAGE"/>
+	</changeSet>
+
+	<changeSet id="7.3.0-fix-messaging-settings-override-value" author="elasticpath">
+		<comment>[PB-3474] Change the COMMERCE/SYSTEM/MESSAGING settings to allow multiple overrides.</comment>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="MAX_OVERRIDE_VALUES" value="-1"/>
+			<where>PATH LIKE 'COMMERCE/SYSTEM/MESSAGING/%'</where>
+		</update>
+	</changeSet>
+
+	<!-- We intentionally don't change COMMERCE/SYSTEM/MESSAGING/CHANGESETS/channelUri because it normally only has a single consumer. -->
+	<changeSet id="7.3.0-fix-messaging-orders-setting" author="elasticpath">
+		<preConditions onFail="MARK_RAN" onFailMessage="Skipping update to COMMERCE/SYSTEM/MESSAGING/ORDERS/channelUri because it has been customized.">
+			<sqlCheck expectedResult="1">SELECT COUNT(*) FROM TSETTINGDEFINITION WHERE PATH = 'COMMERCE/SYSTEM/MESSAGING/ORDERS/channelUri' AND DEFAULT_VALUE LIKE 'jms:topic:ep.orders'</sqlCheck>
+		</preConditions>
+		<comment>[PB-3474] Change the COMMERCE/SYSTEM/MESSAGING/ORDERS/channelUri setting to default to Virtual Topic values.</comment>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="DEFAULT_VALUE" value="jms:topic:VirtualTopic.ep.orders"/>
+			<where>PATH = 'COMMERCE/SYSTEM/MESSAGING/ORDERS/channelUri'</where>
+		</update>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="100"/>
+			<column name="SETTING_DEFINITION_UID" value="115"/>
+			<column name="CONTEXT" value="orderConfirmationEmailHandler"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.orderConfirmationEmailHandler.VirtualTopic.ep.orders"/>
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="101"/>
+			<column name="SETTING_DEFINITION_UID" value="115"/>
+			<column name="CONTEXT" value="orderShipmentShippedEmailHandler"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.orderShipmentShippedEmailHandler.VirtualTopic.ep.orders"/>
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="102"/>
+			<column name="SETTING_DEFINITION_UID" value="115"/>
+			<column name="CONTEXT" value="orderShipmentReleaseFailedEmailHandler"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.orderShipmentReleaseFailedEmailHandler.VirtualTopic.ep.orders"/>
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="103"/>
+			<column name="SETTING_DEFINITION_UID" value="115"/>
+			<column name="CONTEXT" value="returnExchangeEmailHandler"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.returnExchangeEmailHandler.VirtualTopic.ep.orders"/>
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="104"/>
+			<column name="SETTING_DEFINITION_UID" value="115"/>
+			<column name="CONTEXT" value="orderShipmentCreatedMessageProducer"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.orderShipmentCreatedMessageProducer.VirtualTopic.ep.orders"/>
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="105"/>
+			<column name="SETTING_DEFINITION_UID" value="115"/>
+			<column name="CONTEXT" value="giftCertificateCreatedMessageProducer"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.giftCertificateCreatedMessageProducer.VirtualTopic.ep.orders"/>
+		</insert>
+	</changeSet>
+
+	<changeSet id="7.3.0-fix-messaging-giftcertificates-setting" author="elasticpath">
+		<preConditions onFail="MARK_RAN" onFailMessage="Skipping update to COMMERCE/SYSTEM/MESSAGING/GIFTCERTIFICATES/channelUri because it has been customized.">
+			<sqlCheck expectedResult="1">SELECT COUNT(*) FROM TSETTINGDEFINITION WHERE PATH = 'COMMERCE/SYSTEM/MESSAGING/GIFTCERTIFICATES/channelUri' AND DEFAULT_VALUE LIKE 'jms:topic:ep.giftcertificates'</sqlCheck>
+		</preConditions>
+		<comment>[PB-3474] Change the COMMERCE/SYSTEM/MESSAGING/GIFTCERTIFICATES/channelUri setting to default to Virtual Topic values.</comment>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="DEFAULT_VALUE" value="jms:topic:VirtualTopic.ep.giftcertificates"/>
+			<where>PATH = 'COMMERCE/SYSTEM/MESSAGING/GIFTCERTIFICATES/channelUri'</where>
+		</update>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="106"/>
+			<column name="SETTING_DEFINITION_UID" value="133"/>
+			<column name="CONTEXT" value="giftCertificateCreatedEmailHandler"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.giftCertificateCreatedEmailHandler.VirtualTopic.ep.giftcertificates"/>
+		</insert>
+	</changeSet>
+
+	<changeSet id="7.3.0-fix-messaging-customers-setting" author="elasticpath">
+		<preConditions onFail="MARK_RAN" onFailMessage="Skipping update to COMMERCE/SYSTEM/MESSAGING/CUSTOMERS/channelUri because it has been customized.">
+			<sqlCheck expectedResult="1">SELECT COUNT(*) FROM TSETTINGDEFINITION WHERE PATH = 'COMMERCE/SYSTEM/MESSAGING/CUSTOMERS/channelUri' AND DEFAULT_VALUE LIKE 'jms:topic:ep.customers'</sqlCheck>
+		</preConditions>
+		<comment>[PB-3474] Change the COMMERCE/SYSTEM/MESSAGING/CUSTOMERS/channelUri setting to default to Virtual Topic values.</comment>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="DEFAULT_VALUE" value="jms:topic:VirtualTopic.ep.customers"/>
+			<where>PATH = 'COMMERCE/SYSTEM/MESSAGING/CUSTOMERS/channelUri'</where>
+		</update>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="107"/>
+			<column name="SETTING_DEFINITION_UID" value="134"/>
+			<column name="CONTEXT" value="anonymousCustomerRegisteredEmailHandler"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.anonymousCustomerRegisteredEmailHandler.VirtualTopic.ep.customers"/>
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="108"/>
+			<column name="SETTING_DEFINITION_UID" value="134"/>
+			<column name="CONTEXT" value="passwordChangedEmailHandler"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.passwordChangedEmailHandler.VirtualTopic.ep.customers"/>
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="109"/>
+			<column name="SETTING_DEFINITION_UID" value="134"/>
+			<column name="CONTEXT" value="customerRegistrationEmailHandler"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.customerRegistrationEmailHandler.VirtualTopic.ep.customers"/>
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="110"/>
+			<column name="SETTING_DEFINITION_UID" value="134"/>
+			<column name="CONTEXT" value="wishListSharedEmailHandler"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.wishListSharedEmailHandler.VirtualTopic.ep.customers"/>
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="111"/>
+			<column name="SETTING_DEFINITION_UID" value="134"/>
+			<column name="CONTEXT" value="passwordForgottenEmailHandler"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.passwordForgottenEmailHandler.VirtualTopic.ep.customers"/>
+		</insert>
+	</changeSet>
+
+	<changeSet id="7.3.0-fix-messaging-cmusers-setting" author="elasticpath">
+		<preConditions onFail="MARK_RAN" onFailMessage="Skipping update to COMMERCE/SYSTEM/MESSAGING/CMUSERS/channelUri because it has been customized.">
+			<sqlCheck expectedResult="1">SELECT COUNT(*) FROM TSETTINGDEFINITION WHERE PATH = 'COMMERCE/SYSTEM/MESSAGING/CMUSERS/channelUri' AND DEFAULT_VALUE LIKE 'jms:topic:ep.cmusers'</sqlCheck>
+		</preConditions>
+		<comment>[PB-3474] Change the COMMERCE/SYSTEM/MESSAGING/CMUSERS/channelUri setting to default to Virtual Topic values.</comment>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="DEFAULT_VALUE" value="jms:topic:VirtualTopic.ep.cmusers"/>
+			<where>PATH = 'COMMERCE/SYSTEM/MESSAGING/CMUSERS/channelUri'</where>
+		</update>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="112"/>
+			<column name="SETTING_DEFINITION_UID" value="135"/>
+			<column name="CONTEXT" value="cmUserPasswordResetEmailHandler"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.cmUserPasswordResetEmailHandler.VirtualTopic.ep.cmusers"/>
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="113"/>
+			<column name="SETTING_DEFINITION_UID" value="135"/>
+			<column name="CONTEXT" value="cmUserCreatedEmailHandler"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.cmUserCreatedEmailHandler.VirtualTopic.ep.cmusers"/>
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="114"/>
+			<column name="SETTING_DEFINITION_UID" value="135"/>
+			<column name="CONTEXT" value="cmUserPasswordChangedEmailHandler"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.cmUserPasswordChangedEmailHandler.VirtualTopic.ep.cmusers"/>
+		</insert>
+	</changeSet>
+
+	<changeSet id="7.3.0-fix-messaging-dataimport-setting" author="elasticpath">
+		<preConditions onFail="MARK_RAN" onFailMessage="Skipping update to COMMERCE/SYSTEM/MESSAGING/DATAIMPORT/channelUri because it has been customized.">
+			<sqlCheck expectedResult="1">SELECT COUNT(*) FROM TSETTINGDEFINITION WHERE PATH = 'COMMERCE/SYSTEM/MESSAGING/DATAIMPORT/channelUri' AND DEFAULT_VALUE LIKE 'jms:topic:ep.dataimport'</sqlCheck>
+		</preConditions>
+		<comment>[PB-3474] Change the COMMERCE/SYSTEM/MESSAGING/DATAIMPORT/channelUri setting to default to Virtual Topic values.</comment>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="DEFAULT_VALUE" value="jms:topic:VirtualTopic.ep.dataimport"/>
+			<where>PATH = 'COMMERCE/SYSTEM/MESSAGING/DATAIMPORT/channelUri'</where>
+		</update>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="115"/>
+			<column name="SETTING_DEFINITION_UID" value="136"/>
+			<column name="CONTEXT" value="importJobCompletedEmailHandler"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.importJobCompletedEmailHandler.VirtualTopic.ep.dataimport"/>
+		</insert>
+	</changeSet>
+
+	<changeSet id="7.3.0-convert-valang-to-spring-expression" author="elasticpath">
+		<customChange class="liquibase.ext.elasticpath.ConvertValangToSpringExpression">
+			<param name="tableName">TVALIDATIONCONSTRAINTS</param>
+			<param name="columnName">VALIDATION_CONSTRAINT</param>
+			<param name="primaryKey">UIDPK</param>
+		</customChange>
+	</changeSet>
+
+	<changeSet id="7.3.0-Remove-credit-card-tables-columns" author="elasticpath" context="contract">
+		<comment>Remove any tables/columns that store credit card data.</comment>
+		<dropTable tableName="TCUSTOMERCREDITCARD" />
+		<dropColumn tableName="TORDERPAYMENT" columnName="CARD_HOLDER_NAME" />
+		<dropColumn tableName="TORDERPAYMENT" columnName="CARD_NUMBER" />
+		<dropColumn tableName="TORDERPAYMENT" columnName="EXPIRY_YEAR" />
+		<dropColumn tableName="TORDERPAYMENT" columnName="EXPIRY_MONTH" />
+		<dropColumn tableName="TORDERPAYMENT" columnName="START_DATE" />
+		<dropColumn tableName="TORDERPAYMENT" columnName="ISSUE_NUMBER" />
+	</changeSet>
+
+	<changeSet id="7.3.0-change-column-names-for-creditcards" author="elasticpath">
+		<comment>Rename columns that are no longer associated with credit cards.</comment>
+		<renameColumn oldColumnName="MASKED_CARD_NUMBER" newColumnName="DISPLAY_VALUE" tableName="TORDERPAYMENT" columnDataType="VARCHAR(255)"/>
+	</changeSet>
+
+
+	<changeSet id="7.3.0-remove-titemconfiguration" author="elasticpath">
+		<comment>Delete TITEMCONFIGURATION as it is not used anywhere.</comment>
+		<dropTable tableName="TITEMCONFIGURATION"/>
+	</changeSet>
+
+	<changeSet id="7.3.0-add-bundle-constituent-columns" author="elasticpath" context="expand">
+		<preConditions onFail="MARK_RAN" onSqlOutput="TEST">
+			<not>
+				<columnExists tableName="TCARTITEM" columnName="BUNDLE_CONSTITUENT"/>
+				<columnExists tableName="TORDERSKU" columnName="BUNDLE_CONSTITUENT"/>
+			</not>
+		</preConditions>
+		<addColumn tableName="TCARTITEM">
+			<column name="BUNDLE_CONSTITUENT" type="boolean"
+					remarks="Indicates whether or not the cart item is a bundle constituent."
+					valueBoolean="false"
+					defaultValueBoolean="false"/>
+		</addColumn>
+		<addColumn tableName="TORDERSKU">
+			<column name="BUNDLE_CONSTITUENT" type="boolean"
+					remarks="Indicates whether or not the order SKU is a bundle constituent."
+					valueBoolean="false"
+					defaultValueBoolean="false"/>
+		</addColumn>
+
+		<addNotNullConstraint tableName="TCARTITEM" columnName="BUNDLE_CONSTITUENT" columnDataType="boolean"/>
+
+		<addNotNullConstraint tableName="TORDERSKU" columnName="BUNDLE_CONSTITUENT" columnDataType="boolean"/>
+	</changeSet>
+
+	<changeSet id="7.3.0-populate-bundle-constituent-column-values" author="elasticpath" context="migrate-data" dbms="mysql,mssql,oracle">
+		<comment>This might not cover all migration scenarios. For example, a Bundle Line Item with a Dependent Line Item as its child.</comment>
+
+		<sql>update TCARTITEM
+			set BUNDLE_CONSTITUENT = 1
+			where PARENT_ITEM_UID IN (select parent.UIDPK
+										 from (select SKU_GUID, UIDPK FROM TCARTITEM) parent
+										 inner join (select GUID, PRODUCT_UID from TPRODUCTSKU) ps on parent.SKU_GUID = ps.GUID
+										 inner join (select TYPE, UIDPK from TPRODUCT) p on ps.PRODUCT_UID = p.UIDPK
+										 where p.TYPE like '%Bundle%')
+		</sql>
+		<sql>update TORDERSKU
+			set BUNDLE_CONSTITUENT = 1
+			where UIDPK IN (select parentjoin.CHILD_UID
+							from (select CHILD_UID, PARENT_UID from TORDERSKUPARENT) parentjoin
+							   inner join (select UIDPK, SKU_GUID from TORDERSKU) parent on parentjoin.PARENT_UID = parent.UIDPK
+							   inner join (select GUID, PRODUCT_UID from TPRODUCTSKU) ps on parent.SKU_GUID = ps.GUID
+							   inner join (select UIDPK, TYPE from TPRODUCT) p on ps.PRODUCT_UID = p.UIDPK
+							   where p.TYPE like '%Bundle%')
+		</sql>
+	</changeSet>
+
+	<changeSet id="7.3.0-clear-shopping-cart-uid-off-of-cart-items-with-parents" author="elasticpath" context="migrate-data" dbms="mysql,mssql,oracle">
+		<sql>
+			UPDATE TCARTITEM
+			SET SHOPPING_CART_UID = NULL
+			WHERE PARENT_ITEM_UID is not NULL
+		</sql>
+	</changeSet>
+
+	<changeSet id="7.3.0-restore-nullability-to-bundle-constituent-columns" author="elasticpath" context="migrate-data">
+		<dropDefaultValue tableName="TCARTITEM" columnName="BUNDLE_CONSTITUENT" columnDataType="boolean" />
+		<dropDefaultValue tableName="TORDERSKU" columnName="BUNDLE_CONSTITUENT" columnDataType="boolean" />
+
+		<dropNotNullConstraint tableName="TCARTITEM" columnName="BUNDLE_CONSTITUENT" columnDataType="boolean" />
+		<dropNotNullConstraint tableName="TORDERSKU" columnName="BUNDLE_CONSTITUENT" columnDataType="boolean" />
+	</changeSet>
+
+</databaseChangeLog>

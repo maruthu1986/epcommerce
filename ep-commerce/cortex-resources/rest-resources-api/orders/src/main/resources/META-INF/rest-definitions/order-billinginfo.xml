@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>orders</name>
+		<description>
+			<![CDATA[
+Billing Address Info:
+
+The Billing address info resource provides the customer with a selector to select the billing address to use for
+the [purchase][purchase] and an addressform to create a billing address to use for the purchase. The billing
+address is the address that is related to the payment means, which in some cases is the address your credit card uses.
+
+[purchase]: #purchases
+			]]>
+		</description>
+
+		<resource>
+			<name>billingaddress-info</name>
+			<description><![CDATA[The billing address info associated with an order.]]></description>
+			<uri>{order}/billingaddressinfo</uri>
+			<entity>controls.info</entity>
+		</resource>
+
+		<relationship>
+			<name>order-to-billingaddress</name>
+			<description><![CDATA[Read order from cart.]]></description>
+			<rel>billingaddressinfo</rel>
+			<rev>order</rev>
+			<from>order</from>
+			<to>billingaddress-info</to>
+		</relationship>
+
+		<relationship>
+			<name>billing-address-info-to-billing-address</name>
+			<description><![CDATA[Read billing address from billing address info.]]></description>
+			<rel>billingaddress</rel>
+			<from>billingaddress-info</from>
+			<to>addresses.address</to>
+		</relationship>
+
+	</family>
+</definitions>

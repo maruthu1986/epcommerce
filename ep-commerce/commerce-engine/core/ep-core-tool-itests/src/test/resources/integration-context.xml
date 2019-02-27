@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<import resource="classpath:integration-core-context.xml" />
+	<import resource="classpath:ep-test-application.xml" />
+    <import resource="classpath:test-datasource.xml"/>
+
+	<bean id="schemaExtension" class="liquibase.integration.spring.SpringLiquibase" scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="changeLog" value="classpath:ep-settings-itest-changelog.xml" />
+	</bean>
+
+	<!--<bean id="settingFactoryBeanTestValue" parent="settingFactoryBean" depends-on="schemaExtension">-->
+		<!--<property name="path" value="COMMERCE/ITEST/SETTINGS/sampleSetting" />-->
+	<!--</bean>-->
+
+	<!-- Extension point for plugging in additional test components. -->
+	<!-- This must occur as the last import in the context to facilitate overriding existing beans. -->
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/ep-itest-plugin.xml" />
+
+</beans>

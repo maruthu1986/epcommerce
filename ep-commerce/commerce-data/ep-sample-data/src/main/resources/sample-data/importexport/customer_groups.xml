@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customer_groups>
+<!-- See ep-shared-demo-data for additional definitions -->
+
+<customer_group guid="9e724e26-53ed-47cc-b445-cbf25a4ed16e" name="Segment1" description="customer segment 1">
+    <enabled>true</enabled>
+    <customer_roles>
+        <customer_role authority="ROLE_CUSTOMER"/>
+    </customer_roles>
+</customer_group>
+
+<customer_group guid="8a70ebf0-4afb-4402-b8e7-00aaee5d89b5" name="Segment2" description="customer segment 2">
+    <enabled>true</enabled>
+    <customer_roles>
+        <customer_role authority="ROLE_CUSTOMER"/>
+    </customer_roles>
+</customer_group>
+
+<customer_group guid="dfebade0-105f-4d04-bbd5-b37a94b70827" name="Segment_disabled" description="customer segment not enabled">
+    <enabled>false</enabled>
+    <customer_roles>
+        <customer_role authority="ROLE_CUSTOMER"/>
+    </customer_roles>
+</customer_group>
+</customer_groups>

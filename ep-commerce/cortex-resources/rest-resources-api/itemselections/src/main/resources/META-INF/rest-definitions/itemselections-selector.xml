@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>itemselections</name>
+		<description><![CDATA[The Items selections resource provides a selector to allow customers to select item options.]]></description>
+
+		<uri-part>
+			<name>option-id</name>
+			<description><![CDATA[The option ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<uri-part>
+			<name>option-value-id</name>
+			<description><![CDATA[The option value ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>itemselections-option-selector</name>
+			<description><![CDATA[Selector to select an item definition option.]]></description>
+			<uri>{base.family}/{base.scope}/{items.item-id}/options/{option-id}/selector</uri>
+			<entity>controls.selector</entity>
+		</resource>
+
+		<resource>
+			<name>itemselections-option-value-selector</name>
+			<description><![CDATA[An item selection option value choice.]]></description>
+			<uri>{base.family}/{base.scope}/{items.item-id}/options/{option-id}/values/{option-value-id}/selector</uri>
+		</resource>
+
+		<relationship>
+			<name>selector-for-item-definition-option</name>
+			<description><![CDATA[Selector for an item option value.]]></description>
+			<rel>selector</rel>
+			<rev>option</rev>
+			<from>itemdefinitions.item-definition-option</from>
+			<to>itemselections-option-selector</to>
+		</relationship>
+
+		<relationship>
+			<name>value-choice-for-itemselections-option-selector</name>
+			<description><![CDATA[Retrieve a choice.]]></description>
+			<rel>choice</rel>
+			<rev>selector</rev>
+			<from>itemselections-option-selector</from>
+			<to>itemselections-option-value-selector</to>
+		</relationship>
+
+		<relationship>
+			<name>description-for-itemselections-option-value-selector-choice</name>
+			<description><![CDATA[Retrieve a choice's description.]]></description>
+			<rel>description</rel>
+			<from>itemselections-option-value-selector</from>
+			<to>itemdefinitions.item-definition-option-value</to>
+		</relationship>
+
+		<relationship>
+			<name>action-for-itemselections-option-selector-choice</name>
+			<description><![CDATA[Select a choice.]]></description>
+			<rel>selectaction</rel>
+			<from>itemselections-option-value-selector</from>
+			<to>itemselections-option-value-selector</to>
+			<!-- result: items.item -->
+		</relationship>
+
+	</family>
+</definitions>

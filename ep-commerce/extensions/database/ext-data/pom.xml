@@ -1,0 +1,90 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>ext-database-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ext-data</artifactId>
+	<name>Extension Database Data</name>
+	<description>Provides the data files to populate the EP database with for the Extension project.</description>
+	<packaging>jar</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <id>unpack-dependencies</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/data</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                            <artifactItems>
+                                <!-- external data artifacts to be included -->
+	                            <artifactItem>
+		                            <groupId>com.elasticpath.data</groupId>
+		                            <artifactId>ep-shared-demo-data</artifactId>
+		                            <type>zip</type>
+		                            <version>${ep.commerce.data.version}</version>
+	                            </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.elasticpath.data</groupId>
+                                    <artifactId>ep-mobee-demo-data</artifactId>
+                                    <type>zip</type>
+                                    <version>${ep.commerce.data.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.elasticpath.data</groupId>
+                                    <artifactId>ep-snapitup-demo-data</artifactId>
+                                    <type>zip</type>
+                                    <version>${ep.commerce.data.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.elasticpath.data</groupId>
+                                    <artifactId>ep-sample-data</artifactId>
+                                    <type>zip</type>
+                                    <version>${ep.commerce.data.version}</version>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <!-- Copy and filter the local files and database.properties file. -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>environments/${data.population.environment}/**</exclude>
+					<exclude>environments/**/database.properties</exclude>
+					<exclude>template/**</exclude>
+					<exclude>environments/${data.population.environment}/files/conf/cache/**</exclude>
+				</excludes>
+			</resource>
+			<!-- Copy and filter all environment's database.properties files so they can use ${epdb.*} or other placeholders of their choosing. -->
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>environments/${data.population.environment}/**</include>
+					<include>environments/**/database.properties</include>
+					<include>environments/${data.population.environment}/files/conf/cache/**</include>
+				</includes>
+			</resource>
+        </resources>
+    </build>
+
+</project>

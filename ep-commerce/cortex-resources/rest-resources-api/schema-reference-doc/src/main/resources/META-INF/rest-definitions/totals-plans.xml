@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>totals</name>
+		<plan>
+			<name>read-cart-total</name>
+			<description><![CDATA[Retrieve the total cost of all cart line items before cart total discounts are applied.]]></description>
+			<step>
+				<description><![CDATA[Not used.]]></description>
+				<start>carts.cart</start>
+				<follow-link>total</follow-link>
+				<link-back>cart</link-back>
+				<result>cart-total</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-cart-line-item-total</name>
+			<description><![CDATA[Retrieve the total cost of a single cart line item for a requested quantity, after cart line item discounts are applied.]]></description>
+			<step>
+				<description><![CDATA[Read total for specific cart.]]></description>
+				<start>carts.line-item</start>
+				<follow-link>total</follow-link>
+				<link-back>lineitem</link-back>
+				<result>cart-line-item-total</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-order-total</name>
+			<description><![CDATA[Retrieve the total cost of the shopper's order including taxes and shipping costs.]]></description>
+			<step>
+				<description><![CDATA[Read total for specific order.]]></description>
+				<start>orders.order</start>
+				<follow-link>total</follow-link>
+				<link-back>order</link-back>
+				<result>order-total</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-shipment-total</name>
+			<description><![CDATA[Retrieve the total cost for a shipment.]]></description>
+			<step>
+				<description><![CDATA[Read total for a specific shipment.]]></description>
+				<start>shipments.shipment</start>
+				<follow-link>total</follow-link>
+				<result>shipment-total</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-shipment-line-item-total</name>
+			<description><![CDATA[Retrieve the total cost for a shipment line item.]]></description>
+			<step>
+				<description><![CDATA[Read total for a specific shipment.]]></description>
+				<start>shipments.shipment-line-item</start>
+				<follow-link>total</follow-link>
+				<result>shipment-line-item-total</result>
+			</step>
+		</plan>
+
+	</family>
+
+</definitions>

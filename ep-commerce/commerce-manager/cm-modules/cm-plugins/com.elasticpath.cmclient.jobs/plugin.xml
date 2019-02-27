@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="statePolicy" name="Jobs State Policy" schema="schema/statePolicy.exsd"/>
+    <extension-point id="Extender" name="Extender"   schema="../com.elasticpath.cmclient.core/schema/extender.exsd"/>
+    <extension-point id="StatePolicyExtender" name="StatePolicyExtender"   schema="../com.elasticpath.cmclient.core/schema/statePolicyExtender.exsd"/>
+
+    <extension
+          point="org.eclipse.ui.views">
+
+       <category
+             name="%jobsCategory.name"
+             id="com.elasticpath.cmclient.jobs.views.category">
+       </category>
+
+        <view
+              name="%jobListView.name"
+              icon="icons/csv-import_default_22.png"
+              category="com.elasticpath.cmclient.jobs.views.category"
+              class="com.elasticpath.cmclient.jobs.views.CatalogJobListView"
+              id="com.elasticpath.cmclient.jobs.views.CatalogJobListView">
+        </view>
+        <view
+              name="%jobListView.name"
+              icon="icons/csv-import_default_22.png"
+              category="com.elasticpath.cmclient.jobs.views.category"
+              class="com.elasticpath.cmclient.jobs.views.CustomerJobListView"
+              id="com.elasticpath.cmclient.jobs.views.CustomerJobListView">
+        </view>
+        <view
+              category="com.elasticpath.cmclient.jobs.views.category"
+              class="com.elasticpath.cmclient.jobs.views.WarehouseJobListView"
+              icon="icons/csv-import_default_22.png"
+              id="com.elasticpath.cmclient.jobs.views.WarehouseJobListView"
+              name="%jobListView.name">
+        </view>
+        <view
+              name="%jobListView.name"
+              icon="icons/csv-import_default_22.png"
+              category="com.elasticpath.cmclient.jobs.views.category"
+              class="com.elasticpath.cmclient.jobs.views.PriceListImportJobsListView"
+              id="com.elasticpath.cmclient.jobs.views.PriceListImportJobsListView">
+        </view>
+        <view
+              category="org.eclipse.ui"
+              class="org.eclipse.ui.ExtensionFactory:progressView"
+              id="org.eclipse.ui.views.ProgressView"
+              name="Progress View">
+        </view>
+        
+     </extension>
+    <extension point="com.elasticpath.cmclient.core.authorizations">
+      <permissions>
+         <permission
+               activityId="com.elasticpath.cmclient.fulfillment.authorizations.activity.catalogManagement"
+               key="CATALOG_IMPORTS_EXECUTE"
+               name="%runCatalogImportJobs.name">
+         </permission>
+         <permission
+               activityId="com.elasticpath.cmclient.fulfillment.authorizations.activity.catalogManagement"
+               key="CATALOG_IMPORTS_MANAGE"
+               name="%manageCatalogImportJobs.name">
+         </permission>
+         <permission
+               activityId="com.elasticpath.cmclient.warehouse.authorizations.activity"
+               key="WAREHOUSE_IMPORT_INVENTORY"
+               name="%manageAndRunShippingReceivingImportJobs.name">
+         </permission>
+         <permission
+               activityId="com.elasticpath.cmclient.fulfillment.authorizations.activity.customerService"
+               key="CUSTUMER_IMPORTS_EXECUTE"
+               name="%runCustomerImportJobs.name">
+         </permission>
+         <permission
+               activityId="com.elasticpath.cmclient.fulfillment.authorizations.activity.customerService"
+               key="CUSTUMER_IMPORTS_MANAGE"
+               name="%manageCustomerImportJobs.name">
+         </permission>
+      </permissions>
+   </extension>
+    <extension
+          point="org.eclipse.ui.actionSets">
+       <actionSet
+             id="com.elasticpath.cmclient.jobs.actionSet.fulfillment"
+             label="%customerImportJobs">
+          <action
+                  class="com.elasticpath.cmclient.jobs.actions.ViewCustomerImportJobs"
+                  definitionId="com.elasticpath.cmclient.jobs.commands.viewCustomerJobs"
+                  icon="icons/csv-import_default_34.png"
+                  id="com.elasticpath.cmclient.jobs.commands.viewCustomerJobsAction"
+                  label="%customerImportJobs"
+                  toolbarPath="com.elasticpath.cmclient.core.toolbars.actions/FIRST_ELEMENT_IN_TOOLBAR"
+                  tooltip="%customerImportJobs">
+          </action>
+       </actionSet>
+       <actionSet
+             id="com.elasticpath.cmclient.jobs.actionSet.catalog"
+             label="%catalogImportJobs">
+          <action
+                  class="com.elasticpath.cmclient.jobs.actions.ViewCatalogImportJobs"
+                  definitionId="com.elasticpath.cmclient.jobs.commands.viewCatalogJobs"
+                  icon="icons/csv-import_default_34.png"
+                  id="com.elasticpath.cmclient.jobs.commands.viewCatalogJobsAction"
+                  label="%catalogImportJobs"
+                  toolbarPath="com.elasticpath.cmclient.core.toolbars.actions/com.elasticpath.cmclient.catalog.commands.editGlobalAttributes"
+                  tooltip="%catalogImportJobs">
+          </action>
+       </actionSet>
+       <actionSet
+             id="com.elasticpath.cmclient.jobs.actionSet.warehouse"
+             label="%warehouseImportJobs">
+          <action
+                  class="com.elasticpath.cmclient.jobs.actions.ViewWarehouseImportJobs"
+                  definitionId="com.elasticpath.cmclient.jobs.commands.viewWarehouseJobs"
+                  icon="icons/csv-import_default_34.png"
+                  id="com.elasticpath.cmclient.jobs.commands.viewWarehouseJobsAction"
+                  label="%warehouseImportJobs"
+                  toolbarPath="com.elasticpath.cmclient.core.toolbars.actions/com.elasticpath.cmclient.warehouse.actions.WarehousePullDownDelegate"
+                  tooltip="%warehouseImportJobs">
+          </action>
+       </actionSet>
+
+       <actionSet
+             id="com.elasticpath.cmclient.jobs.actionSet.pricelist"
+             label="View Price List Import Jobs">
+       </actionSet>
+
+    </extension>
+    <extension
+          point="org.eclipse.ui.perspectiveExtensions">
+       <perspectiveExtension
+             targetID="com.elasticpath.cmclient.fulfillment.perspective">
+          <actionSet
+                id="com.elasticpath.cmclient.jobs.actionSet.fulfillment">
+          </actionSet>
+       </perspectiveExtension>
+       <perspectiveExtension
+             targetID="com.elasticpath.cmclient.catalog.catalogperspective">
+          <actionSet
+                id="com.elasticpath.cmclient.jobs.actionSet.catalog">
+          </actionSet>
+       </perspectiveExtension>
+       <perspectiveExtension
+             targetID="com.elasticpath.cmclient.warehouse.perspective">
+          <actionSet
+                id="com.elasticpath.cmclient.jobs.actionSet.warehouse">
+          </actionSet>
+       </perspectiveExtension>
+       
+       <perspectiveExtension
+             targetID="com.elasticpath.cmclient.pricelistmanager.perspective">
+          <actionSet
+             id="com.elasticpath.cmclient.jobs.actionSet.pricelist">
+          </actionSet >
+       </perspectiveExtension>
+    </extension>
+    <extension
+          point="org.eclipse.ui.commands">
+       <category
+            name="com.elasticpath.cmclient.fulfillment.commands.name"
+            id="com.elasticpath.cmclient.fulfillment.commands">
+       </category>
+       <category
+            name="com.elasticpath.cmclient.catalog.commands.name"
+            id="com.elasticpath.cmclient.catalog.commands">
+       </category>
+       <category
+            name="com.elasticpath.cmclient.warehouse.commands.name"
+            id="com.elasticpath.cmclient.warehouse.commands">
+       </category>
+	   <category
+            name="com.elasticpath.cmclient.pricelistmanager.commands.name"
+            id="com.elasticpath.cmclient.pricelistmanager.commands">
+       </category>
+      
+       <command
+             categoryId="com.elasticpath.cmclient.pricelistmanager.commands"
+             description="View Price List Import Jobs"
+             id="com.elasticpath.cmclient.jobs.commands.viewPriceListJobs"
+             defaultHandler="com.elasticpath.cmclient.jobs.handlers.RunCsvImportForBaseAmountsHandler"
+             name="%priceListImportJobs">
+       </command>
+        <command
+                categoryId="com.elasticpath.cmclient.fulfillment.commands"
+                description="View Customer Import Jobs"
+                id="com.elasticpath.cmclient.jobs.commands.viewCustomerJobs"
+                name="%customerImportJobs">
+        </command>
+       <command
+             categoryId="com.elasticpath.cmclient.catalog.commands"
+             description="View Catalog Import Jobs"
+             id="com.elasticpath.cmclient.jobs.commands.viewCatalogJobs"
+             name="%catalogImportJobs">
+       </command>
+       <command
+    	     categoryId="com.elasticpath.cmclient.warehouse.commands"
+             description="View Warehouse Import Jobs"
+             id="com.elasticpath.cmclient.jobs.commands.viewWarehouseJobs"
+             name="%warehouseImportJobs">
+       </command>
+    </extension>
+
+    <extension
+          point="com.elasticpath.cmclient.jobs.statePolicy">
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.jobs.policy.RunImportJobPolicy"
+             targetId="runImportJobAction">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.jobs.policy.RunPriceListImportJobPolicy"
+             targetId="csvImportPricelistHandler">
+       </statePolicyContribution>
+    </extension>
+    
+   <extension point="org.eclipse.ui.menus">
+       <menuContribution
+               locationURI="toolbar:org.eclipse.ui.main.toolbar?after=save">
+           <toolbar
+                   id="com.elasticpath.cmclient.core.toolbars.actions">
+           </toolbar>
+       </menuContribution>
+        <menuContribution
+                locationURI="toolbar:com.elasticpath.cmclient.core.toolbars.actions?after=com.elasticpath.cmclient.pricelistmanager.toolbarMenus.createPriceListAssignment">
+            <command
+                   commandId="com.elasticpath.cmclient.jobs.commands.viewPriceListJobs"
+                   icon="icons/csv-import_default_34.png"
+                   id="com.elasticpath.cmclient.jobs.toolbarMenus.viewPriceListJobs"
+                   label="%runCsvImportForBaseAmount.name"
+                   tooltip="%runCsvImportForBaseAmount.tooltip">
+                 <visibleWhen>
+                   <with
+                         variable="activeContexts">
+                      <iterate
+                            operator="or">
+                         <equals
+                               value="com.elasticpath.cmclient.pricelistmanager.workbenchActionSet">
+                         </equals>
+                      </iterate>
+                   </with>
+                </visibleWhen>
+            </command>
+            <!--</toolbar>-->
+       </menuContribution>
+ 	</extension>
+ 	
+</plugin>

@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint
+		xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<!-- Type converters -->
+	<type-converters>
+		<bean id="springBlueprintConverter" class="com.elasticpath.service.osgi.SpringBlueprintConverter"/>
+	</type-converters>
+
+	<!-- Imported Services -->
+	<reference id="dataSource"
+			interface="javax.sql.DataSource"
+			filter="(jndiName=jdbc/epjndi)"/>
+
+	<reference id="eventMessageFactory"
+			   availability="optional"
+			   interface="com.elasticpath.messaging.factory.EventMessageFactory"/>
+
+	<reference id="customerEventMessagePublisher"
+			   filter="(name=customerEventMessagePublisher)"
+			   availability="optional"
+			   interface="com.elasticpath.messaging.EventMessagePublisher"/>
+
+	<reference id="orderEventMessagePublisher"
+			   filter="(name=orderEventMessagePublisher)"
+			   availability="optional"
+			   interface="com.elasticpath.messaging.EventMessagePublisher"/>
+
+	<!-- Optional Caching Service implementations imported from ep-core-caching -->
+	<reference id="cachingCategoryLookup"
+			   availability="optional"
+			   interface="com.elasticpath.service.catalog.CategoryLookup"
+			   filter="(caching=true)"
+			   timeout="1">
+		<reference-listener ref="categoryLookupProxy" bind-method="bindImplementation" unbind-method="unbindImplementation"/>
+	</reference>
+
+	<reference id="cachingProductCharacteristicsService"
+			   availability="optional"
+			   interface="com.elasticpath.service.catalog.ProductCharacteristicsService"
+			   filter="(caching=true)"
+			   timeout="1">
+		<reference-listener ref="productCharacteristicsServiceProxy" bind-method="bindImplementation" unbind-method="unbindImplementation"/>
+	</reference>
+
+	<reference id="cachingProductLookup"
+			 availability="optional"
+			 interface="com.elasticpath.service.catalog.ProductLookup"
+			 filter="(caching=true)"
+			 timeout="1">
+		<reference-listener ref="productLookupProxy" bind-method="bindImplementation" unbind-method="unbindImplementation"/>
+	</reference>
+
+	<reference id="cachingProductSkuLookup"
+			 availability="optional"
+			 interface="com.elasticpath.service.catalog.ProductSkuLookup"
+			 filter="(caching=true)"
+			 timeout="1">
+		<reference-listener ref="ProductSkuLookupProxy" bind-method="bindImplementation" unbind-method="unbindImplementation"/>
+	</reference>
+
+	<reference id="cachingStoreService"
+			   availability="optional"
+			   interface="com.elasticpath.service.store.StoreService"
+			   filter="(caching=true)"
+			   timeout="1">
+		<reference-listener ref="storeServiceProxy" bind-method="bindImplementation" unbind-method="unbindImplementation"/>
+	</reference>
+
+	<reference id="shippingCalculationService"
+			   interface="com.elasticpath.shipping.connectivity.service.ShippingCalculationService"
+	           filter="(id=shippingCalculationService)">
+	</reference>
+
+	<reference id="shippingCalculationResultBuilderSupplier"
+			   filter="(id=shippingCalculationResultBuilderSupplier)"
+			   interface="java.util.function.Supplier"/>
+
+	<reference id="shippingOptionBuilderSupplier"
+			   filter="(id=shippingOptionBuilderSupplier)"
+			   interface="java.util.function.Supplier"/>
+
+	<reference id="shippingAddressBuilderSupplier"
+			   filter="(id=shippingAddressBuilderSupplier)"
+			   interface="java.util.function.Supplier"/>
+
+	<reference id="unpricedShippableItemBuilderSupplier"
+			   filter="(id=unpricedShippableItemBuilderSupplier)"
+			   interface="java.util.function.Supplier"/>
+
+	<reference id="unpricedShippableItemContainerBuilderSupplier"
+			   filter="(id=unpricedShippableItemContainerBuilderSupplier)"
+			   interface="java.util.function.Supplier"/>
+
+	<reference id="pricedShippableItemBuilderSupplier"
+			   filter="(id=pricedShippableItemBuilderSupplier)"
+			   interface="java.util.function.Supplier"/>
+
+	<reference id="pricedShippableItemContainerBuilderSupplier"
+			   filter="(id=pricedShippableItemContainerBuilderSupplier)"
+			   interface="java.util.function.Supplier"/>
+
+	<reference id="cachingPriceAdjustmentService"
+			   availability="optional"
+			   interface="com.elasticpath.service.pricing.PriceAdjustmentService"
+			   filter="(caching=true)"
+			   timeout="1">
+		<reference-listener ref="priceAdjustmentServiceProxy" bind-method="bindImplementation" unbind-method="unbindImplementation"/>
+	</reference>
+
+
+	<reference id="cachingRuleService"
+				   availability="optional"
+				   interface="com.elasticpath.service.rules.RuleService"
+				   filter="(caching=true)"
+				   timeout="1">
+			<reference-listener ref="ruleServiceProxy" bind-method="bindImplementation" unbind-method="unbindImplementation"/>
+	</reference>
+
+	<reference id="cachingBaseAmountFinder"
+			   availability="optional"
+			   interface="com.elasticpath.service.pricing.BaseAmountFinder"
+			   filter="(caching=true)"
+			   timeout="1">
+		<reference-listener ref="baseAmountFinderProxy" bind-method="bindImplementation" unbind-method="unbindImplementation"/>
+	</reference>
+
+	<!-- export services -->
+	<service ref="nonCachingStoreService"
+			 interface="com.elasticpath.service.store.StoreService" ranking="100">
+		<service-properties>
+			<entry key="caching">
+				<value type="java.lang.Boolean">false</value>
+			</entry>
+		</service-properties>
+	</service>
+
+	<service ref="nonCachingProductLookup"
+			 interface="com.elasticpath.service.catalog.ProductLookup" ranking="100">
+		<service-properties>
+			<entry key="caching">
+				<value type="java.lang.Boolean">false</value>
+			</entry>
+		</service-properties>
+	</service>
+
+	<reference id="cachingPriceListAssignmentService"
+			   availability="optional"
+			   interface="com.elasticpath.service.pricing.PriceListAssignmentService"
+			   filter="(caching=true)"
+			   timeout="1">
+		<reference-listener ref="priceListAssignmentServiceProxy" bind-method="bindImplementation" unbind-method="unbindImplementation"/>
+	</reference>
+
+	<service ref="productDao"
+			 interface="com.elasticpath.persistence.dao.ProductDao" />
+
+	<service ref="productService"
+			 interface="com.elasticpath.service.catalog.ProductService" />
+
+	<service ref="nonCachingProductSkuLookup"
+			 interface="com.elasticpath.service.catalog.ProductSkuLookup" ranking="100">
+		<service-properties>
+			<entry key="caching">
+				<value type="java.lang.Boolean">false</value>
+			</entry>
+		</service-properties>
+	</service>
+
+	<service ref="productSkuService"
+			 interface="com.elasticpath.service.catalog.ProductSkuService" />
+
+	<service ref="multiSkuProductConfigurationService"
+			 interface="com.elasticpath.service.catalog.MultiSkuProductConfigurationService"/>
+
+	<service ref="skuOptionService"
+			 interface="com.elasticpath.service.catalog.SkuOptionService" />
+
+	<service ref="customerService"
+			 interface="com.elasticpath.service.customer.CustomerService" />
+
+    <service ref="customerRegistrationService"
+             interface="com.elasticpath.service.customer.CustomerRegistrationService" />
+
+	<service ref="settingsService"
+			 interface="com.elasticpath.settings.SettingsService" />
+
+	<service ref="cachedSettingsReader"
+			 interface="com.elasticpath.settings.SettingsReader"/>
+
+	<service ref="settingValueTypeConverter"
+			 interface="com.elasticpath.settings.provider.converter.SettingValueTypeConverter"/>
+
+	<service ref="shopperService"
+			 interface="com.elasticpath.service.shopper.ShopperService" />
+
+	<service ref="shoppingCartService"
+			 interface="com.elasticpath.service.shoppingcart.ShoppingCartService" />
+
+	<service ref="cartDirector"
+			 interface="com.elasticpath.service.shoppingcart.ShoppingCartRefresher" />
+
+	<service ref="wishListService"
+			 interface="com.elasticpath.service.shoppingcart.WishListService" />
+
+	<service ref="pricingSnapshotService"
+			 interface="com.elasticpath.service.shoppingcart.PricingSnapshotService" />
+
+	<service ref="taxSnapshotService"
+			 interface="com.elasticpath.service.shoppingcart.TaxSnapshotService" />
+
+	<service ref="customerSessionService"
+			 interface="com.elasticpath.service.customer.CustomerSessionService" />
+
+	<service ref="coreBeanFactory"
+			 interface="com.elasticpath.commons.beanframework.BeanFactory" >
+		<service-properties>
+			<entry key="typeArg" value="core" />
+		</service-properties>
+	</service>
+
+	<service ref="storeProductService"
+			 interface="com.elasticpath.service.catalogview.StoreProductService" />
+
+	<service ref="oAuth2AccessTokenService"
+			 interface="com.elasticpath.service.auth.OAuth2AccessTokenService" />
+
+	<service ref="sessionPriceListLifecycle"
+			 interface="com.elasticpath.service.pricing.SessionPriceListLifecycle" />
+
+	<service ref="priceListLookupService"
+			 interface="com.elasticpath.common.pricing.service.PriceListLookupService" />
+
+	<service ref="priceLookupFacadeImpl"
+			 interface="com.elasticpath.common.pricing.service.PriceLookupFacade" />
+
+	<service ref="cartDirectorService"
+			 interface="com.elasticpath.sellingchannel.director.CartDirectorService" />
+
+	<service ref="shoppingItemDtoFactory"
+			 interface="com.elasticpath.common.dto.sellingchannel.ShoppingItemDtoFactory" />
+
+	<service ref="shoppingItemAssembler"
+			 interface="com.elasticpath.sellingchannel.director.ShoppingItemAssembler" />
+
+	<service ref="shoppingItemFactory"
+			 interface="com.elasticpath.sellingchannel.ShoppingItemFactory" />
+
+	<service ref="cartOrderService"
+			 interface="com.elasticpath.service.cartorder.CartOrderService" />
+
+	<service ref="cartOrderShippingService"
+			 interface="com.elasticpath.service.cartorder.CartOrderShippingService" />
+
+	<service ref="cartOrderCouponService"
+			 interface="com.elasticpath.service.cartorder.CartOrderCouponService" />
+
+	<service ref="orderService"
+			 interface="com.elasticpath.service.order.OrderService" />
+
+	<service ref="bundleIdentifier"
+			 interface="com.elasticpath.service.catalog.BundleIdentifier"/>
+
+	<service ref="dataPolicyService"
+			 interface="com.elasticpath.service.datapolicy.DataPolicyService" />
+
+	<service ref="customerConsentService"
+			 interface="com.elasticpath.service.datapolicy.CustomerConsentService" />
+
+	<service ref="timeService"
+			 interface="com.elasticpath.service.misc.TimeService"/>
+
+	<service ref="indexSearchService"
+			 interface="com.elasticpath.service.search.index.IndexSearchService" />
+
+	<service ref="nonCachingCategoryLookup"
+			 interface="com.elasticpath.service.catalog.CategoryLookup" ranking="100">
+		<service-properties>
+			<entry key="caching">
+				<value type="java.lang.Boolean">false</value>
+			</entry>
+		</service-properties>
+	</service>
+
+	<service ref="categoryService"
+			 interface="com.elasticpath.service.catalog.CategoryService" />
+
+	<service ref="searchTermsService"
+			 interface="com.elasticpath.service.search.query.SearchTermsService" />
+
+	<service ref="contentspaceService"
+			 interface="com.elasticpath.service.contentspace.ContentSpaceService" />
+
+	<service ref="taxDocumentService"
+			interface="com.elasticpath.service.tax.TaxDocumentService"/>
+
+	<service ref="tagFactory"
+			 interface="com.elasticpath.tags.service.TagFactory" />
+
+	<service ref="moneyFormatter"
+			 interface="com.elasticpath.money.MoneyFormatter" />
+
+	<service ref="contentSpaceQueryService"
+			 interface="com.elasticpath.service.query.QueryService">
+		<service-properties>
+			<entry key="typeArg" value="ContentSpace"/>
+		</service-properties>
+	</service>
+
+	<service ref="productTypeService"
+			 interface="com.elasticpath.service.catalog.ProductTypeService"/>
+
+	<service ref="productQueryService"
+			 interface="com.elasticpath.service.query.QueryService">
+		<service-properties>
+			<entry key="typeArg" value="Product"/>
+		</service-properties>
+	</service>
+
+	<service ref="dynamicContentRuntimeService"
+			 interface="com.elasticpath.service.contentspace.DynamicContentRuntimeService" />
+
+	<service ref="assetRepository"
+			 interface="com.elasticpath.commons.util.AssetRepository" />
+
+	<service ref="nonCachingProductCharacteristicsService"
+			 interface="com.elasticpath.service.catalog.ProductCharacteristicsService"
+			 ranking="100">
+		<service-properties>
+			<entry key="caching" value="false"/>
+		</service-properties>
+	</service>
+
+	<service ref="indexUtility"
+			 interface="com.elasticpath.service.search.solr.IndexUtility" />
+
+	<service ref="paymentMethodTransformerFactory"
+			 interface="com.elasticpath.service.payment.gateway.PaymentMethodTransformerFactory" />
+
+	<service ref="geography"
+			 interface="com.elasticpath.domain.misc.Geography" />
+
+	<service ref="validCouponUseSpecification"
+			interface="com.elasticpath.domain.specifications.Specification"/>
+
+	<service ref="customerAgePresentation"
+			interface="com.elasticpath.presentation.customer.CustomerAgePresentation"/>
+
+	<service ref="persistenceEngine"
+			 interface="com.elasticpath.persistence.api.PersistenceEngine"/>
+
+	<service ref="persistenceSessionFilterSupport"
+			 interface="com.elasticpath.persistence.api.PersistenceSessionFilterSupport"/>
+
+	<service ref="productAssociationService"
+				interface="com.elasticpath.service.catalog.ProductAssociationService"/>
+
+	<service ref="nonCachingRuleService"
+				interface="com.elasticpath.service.rules.RuleService" />
+
+	<service ref="couponUsageService"
+				interface="com.elasticpath.service.rules.CouponUsageService" />
+
+	<service ref="couponService"
+			interface="com.elasticpath.service.rules.CouponService" />
+
+	<service ref="taxCodeRetriever"
+			interface="com.elasticpath.service.tax.TaxCodeRetriever" />
+
+	<service ref="couponAutoApplierAdapter"
+		interface="com.elasticpath.service.rules.CartOrderCouponAutoApplier" />
+
+	<service ref="cartItemModifierService"
+			 interface="com.elasticpath.service.cartitemmodifier.CartItemModifierService"/>
+
+	<service ref="validator"
+			 interface="javax.validation.Validator"/>
+
+	<service ref="cartItemModifierFieldValidationService"
+			 interface="com.elasticpath.validation.service.CartItemModifierFieldValidationService"/>
+
+	<service ref="shippingServiceLevelService"
+			 interface="com.elasticpath.service.shipping.ShippingServiceLevelService"/>
+
+	<service ref="shippableItemPredicate"
+			 interface="java.util.function.Predicate">
+		<service-properties>
+			<entry key="predicateName" value="shippableItemPredicate"/>
+		</service-properties>
+	</service>
+
+	<service ref="transactionManager" interface="org.springframework.transaction.PlatformTransactionManager"/>
+
+	<service ref="shippingOptionTransformer"
+			 interface="com.elasticpath.service.shipping.ShippingOptionTransformer"/>
+
+	<service ref="nonCachingPriceAdjustmentService" interface="com.elasticpath.service.pricing.PriceAdjustmentService"/>
+
+
+	<service ref="nonCachingPriceListAssignmentService" interface="com.elasticpath.service.pricing.PriceListAssignmentService"/>
+
+	<service ref="nonCachingBaseAmountFinder" interface="com.elasticpath.service.pricing.BaseAmountFinder"/>
+
+	<service ref="coreShippingOptionService"
+			 interface="com.elasticpath.service.shipping.ShippingOptionService">
+		<description>ShippingOptionService</description>
+	</service>
+
+	<service ref="pricedShippableItemContainerTransformer"
+			 interface="com.elasticpath.service.shipping.transformers.PricedShippableItemContainerTransformer"/>
+
+	<service ref="addProductSkuToCartValidationService"
+			 interface="com.elasticpath.service.shoppingcart.validation.AddProductSkuToCartValidationService"/>
+
+	<service ref="purchaseCartValidationService"
+		  interface="com.elasticpath.service.shoppingcart.validation.PurchaseCartValidationService"/>
+
+</blueprint>

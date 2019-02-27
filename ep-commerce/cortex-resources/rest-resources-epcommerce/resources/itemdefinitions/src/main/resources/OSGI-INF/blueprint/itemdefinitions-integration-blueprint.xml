@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint
+		xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<!-- import services -->
+	<reference id="resourceOperationContext"
+			interface="com.elasticpath.rest.resource.ResourceOperationContext"/>
+
+	<reference id="storeProductRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.product.StoreProductRepository"/>
+
+	<reference id="itemRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.item.ItemRepository"/>
+
+	<reference id="productSkuRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.sku.ProductSkuRepository"/>
+
+	<reference id="attributeValueTransformer"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.transform.AttributeValueTransformer"/>
+
+	<!-- export services -->
+	<service ref="itemDefinitionLookupStrategy"
+			interface="com.elasticpath.rest.resource.itemdefinitions.integration.ItemDefinitionLookupStrategy"/>
+
+	<service ref="itemDefinitionOptionLookupStrategy"
+			interface="com.elasticpath.rest.resource.itemdefinitions.options.integration.ItemDefinitionOptionLookupStrategy"/>
+
+	<service ref="itemDefinitionComponentLookupStrategy"
+			interface="com.elasticpath.rest.resource.itemdefinitions.components.integration.ItemDefinitionComponentLookupStrategy"/>
+
+</blueprint>

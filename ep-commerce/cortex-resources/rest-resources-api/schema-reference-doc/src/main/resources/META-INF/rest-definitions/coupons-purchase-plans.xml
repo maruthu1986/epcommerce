@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>coupons</name>
+		<description>
+			<![CDATA[
+Coupons for a [purchase][purchase] are coupons that were applied to the shopper's purchase.
+
+[coupons]: #coupons
+[purchase]: #purchases
+			]]>
+		</description>
+		<plan>
+			<name>read-coupons-appled-to-purchase</name>
+			<description><![CDATA[Read a coupon applied to the purchase.]]></description>
+			<step>
+				<description><![CDATA[Read coupons from an purchase.]]></description>
+				<start>purchases.purchase</start>
+				<follow-link>coupons</follow-link>
+				<link-back>purchases.purchase</link-back>
+				<result>purchase-coupon-list</result>
+			</step>
+			<step>
+				<description><![CDATA[Read coupon from coupons list.]]></description>
+				<start>purchase-coupon-list</start>
+				<follow-link>element</follow-link>
+				<result>purchase-coupon</result>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

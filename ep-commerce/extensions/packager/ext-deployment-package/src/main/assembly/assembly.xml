@@ -1,0 +1,103 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+	<id>bin</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+
+	<includeBaseDirectory>false</includeBaseDirectory>
+
+	<dependencySets>
+		<!-- webapps -->
+		<dependencySet>
+			<includes>
+				<include>*:*:war</include>
+				<include>*:*-assets:zip</include>
+			</includes>
+			<useStrictFiltering>true</useStrictFiltering>
+			<useProjectArtifact>false</useProjectArtifact>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<outputDirectory>webapps</outputDirectory>
+		</dependencySet>
+
+		<!-- database -->
+		<dependencySet>
+			<includes>
+				<include>*:*data*</include>
+				<include>*:*schema*</include>
+			</includes>
+            <excludes>
+                <exclude>*:*-cli:zip</exclude>
+            </excludes>
+			<useStrictFiltering>true</useStrictFiltering>
+			<useProjectArtifact>false</useProjectArtifact>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<outputDirectory>database</outputDirectory>
+		</dependencySet>
+
+		<!-- database/jdbc -->
+		<dependencySet>
+			<includes>
+				<!-- Database driver -->
+				<include>${epdb.maven.groupId}:${epdb.maven.artifactId}</include>
+			</includes>
+			<useStrictFiltering>true</useStrictFiltering>
+			<useProjectArtifact>false</useProjectArtifact>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<outputDirectory>database/jdbc</outputDirectory>
+		</dependencySet>
+
+		<!-- tools/activemq -->
+		<dependencySet>
+			<includes>
+				<include>org.apache.activemq:apache-activemq</include>
+			</includes>
+			<useStrictFiltering>true</useStrictFiltering>
+			<useProjectArtifact>false</useProjectArtifact>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<outputDirectory>webapps</outputDirectory>
+		</dependencySet>
+		<dependencySet>
+			<includes>
+				<!-- ActiveMQ dependencies -->
+				<include>org.apache.activemq:activemq-client</include>
+				<include>org.apache.activemq:activemq-jms-pool</include>
+				<include>org.apache.activemq:activemq-pool</include>
+				<include>org.apache.geronimo.specs:geronimo-j2ee-management_1.1_spec</include>
+				<include>org.apache.geronimo.specs:geronimo-jms_1.1_spec</include>
+				<include>org.slf4j:slf4j-api</include>
+				<include>org.fusesource.hawtbuf:hawtbuf</include>
+				<include>org.apache.commons:commons-pool2</include>
+				<include>javax.servlet:jstl</include>
+				<include>taglibs:standard</include>
+			</includes>
+			<useStrictFiltering>true</useStrictFiltering>
+			<useProjectArtifact>false</useProjectArtifact>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<outputDirectory>tools/activemq/lib</outputDirectory>
+		</dependencySet>
+
+		<!-- tools -->
+		<dependencySet>
+			<includes>
+				<include>*:*-cli:zip</include>
+			</includes>
+			<useStrictFiltering>true</useStrictFiltering>
+			<useProjectArtifact>false</useProjectArtifact>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<outputDirectory>tools</outputDirectory>
+		</dependencySet>
+
+	</dependencySets>
+
+	<fileSets>
+		<fileSet>
+			<directory>${project.build.directory}/assembly</directory>
+			<includes>
+				<include>**/*</include>
+			</includes>
+			<outputDirectory>.</outputDirectory>
+		</fileSet>
+	</fileSets>
+</assembly>

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>searches</name>
+		<description>
+			<![CDATA[
+####Entry Point: /searches/{scope}
+
+The search resource uses the Elastic Path Search Server to perform searches. Cortex API sends the search keywords
+entered by the customer to the search server for processing. Once the search server processes the search, the results are returned to Cortex
+API.
+
+Client developers can think of search as a three-part process. First, you get the search form and fill it out with the
+search keywords. Second, you POST the search form to create the search. Then, you follow the link returned by Cortex
+API to retrieve the search results. Search results are paginated and ordered according to how relevant the results
+are to the search keywords.
+			]]>
+		</description>
+		<plan>
+			<name>search-items</name>
+			<description><![CDATA[Submit a search query for items matching search criteria and read the result.]]></description>
+			<template>
+				<name>controls.form-control-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>searches</value>
+				</replace>
+				<replace>
+					<key>read-form-link</key>
+					<value>keywordsearchform</value>
+				</replace>
+				<replace>
+					<key>form-resource</key>
+					<value>keyword-search-form</value>
+				</replace>
+				<replace>
+					<key>submit-resource</key>
+					<value>keyword-search-action</value>
+				</replace>
+				<replace>
+					<key>submit-action-link</key>
+					<value>itemkeywordsearchaction</value>
+				</replace>
+				<replace>
+					<key>submit-result</key>
+					<value>keyword-search-result</value>
+				</replace>
+			</template>
+		</plan>
+
+	</family>
+</definitions>

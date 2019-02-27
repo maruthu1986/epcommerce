@@ -1,0 +1,172 @@
+#**
+ *
+ * VM_global_library.vm
+ * This file consists of a collection of Velocity macros aimed at easing
+ * some of the common requirements of elastic path applications.
+ *
+*#
+
+
+#**
+* Initialises global variables used in all email templates
+*#
+#macro (emailInit)
+  #set ($baseUrl = $baseImgUrl)
+#end
+
+
+#**
+* Macro for emails to retrieve messages from a msgSource object
+* IMPORTANT - MUST NOT have leading spaces or a line break before the #end
+*#
+#macro(emailMessage $code)
+$msgSource.getMessage($code, null, $code, $locale)#end
+
+
+#**
+* Display the price formatted for the passed locale
+*#
+#macro(displayPriceForLocale $price $currentLocale)
+    #if ($price && "$!price" != "")
+        $moneyFormatter.formatCurrency($price, $currentLocale)
+    #end
+#end
+
+
+#**
+* Display the price formatted for the shopping cart's locale
+*#
+#macro(displayPriceForCartLocale $price)
+    #displayPriceForLocale($price $locale)
+#end
+
+
+#**
+* Sets the lowest price and frequency for the given price object
+* This will set the variable $effectivePrice to the lowest price of
+* the product, or its lowest constituent item
+* and will also set $lowestPriceSchedule to that value
+*NOTE: variables are global.
+*#
+#macro (setSchedulesPriceAndFrequency $price)
+	    #set ($lowestPriceSchedule = false)
+	    #set ($lowestPrice = false)
+	    #set ($effectivePrice = $price)
+	    #set ($frequency = false)
+	    #set ($isRecurring  = false)
+	    #set ($pricingScheme = false)
+	    #set ($recurringSchedules = false)
+        #set ($effectivePrice = false)
+
+        #set ($effectivePrice = $price)
+        #set ($pricingScheme = $price.pricingScheme)
+	    #if ($pricingScheme != false && !$pricingScheme.recurringSchedules.empty)
+           #set ($lowestPriceSchedule = $pricingScheme.getScheduleForLowestPrice())
+   	       #set ($lowestPrice = $price.getPricingScheme().getSimplePriceForSchedule($lowestPriceSchedule))
+           #set ($effectivePrice = $!$lowestPrice)
+           #set ($recurringSchedules = $pricingScheme.getRecurringSchedules())
+      	   #set ($frequency = $lowestPriceSchedule.getPaymentSchedule().getName())
+	       #if ($lowestPriceSchedule.getType().toString().equals("RECURRING"))
+	           #set ($isRecurring  = true)
+       	   #end
+	       ### Now have lowest recurring schedule ( or just regular schedule)
+	       ### AND effectivePrice = the lowest price for product/bundle
+		#end
+#end
+
+
+#macro (displaySkuOptionValues $item  $locale)
+     $item.getFilteredSkuOptionValues($locale)
+#end
+
+
+##
+##Sets the list, unit and sale price from the recurring price.
+##Check to make sure recurring price on item level is set.
+##
+#macro( setDisplayPrices $isRecurringItem)
+    #if ($isRecurringItem)
+    	#set ($listPrice = "#displayPriceForCartLocale($recurringPrice.listPrice)")
+        #set ($unitPrice = "#displayPriceForCartLocale($recurringPrice.lowestPrice)")
+        #set ($onSale = $recurringPrice.lowestPrice.lessThan($$recurringPrice.listPrice))
+    #else
+        #set ($listPrice = "#displayPriceForCartLocale($!orderItemFormBean.getListPriceMoney())")
+        #set ($unitPrice = "#displayPriceForCartLocale($!orderItemFormBean.getUnitPriceMoney())")
+        #set ($onSale = $!orderItemFormBean.getUnitPriceMoney().lessThan($orderItemFormBean.getListPriceMoney()))
+    #end
+    #set ($effectivePrice = $orderItemFormBean.getPrice())
+#end
+
+
+#**
+* Displays digital asset download link
+* CUSTOMIZE to match front-end URLs and asset naming scheme
+*#
+#macro(displayDigitalAsset $digitalAsset)
+	#if($digitalAsset)
+	   #setImageUrl("icons/download.png")
+       <div><a href="${storeUrl}/digitalassets/$digitalAsset.getEncryptedUidPk()?orderId=$orderItemFormBean.getEncryptedUidPk()"><img src="$imageUrl" alt="Download Digital Goods" border="0" />$digitalAsset.getFileNameWithoutPath()</a></div>
+    #end
+#end
+
+
+#**
+* Sets the storefront URL for a product
+* CUSTOMIZE to match front-end URLs
+*#
+#macro (setProductUrl $product)
+    #set ($productUrl = "${storeUrl}/products/$product.getCode()")
+#end
+
+
+#**
+* Sets the image URL for a product
+* CUSTOMIZE to match front-end URLs and asset naming scheme
+*#
+#macro (setProductImageUrl $product)
+    #setImageUrl("products/$product.getCode()")
+    #set ($productImageUrl = $imageUrl)
+#end
+
+
+#**
+* Sets the image URL for a SKU
+* CUSTOMIZE to match front-end URLs and asset naming scheme
+*#
+#macro (setProductSkuImageUrl $productSku)
+    #setImageUrl("items/$productSku.getSkuCode()")
+    #set ($productSkuImageUrl = $imageUrl)
+#end
+
+
+#**
+* Sets the URL for an image
+* CUSTOMIZE to match front-end URLs and asset naming scheme
+*#
+#macro (setImageUrl $image)
+    #set ($imageUrl = "$baseUrl/images/$image")
+#end
+
+#*
+* Sets the URL for an order
+* CUSTOMIZE to match front-end URLs and asset naming scheme
+*#
+#macro (setOrderDetailsUrl $url)
+    #set ($orderDetailsUrl = $url)
+#end
+
+#*
+* Sets the URL for an user account
+* CUSTOMIZE to match front-end URLs and asset naming scheme
+*#
+#macro (setManageAccountUrl $url)
+    #set ($manageAccountUrl = $url)
+#end
+
+#*
+* Sets the asset URL
+* CUSTOMIZE to match front-end URLs and asset naming scheme
+*#
+#macro (setAssetUrl $url)
+    #set ($assetURL = $url)
+#end

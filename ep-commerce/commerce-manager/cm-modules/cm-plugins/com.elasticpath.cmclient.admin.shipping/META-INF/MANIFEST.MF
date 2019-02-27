@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.elasticpath.cmclient.admin.shipping;singleton:=true
+Bundle-Version: 703.0.0.qualifier
+Bundle-Activator: com.elasticpath.cmclient.admin.shipping.AdminShippingPlugin
+Bundle-Vendor: %providerName
+Require-Bundle: org.eclipse.core.runtime,
+ com.elasticpath.cmclient.admin,
+ com.elasticpath.ep-persistence-api,
+ org.eclipse.core.databinding,
+ org.eclipse.rap.ui,
+ org.eclipse.rap.ui.forms,
+ org.eclipse.rap.jface.databinding
+Bundle-ActivationPolicy: lazy
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

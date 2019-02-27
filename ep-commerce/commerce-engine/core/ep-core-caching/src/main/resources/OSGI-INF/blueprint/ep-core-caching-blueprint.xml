@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint
+		xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+		">
+
+	<!-- Imported Services -->
+	<reference id="persistenceEngine" interface="com.elasticpath.persistence.api.PersistenceEngine"/>
+	<reference id="productDao" interface="com.elasticpath.persistence.dao.ProductDao"/>
+	<reference id="settingsReader" interface="com.elasticpath.settings.SettingsReader"/>
+
+	<reference id="nonCachingCategoryLookup" interface="com.elasticpath.service.catalog.CategoryLookup"
+			   filter="(caching=false)"/>
+	<reference id="nonCachingProductCharacteristicsService"
+			   interface="com.elasticpath.service.catalog.ProductCharacteristicsService"
+			   filter="(caching=false)"/>
+	<reference id="nonCachingProductLookup" interface="com.elasticpath.service.catalog.ProductLookup"
+			   filter="(caching=false)"/>
+	<reference id="nonCachingProductSkuLookup" interface="com.elasticpath.service.catalog.ProductSkuLookup"
+			   filter="(caching=false)"/>
+	<reference id="nonCachingStoreService" interface="com.elasticpath.service.store.StoreService"
+			   filter="(caching=false)"/>
+	<reference id="nonCachingPriceAdjustmentService" interface="com.elasticpath.service.pricing.PriceAdjustmentService"/>
+	<reference id="nonCachingRuleService" interface="com.elasticpath.service.rules.RuleService"/>
+	<reference id="nonCachingPriceListAssignmentService" interface="com.elasticpath.service.pricing.PriceListAssignmentService"/>
+	<reference id="nonCachingBaseAmountFinder" interface="com.elasticpath.service.pricing.BaseAmountFinder"/>
+
+	<!-- Exported Services  -->
+	<service ref="cachingStoreService"
+			 interface="com.elasticpath.service.store.StoreService" ranking="200">
+		<service-properties>
+			<entry key="caching">
+				<value type="java.lang.Boolean">true</value>
+			</entry>
+		</service-properties>
+	</service>
+
+	<!-- services-cache-catalog -->
+	<service ref="cachingCategoryLookup" interface="com.elasticpath.service.catalog.CategoryLookup" ranking="200">
+		<service-properties>
+			<entry key="caching">
+				<value type="java.lang.Boolean">true</value>
+			</entry>
+		</service-properties>
+	</service>
+
+	<service ref="cachingProductCharacteristicsService"
+			 interface="com.elasticpath.service.catalog.ProductCharacteristicsService" ranking="200">
+		<service-properties>
+			<entry key="caching">
+				<value type="java.lang.Boolean">true</value>
+			</entry>
+		</service-properties>
+	</service>
+
+	<service ref="cachingProductLookup" interface="com.elasticpath.service.catalog.ProductLookup" ranking="200">
+		<service-properties>
+			<entry key="caching">
+				<value type="java.lang.Boolean">true</value>
+			</entry>
+		</service-properties>
+	</service>
+
+	<service ref="cachingProductSkuLookup" interface="com.elasticpath.service.catalog.ProductSkuLookup" ranking="200">
+		<service-properties>
+			<entry key="caching">
+				<value type="java.lang.Boolean">true</value>
+			</entry>
+		</service-properties>
+	</service>
+
+	<service ref="cachingPriceAdjustmentService" interface="com.elasticpath.service.pricing.PriceAdjustmentService" ranking="200">
+		<service-properties>
+			<entry key="caching">
+				<value type="java.lang.Boolean">true</value>
+			</entry>
+		</service-properties>
+	</service>
+
+	<service ref="cachingRuleService" interface="com.elasticpath.service.rules.RuleService" ranking="200">
+		<service-properties>
+			<entry key="caching">
+				<value type="java.lang.Boolean">true</value>
+			</entry>
+		</service-properties>
+	</service>
+
+	<service ref="cachingBaseAmountFinder" interface="com.elasticpath.service.pricing.BaseAmountFinder" ranking="200">
+		<service-properties>
+			<entry key="caching">
+				<value type="java.lang.Boolean">true</value>
+			</entry>
+		</service-properties>
+	</service>
+
+	<service ref="cachingPriceListAssignmentService" interface="com.elasticpath.service.pricing.PriceListAssignmentService" ranking="200">
+		<service-properties>
+			<entry key="caching">
+				<value type="java.lang.Boolean">true</value>
+			</entry>
+		</service-properties>
+	</service>
+</blueprint>

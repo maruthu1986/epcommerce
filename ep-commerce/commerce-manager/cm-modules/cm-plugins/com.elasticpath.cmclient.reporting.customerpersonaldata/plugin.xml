@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<!--
+  ~ Copyright (c) Elastic Path Software Inc., 2018
+  -->
+
+<plugin>
+   <extension
+         point="com.elasticpath.cmclient.core.authorizations">
+      <permissions>
+         <permission
+               activityId="com.elasticpath.cmclient.reporting.authorizations.activity"
+               key="REPORTING_CUSTOMER_PERSONAL_DATA_MANAGE"
+               name="%customerPersonalDataReportPermission">
+         </permission>
+      </permissions>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.reporting.reports">
+      <report
+            class="com.elasticpath.cmclient.reporting.customerpersonaldata.CustomerPersonalDataReportSection"
+            designFile="reportDesign/CustomerPersonalData.rptdesign"
+            id="com.elasticpath.cmclient.reporting.customerpersonaldata.CustomerPersonalDataReportSection"
+            name="%report.name">
+      </report>
+   </extension>
+
+</plugin>

@@ -1,0 +1,11 @@
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Spinner.html
+Spinner {
+	@include form_field('&,&[BORDER]');
+	
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Spinner.html#Spinner-Field
+	&-Field {
+		padding: $widget_field_padding;
+	}
+
+	@include updown_buttons();
+}

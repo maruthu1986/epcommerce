@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath</groupId>
+		<artifactId>data-population</artifactId>
+		<version>703.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ep-data-population-cli-parent</artifactId>
+	<packaging>pom</packaging>
+	<name>EP Data Population CLI Parent</name>
+	<description>Parent pom for the Data Population CLI implementation projects.</description>
+
+	<modules>
+		<module>ep-data-population-cli-tool</module>
+		<module>ep-data-population-cli-plugins</module>
+		<module>ep-data-population-cli-tool-assembly</module>
+	</modules>
+
+</project>

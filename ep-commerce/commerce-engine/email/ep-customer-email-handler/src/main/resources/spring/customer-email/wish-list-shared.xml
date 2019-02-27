@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<bean id="wishListSharedEmailProducerTemplate" class="com.elasticpath.email.handler.customer.producer.impl.WishListSharedEmailProducer"
+		abstract="true">
+		<property name="emailComposer" ref="emailComposer" />
+		<property name="wishListEmailPropertyHelper" ref="wishListEmailPropertyHelper" />
+		<property name="wishListService" ref="wishListService" />
+		<property name="storeService" ref="storeService" />
+	</bean>
+
+	<bean id="wishListSharedEmailProducer" parent="wishListSharedEmailProducerTemplate" />
+
+	<bean id="wishListSharedEmailHandlingRouteBuilderTemplate" parent="abstractEventMessageTriggeredEmailRouteBuilder"
+		  abstract="true">
+		<property name="routeId" value="wishListSharedEmailHandler"/>
+		<property name="incomingEndpoint">
+			<bean parent="customerEventExternalEndpoint">
+				<property name="camelContextId" value="ep-customer-email-handler" />
+				<property name="context" value="wishListSharedEmailHandler"/>
+			</bean>
+		</property>
+		<property name="outgoingEndpoint">
+			<bean parent="emailSendingEndpoint">
+				<property name="camelContextId" value="ep-customer-email-handler" />
+			</bean>
+		</property>
+		<property name="eventMessagePredicateFilter" ref="wishListSharedEventTypePredicate" />
+		<property name="emailProducer" ref="wishListSharedEmailProducer" />
+	</bean>
+
+	<bean id="wishListSharedEmailHandlingRouteBuilder" parent="wishListSharedEmailHandlingRouteBuilderTemplate"/>
+
+</beans>

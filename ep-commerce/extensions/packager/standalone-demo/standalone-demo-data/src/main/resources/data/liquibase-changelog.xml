@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+  logicalFilePath="ext-data/data/liquibase-changelog.xml">
+
+	<!-- The following sample/demo data is included by default from the commerce-data project.
+		 You should remove these includes once you have created real data for your project. -->
+	<include file="shared-demo-data/liquibase-changelog.xml" relativeToChangelogFile="true" />
+	<include file="mobee-demo-data/liquibase-changelog.xml" relativeToChangelogFile="true" />
+	<include file="sample-data/liquibase-changelog.xml" relativeToChangelogFile="true" />
+	<!-- End of sample/demo data -->
+
+	<!-- This is data that should be deployed to production in release 1.0, including your initial catalog setup -->
+	<include file="rel-1.0-data/liquibase-changelog.xml" relativeToChangelogFile="true" />
+
+	<!-- This is test data that should be used only in development, qa and similar environments -->
+	<include file="test-data/liquibase-changelog.xml" relativeToChangelogFile="true" />
+
+	<!-- Default settings for commerce demo. Processed last so as to override normal project settings -->
+	<include file="standalone-demo-data/liquibase-changelog.xml" relativeToChangelogFile="true" />
+
+</databaseChangeLog>

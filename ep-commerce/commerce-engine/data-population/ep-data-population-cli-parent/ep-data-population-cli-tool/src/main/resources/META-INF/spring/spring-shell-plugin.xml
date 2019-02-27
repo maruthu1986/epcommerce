@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<context:property-placeholder ignore-unresolvable="true"/>
+
+	<util:properties id="globalDataPopulationProperties" location="data-population.properties"/>
+	<bean id="environmentalDataPopulationProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="${data.population.config.directory}/data-population.properties"/>
+	</bean>
+
+	<!-- Reads the data population properties regarding the CLI command restrictions. The environment specific properties
+	     override the global ones (not additive). -->
+	<bean id="dataPopulationProperties" class="com.elasticpath.datapopulation.core.service.filtering.FilteredPropertiesFactory">
+		<property name="sourceProperties" ref="globalDataPopulationProperties"/>
+		<property name="propertiesToFilter" ref="environmentalDataPopulationProperties"/>
+		<property name="includeSourceProperties" value="true"/>
+	</bean>
+
+	<!-- The availableCommandsConfigurer and the commandAvailabilityChecker specifies which commands are available from the command line,
+		and it is controlled by a property that is defined in the global data population properties file. -->
+	<bean id="availableCommandsConfigurer"
+		  class="com.elasticpath.datapopulation.cli.tool.configuration.DataPopulationAvailableCommandsConfiguration"
+		  init-method="parseAndSetAvailableCommands">
+		<!-- Reference the properties file directly since this bean is being instantiated before the property placeholder bean is run
+			since it's used in the Ant command which is used very early to calculate the database type in use. -->
+		<property name="availableCommandsString" value="#{ dataPopulationProperties['data.population.cli.available.commands'] }"/>
+		<!-- We have an unavailable commands String to to allow particular environments to disable individual commands without knowing the entire available command-set -->
+		<property name="unavailableCommandsString" value="#{ dataPopulationProperties['data.population.cli.unavailable.commands'] }"/>
+	</bean>
+
+	<bean id="commandAvailabilityChecker" class="com.elasticpath.datapopulation.cli.tool.commands.CommandAvailabilityChecker">
+		<property name="availableCommands" value="#{ availableCommandsConfigurer.availableCommands }"/>
+	</bean>
+
+	<!-- Define the Data Population customizations to Spring-Cli -->
+
+	<bean id="bannerProvider" class="com.elasticpath.datapopulation.cli.tool.springcli.extensions.DpBannerProvider"/>
+	<bean id="promptProvider" class="com.elasticpath.datapopulation.cli.tool.springcli.extensions.DpPromptProvider"/>
+	<bean id="historyFilenameProvider" class="com.elasticpath.datapopulation.cli.tool.springcli.extensions.DpHistoryFilenameProvider"/>
+
+	<!-- Finally import any plug-in contributions. We import them under a different name rather than have Spring-Shell import them so that
+		plug-ins can override any definition defined above as its guaranteed to be included after the definitions above. -->
+	<import resource="classpath*:META-INF/spring/dpcli-spring-shell-plugin.xml"/>
+
+	<!-- Configures the data population service layer -->
+	<bean id="dataDirectory" class="java.io.File">
+		<constructor-arg type="java.net.URI" value="${data.population.data.directory}"/>
+	</bean>
+	<bean id="configDirectory" class="java.io.File">
+		<constructor-arg type="java.net.URI" value="${data.population.config.directory}"/>
+	</bean>
+	<bean id="workingDirectory" class="java.io.File">
+		<constructor-arg type="java.lang.String" value="${data.population.working.directory}"/>
+	</bean>
+	<import resource="classpath*:META-INF/spring/data-population-core-config.xml"/>
+
+</beans>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>shipments</name>
+		<description><![CDATA[A shipment lists the shipments created by a purchase.]]></description>
+
+		<uri-part>
+			<name>shipment-id</name>
+			<description><![CDATA[The shipment ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>shipments</name>
+			<description><![CDATA[A list of shipments associated with a given purchase.]]></description>
+			<uri>{base.family}/{purchases.purchase}</uri>
+			<list-of>shipment</list-of>
+		</resource>
+
+		<resource>
+			<name>shipment</name>
+			<description><![CDATA[A shipment associated with a given purchase.]]></description>
+			<uri>{shipments}/{shipment-id}</uri>
+			<entity>shipment</entity>
+		</resource>
+		
+		<relationship>
+			<name>shipments-for-shipment</name>
+			<description><![CDATA[List of shipments that shipment is found in.]]></description>
+			<rel>list</rel>
+			<from>shipment</from>
+			<to>shipments</to>
+		</relationship>
+
+		<relationship>
+			<name>shipments-for-purchase</name>
+			<description><![CDATA[Retrieve the shipments associated with a purchase.]]></description>
+			<rel>shipments</rel>
+			<rev>purchase</rev>
+			<from>purchases.purchase</from>
+			<to>shipments</to>
+		</relationship>
+
+		<entity>
+			<name>shipment</name>
+			<description><![CDATA[ A shipment of items associated with a purchase.]]></description>
+			<property>
+				<name>shipment-id</name>
+				<description><![CDATA[The internal shipment identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>purchase-id</name>
+				<description><![CDATA[The internal purchase identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>status</name>
+				<description><![CDATA[Indicates the status of the shipment.]]></description>
+				<is-a>status</is-a>
+			</property>
+			<entity-type>shipments.shipment</entity-type>
+		</entity>
+
+	</family>
+
+</definitions>

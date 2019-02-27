@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="com.elasticpath.cmclient.core.authorizations">
+      <permissions>
+         <permission
+               activityId="com.elasticpath.cmclient.reporting.authorizations.activity"
+               key="REPORTING_GIFT_CERTIFICATE_SUMMARY_MANAGE"
+               name="%giftCertificateSummaryReportPermission">
+         </permission>
+      </permissions>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.reporting.reports">
+      <report
+            class="com.elasticpath.cmclient.reporting.giftcertificatesummary.GiftCertificateSummaryReportSection"
+            designFile="reportDesign/GiftCertificateSummary.rptdesign"
+            id="com.elasticpath.cmclient.reporting.giftcertificatesummary.GiftCertificateSummaryReportSection"
+            name="%report.name">
+      </report>
+   </extension>
+
+</plugin>

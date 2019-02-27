@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>registrations</name>
+		<description>
+			<![CDATA[
+####Entry Point: /registrations/{scope}/newaccount
+
+The registrations resource enables you to create new customers.
+			]]>
+		</description>
+
+		<!-- this plan is not using template because it doesn't have a start resource to fetch form. Form is fetched directly with URI: {base.family}/{base.scope}/newaccount/form -->
+		<plan>
+			<name>register-newaccount</name>
+			<description>
+				<![CDATA[
+Register a new account for a customer.
+
+You cannot create a new customer if a customer is already logged into Cortex API. For example, if a customer
+logged on through a web browser, the customer cannot create a new customer until the customer logs out.
+If you attempt to create a customer when a customer is logged in, Cortex API throws an error.
+
+All the fields in the registration form must be filled out to create a customer.
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Start at root]]></description>
+				<start>base.root</start>
+				<follow-link>newaccountform</follow-link>
+				<result>new-account-registration-form</result>
+			</step>
+			<step>
+				<description><![CDATA[Submit the form to register an account.]]></description>
+				<start>new-account-registration-form</start>
+				<submit>registration</submit>
+				<to>new-account-registration-form</to>
+				<via-link>registeraction</via-link>
+				<result>profiles.profile</result>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

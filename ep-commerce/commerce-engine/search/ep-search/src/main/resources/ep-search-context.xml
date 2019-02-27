@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	">
+
+	<!-- pulled from core jar -->
+	<import resource="classpath:spring/dataaccess/openjpa/openjpa.xml" />
+	<import resource="classpath:spring/commons/util-config.xml" />
+	<import resource="classpath:spring/commons/validators.xml" />
+	<!-- pulled from the search jar -->
+	<import resource="classpath:spring/models/domainModelSearch.xml" />
+	<import resource="classpath:spring/dataaccess/daoSearch.xml" />
+	<import resource="classpath:spring/service/serviceSearch.xml" />
+	<import resource="classpath:spring/scheduling/quartz.xml" />
+
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/plugin.xml"/>
+
+	<!-- Opt out of messaging. -->
+	<bean id="eventMessageFactory" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.factory.EventMessageFactory"/>
+	</bean>
+
+	<bean id="customerEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher" />
+	</bean>
+
+	<bean id="customerEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+	</bean>
+
+	<bean id="orderEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher"/>
+	</bean>
+
+	<bean id="orderEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+	</bean>
+
+</beans>

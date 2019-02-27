@@ -1,0 +1,1054 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<promotions>
+<promotion type="Cart">
+    <store_code>Kobee</store_code>
+    <name>kobeecartpromo</name>
+    <displayName>
+        <value language="en">Cart Promotion on the Kobee store</value>
+    </displayName>
+    <code>9b0e6127-d944-4f94-9530-19b2a58a3999</code>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>10</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1</value>
+                </parameter>
+                <parameter>
+                    <key>productCode</key>
+                    <value>GM10293</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>Kobee</store_code>
+    <name>expiredcartpromo</name>
+    <displayName>
+        <value language="en">Expired Cart Promotion</value>
+    </displayName>
+    <code>335d29de-1222-46c9-96d8-ef8727d2c08f</code>
+    <description></description>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartSubtotalPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>10</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+    <selling_context>
+        <guid>046520b4-cc59-4668-a8f8-e55b4bfff0c6</guid>
+        <name>expiredcartpromo</name>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>553a7a9f-0638-4c47-81b6-267fdcd6beb7</guid>
+                <name>706684006454951</name>
+                <condition_string> { AND { SHOPPING_START_TIME.greaterThan (1395360600000L) }  { SHOPPING_START_TIME.lessThan (1395360720000L) }  } </condition_string>
+                <dictionary_guid>TIME</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>Kobee</store_code>
+    <name>inactivecartpromo</name>
+    <displayName>
+        <value language="en">Inactive Cart Promotion</value>
+    </displayName>
+    <code>6342d195-e586-4a5a-9289-7df594cf5aa2</code>
+    <availability>
+        <enabled>false</enabled>
+    </availability>
+    <actions>
+        <action type="cartSubtotalPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>20</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Catalog">
+    <catalog_code>Mobile</catalog_code>
+    <name>halfoffselectedmovies</name>
+    <displayName>
+        <value language="en">50% Off Selected Movies</value>
+    </displayName>
+    <code>8a550357-160f-4c49-80fe-7c59b78f9ea7</code>
+    <description>For a limited time, your favourite movies are now 50% off!</description>
+    <availability>
+        <enabled>true</enabled>
+        <enabledate>2014-03-21T12:51:38-07:00</enabledate>
+    </availability>
+    <actions>
+        <action type="catalogCurrencyPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>50</value>
+                </parameter>
+                <parameter>
+                    <key>currency</key>
+                    <value>CAD</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Catalog">
+    <catalog_code>Mobile</catalog_code>
+    <name>10 Percent off acceptance test products</name>
+    <displayName>
+        <value language="en">10 percent off acceptance test products</value>
+    </displayName>
+    <code>8a550357-160f-4c49-80fe-7c59b78f9124</code>
+    <description>Select acceptance test products have 10 percent off.</description>
+    <availability>
+        <enabled>true</enabled>
+        <enabledate>2014-03-21T12:51:38-07:00</enabledate>
+    </availability>
+    <actions>
+        <action type="catalogCurrencyPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>10</value>
+                </parameter>
+                <parameter>
+                    <key>currency</key>
+                    <value>CAD</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>MOBEE</store_code>
+    <name>bogo5off</name>
+    <displayName>
+        <value language="en">Take $5 off when you buy 2 triggerprodfor_bogo5offpromo Movies</value>
+    </displayName>
+    <code>c7c50cc9-5913-47b2-b499-f8d2eb22f90c</code>
+    <description>For a limited time, when you buy triggerprodforbogo5offpromo, get $5 off the second triggerprodforbogo5offpromo.  </description>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartProductAmountDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>productCode</key>
+                    <value>triggerprodforbogo5offpromo</value>
+                </parameter>
+                <parameter>
+                    <key>discountAmount</key>
+                    <value>5</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>MOBEE</store_code>
+	<name>buyavengersgethulkfree</name>
+    <displayName>
+        <value language="en">Free Incredible Hulk movie when you purchase Avengers</value>
+    </displayName>
+    <code>2e6a8c12-c9fb-4415-a9c3-0e40cd97770b</code>
+    <description>When you buy Avengers you get a free Incredible Hulk Movie!</description>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartNFreeSkusAction">
+            <parameters>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1</value>
+                </parameter>
+                <parameter>
+                    <key>skuCode</key>
+                    <value>incrediblehulk_sku</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>MOBEE</store_code>
+    <name>freeshipping</name>
+    <displayName>
+        <value language="en">Free Canada 2 Day Shipping for triggerprodforfreeshippingpromo</value>
+    </displayName>
+    <code>c66842ab-8d28-4920-9855-6bc2ca20e103</code>
+    <description>For a limited time, get Canada Post 2 days shipping when you purchase triggerprodforfreeshippingpromo</description>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="shippingPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>100</value>
+                </parameter>
+                <parameter>
+                    <key>shippingOptionCode</key>
+                    <value>CanadaPostTwoDays</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>MOBEE</store_code>
+    <name>FiftyOffEntirePurchase</name>
+    <displayName>
+        <value language="en">FiftyOffEntirePurchase</value>
+    </displayName>
+    <code>a6451134-06f4-47cc-a4a1-3d0e3dea3ae1</code>
+    <description>50% cart subtotal when you purchase product with code TriggerProdForFiftyOffEntirePurchasePromo</description>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartSubtotalPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>50</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Catalog">
+    <catalog_code>Toastie</catalog_code>
+    <name>fortyoffpercentproductsinfr</name>
+    <displayName>
+        <value language="en">Get 40% off on over 100 products</value>
+        <value language="fr">jusqu'à -40% sur plus de 100 produits</value>
+    </displayName>
+    <code>940fb358-7235-463c-961f-1e2ad1f051ea</code>
+    <description>From 21 march 2014, receive a discount of 40% off all products on this page</description>
+    <availability>
+        <enabled>true</enabled>
+        <enabledate>2014-03-21T17:08:51-07:00</enabledate>
+    </availability>
+    <actions>
+        <action type="catalogCurrencyPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>currency</key>
+                    <value>EUR</value>
+                </parameter>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>40</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>MOBEE</store_code>
+    <name>50PercentOffProductWith50PercentOffCartItemDiscount</name>
+    <displayName>
+        <value language="en">50% off Product With 50 Percent Cart Item Discount</value>
+    </displayName>
+    <code>bb5ff1bb-be6e-4c47-879f-a282ef8adb86</code>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>productCode</key>
+                    <value>productWith50PercentCartItemDiscount</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1</value>
+                </parameter>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>50</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>MOBEE</store_code>
+    <name>20PercentOffProductWith20PercentCartItemDiscount</name>
+    <displayName>
+        <value language="en">20% off Product With 20 Percent Cart Item Discount</value>
+    </displayName>
+    <code>bb5ff1bb-be6e-4c47-879f-a282ef8adb87</code>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>productCode</key>
+                    <value>productWith20PercentOffCartItemDiscount</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1</value>
+                </parameter>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>20</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>MOBEE</store_code>
+    <name>10PercentOffProductWithCartLineitemPromo</name>
+    <displayName>
+        <value language="en">10% off Product With Cart Lineitem Promo</value>
+    </displayName>
+    <code>bb5ff1bb-be6e-4c47-879f-a282ef8adc10</code>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>productCode</key>
+                    <value>productWithCartLineitemPromo</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1000</value>
+                </parameter>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>10</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>productCode</key>
+                    <value>productWithSalePriceAndCartLineitemPromo</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1000</value>
+                </parameter>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>10</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>productCode</key>
+                    <value>productWithCatalogPromoAndCartLineitemPromo</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1000</value>
+                </parameter>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>10</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>productCode</key>
+                    <value>productWithSalePriceAndCatalogPromoAndCartLineitemPromo</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1000</value>
+                </parameter>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>10</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>productCode</key>
+                    <value>productWithTieredPricingAndCartLineitemPromo</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1000</value>
+                </parameter>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>10</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>productCode</key>
+                    <value>productWithSalePriceAndTieredPricingAndCartLineitemPromo</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1000</value>
+                </parameter>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>10</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>productCode</key>
+                    <value>productWithStackedCartLineitemPromos</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1000</value>
+                </parameter>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>10</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>MOBEE</store_code>
+    <name>5PercentOffProductWithCartLineitemPromo</name>
+    <displayName>
+        <value language="en">5% off Product With Cart Lineitem Promo</value>
+    </displayName>
+    <code>bb5ff1bb-be6e-4c47-879f-a282ef8adc11</code>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>productCode</key>
+                    <value>productWithStackedCartLineitemPromos</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1000</value>
+                </parameter>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>5</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>MOBEE</store_code>
+    <name>5DollarsOffWhenYouBuyTwo</name>
+    <displayName>
+        <value language="en">Take $5 off when you buy 2 of selected movies</value>
+    </displayName>
+    <code>bb5ff1bb-be6e-4c47-879f-a282ef8adc12</code>
+    <description>For a limited time, when you buy selected products, get $5 off the second.</description>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartProductAmountDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>productCode</key>
+                    <value>productWithAmountDiscountForQuantity</value>
+                </parameter>
+                <parameter>
+                    <key>discountAmount</key>
+                    <value>5</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Cart">
+		<store_code>MOBEE</store_code>
+		<name>10% off Cart Total</name>
+		<displayName>
+			<value language="en">10% off Cart Total</value>
+		</displayName>
+		<code>42e879da-9cd2-4d31-b37c-8feb245b0d70</code>
+		<description>10% off Cart Total</description>
+		<availability>
+			<enabled>true</enabled>
+		</availability>
+		<actions>
+			<action type="cartSubtotalPercentDiscountAction">
+				<parameters>
+					<parameter>
+						<key>discountPercent</key>
+						<value>10</value>
+					</parameter>
+				</parameters>
+				<exceptions/>
+			</action>
+		</actions>
+</promotion>
+	<promotion type="Cart">
+    <store_code>MOBEE</store_code>
+    <name>Free shipping on FixedPriceWith100PercentOffPromoShippingOption</name>
+    <displayName>
+        <value language="en">Free shipping on FixedPriceWith100PercentOffPromoShippingOption</value>
+    </displayName>
+    <code>603c6a27-d99a-4e19-933f-e9740f439cf0</code>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="shippingPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>shippingOptionCode</key>
+                    <value>FixedPriceWith100PercentOffPromoShippingOption</value>
+                </parameter>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>100</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+	<promotion type="Cart">
+		<store_code>MOBEE</store_code>
+		<name>20% Off Shipping</name>
+		<displayName>
+			<value language="en">20% Off Shipping</value>
+		</displayName>
+		<code>83944d13-19c3-4790-9ea2-fb1f490d5d58</code>
+		<description>20% Off Shipping</description>
+		<availability>
+			<enabled>true</enabled>
+		</availability>
+		<actions>
+			<action type="shippingPercentDiscountAction">
+				<parameters>
+					<parameter>
+						<key>shippingOptionCode</key>
+						<value>CanadaPostTwoDays</value>
+					</parameter>
+					<parameter>
+						<key>discountPercent</key>
+						<value>20</value>
+					</parameter>
+				</parameters>
+				<exceptions/>
+			</action>
+		</actions>
+	</promotion>
+	<promotion type="Cart">
+	    <store_code>MOBEE</store_code>
+	    <name>10PercentOffForProductWith10PercentCouponCartItemDiscount</name>
+	    <displayName>
+	        <value language="en">10 Percent Off For ProductWith10PercentCoupon Cart Item Discount</value>
+	    </displayName>
+	    <code>2b5c9998-721a-4d5f-a2cc-71571b8659e0</code>
+		<description>10 Percent Promo Description</description>
+		<availability>
+	        <enabled>true</enabled>
+	    </availability>
+	    <actions>
+	        <action type="cartProductPercentDiscountAction">
+	            <parameters>
+	                <parameter>
+	                    <key>numItems</key>
+	                    <value>1</value>
+	                </parameter>
+	                <parameter>
+	                    <key>productCode</key>
+	                    <value>productWith10PercentOffCoupon</value>
+	                </parameter>
+	                <parameter>
+	                    <key>discountPercent</key>
+	                    <value>10</value>
+	                </parameter>
+	            </parameters>
+	            <exceptions/>
+	        </action>
+	    </actions>
+	</promotion>
+
+	<promotion type="Cart">
+		<store_code>MOBEE</store_code>
+		<name>AutoApplyCouponToItestsAutoAppliedCouponsUser</name>
+		<displayName>
+			<value language="en">AutoApplyCouponToItestsAutoAppliedCouponsUser
+			</value>
+		</displayName>
+		<code>483eaffc-5032-4c51-a13e-ec87d13dbf1d</code>
+		<description>Coupon promo to auto apply to
+			itests.auto.applied.coupons@elasticpath.com</description>
+		<availability>
+			<enabled>true</enabled>
+		</availability>
+		<actions>
+			<action type="cartProductPercentDiscountAction">
+				<parameters>
+					<parameter>
+						<key>discountPercent</key>
+						<value>10</value>
+					</parameter>
+					<parameter>
+						<key>productCode</key>
+						<value>productWith10PercentOffCoupon</value>
+					</parameter>
+					<parameter>
+						<key>numItems</key>
+						<value>1</value>
+					</parameter>
+				</parameters>
+				<exceptions />
+			</action>
+		</actions>
+	</promotion>
+	<promotion type="Cart">
+		<store_code>toastie</store_code>
+		<name>10PercentOffForProductWith10PercentCouponToastie</name>
+		<displayName>
+			<value language="fr">10 Percent Off  For ProductWith10PercentCoupon Toastie</value>
+		</displayName>
+		<code>71cece23-b31b-468e-af92-7675b05453ac</code>
+		<description>10 Percent Off  For ProductWith10PercentCoupon Toastie</description>
+		<availability>
+			<enabled>true</enabled>
+		</availability>
+		<actions>
+			<action type="cartProductPercentDiscountAction">
+				<parameters>
+					<parameter>
+						<key>numItems</key>
+						<value>1</value>
+					</parameter>
+					<parameter>
+						<key>discountPercent</key>
+						<value>10</value>
+					</parameter>
+					<parameter>
+						<key>productCode</key>
+						<value>productWith10PercentOffCoupon</value>
+					</parameter>
+				</parameters>
+				<exceptions/>
+			</action>
+		</actions>
+	</promotion>
+	<promotion type="Cart">
+		<store_code>MOBEE</store_code>
+		<name>PersonalisedShippingDiscountPromo</name>
+		<displayName>
+			<value language="en">Personalised Shipping Discount Promo</value>
+		</displayName>
+		<code>8f6fe5ad-4f82-4562-9b41-393caed77707</code>
+		<description>Test personalised shipping discount promotion.</description>
+		<availability>
+			<enabled>true</enabled>
+		</availability>
+		<actions>
+			<action type="shippingAmountDiscountAction">
+				<parameters>
+					<parameter>
+						<key>shippingOptionCode</key>
+						<value>CanadaPostExpress</value>
+					</parameter>
+					<parameter>
+						<key>discountAmount</key>
+						<value>10</value>
+					</parameter>
+				</parameters>
+				<exceptions/>
+			</action>
+		</actions>
+		<selling_context>
+			<guid>dc8b2ac8-427d-4a1d-9b05-0005cdad56fe</guid>
+			<name>PersonalisedShippingDiscountPromo</name>
+			<priority>0</priority>
+			<conditions>
+				<condition>
+					<guid>d2479164-5e5f-433e-bd0d-0d3b9d0ec4bc</guid>
+					<name>1405714367959152000</name>
+					<condition_string> { AND { AND { REFERRING_URL.includesIgnoreCase 'personalisedshippingpromos.elasticpath.net' }  }  } </condition_string>
+					<dictionary_guid>PROMOTIONS_SHOPPER</dictionary_guid>
+				</condition>
+			</conditions>
+		</selling_context>
+	</promotion>
+	<promotion type="Cart">
+		<store_code>MOBEE</store_code>
+		<name>PersonalisedCartDiscountPromo</name>
+		<displayName>
+			<value language="en">Personalised Cart Discount Promo</value>
+		</displayName>
+		<code>323e41f1-6041-4a4b-abff-ca96b9b5b156</code>
+		<description>Promo that gives 15% cart sub-total discount for shoppers over 45 years of age</description>
+		<availability>
+			<enabled>true</enabled>
+		</availability>
+		<actions>
+			<action type="cartSubtotalPercentDiscountAction">
+				<parameters>
+					<parameter>
+						<key>discountPercent</key>
+						<value>15</value>
+					</parameter>
+				</parameters>
+				<exceptions/>
+			</action>
+		</actions>
+		<selling_context>
+			<guid>30275086-8a5b-4f2f-bf17-fe0ba57a5bb7</guid>
+			<name>PersonalisedCartDiscountPromo</name>
+			<priority>0</priority>
+			<conditions>
+				<condition>
+					<guid>e2a0e5c2-6fd7-4b64-80ce-791aad795ce4</guid>
+					<name>3101828642099408</name>
+					<condition_string> { AND { AND { CUSTOMER_AGE_YEARS.greaterThan (45i) }  }  } </condition_string>
+					<dictionary_guid>PROMOTIONS_SHOPPER</dictionary_guid>
+				</condition>
+			</conditions>
+		</selling_context>
+	</promotion>
+	<promotion type="Cart">
+		<store_code>MOBEE</store_code>
+		<name>bogo8off_guardiansOfTheGalaxy</name>
+		<displayName>
+			<value language="en">Buy one Guardians of the Galaxy, get $8 off the second</value>
+		</displayName>
+		<code>afab1cb3-8422-45df-8e2e-89c249ad22df</code>
+		<description>Demo promo that gives $8 off the second item of Guardians of the Galaxy</description>
+		<availability>
+			<enabled>true</enabled>
+		</availability>
+		<actions>
+			<action type="cartProductAmountDiscountAction">
+				<parameters>
+					<parameter>
+						<key>discountAmount</key>
+						<value>8</value>
+					</parameter>
+					<parameter>
+						<key>productCode</key>
+						<value>GuardiansOfTheGalaxy</value>
+					</parameter>
+					<parameter>
+						<key>numItems</key>
+						<value>1</value>
+					</parameter>
+				</parameters>
+				<exceptions/>
+			</action>
+		</actions>
+	</promotion>	
+	<promotion type="Cart">
+		<store_code>MOBEE</store_code>
+		<name>30PercentOffCartSubtotal</name>
+		<displayName>
+			<value language="en">30% off your cart subtotal</value>
+		</displayName>
+		<code>c09dff2f-4bd4-44b5-a390-56304c47aa84</code>
+		<description>Demo promo that gives 30% off cart subtotal with promo code blackfriday</description>
+		<availability>
+			<enabled>true</enabled>
+		</availability>
+		<actions>
+			<action type="cartSubtotalPercentDiscountAction">
+				<parameters>
+					<parameter>
+						<key>discountPercent</key>
+						<value>30</value>
+					</parameter>
+				</parameters>
+				<exceptions/>
+			</action>
+		</actions>
+	</promotion>	
+	<promotion type="Cart">
+		<store_code>MOBEE</store_code>
+		<name>15PercentLoyaltyReward</name>
+		<displayName>
+			<value language="en">15% off your purchase</value>
+		</displayName>
+		<code>71d00c2d-b0c7-4b7c-9415-3d295097fb01</code>
+		<description>Demo promo that gives 15% cart subtotal discount with coupon loyaltyreward for selected shoppers.</description>
+		<availability>
+			<enabled>true</enabled>
+		</availability>
+		<actions>
+			<action type="cartSubtotalPercentDiscountAction">
+				<parameters>
+					<parameter>
+						<key>discountPercent</key>
+						<value>15</value>
+					</parameter>
+				</parameters>
+				<exceptions/>
+			</action>
+		</actions>
+	</promotion>
+    <promotion type="Cart">
+        <store_code>MOBEE</store_code>
+        <name>FreeSkuWhenYouBuyProductTriggeringFreeSkuPromo</name>
+        <displayName>
+            <value language="en">Free productReceivingFreeSkuPromo movie when you purchase productTriggeringFreeSkuPromo</value>
+        </displayName>
+        <code>bb5ff1bb-be6e-4c47-879f-a282ef8adc13</code>
+        <description>When you buy productTriggeringFreeSkuPromo you get a free productReceivingFreeSkuPromo movie!</description>
+        <availability>
+            <enabled>true</enabled>
+        </availability>
+        <actions>
+            <action type="cartNFreeSkusAction">
+                <parameters>
+                    <parameter>
+                        <key>numItems</key>
+                        <value>1</value>
+                    </parameter>
+                    <parameter>
+                        <key>skuCode</key>
+                        <value>product_receiving_free_sku_promo_sku</value>
+                    </parameter>
+                </parameters>
+                <exceptions/>
+            </action>
+        </actions>
+    </promotion>
+	<promotion type="Cart">
+		<store_code>MOBEE</store_code>
+		<name>cartSubtotalDiscount30Percent</name>
+		<displayName>
+			<value language="en">30% off your cart subtotal</value>
+		</displayName>
+		<code>c8d6e77d-4a00-4bf0-8a59-dd4ce3f4c55a</code>
+		<description>Test Promotion that gives 30% off cart sub-total with promo code promoCodeForCartSubtotalDiscount30Percent</description>
+		<availability>
+			<enabled>true</enabled>
+		</availability>
+		<actions>
+			<action type="cartSubtotalPercentDiscountAction">
+				<parameters>
+					<parameter>
+						<key>discountPercent</key>
+						<value>30</value>
+					</parameter>
+				</parameters>
+				<exceptions/>
+			</action>
+		</actions>
+	</promotion>		
+
+	<promotion type="Cart">
+	    <store_code>MOBEE</store_code>
+	    <name>50_percent_off_physical_line_item_promo</name>
+	    <displayName>
+	        <value language="en">50 Percent Off Cart Item For physical_product_with_lineitem_promotion</value>
+	    </displayName>
+	    <code>2b5c9998-721a-4d5f-a2cc-111111111111</code>
+		<description>50 Percent Off Physical Lineitem Promo Description</description>
+		<availability>
+	        <enabled>true</enabled>
+	    </availability>
+	    <actions>
+	        <action type="cartProductPercentDiscountAction">
+	            <parameters>
+	                <parameter>
+	                    <key>numItems</key>
+	                    <value>1</value>
+	                </parameter>
+	                <parameter>
+	                    <key>productCode</key>
+	                    <value>physical_product_with_lineitem_promotion</value>
+	                </parameter>
+	                <parameter>
+	                    <key>discountPercent</key>
+	                    <value>50</value>
+	                </parameter>
+	            </parameters>
+	            <exceptions/>
+	        </action>
+	    </actions>
+	</promotion>
+	<promotion type="Cart">
+		<store_code>MOBEE</store_code>
+		<name>1DollarOffItestSegment</name>
+		<displayName>
+			<value language="en">1 Dollar Off itest_Segment</value>
+		</displayName>
+		<code>2dddb748-fb5a-449b-b948-7960ee04ef2f</code>
+		<description>1 Dollar Off Subtotal for customers in segment itest_Segment</description>
+		<availability>
+			<enabled>true</enabled>
+		</availability>
+		<actions>
+			<action type="cartSubtotalAmountDiscountAction">
+				<parameters>
+					<parameter>
+						<key>discountAmount</key>
+						<value>1</value>
+					</parameter>
+				</parameters>
+				<exceptions/>
+			</action>
+		</actions>
+		<selling_context>
+			<guid>d012eccf-0057-4a07-8252-d59e2d2453f7</guid>
+			<name>1DollarOffItestSegment</name>
+			<priority>0</priority>
+			<conditions>
+				<condition>
+					<guid>1c30e586-eeca-41fc-8560-724ee2f07689</guid>
+					<name>570620656423655</name>
+					<condition_string> { AND { AND { CUSTOMER_SEGMENT.includes 'ITEST_SEGMENT' }  }  } </condition_string>
+					<dictionary_guid>PROMOTIONS_SHOPPER</dictionary_guid>
+				</condition>
+			</conditions>
+		</selling_context>
+	</promotion>
+    <promotion type="Cart">
+        <store_code>MOBEE</store_code>
+        <name>25PercentOffCartSubtotal</name>
+        <displayName>
+            <value language="en">30% off your cart subtotal</value>
+        </displayName>
+        <code>d5dcad83-2f73-48c8-ad98-268e6dd78594</code>
+        <description>Demo promo that gives 25% off cart subtotal with a limited coupon code</description>
+        <availability>
+            <enabled>true</enabled>
+        </availability>
+        <actions>
+            <action type="cartSubtotalPercentDiscountAction">
+                <parameters>
+                    <parameter>
+                        <key>discountPercent</key>
+                        <value>25</value>
+                    </parameter>
+                </parameters>
+                <exceptions/>
+            </action>
+        </actions>
+    </promotion>
+    <promotion type="Cart">
+        <store_code>MOBEE</store_code>
+        <name>expiredcoupon</name>
+        <displayName>
+            <value language="en">expired coupon</value>
+        </displayName>
+        <code>0531f91b-d2e1-407e-abda-16ab058bcfe5</code>
+        <description></description>
+        <availability>
+            <enabled>true</enabled>
+        </availability>
+        <actions>
+            <action type="cartSubtotalPercentDiscountAction">
+                <parameters>
+                    <parameter>
+                        <key>discountPercent</key>
+                        <value>10</value>
+                    </parameter>
+                </parameters>
+                <exceptions/>
+            </action>
+        </actions>
+        <selling_context>
+            <guid>f483155f-c97f-4954-8d31-6afc4cfa15d3</guid>
+            <name>expiredcoupon</name>
+            <priority>0</priority>
+            <conditions>
+                <condition>
+                    <guid>ce268417-f540-44f5-ae02-35c6b6043e2a</guid>
+                    <name>16264964422786</name>
+                    <condition_string> { AND { SHOPPING_START_TIME.greaterThan (1525213620000L) }  { SHOPPING_START_TIME.lessThan (1525300020000L) }  } </condition_string>
+                    <dictionary_guid>TIME</dictionary_guid>
+                </condition>
+            </conditions>
+        </selling_context>
+    </promotion>
+</promotions>

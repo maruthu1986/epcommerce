@@ -1,0 +1,82 @@
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+	<display-name>Health Monitoring Server</display-name>
+
+	<!-- spring framework context configuration -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/elastic-path-servlet.xml</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/misc/log4j.properties</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>log4jExposeWebAppRoot</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>com.elasticpath.web.context.impl.EpLog4jConfigListener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- Health Monitoring servlet -->
+	<servlet>
+		<servlet-name>Status servlet</servlet-name>
+		<servlet-class>StatusCheckerServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Status servlet</servlet-name>
+		<url-pattern>/status/*</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>5</session-timeout>
+	</session-config>
+
+	<mime-mapping>
+		<extension>html</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>txt</extension>
+		<mime-type>text/plain</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>wsdl</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>xsd</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>xsl</extension>
+		<!-- per http://www.w3.org/TR/2006/PP-xslt20-20061121/ -->
+		<mime-type>application/xslt+xml</mime-type>
+	</mime-mapping>
+
+	<!-- The Welcome File List -->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- Log4j context -->
+	<env-entry>
+		<description>Sets the logging context (for logging hierachy separation in web-app)</description>
+		<env-entry-name>logging-context</env-entry-name>
+		<env-entry-value>health-monitoring</env-entry-value>
+		<env-entry-type>java.lang.String</env-entry-type>
+	</env-entry>
+</web-app>

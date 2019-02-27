@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>itemdefinitions</name>
+		<plan>
+			<name>read-item-definition</name>
+			<description><![CDATA[Read the item definition from the item.]]></description>
+			<step>
+				<description><![CDATA[The item definition.]]></description>
+				<start>items.item</start>
+				<follow-link>definition</follow-link>
+				<link-back>item</link-back>
+				<result>item-definition</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-item-definition-option</name>
+			<description><![CDATA[Read the item definition option from the list of available options.]]></description>
+			<template>
+				<name>collections.list-element-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>item-definition</value>
+				</replace>
+				<replace>
+					<key>start-name</key>
+					<value>definition</value>
+				</replace>
+				<replace>
+					<key>list-resource</key>
+					<value>item-definition-options</value>
+				</replace>
+				<replace>
+					<key>list-name</key>
+					<value>options</value>
+				</replace>
+				<replace>
+					<key>element-resource</key>
+					<value>item-definition-option</value>
+				</replace>
+			</template>
+		</plan>
+
+		<plan>
+			<name>read-item-definition-option-value</name>
+			<description><![CDATA[Read the item definition option value.]]></description>
+			<step>
+				<description><![CDATA[The item definition option value.]]></description>
+				<start>item-definition-option</start>
+				<follow-link>value</follow-link>
+				<link-back>option</link-back>
+				<result>item-definition-option-value</result>
+			</step>
+		</plan>
+	</family>
+</definitions>

@@ -1,0 +1,7 @@
+#*
+* Copyright (c) Elastic Path Software Inc., 2006
+*#
+## email.header.vm
+
+#setImageUrl("logo.png")
+<a href="$storeUrl"><img src="$imageUrl" width="107" height="28" border="12" style="border-color:#FFFFFF" alt="#emailMessage("$store.getName()")"></a><br>

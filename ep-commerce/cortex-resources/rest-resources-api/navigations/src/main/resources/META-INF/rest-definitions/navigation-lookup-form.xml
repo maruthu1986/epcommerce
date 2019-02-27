@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>navigations</name>
+
+		<resource>
+			<name>navigation-lookup-form</name>
+			<description><![CDATA[Provides the form with which to search for  navigation (category) by code.]]></description>
+			<uri>{navigations}/lookups/form</uri>
+			<form>
+				<entity>category-code</entity>
+				<action-rel>navigationlookupaction</action-rel>
+				<result>navigations.navigation</result>
+			</form>
+		</resource>
+
+		<relationship>
+			<name>navigation-lookup-form-from-lookups</name>
+			<description>A link from the lookups resource to navigation lookup form.</description>
+			<rel>navigationlookupform</rel>
+			<from>lookups.lookups</from>
+			<to>navigation-lookup-form</to>
+		</relationship>
+
+		<entity>
+			<name>category-code</name>
+			<description><![CDATA[The category code]]></description>
+			<property>
+				<name>code</name>
+				<description><![CDATA[The category code.]]></description>
+				<string/>
+			</property>
+		</entity>
+
+	</family>
+</definitions>

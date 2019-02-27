@@ -1,0 +1,105 @@
+$shell_padding: 10px;
+$shell_title_padding: 15px $shell_padding;
+$shell_title_height: $large-font-size + 30px;
+$shell_icon_spacing: 0 5px;
+
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Shell.html
+Shell {
+
+	&,
+	&.jface_contentProposalPopup,
+	&.jface_infoPopupDialog {
+		// background-color: $success-color; // test
+	}
+
+	&[TITLE],
+	&[BORDER] {
+		&,
+		&:inactive,
+		&:maximized,
+		&:maximized:inactive {
+			background-color: $widget_body_color;
+			background-image: none;
+			border: 1px solid $widget_border_color;
+			// border-bottom: 1px solid $gray-light;
+			border-radius: $widget_border_radius;
+			box-shadow: $modal-shadow;
+			padding: 0 $shell_padding $shell_padding;
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Shell.html#Shell-Titlebar
+	&-Titlebar {
+
+		background-color: $default-bg;
+		// background-gradient-color: none;
+		background-image: none;
+		border: none;
+		border-bottom: 1px solid $widget_border_color;
+		color: $default-font-color;
+		font: $large-font;
+		height: $shell_title_height;
+		padding: $shell_title_padding;
+		spacing: $icon-spacing;
+		text-shadow: none;
+
+		&:inactive {
+			background-color: $gray-fair;
+			// background-gradient-color: none;
+			background-image: none;
+			border: none;
+			border-bottom: 1px solid $widget_border_color;
+			color: $default-font-color;
+			// padding: $shell_padding;
+			// spacing: $icon-spacing;
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Shell.html#Shell-MinButton
+	&-MinButton {
+		margin: $shell_icon_spacing;
+		background-image: url('themes/icons/Shell-MinButton.png');
+		&:hover,
+		&:inactive {
+			margin: $shell_icon_spacing;
+			background-image: url('themes/icons/Shell-MinButton_hover.png');
+		}
+
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Shell.html#Shell-MaxButton
+	&-MaxButton {
+		margin: $shell_icon_spacing;
+		background-image: url('themes/icons/Shell-MaxButton.png');
+		&:hover,
+		&:inactive {
+			margin: $shell_icon_spacing;
+			background-image: url('themes/icons/Shell-MaxButton_hover.png');
+		}
+		&:maximized {
+			margin: $shell_icon_spacing;
+			background-image: url('themes/icons/Shell-MinButton.png');
+			&:hover,
+			&:inactive {
+				margin: $shell_icon_spacing;
+				background-image: url('themes/icons/Shell-MinButton_hover.png');
+			}
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Shell.html#Shell-CloseButton
+	&-CloseButton {
+		margin: $shell_icon_spacing;
+		background-image: url('themes/icons/Shell-CloseButton.png');
+		&:hover,
+		&:inactive {
+			margin: $shell_icon_spacing;
+			background-image: url('themes/icons/Shell-CloseButton_hover.png');
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Shell.html#Shell-DisplayOverlay
+	&-DisplayOverlay {
+		// background-color: rgba(255,255,255,0.5); // testing
+	}
+}

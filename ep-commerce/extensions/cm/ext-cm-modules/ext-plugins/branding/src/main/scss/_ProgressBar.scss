@@ -1,0 +1,23 @@
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/ProgressBar.html
+ProgressBar {
+	background-color: $gray-fair;
+	background-image: none;
+	border: none;
+	border-radius: 0;
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/ProgressBar.html#ProgressBar-Indicator
+	&-Indicator {
+		background-color: $info-color;
+		background-image: none;
+		opacity: 1;
+		
+		&:paused {
+			background-color: $gray-light;
+			background-image: none;
+		}
+		&:error {
+			background-color: $danger-color;
+			background-image: none;
+		}
+	}
+}

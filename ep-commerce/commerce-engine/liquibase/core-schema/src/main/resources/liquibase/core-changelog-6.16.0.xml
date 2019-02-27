@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+				   logicalFilePath="com/elasticpath/core/db/core-changelog-6.16.0.xml">
+
+	<!-- Reminder:
+		- Table names cannot exceed 30 characters (Oracle limitation)
+		- Column names cannot exceed 30 characters (Oracle limitation)
+		- Index names cannot exceed 18 characters (DB2 limitation)
+
+		 Important:
+		- Using <preCondition> ? read: http://forum.liquibase.org/topic/unexpected-behaviour-of-preconditions-with-updatesql
+		- Using <preCondition> ? Consider adding onUpdateSql="TEST", but understand how it plays with updateSQL!
+	-->
+	<changeSet id="6.16.0-index on rule ENABLED column" author="elasticpath">
+		<comment>[PB-687] performance of promotion rules due to inactive promotions</comment>
+		<createIndex tableName="TRULE" indexName="IDX_RULE_ENABLED" unique="false">
+			<column name="ENABLED"/>
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="6.16.0-add boolean column in TCUSTOMER" author="elasticpath">
+		<comment>[PB-1560] Improve first-time buyer performance</comment>
+
+		<addColumn tableName="TCUSTOMER">
+			<column name="IS_FIRST_TIME_BUYER" type="TINYINT" defaultValue="1"/>
+		</addColumn>
+		<!-- update customers as non-first time buyers if they have at least 1 order -->
+		<update tableName="TCUSTOMER">
+			<column name="IS_FIRST_TIME_BUYER" value="0"/>
+			<where>UIDPK in (select CUSTOMER_UID
+				from TORDER
+				where STATUS &lt;&gt; 'FAILED'
+				group by CUSTOMER_UID
+				having count(*)>0)</where>
+		</update>
+	</changeSet>
+
+	<!-- As a consequence of the Shopping Cart refactoring the compiled rules will be invalid. -->
+	<!-- Clearing TRULESTORAGE will prevent exceptions. This table will be repopulated when the -->
+	<!-- rules get recompiled by the quartz job. -->
+	<changeSet id="6.16.0-clear trulestorage" author="elasticpath">
+		<comment>This will clear the TRULESTORAGE table which holds the compiled rules.</comment>
+
+		<delete tableName="TRULESTORAGE"/>
+	</changeSet>
+
+	<changeSet id="6.16.0-add-settings-refresh-strategies" author="elasticpath" context="expand">
+		<comment>This will add appropriate api refresh metadata to ensure correct settings caching behaviour.</comment>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1207" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="7" />
+			<column name="METADATA_KEY" value="apiRefreshStrategy" />
+			<column name="VALUE" value="interval:timeout=COMMERCE/Cache/Cache_1" />
+		</insert>
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1210" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="111" />
+			<column name="METADATA_KEY" value="apiRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1211" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="111" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1220" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="112" />
+			<column name="METADATA_KEY" value="apiRefreshStrategy" />
+			<column name="VALUE" value="interval:timeout=COMMERCE/Cache/Cache_3" />
+		</insert>
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1221" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="112" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="true" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.16.0-remove-core-refresh-strategies" author="elasticpath" context="contract">
+		<comment>This will remove the unused 'coreRefreshStrategy' entries</comment>
+		<delete tableName="TSETTINGMETADATA">
+			<where>
+				METADATA_KEY='coreRefreshStrategy'
+			</where>
+		</delete>
+	</changeSet>
+
+</databaseChangeLog>

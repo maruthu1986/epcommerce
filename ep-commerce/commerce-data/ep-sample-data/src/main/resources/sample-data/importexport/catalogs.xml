@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<catalogs>
+<catalog>
+    <code>Master_B</code>
+    <type>master</type>
+    <name>Master Catalog B</name>
+    <languages>
+        <language>es</language>
+        <language>es_MX</language>
+        <language>fr</language>
+        <language>en</language>
+    </languages>
+    <defaultlanguage>en</defaultlanguage>
+    <cartitemmodifiergroups>
+        <cartitemmodifiergroup>
+            <code>Conf_Group_allFields</code>
+            <displayname>
+                <value language="en">Conf_Group_allFields</value>
+            </displayname>
+            <cartitemmodifierfields>
+                <cartitemmodifierfield>
+                    <code>date</code>
+                    <type>Date</type>
+                    <required>false</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>5</ordering>
+                    <displayname>
+                        <value language="en">date</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>dateTime</code>
+                    <type>DateTime</type>
+                    <required>false</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>6</ordering>
+                    <displayname>
+                        <value language="es">dia e Tiempo</value>
+                        <value language="en">dateTime</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>boolean</code>
+                    <type>Boolean</type>
+                    <required>true</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>4</ordering>
+                    <displayname>
+                        <value language="en">boolean</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>shortText</code>
+                    <type>ShortText</type>
+                    <required>false</required>
+                    <maxSize>100</maxSize>
+                    <ordering>1</ordering>
+                    <displayname>
+                        <value language="en">shortText</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>singleOption</code>
+                    <type>PickSingleOption</type>
+                    <required>true</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>7</ordering>
+                    <displayname>
+                        <value language="en">singleOption</value>
+                    </displayname>
+                    <options>
+                        <option>
+                            <displayname>
+<value language="en">value1</value>
+                            </displayname>
+                            <value>value1</value>
+                            <ordering>1</ordering>
+                        </option>
+                        <option>
+                            <displayname>
+<value language="en">value4</value>
+                            </displayname>
+                            <value>value4</value>
+                            <ordering>4</ordering>
+                        </option>
+                        <option>
+                            <displayname>
+<value language="en">value3</value>
+                            </displayname>
+                            <value>value3</value>
+                            <ordering>3</ordering>
+                        </option>
+                        <option>
+                            <displayname>
+<value language="en">value2</value>
+                            </displayname>
+                            <value>value2</value>
+                            <ordering>2</ordering>
+                        </option>
+                    </options>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>integer</code>
+                    <type>Decimal</type>
+                    <required>false</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>3</ordering>
+                    <displayname>
+                        <value language="en">integer</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>decimal</code>
+                    <type>Decimal</type>
+                    <required>true</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>2</ordering>
+                    <displayname>
+                        <value language="en">decimal</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>email</code>
+                    <type>Email</type>
+                    <required>false</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>9</ordering>
+                    <displayname>
+                        <value language="en">email</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>multiSelect</code>
+                    <type>PickMultiOption</type>
+                    <required>true</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>8</ordering>
+                    <displayname>
+                        <value language="en">multiSelect </value>
+                    </displayname>
+                    <options>
+                        <option>
+                            <displayname>
+<value language="en">multiValue4</value>
+                            </displayname>
+                            <value>multiValue4</value>
+                            <ordering>4</ordering>
+                        </option>
+                        <option>
+                            <displayname>
+<value language="en">multiValue3</value>
+                            </displayname>
+                            <value>multiValue3</value>
+                            <ordering>3</ordering>
+                        </option>
+                        <option>
+                            <displayname>
+<value language="en">multiValue1</value>
+                            </displayname>
+                            <value>multiValue1</value>
+                            <ordering>1</ordering>
+                        </option>
+                        <option>
+                            <displayname>
+<value language="en">multiValue2</value>
+                            </displayname>
+                            <value>multiValue2</value>
+                            <ordering>2</ordering>
+                        </option>
+                    </options>
+                </cartitemmodifierfield>
+            </cartitemmodifierfields>
+        </cartitemmodifiergroup>
+    </cartitemmodifiergroups>
+    <attributes>
+        <attribute>
+            <key>Attribute_1</key>
+            <name>Attribute 1</name>
+            <usage>Product</usage>
+            <type>ShortText</type>
+            <multilanguage>true</multilanguage>
+            <required>false</required>
+            <multivalue>false</multivalue>
+            <global>false</global>
+        </attribute>
+        <attribute>
+            <key>Attribute_2</key>
+            <name>Attribute 2</name>
+            <usage>Product</usage>
+            <type>ShortText</type>
+            <multilanguage>true</multilanguage>
+            <required>false</required>
+            <multivalue>false</multivalue>
+            <global>false</global>
+        </attribute>
+        <attribute>
+            <key>features</key>
+            <name>Features</name>
+            <usage>Product</usage>
+            <type>LongText</type>
+            <multilanguage>true</multilanguage>
+            <required>false</required>
+            <multivalue>false</multivalue>
+            <global>true</global>
+        </attribute>
+    </attributes>
+    <categorytypes>
+        <categorytype>
+            <guid>87bd3743-436c-4fd4-871b-799fde035d14</guid>
+            <name>Category_Type</name>
+            <assignedattributes/>
+        </categorytype>
+    </categorytypes>
+    <producttypes>
+        <producttype>
+            <guid>d5e3dfbe-106a-4011-b149-f4bf29de0457</guid>
+            <name>Config_Prod_Type</name>
+            <assignedattributes>
+                <attributekey>features</attributekey>
+            </assignedattributes>
+            <defaulttaxcode>GOODS</defaulttaxcode>
+            <multisku>
+                <assignedskuoptions/>
+                <assignedattributes/>
+            </multisku>
+            <nodiscount>false</nodiscount>
+            <assignedcartitemmodifiergroups>
+                <code>Conf_Group_allFields</code>
+            </assignedcartitemmodifiergroups>
+        </producttype>
+        <producttype>
+            <guid>4dba313e-9556-4262-b5fa-8238ed726564</guid>
+            <name>Special_Products</name>
+            <assignedattributes>
+                <attributekey>Attribute_1</attributekey>
+                <attributekey>Attribute_2</attributekey>
+            </assignedattributes>
+            <defaulttaxcode>DIGITAL</defaulttaxcode>
+            <nodiscount>false</nodiscount>
+        </producttype>
+        <producttype>
+            <guid>0123962b-e4e8-45bf-871a-e90ab692ac0a</guid>
+            <name>Non_Promotable</name>
+            <assignedattributes/>
+            <defaulttaxcode>DIGITAL</defaulttaxcode>
+            <nodiscount>true</nodiscount>
+        </producttype>
+    </producttypes>
+    <brands>
+        <brand>
+            <code>Gen_Brand</code>
+            <name>
+                <value language="es"/>
+                <value language="es_MX"/>
+                <value language="fr"/>
+                <value language="en">Generic Brand</value>
+            </name>
+        </brand>
+    </brands>
+</catalog>
+
+<catalog>
+    <code>Master_A</code>
+    <type>master</type>
+    <name>Master Catalog A</name>
+    <languages>
+        <language>es</language>
+        <language>es_MX</language>
+        <language>fr</language>
+        <language>en</language>
+    </languages>
+    <defaultlanguage>en</defaultlanguage>
+    <categorytypes>
+        <categorytype>
+            <guid>e87d7b70-2263-4cfd-863c-fcfc19d91c9a</guid>
+            <name>Cat_Type</name>
+            <assignedattributes>
+                <attributekey>catName</attributekey>
+            </assignedattributes>
+        </categorytype>
+    </categorytypes>
+    <producttypes>
+        <producttype>
+            <guid>c5427e2a-3b10-4de9-9b11-e6e41775e2b7</guid>
+            <name>Single_SKU</name>
+            <assignedattributes>
+                <attributekey>features</attributekey>
+            </assignedattributes>
+            <defaulttaxcode>GOODS</defaulttaxcode>
+            <nodiscount>false</nodiscount>
+        </producttype>
+        <producttype>
+            <guid>e4a8d446-4fd8-4d7d-9872-191116ba1a98</guid>
+            <name>Multi_SKU</name>
+            <assignedattributes>
+                <attributekey>features</attributekey>
+            </assignedattributes>
+            <defaulttaxcode>GOODS</defaulttaxcode>
+            <multisku>
+                <assignedskuoptions>
+                    <skuoption>SKU_Option1</skuoption>
+                </assignedskuoptions>
+                <assignedattributes/>
+            </multisku>
+            <nodiscount>false</nodiscount>
+        </producttype>
+    </producttypes>
+    <skuoptions>
+        <skuoption>
+            <code>SKU_Option1</code>
+            <name>
+                <value language="es"/>
+                <value language="es_MX"/>
+                <value language="fr"/>
+                <value language="en">SKU Option</value>
+            </name>
+            <skuoptionvalues>
+                <skuoptionvalue>
+                    <code>Op1_Value1</code>
+                    <name>
+                        <value language="es"/>
+                        <value language="es_MX"/>
+                        <value language="fr"/>
+                        <value language="en">Value 1</value>
+                    </name>
+                    <ordering>10</ordering>
+                </skuoptionvalue>
+                <skuoptionvalue>
+                    <code>Op1_Value4</code>
+                    <name>
+                        <value language="es"/>
+                        <value language="es_MX"/>
+                        <value language="fr"/>
+                        <value language="en">Value 4</value>
+                    </name>
+                    <ordering>40</ordering>
+                </skuoptionvalue>
+                <skuoptionvalue>
+                    <code>Op1_Value2</code>
+                    <name>
+                        <value language="es"/>
+                        <value language="es_MX"/>
+                        <value language="fr"/>
+                        <value language="en">Value 2</value>
+                    </name>
+                    <ordering>20</ordering>
+                </skuoptionvalue>
+                <skuoptionvalue>
+                    <code>Op1_Value3</code>
+                    <name>
+                        <value language="es"/>
+                        <value language="es_MX"/>
+                        <value language="fr"/>
+                        <value language="en">Value 3</value>
+                    </name>
+                    <ordering>30</ordering>
+                </skuoptionvalue>
+            </skuoptionvalues>
+        </skuoption>
+    </skuoptions>
+    <brands>
+        <brand>
+            <code>Generic_Brand</code>
+            <name>
+                <value language="es"/>
+                <value language="es_MX"/>
+                <value language="fr"/>
+                <value language="en">Generic Brand</value>
+            </name>
+        </brand>
+    </brands>
+</catalog>
+
+<catalog>
+    <code>Mobile</code>
+    <type>virtual</type>
+    <name>Mobile Virtual Catalog</name>
+    <defaultlanguage>en</defaultlanguage>
+</catalog>
+
+<catalog>
+    <code>MobileCatalog</code>
+    <type>master</type>
+    <name>Mobile Catalog</name>
+    <languages>
+        <language>fr_CA</language>
+        <language>fr</language>
+        <language>en</language>
+        <language>en_US</language>
+    </languages>
+    <defaultlanguage>en</defaultlanguage>
+    <cartitemmodifiergroups>
+        <cartitemmodifiergroup>
+            <code>giftCertificate_mobee</code>
+            <displayname>
+                <value language="en">Gift Certificate</value>
+            </displayname>
+            <cartitemmodifierfields>
+                <cartitemmodifierfield>
+                    <code>giftCertificate.senderName</code>
+                    <type>ShortText</type>
+                    <required>true</required>
+                    <maxSize>255</maxSize>
+                    <ordering>3</ordering>
+                    <displayname>
+                        <value language="en">Sender Name</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>giftCertificate.message</code>
+                    <type>ShortText</type>
+                    <required>false</required>
+                    <maxSize>500</maxSize>
+                    <ordering>4</ordering>
+                    <displayname>
+                        <value language="en">Message</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>giftCertificate.recipientName</code>
+                    <type>ShortText</type>
+                    <required>true</required>
+                    <maxSize>255</maxSize>
+                    <ordering>2</ordering>
+                    <displayname>
+                        <value language="en">Recipient Name</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>giftCertificate.recipientEmail</code>
+                    <type>Email</type>
+                    <required>true</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>1</ordering>
+                    <displayname>
+                        <value language="en">Recipient Email</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+            </cartitemmodifierfields>
+        </cartitemmodifiergroup>
+        <cartitemmodifiergroup>
+            <code>allFieldTypes</code>
+            <displayname>
+                <value language="en">AllFieldTypes</value>
+            </displayname>
+            <cartitemmodifierfields>
+                <cartitemmodifierfield>
+                    <code>allFieldTypes.boolean</code>
+                    <type>Boolean</type>
+                    <required>false</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>4</ordering>
+                    <displayname>
+                        <value language="en">Boolean</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>allFieldTypes.integer</code>
+                    <type>Integer</type>
+                    <required>true</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>3</ordering>
+                    <displayname>
+                        <value language="en">Integer</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>allFieldTypes.date</code>
+                    <type>Date</type>
+                    <required>true</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>6</ordering>
+                    <displayname>
+                        <value language="en">Date</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>allFieldTypes.shortText</code>
+                    <type>ShortText</type>
+                    <required>true</required>
+                    <maxSize>10</maxSize>
+                    <ordering>1</ordering>
+                    <displayname>
+                        <value language="en">Short Text</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>allFieldTypes.multiSelectOption</code>
+                    <type>PickMultiOption</type>
+                    <required>true</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>10</ordering>
+                    <displayname>
+                        <value language="en">Mulit Select Option</value>
+                    </displayname>
+                    <options>
+                        <option>
+                            <displayname>
+<value language="en">Multi Value 3</value>
+                            </displayname>
+                            <value>multiValue3</value>
+                            <ordering>3</ordering>
+                        </option>
+                        <option>
+                            <displayname>
+<value language="en">Multi Value 1</value>
+                            </displayname>
+                            <value>multiValue1</value>
+                            <ordering>1</ordering>
+                        </option>
+                        <option>
+                            <displayname>
+<value language="en">Multi Value 2</value>
+                            </displayname>
+                            <value>multiValue2</value>
+                            <ordering>2</ordering>
+                        </option>
+                    </options>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>allFieldTypes.decimal</code>
+                    <type>Decimal</type>
+                    <required>false</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>2</ordering>
+                    <displayname>
+                        <value language="en">Decimal</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>allFieldTypes.email</code>
+                    <type>Email</type>
+                    <required>true</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>8</ordering>
+                    <displayname>
+                        <value language="en">Email</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>allFieldTypes.dateTime</code>
+                    <type>DateTime</type>
+                    <required>false</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>7</ordering>
+                    <displayname>
+                        <value language="en">Date Time</value>
+                    </displayname>
+                    <options/>
+                </cartitemmodifierfield>
+                <cartitemmodifierfield>
+                    <code>allFieldTypes.singleOption</code>
+                    <type>PickSingleOption</type>
+                    <required>false</required>
+                    <maxSize xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                    <ordering>9</ordering>
+                    <displayname>
+                        <value language="en">Single Option</value>
+                    </displayname>
+                    <options>
+                        <option>
+                            <displayname>
+<value language="en">Single Value 3</value>
+                            </displayname>
+                            <value>singleValue3</value>
+                            <ordering>3</ordering>
+                        </option>
+                        <option>
+                            <displayname>
+<value language="en">Single Value 1</value>
+                            </displayname>
+                            <value>singleValue1</value>
+                            <ordering>1</ordering>
+                        </option>
+                        <option>
+                            <displayname>
+<value language="en">Single Value 2</value>
+                            </displayname>
+                            <value>singleValue2</value>
+                            <ordering>2</ordering>
+                        </option>
+                    </options>
+                </cartitemmodifierfield>
+            </cartitemmodifierfields>
+        </cartitemmodifiergroup>
+    </cartitemmodifiergroups>
+    <attributes>
+        <attribute>
+            <key>description</key>
+            <name>Product Description</name>
+            <usage>Product</usage>
+            <type>LongText</type>
+            <multilanguage>true</multilanguage>
+            <required>false</required>
+            <multivalue>false</multivalue>
+            <global>false</global>
+        </attribute>
+        <attribute>
+            <key>features</key>
+            <name>Features</name>
+            <usage>Product</usage>
+            <type>LongText</type>
+            <multilanguage>true</multilanguage>
+            <required>false</required>
+            <multivalue>false</multivalue>
+            <global>true</global>
+        </attribute>
+        <attribute>
+            <key>catImage</key>
+            <name>Category Image</name>
+            <usage>Category</usage>
+            <type>Image</type>
+            <multilanguage>false</multilanguage>
+            <required>false</required>
+            <multivalue>false</multivalue>
+            <global>true</global>
+        </attribute>
+        <attribute>
+            <key>catName</key>
+            <name>Name</name>
+            <usage>Category</usage>
+            <type>ShortText</type>
+            <multilanguage>true</multilanguage>
+            <required>true</required>
+            <multivalue>false</multivalue>
+            <global>true</global>
+        </attribute>
+        <attribute>
+            <key>catDescription</key>
+            <name>Category Description</name>
+            <usage>Category</usage>
+            <type>LongText</type>
+            <multilanguage>false</multilanguage>
+            <required>true</required>
+            <multivalue>false</multivalue>
+            <global>true</global>
+        </attribute>
+    </attributes>
+    <categorytypes>
+        <categorytype>
+            <guid>7254f0b3-1808-4f10-b955-4a4ee72c59fc</guid>
+            <name>GiftCertificate</name>
+            <assignedattributes>
+                <attributekey>catDescription</attributekey>
+                <attributekey>catImage</attributekey>
+            </assignedattributes>
+        </categorytype>
+    </categorytypes>
+    <producttypes>
+        <producttype>
+            <guid>4fe9e351-b5ce-4dbd-a47a-ee2ceb2d6e2b</guid>
+            <name>Gift Certificate</name>
+            <assignedattributes>
+                <attributekey>description</attributekey>
+            </assignedattributes>
+            <defaulttaxcode>NONE</defaulttaxcode>
+            <multisku>
+                <assignedskuoptions>
+                    <skuoption>GC_Denominations</skuoption>
+                    <skuoption>GC_Themes</skuoption>
+                </assignedskuoptions>
+                <assignedattributes/>
+            </multisku>
+            <nodiscount>true</nodiscount>
+            <assignedcartitemmodifiergroups>
+                <code>giftCertificate_mobee</code>
+            </assignedcartitemmodifiergroups>
+        </producttype>
+    </producttypes>
+    <skuoptions>
+        <skuoption>
+            <code>GC_Denominations</code>
+            <name>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en">Amount</value>
+                <value language="en_US">Amount</value>
+            </name>
+            <skuoptionvalues>
+                <skuoptionvalue>
+                    <code>ONE_HUNDRED_VALUE</code>
+                    <name>
+                        <value language="fr_CA"/>
+                        <value language="fr"/>
+                        <value language="en">100</value>
+                        <value language="en_US">100</value>
+                    </name>
+                    <ordering>30</ordering>
+                </skuoptionvalue>
+                <skuoptionvalue>
+                    <code>FIFTY_VALUE</code>
+                    <name>
+                        <value language="fr_CA"/>
+                        <value language="fr"/>
+                        <value language="en">50</value>
+                        <value language="en_US">50</value>
+                    </name>
+                    <ordering>20</ordering>
+                </skuoptionvalue>
+                <skuoptionvalue>
+                    <code>TWENTY_VALUE</code>
+                    <name>
+                        <value language="fr_CA"/>
+                        <value language="fr"/>
+                        <value language="en">20</value>
+                        <value language="en_US">20</value>
+                    </name>
+                    <ordering>10</ordering>
+                </skuoptionvalue>
+            </skuoptionvalues>
+        </skuoption>
+        <skuoption>
+            <code>GC_Themes</code>
+            <name>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en">Design</value>
+                <value language="en_US">Design</value>
+            </name>
+            <skuoptionvalues>
+                <skuoptionvalue>
+                    <code>berries_theme</code>
+                    <name>
+                        <value language="fr_CA"/>
+                        <value language="fr"/>
+                        <value language="en">Berries</value>
+                        <value language="en_US">Berries</value>
+                    </name>
+                    <ordering>10</ordering>
+                </skuoptionvalue>
+                <skuoptionvalue>
+                    <code>hummingbird_theme</code>
+                    <name>
+                        <value language="fr_CA"/>
+                        <value language="fr"/>
+                        <value language="en">Hummingbird</value>
+                        <value language="en_US">Hummingbird</value>
+                    </name>
+                    <ordering>20</ordering>
+                </skuoptionvalue>
+            </skuoptionvalues>
+        </skuoption>
+    </skuoptions>
+    <brands>
+        <brand>
+            <code>None</code>
+            <name>
+                <value language="fr_CA"/>
+                <value language="fr"/>
+                <value language="en">none</value>
+                <value language="en_US">none</value>
+            </name>
+        </brand>
+    </brands>
+</catalog>
+
+<catalog>
+    <code>Virtual_CatAB_SP</code>
+    <type>virtual</type>
+    <name>Virtual CatAB Spanish</name>
+    <defaultlanguage>es</defaultlanguage>
+</catalog>
+</catalogs>

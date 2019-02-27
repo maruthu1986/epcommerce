@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>carts</name>
+
+		<plan>
+			<name>read-default-cart</name>
+			<description>
+				<![CDATA[
+Retrieve the shopper's default cart. When using *default* in the cart's URI, default evaluates to the logged in shopper's cart I.D.
+See the main Cortex documentation for more information on *default*.
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Retrieve the cart with cart-id default.]]></description>
+				<start>default-cart</start>
+				<read-self/>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-cart</name>
+			<description><![CDATA[Retrieve a cart with a specific cart identifier.]]></description>
+			<step>
+				<description><![CDATA[Retrieve a cart.]]></description>
+				<start>cart</start>
+				<read-self/>
+			</step>
+		</plan>
+		<plan>
+			<name>read-cart-memberships</name>
+			<description><![CDATA[
+Retrieves the list of carts that the item has been added to.
+
+	GET:{cortex}/carts/memberships/{item_uri}
+
+The list is empty if the item is not in your cart.]]></description>
+			<step>
+				<description><![CDATA[Retrieves the list of carts that the item has been added to.]]></description>
+				<start>items.item</start>
+				<follow-link>cartmemberships</follow-link>
+				<result>read-cart-memberships</result>
+			</step>
+		</plan>
+	</family>
+</definitions>

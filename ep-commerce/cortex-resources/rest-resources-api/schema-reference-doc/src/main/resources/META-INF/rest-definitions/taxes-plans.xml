@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>taxes</name>
+
+		<plan>
+			<name>read-order-taxes</name>
+			<description><![CDATA[Retrieves the total tax for an order, which includes the order's tax amount, currency, and type of tax (VAT, HST, etc.).]]></description>
+			<step>
+				<description><![CDATA[Read order for specific tax.]]></description>
+				<start>orders.order</start>
+				<follow-link>tax</follow-link>
+				<result>order-tax</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-shipment-taxes</name>
+			<description><![CDATA[Retrieves the total tax for a shipment, which includes the shipments' tax amount, currency, and type of tax (VAT, HST, etc.).]]></description>
+			<step>
+				<description><![CDATA[Read tax for specific shipment.]]></description>
+				<start>shipments.shipment</start>
+				<follow-link>tax</follow-link>
+				<result>shipment-tax</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-shipment-line-item-taxes</name>
+			<description><![CDATA[Retrieve the tax amount for a shipment line item.]]></description>
+			<step>
+				<description><![CDATA[Read the tax for a specific shipment line item.]]></description>
+				<start>shipments.shipment-line-item</start>
+				<follow-link>tax</follow-link>
+				<result>shipment-line-item-tax</result>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

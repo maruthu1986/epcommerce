@@ -1,0 +1,143 @@
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Button.html
+$button_size_xs: 4px 20px 4px 18px;
+$button_size_s: 8px 26px;
+$button_size_m: 10px 28px;
+$button_size_l: 12px 30px;
+
+Button {
+    background-color: $secondary-color;
+    background-image: none;
+    border: 1px solid $widget_border_color;
+    border-radius: $widget_border_radius;
+    color: $default-font-color;
+    font: $default-font;
+    padding: $button_size_m; // from mockup
+    spacing: $icon-spacing;
+    text-decoration: none;
+    text-shadow: none;
+
+    &[ARROW],
+    &[BORDER] {
+    }
+
+    &[TOGGLE] {
+    }
+
+    &[FLAT] {
+    }
+
+    &[PUSH] {
+        // shell default button style
+        background-color: $widget_body_color;
+        background-image: none;
+        border: 1px solid $widget_border_color;
+        color: $default-font-color;
+        font: $default-font;
+        padding: $button_size_m;
+
+        // search/clear/filter etc
+        &[FLAT] {
+            padding: $button_size_xs;
+        }
+        
+    }
+
+    &, &[PUSH] {
+        // Applies for shell default button.
+        &:default {
+            background-color: $primary-color;
+            background-image: none;
+            border: 1px solid  $primary-color2;
+            color: $widget_body_color; // invert
+            font: $default-font;
+            text-shadow: none;
+            &:hover,
+            &:focused,
+            &:selected {
+                background-color: $primary-color2;
+                background-image: none;
+                border: 1px solid $primary-color2;
+                color: $widget_body_color;
+                font: $default-font;
+            }
+            &:disabled {
+                opacity: 0.3;
+            }
+        }
+
+        &:hover {
+            background-color: $widget_body_color;
+            background-image: none;
+            border: 1px solid $gray-dark;
+            color: $default-font-color;
+        }
+
+        &:focused,
+        &:pressed,
+        &:selected {
+            background-color: $primary-color2;
+            background-image: none;
+            border: 1px solid $primary-color2;
+            color: $widget_body_color;
+            font: $default-font;
+        }
+    }
+
+    &[CHECK],
+    &[RADIO] {
+
+        &,
+        &[ARROW],
+        &[BORDER],
+        &[FLAT] {
+            border: none;
+            font: $default-font;
+            padding: 0;
+            spacing: $icon-spacing-spacious; // CSS images don't have spacing
+
+            &:selected,
+            &:hover {
+                border: none;
+                padding: 0;
+            }
+        }
+    }
+
+
+    // http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Button.html#Button-CheckIcon
+    &-CheckIcon {
+        @include checkbox_icon();
+    }
+
+    // http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Button.html#Button-RadioIcon
+    &-RadioIcon {
+        @include radio_icon();
+    }
+    
+    // http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Button.html#Button-ArrowIcon
+    &-ArrowIcon {
+
+    }
+    // http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Button.html#Button-FocusIndicator
+    &-FocusIndicator {
+        &,
+        &[ARROW],
+        &[PUSH],
+        &[TOGGLE] {
+            background-color: transparent;
+            border: 1px dotted $widget_border_color;
+            margin: 2px;
+            padding: 0;
+            opacity: 1;
+        }
+
+        &[CHECK],
+        &[RADIO] {
+            background-color: transparent;
+            border: 1px dotted $widget_border_color;
+            margin: 0;
+            padding: 2px 2px 2px 1px;
+            opacity: 1;
+        }
+    }
+}

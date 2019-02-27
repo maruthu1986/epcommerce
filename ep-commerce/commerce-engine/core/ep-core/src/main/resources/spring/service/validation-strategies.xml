@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="http://www.springframework.org/schema/beans"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- ProductSku Validators -->
+
+	<bean id="productSkuDatesValidator" class="com.elasticpath.service.shoppingcart.validation.impl.ProductSkuDatesValidatorImpl">
+		<property name="timeService" ref="timeService"/>
+	</bean>
+
+	<bean id="inventoryProductSkuValidator" class="com.elasticpath.service.shoppingcart.validation.impl.InventoryProductSkuValidatorImpl">
+		<property name="productInventoryShoppingService" ref="productInventoryShoppingService"/>
+	</bean>
+
+	<bean id="visibleProductSkuValidator" class="com.elasticpath.service.shoppingcart.validation.impl.VisibleProductSkuValidatorImpl">
+	</bean>
+
+	<bean id="inCatalogProductSkuValidator" class="com.elasticpath.service.shoppingcart.validation.impl.InCatalogProductSkuValidatorImpl">
+	</bean>
+
+	<bean id="soldSeparatelyProductSkuValidator" class="com.elasticpath.service.shoppingcart.validation.impl.SoldSeparatelyProductSkuValidatorImpl">
+	</bean>
+
+	<bean id="priceExistsProductSkuValidator" class="com.elasticpath.service.shoppingcart.validation.impl.PriceExistsProductSkuValidatorImpl">
+		<property name="bundleIdentifier" ref="bundleIdentifier"/>
+	</bean>
+
+	<bean id="autoSelectableBundleConstituentDelegateValidator" class="com.elasticpath.service.shoppingcart.validation.impl.AutoSelectableBundleConstituentDelegateValidatorImpl">
+		<property name="beanFactory" ref="coreBeanFactory" />
+		<property name="priceLookupFacade" ref="priceLookupFacade"/>
+		<property name="validators" ref="productSkuValidatorListForShoppingItems"/>
+	</bean>
+
+	<!-- ShoppingItemDto Validators -->
+
+	<bean id="productSkuDelegateFromShoppingItemDtoValidator" class="com.elasticpath.service.shoppingcart.validation.impl.ProductSkuDelegateFromShoppingItemDtoValidatorImpl">
+		<property name="validators" ref="productSkuValidatorList"/>
+	</bean>
+
+	<bean id="quantityShoppingItemDtoValidator" class="com.elasticpath.service.shoppingcart.validation.impl.QuantityShoppingItemDtoValidatorImpl">
+	</bean>
+
+	<bean id="inventoryShoppingItemDtoValidator" class="com.elasticpath.service.shoppingcart.validation.impl.InventoryShoppingItemDtoValidatorImpl">
+		<property name="inventoryCalculator" ref="inventoryCalculator"/>
+		<property name="productInventoryManagementService" ref="productInventoryManagementService"/>
+	</bean>
+
+	<bean id="cartItemModifierShoppingItemDtoValidator" class="com.elasticpath.service.shoppingcart.validation.impl.CartItemModifierShoppingItemDtoValidatorImpl">
+		<property name="cartItemModifierFieldValidationService" ref="cartItemModifierFieldValidationService"/>
+	</bean>
+
+	<bean id="bundleStructureShoppingItemDtoValidator" class="com.elasticpath.service.shoppingcart.validation.impl.BundleStructureShoppingItemDtoValidatorImpl">
+		<property name="productLookup" ref="productLookup"/>
+	</bean>
+
+	<bean id="bundleMaxSelectionRulesShoppingItemDtoValidator" class="com.elasticpath.service.shoppingcart.validation.impl.BundleMaxSelectionRulesShoppingItemDtoValidatorImpl">
+	</bean>
+
+	<!-- ShoppingItem Validators -->
+
+	<bean id="productSkuDelegateFromShoppingItemValidator" class="com.elasticpath.service.shoppingcart.validation.impl.ProductSkuDelegateFromShoppingItemValidatorImpl">
+		<property name="validators" ref="productSkuValidatorListForShoppingItems"/>
+	</bean>
+
+	<bean id="cartItemModifierShoppingItemValidator" class="com.elasticpath.service.shoppingcart.validation.impl.CartItemModifierShoppingItemValidatorImpl">
+		<property name="cartItemModifierFieldValidationService" ref="cartItemModifierFieldValidationService"/>
+	</bean>
+
+	<bean id="bundleMinSelectionRulesShoppingItemValidator" class="com.elasticpath.service.shoppingcart.validation.impl.BundleMinSelectionRulesShoppingItemValidatorImpl">
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+	</bean>
+
+	<bean id="inventoryShoppingItemValidator" class="com.elasticpath.service.shoppingcart.validation.impl.InventoryShoppingItemValidatorImpl">
+		<property name="inventoryCalculator" ref="inventoryCalculator"/>
+		<property name="productInventoryManagementService" ref="productInventoryManagementService"/>
+	</bean>
+
+	<!-- ShoppingCart Validators -->
+
+	<bean id="shoppingItemDelegateFromShoppingCartValidator" class="com.elasticpath.service.shoppingcart.validation.impl.ShoppingItemDelegateFromShoppingCartValidatorImpl">
+		<property name="shoppingItemValidators" ref="shoppingItemValidatorList"/>
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+		<property name="priceLookupFacade" ref="priceLookupFacade"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="emptyShoppingCartValidator" class="com.elasticpath.service.shoppingcart.validation.impl.EmptyShoppingCartValidatorImpl">
+	</bean>
+
+	<bean id="shippingOptionShoppingCartValidator" class="com.elasticpath.service.shoppingcart.validation.impl.ShippingOptionShoppingCartValidatorImpl">
+		<property name="shippingOptionService" ref="shippingOptionService"/>
+	</bean>
+
+	<bean id="emailAddressShoppingCartValidator" class="com.elasticpath.service.shoppingcart.validation.impl.EmailAddressShoppingCartValidatorImpl">
+		<property name="reservedEmails">
+			<set>
+				<value>public@ep-cortex.com</value>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="paymentMethodShoppingCartValidator" class="com.elasticpath.service.shoppingcart.validation.impl.PaymentMethodShoppingCartValidatorImpl">
+		<property name="pricingSnapshotService" ref="pricingSnapshotService"/>
+	</bean>
+
+	<bean id="billingAddressShoppingCartValidator" class="com.elasticpath.service.shoppingcart.validation.impl.BillingAddressShoppingCartValidatorImpl">
+	</bean>
+
+	<bean id="shippingAddressShoppingCartValidator"
+		  class="com.elasticpath.service.shoppingcart.validation.impl.ShippingAddressShoppingCartValidatorImpl"/>
+
+	<bean id="giftCertificateBalanceShoppingCartValidator" class="com.elasticpath.service.shoppingcart.validation.impl.GiftCertificateBalanceShoppingCartValidatorImpl">
+		<property name="giftCertificateService" ref="giftCertificateService"/>
+		<property name="pricingSnapshotService" ref="pricingSnapshotService"/>
+	</bean>
+
+	<!-- Validation Services -->
+
+	<bean id="addProductSkuToCartValidationService" class="com.elasticpath.service.shoppingcart.validation.impl.AddProductSkuToCartValidationServiceImpl">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="priceLookupFacade" ref="priceLookupFacade"/>
+		<property name="validators" ref="productSkuValidatorList"/>
+	</bean>
+
+	<bean id="addOrUpdateShoppingItemDtoToCartValidationService" class="com.elasticpath.service.shoppingcart.validation.impl.AddOrUpdateShoppingItemDtoToCartValidationServiceImpl">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+		<property name="priceLookupFacade" ref="priceLookupFacade"/>
+		<property name="validators" ref="shoppingItemDtoValidatorList"/>
+	</bean>
+
+	<bean id="purchaseCartValidationService" class="com.elasticpath.service.shoppingcart.validation.impl.PurchaseCartValidationServiceImpl">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="validators" ref="purchaseCartValidatorList"/>
+	</bean>
+
+	<!-- Validation Strategy Lists-->
+
+	<!-- These validators are executed when determining if a productSku can be added to cart. -->
+	<bean id="productSkuValidatorListParent" class="com.elasticpath.commons.beanframework.config.ExtensibleListFactoryBean" abstract="true">
+		<property name="targetListClass">
+			<value>java.util.ArrayList</value>
+		</property>
+		<property name="sourceList">
+			<list merge="true">
+				<ref bean="productSkuDatesValidator"/>
+				<ref bean="inventoryProductSkuValidator"/>
+				<ref bean="visibleProductSkuValidator"/>
+				<ref bean="inCatalogProductSkuValidator"/>
+				<ref bean="priceExistsProductSkuValidator"/>
+				<ref bean="soldSeparatelyProductSkuValidator"/>
+				<ref bean="autoSelectableBundleConstituentDelegateValidator"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="productSkuValidatorList" parent="productSkuValidatorListParent"/>
+
+	<!-- These validators are executed on all productSkus in the cart when determining if the cart can be purchased. -->
+	<bean id="productSkuValidatorListForShoppingItemsParent" parent="productSkuValidatorList" abstract="true">
+		<property name="targetListClass">
+			<value>java.util.ArrayList</value>
+		</property>
+		<property name="removeList">
+			<list merge="true">
+				<!-- This strategy only checks to see if there's at least one available in inventory. Instead, we will rely on the
+				     InventoryShoppingItemValidator to ensure that there is sufficient inventory for the items in the cart. -->
+				<ref bean="inventoryProductSkuValidator"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="productSkuValidatorListForShoppingItems" parent="productSkuValidatorListForShoppingItemsParent"/>
+
+	<!-- These validators are executed during add to cart and update item in cart. -->
+	<bean id="shoppingItemDtoValidatorListParent" class="com.elasticpath.commons.beanframework.config.ExtensibleListFactoryBean" abstract="true">
+		<property name="targetListClass">
+			<value>java.util.ArrayList</value>
+		</property>
+		<property name="sourceList">
+			<list merge="true">
+				<ref bean="productSkuDelegateFromShoppingItemDtoValidator"/>
+				<ref bean="quantityShoppingItemDtoValidator"/>
+				<ref bean="cartItemModifierShoppingItemDtoValidator"/>
+				<ref bean="bundleStructureShoppingItemDtoValidator"/>
+				<ref bean="bundleMaxSelectionRulesShoppingItemDtoValidator"/>
+				<ref bean="inventoryShoppingItemDtoValidator"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="shoppingItemDtoValidatorList" parent="shoppingItemDtoValidatorListParent"/>
+
+	<!-- These validators are executed on all items in the cart, when determining if the cart is purchasable. -->
+	<bean id="shoppingItemValidatorListParent" class="com.elasticpath.commons.beanframework.config.ExtensibleListFactoryBean" abstract="true">
+		<property name="targetListClass">
+			<value>java.util.ArrayList</value>
+		</property>
+		<property name="sourceList">
+			<list merge="true">
+				<ref bean="productSkuDelegateFromShoppingItemValidator"/>
+				<ref bean="cartItemModifierShoppingItemValidator"/>
+				<ref bean="bundleMinSelectionRulesShoppingItemValidator"/>
+				<ref bean="inventoryShoppingItemValidator"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="shoppingItemValidatorList" parent="shoppingItemValidatorListParent"/>
+
+	<!-- These validators are executed on the shopping cart, when determining if the cart is purchasable. -->
+	<bean id="purchaseCartValidatorListParent" class="com.elasticpath.commons.beanframework.config.ExtensibleListFactoryBean" abstract="true">
+		<property name="targetListClass">
+			<value>java.util.ArrayList</value>
+		</property>
+		<property name="sourceList">
+			<list merge="true">
+				<ref bean="emptyShoppingCartValidator"/>
+				<ref bean="shoppingItemDelegateFromShoppingCartValidator"/>
+				<ref bean="shippingOptionShoppingCartValidator"/>
+				<ref bean="emailAddressShoppingCartValidator"/>
+				<ref bean="billingAddressShoppingCartValidator"/>
+				<ref bean="shippingAddressShoppingCartValidator"/>
+				<ref bean="paymentMethodShoppingCartValidator"/>
+				<ref bean="giftCertificateBalanceShoppingCartValidator"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="purchaseCartValidatorList" parent="purchaseCartValidatorListParent"/>
+</beans>

@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>orders</name>
+		<description><![CDATA[
+Deliveries:
+
+The deliveries resource groups the shipment details, which are the how and where your goods are being shipped, for your
+orders. Out of the box, you can't split orders into different shipments, so when you get the list of delivery elements
+for an order only one element appears in the list. The order's shipment details are specified through the
+[shipmentdetails][shipmentdetails] resource.
+
+[shipmentdetails]: #shipmentdetails
+			]]>
+		</description>
+
+		<uri-part>
+			<name>delivery-id</name>
+			<description><![CDATA[The delivery ID]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>deliveries</name>
+			<description><![CDATA[The deliveries list for an order.]]></description>
+			<uri>{order}/deliveries</uri>
+			<list-of>delivery</list-of>
+		</resource>
+
+		<resource>
+			<name>delivery</name>
+			<description><![CDATA[Individual delivery information for an order.]]></description>
+			<uri>{deliveries}/{delivery-id}</uri>
+			<entity>delivery</entity>
+		</resource>
+
+		<relationship>
+			<name>deliveries-for-order</name>
+			<description><![CDATA[Retreive a list of [deliveries](#order-deliveries) for an order.]]></description>
+			<rel>deliveries</rel>
+			<rev>order</rev>
+			<from>order</from>
+			<to>deliveries</to>
+		</relationship>
+
+		<relationship>
+			<name>delivery-to-deliveries</name>
+			<description><![CDATA[Reverse link to the list of deliveries.]]></description>
+			<rel>list</rel>
+			<from>delivery</from>
+			<to>deliveries</to>
+		</relationship>
+
+		<entity>
+			<name>delivery</name>
+			<description><![CDATA[The delivery information for an order.]]></description>
+			<property>
+				<name>delivery-id</name>
+				<description><![CDATA[The internal delivery identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>delivery-type</name>
+				<description><![CDATA[The delivery type for an order.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>order-id</name>
+				<description><![CDATA[The internal order identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<entity-type>orders.delivery</entity-type>
+		</entity>
+
+	</family>
+</definitions>

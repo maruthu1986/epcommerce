@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="Extender" name="Extender"   schema="../com.elasticpath.cmclient.core/schema/extender.exsd"/>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            class="com.elasticpath.cmclient.admin.configuration.views.SystemConfigurationView"
+            icon="icons/system-configuration_default_22.png"
+            id="com.elasticpath.cmclient.admin.configuration.views.SystemConfigurationView"
+            name="%configurationView.name">
+      </view>
+      <view
+            allowMultiple="false"
+            class="com.elasticpath.cmclient.admin.configuration.views.SearchIndexesView"
+            icon="icons/search-indexes_default_22.png"
+            id="com.elasticpath.cmclient.admin.configuration.views.SearchIndexesView"
+            name="%searchIndexesView.name">
+      </view>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.admin.adminSections">
+      <adminSection
+              class="com.elasticpath.cmclient.admin.configuration.ConfigurationAdminSection"
+              id="com.elasticpath.cmclient.admin.configuration.ConfigurationAdminSection"
+              name="%adminSection.name"
+              order="1">
+      </adminSection>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.core.authorizations">
+      <permissions>
+         <permission
+               activityId="com.elasticpath.cmclient.admin.authorization.activity"
+               key="ADMIN_CONFIGURATION_MANAGE"
+               name="%manageSystemConfiguration.permission.name">
+         </permission>
+      </permissions>
+   </extension>
+
+</plugin>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd" version="2.0">
+	<!-- Named queries for FavoriteListImpl -->
+	<named-query name="FAVORITELIST_BY_SHOPPING_CONTEXT">
+		<query>
+			SELECT wl
+			FROM FavoriteListImpl wl
+			WHERE wl.shopperUid = ?1
+		</query>
+	</named-query>
+	<named-query name="FAVORITELIST_BY_GUID">
+		<query>
+			SELECT wl
+			FROM FavoriteListImpl wl
+			WHERE wl.guid = ?1
+		</query>
+	</named-query>
+	<named-query name="FAVORITELIST_BY_SKU_GUID">
+		<query>
+			SELECT wl
+			FROM FavoriteListImpl wl, IN (wl.allItems) item
+			WHERE item.skuGuid = ?1
+		</query>
+	</named-query>
+	<named-query name="DELETE_EMPTY_FAVORITELISTS_BY_SHOPPER_UID">
+		<query>
+			DELETE
+			FROM FavoriteListImpl wl
+			WHERE wl.allItems IS EMPTY
+			AND wl.shopperUid IN (:list)
+		</query>
+	</named-query>
+	<named-query name="DELETE_ALL_FAVORITELISTS_BY_SHOPPER_UID">
+		<query>
+			DELETE
+			FROM FavoriteListImpl wl
+			WHERE wl.shopperUid IN (:list)
+		</query>
+	</named-query>
+</entity-mappings>

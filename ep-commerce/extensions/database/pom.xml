@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>ext-commerce-engine-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ext-database-parent</artifactId>
+	<name>Extension Database Parent</name>
+
+	<packaging>pom</packaging>
+
+	<properties>
+		<!-- Set the data.population.* properties using the epdb.* properties. -->
+		<data.population.host>${epdb.host}</data.population.host>
+		<data.population.port>${epdb.port}</data.population.port>
+		<data.population.databasename>${epdb.databasename}</data.population.databasename>
+		<data.population.schemaname>${epdb.schemaname}</data.population.schemaname>
+		<data.population.username>${epdb.username}</data.population.username>
+		<data.population.password>${epdb.password}</data.population.password>
+		<data.population.reset_user>${epdb.reset_user}</data.population.reset_user>
+		<data.population.reset_password>${epdb.reset_password}</data.population.reset_password>
+		<data.population.params>${epdb.params}</data.population.params>
+		<data.population.jdbc.driver>${epdb.jdbc.driver}</data.population.jdbc.driver>
+		<data.population.default.tablespace>${epdb.default.tablespace}</data.population.default.tablespace>
+		<data.population.temporary.tablespace>${epdb.temporary.tablespace}</data.population.temporary.tablespace>
+		<data.population.schemaspy.dbType>${epdb.schemaspy.dbType}</data.population.schemaspy.dbType>
+		<ep.local.cache.timeout>5</ep.local.cache.timeout>
+	</properties>
+
+	<modules>
+		<module>ext-data</module>
+		<module>ext-schema-documentation</module>
+		<module>ext-database-update</module>
+	</modules>
+
+	<build>
+		<!-- stores-parent diff: Inherit licensing-maven-plugin configurations from parent instead -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>sql-maven-plugin</artifactId>
+				</plugin>
+				<!-- Set up the supported environments if either reset-db, or update-db profiles are activated to update the database.
+					Child poms need to reference this definition to activate the check. -->
+				<plugin>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>enforce-environment-profile</id>
+							<phase>validate</phase>
+							<configuration>
+								<rules>
+									<!-- Currently a bug with the requireActiveProfile rule ('all' attribute is ignored) which is fixed
+										in currently unreleased version 2.0 of maven-enforcer-plugin.
+										So for the timebeing checking the env system property instead. -->
+									<requireProperty>
+										<property>data.population.environment</property>
+										<message>No 'data.population.environment' property specified. Please set the appropriate value according to the environment being updated.</message>
+									</requireProperty>
+								</rules>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<modules>
+				<module>ext-schema-documentation</module>
+			</modules>
+		</profile>
+	</profiles>
+</project>

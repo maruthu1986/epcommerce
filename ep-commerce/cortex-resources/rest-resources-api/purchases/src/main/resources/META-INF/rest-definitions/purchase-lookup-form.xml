@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+    <family>
+        <name>purchases</name>
+
+        <resource>
+            <name>purchase-lookup-form</name>
+            <description><![CDATA[Provides a form to use a purchase number to look up a purchase.]]></description>
+            <uri>{purchases}/lookups/form</uri>
+            <form>
+                <entity>purchase-number</entity>
+                <action-rel>purchaselookupaction</action-rel>
+                <result>purchases.purchase</result>
+            </form>
+        </resource>
+
+        <relationship>
+            <name>purchase-lookup-form-from-lookups</name>
+            <description>A link from the lookups resource to purchase form.</description>
+            <rel>purchaselookupform</rel>
+            <from>lookups.lookups</from>
+            <to>purchase-lookup-form</to>
+        </relationship>
+
+        <entity>
+            <name>purchase-number</name>
+            <description><![CDATA[The purchase number]]></description>
+            <property>
+                <name>purchase-number</name>
+                <description><![CDATA[The purchase number.]]></description>
+                <string/>
+            </property>
+        </entity>
+
+    </family>
+</definitions>

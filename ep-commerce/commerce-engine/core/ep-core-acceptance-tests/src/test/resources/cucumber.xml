@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<context:component-scan base-package="cucumber.runtime.java.spring"/>
+	<context:annotation-config/>
+
+	<import resource="classpath*:/integration-context.xml"/>
+
+	<bean id="glueCodeScope" class="cucumber.runtime.java.spring.GlueCodeScope" />
+
+	<bean id="glueCodeScopeConfigurer" class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+		<property name="scopes">
+			<map>
+				<entry key="cucumber-glue" value-ref="glueCodeScope"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="simpleStoreScenarioHolder" class="com.elasticpath.cucumber.impl.ScenarioContextValueHolderImpl" />
+	<bean id="storeHolder" class="com.elasticpath.cucumber.impl.ScenarioContextValueHolderImpl" />
+	<bean id="taxJurisdictionHolder" class="com.elasticpath.cucumber.impl.ScenarioContextValueHolderImpl" />
+	<bean id="shippingOptionHolder" class="com.elasticpath.cucumber.impl.ScenarioContextValueHolderImpl" />
+	<bean id="customerHolder" class="com.elasticpath.cucumber.impl.ScenarioContextValueHolderImpl" />
+	<bean id="shoppingCartHolder" class="com.elasticpath.cucumber.impl.ScenarioContextValueHolderImpl" />
+	<bean id="orderHolder" class="com.elasticpath.cucumber.impl.ScenarioContextValueHolderImpl" />
+	<bean id="orderReturnHolder" class="com.elasticpath.cucumber.impl.ScenarioContextValueHolderImpl" />
+	<bean id="taxableItemContainerHolder" class="com.elasticpath.cucumber.impl.ScenarioContextValueHolderImpl" />
+	
+	<bean id="storeStepDefinitionsHelper" class="com.elasticpath.cucumber.store.StoreStepDefinitionsHelper" />
+	
+	<bean id="categoryStepDefinitionsHelper" class="com.elasticpath.cucumber.category.CategoryStepDefinitionsHelper" />
+	
+	<bean id="shippingServiceLevelStepDefinitionsHelper" class="com.elasticpath.cucumber.shippingservicelevel.ShippingServiceLevelStepDefinitionsHelper" />
+	
+	<bean id="customerStepDefinitionsHelper" class="com.elasticpath.cucumber.customer.CustomerStepDefinitionsHelper" />
+	
+	<bean id="shoppingCartStepDefinitionsHelper" class="com.elasticpath.cucumber.shoppingcart.ShoppingCartStepDefinitionsHelper" />
+	
+	<bean id="orderStepDefinitionsHelper" class="com.elasticpath.cucumber.order.OrderStepDefinitionsHelper" />
+	
+	<bean id="orderReturnStepDefinitionsHelper" class="com.elasticpath.cucumber.orderreturn.OrderReturnStepDefinitionsHelper" />
+
+	<bean id="shoppingCartTaxStepDefinitionsHelper" class="com.elasticpath.cucumber.tax.ShoppingCartTaxStepDefinitionsHelper" />
+
+	<bean id="orderTaxStepDefinitionsHelper" class="com.elasticpath.cucumber.tax.OrderTaxStepDefinitionsHelper" />
+
+	<bean id="taxCodeRetrieverStepDefinitionsHelper" class="com.elasticpath.cucumber.tax.TaxCodeRetrieverStepDefinitionsHelper" />
+
+	<bean id="b2bTaxStepDefinitionHelper" class="com.elasticpath.cucumber.tax.B2BTaxStepDefinitionsHelper" />
+
+</beans>

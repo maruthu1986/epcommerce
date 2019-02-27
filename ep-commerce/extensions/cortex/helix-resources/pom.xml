@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>ext-cortex-ce-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.elasticpath.extensions.rest</groupId>
+	<artifactId>helix-resources-parent</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Helix Resources Parent</name>
+
+	<!-- Add extension resources as modules here. -->
+	<modules>
+		<module>ext-favorites-uri-builders</module>
+		<module>example</module>
+        <module>favoritesprototype</module>
+    </modules>
+	<dependencies>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-core</artifactId>
+			<version>${hamcrest.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>${hamcrest.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<version>6.0.0</version>
+		</dependency>
+		<!-- Gemini blueprint is needed by the wiring test to stand up the spring (parse the xsd) while offline. -->
+		<dependency>
+			<groupId>org.eclipse.gemini.blueprint</groupId>
+			<artifactId>gemini-blueprint-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>maven-bundle-plugin</artifactId>
+					<extensions>true</extensions>
+					<configuration>
+						<instructions>
+							<Require-Capability>osgi.service;
+								filter:="(objectClass=com.elasticpath.rest.helix.client.extender.BootstrapExtender)"; effective:=active,
+							</Require-Capability>
+						</instructions>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>com.elasticpath.rest.helix</groupId>
+					<artifactId>helix-maven-plugin</artifactId>
+					<version>${api-platform.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>validate</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>felix-deploy</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.sling</groupId>
+						<artifactId>maven-sling-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

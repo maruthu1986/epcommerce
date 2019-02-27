@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>shipmentdetails</name>
+		<description>
+			<![CDATA[
+The shipmentdetails resource defines how and where the physical goods you're purchasing are shipped. The *where* you're shipping
+is the shipping address, while the *how* are the shipping options (i.e. Canada Post, FedEx, etc) available for your store.
+			]]>
+		</description>
+
+		<uri-part>
+			<name>shipment-details-id</name>
+			<description><![CDATA[A value representing the shipment detail identification.]]></description>
+			<composite/>
+		</uri-part>
+
+		<uri-part>
+			<name>shipping-option-id</name>
+			<description><![CDATA[A value representing the shipping option identification.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>destination-info</name>
+			<description><![CDATA[The destinationinfo for the order.]]></description>
+			<uri>{base.family}/{base.scope}/{shipment-details-id}/destinationinfo</uri>
+			<entity>controls.info</entity>
+		</resource>
+
+		<resource>
+			<name>shipping-option</name>
+			<description><![CDATA[The shipping option that is currently selected for the order.]]></description>
+			<uri>{base.family}/{base.scope}/{shipment-details-id}/shippingoptions/{shipping-option-id}</uri>
+			<entity>shipping-option</entity>
+		</resource>
+
+		<resource>
+			<name>shipping-option-info</name>
+			<description><![CDATA[The shippingoptioninfo for the order.]]></description>
+			<uri>{base.family}/{base.scope}/{shipment-details-id}/shippingoptioninfo</uri>
+			<entity>controls.info</entity>
+		</resource>
+
+		<relationship>
+			<name>destination-info-for-delivery</name>
+			<description><![CDATA[Retrieves the delivery's destination info.]]></description>
+			<rel>destinationinfo</rel>
+			<rev>delivery</rev>
+			<from>orders.delivery</from>
+			<to>destination-info</to>
+		</relationship>
+
+		<relationship>
+			<name>shipping-option-info-for-delivery</name>
+			<description>![CDATA[Retrieves the delivery's destination info.]]</description>
+			<rel>shippingoptioninfo</rel>
+			<rev>delivery</rev>
+			<from>orders.delivery</from>
+			<to>shipping-option-info</to>
+		</relationship>
+
+		<relationship>
+			<name>shipping-address-for-destination-info</name>
+			<description><![CDATA[Retrieve the shipping address that is currently selected for the order.]]></description>
+			<rel>destination</rel>
+			<from>destination-info</from>
+			<to>addresses.address</to>
+		</relationship>
+
+		<relationship>
+			<name>shipping-address-form-for-order</name>
+			<description><![CDATA[Create an address for an order.]]></description>
+			<rel>addressform</rel>
+			<from>destination-info</from>
+			<to>addresses.address-form</to>
+		</relationship>
+
+		<relationship>
+			<name>shipping-option-info-for-shipping-option</name>
+			<description><![CDATA[Retrieve the shipping option that is currently selected for the order.]]></description>
+			<rel>shippingoption</rel>
+			<from>shipping-option-info</from>
+			<to>shipping-option</to>
+		</relationship>
+
+		<entity>
+			<name>shipping-option</name>
+			<description><![CDATA[Physical Shipping Option Representation.]]></description>
+			<property>
+				<name>name</name>
+				<description><![CDATA[Name of the shipping option.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[The localized name of the carrier, intended for display in the client application.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>carrier</name>
+				<description><![CDATA[Name of the carrier.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>cost</name>
+				<description><![CDATA[The shipping costs for shipping the item(s) to the selected shipping address.]]></description>
+				<array>
+					<is-a>base.cost</is-a>
+				</array>
+			</property>
+			<property>
+				<name>shipping-option-id</name>
+				<description><![CDATA[shipping option identification.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<entity-type>shipmentdetails.shipping-option</entity-type>
+		</entity>
+
+	</family>
+</definitions>

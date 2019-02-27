@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<catalogs>
+
+<catalog>
+    <code>MobileCatalog</code>
+    <type>master</type>
+    <name>Mobile Catalog</name>
+    <languages>
+        <language>fr_CA</language>
+    </languages>
+    <defaultlanguage>en</defaultlanguage>
+    <attributes></attributes>
+    <categorytypes></categorytypes>
+    <producttypes></producttypes>
+    <skuoptions></skuoptions>
+    <brands></brands>
+</catalog>
+
+<catalog>
+    <code>Mobile</code>
+    <type>virtual</type>
+    <name>Mobile Virtual Catalog</name>
+    <defaultlanguage>en</defaultlanguage>
+</catalog>
+
+</catalogs>

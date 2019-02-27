@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+<!-- 
+This is here to override the OWASP ESAPI library included log4j.xml,
+which will otherwise be found in the classpath and force DEBUG logging
+as the application starts until log4j servlet initialization.
+
+See WEB-INF/conf/misc/log4j.properties for the actual log4j configuration.
+ 
+-->
+
+</log4j:configuration>

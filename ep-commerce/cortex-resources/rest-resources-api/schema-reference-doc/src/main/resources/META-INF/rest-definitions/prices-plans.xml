@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>prices</name>
+
+		<plan>
+			<name>read-item-price</name>
+			<description><![CDATA[Read the unit price of an [item][items]. The unit price of an item is the price for one unit (quantity = 1) ]]></description>
+			<step>
+				<description><![CDATA[Follow a link from item to price.]]></description>
+				<start>items.item</start>
+				<follow-link>price</follow-link>
+				<link-back>item</link-back>
+				<result>price-for-item</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-cart-line-item-price</name>
+			<description><![CDATA[Read the unit price of a cart line item. The unit price of a cart line item is the price for one unit when a given quantity is purchased (the line item quantity).]]></description>
+			<step>
+				<description><![CDATA[Follow a link from line item to price.]]></description>
+				<start>carts.line-item</start>
+				<follow-link>price</follow-link>
+				<link-back>lineitem</link-back>
+				<result>price-for-cart-line-item</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-lowest-price-of-item-options</name>
+			<description><![CDATA[Read the price of the item option with the lowest price. This link will only appear if the item has options.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from itemdefinition to fromprice.]]></description>
+				<start>itemdefinitions.item-definition</start>
+				<follow-link>fromprice</follow-link>
+				<link-back>definition</link-back>
+				<result>price-for-itemdefinition</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-shipment-line-item-price</name>
+			<description><![CDATA[Retrieves the price of a shipment line item.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from a shipment line item to a price.]]></description>
+				<start>shipments.shipment-line-item</start>
+				<follow-link>price</follow-link>
+				<link-back>lineitem</link-back>
+				<result>price-for-shipment-line-item</result>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

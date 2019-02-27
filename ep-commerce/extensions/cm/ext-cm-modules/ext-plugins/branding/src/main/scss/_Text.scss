@@ -1,0 +1,43 @@
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Text.html
+Text {
+	font: $default-font;
+	box-shadow: none;
+
+	&[MULTI] {
+		
+	}
+
+	// input field
+	&[BORDER] {
+		@include form_field('&,&[SINGLE],&[MULTI]');
+		&,
+		&[SINGLE],
+		&[MULTI] {
+			padding: $widget_field_padding;
+		}
+	}
+
+	&:disabled,
+	&:read-only {
+		background-color: $gray-lighter;
+		// color: $gray; >> color DOESN'T WORK IN SOME PLACES!!
+	}
+
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Text.html#Text-Message
+	&-Message {
+		color: $default-font-color;
+		text-shadow: none;
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Text.html#Text-Search-Icon
+	&-Search-Icon {
+		spacing: $icon-spacing;
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Text.html#Text-Cancel-Icon
+	&-Cancel-Icon {
+	    background-image: url('themes/icons/Text-Cancel-Icon.png');
+		spacing: $icon-spacing;
+	}
+}

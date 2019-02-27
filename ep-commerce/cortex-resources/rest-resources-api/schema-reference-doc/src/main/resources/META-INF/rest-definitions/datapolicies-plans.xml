@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>datapolicies</name>
+		<plan>
+			<name>read-data-policies-for-store-from-profile</name>
+			<description>
+				<![CDATA[
+				Retrieve the list of data policies for a store from a customer profile, based on the data policy segment header(s).
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Read data policies for a store.]]></description>
+				<start>profiles.profile</start>
+				<follow-link>data-policies</follow-link>
+				<link-back>profile</link-back>
+				<result>data-policies</result>
+			</step>
+		</plan>
+		<plan>
+			<name>read-data-policies-for-store-from-root</name>
+			<description>
+				<![CDATA[
+				Retrieve the list of data policies for a store from root, based on the data policy segment header(s).
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Read data policies for a given store.]]></description>
+				<start>data-policies</start>
+				<read-self/>
+			</step>
+		</plan>
+		<plan>
+			<name>read-data-policy</name>
+			<description>
+				<![CDATA[
+				Retrieves a data policy if a valid data policy segment is provided.
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Read a data policy.]]></description>
+				<start>data-policies</start>
+				<follow-link>data-policy</follow-link>
+				<link-back>data-policies</link-back>
+				<result>data-policy</result>
+			</step>
+		</plan>
+		<plan>
+			<name>read-data-policy-consent-form</name>
+			<description>
+				<![CDATA[
+				Retrieve a data policy consent form for a data policy.
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Read a data policy consent form.]]></description>
+				<start>data-policy</start>
+				<follow-link>data-policy-consent-form</follow-link>
+				<link-back>data-policy</link-back>
+				<result>data-policy-consent-form</result>
+			</step>
+		</plan>
+		<plan>
+			<name>add-data-policy-consent</name>
+			<description><![CDATA[Add data policy consent for a customer.]]></description>
+			<template>
+				<name>controls.form-control-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>data-policy</value>
+				</replace>
+				<replace>
+					<key>read-form-link</key>
+					<value>datapolicyconsentform</value>
+				</replace>
+				<replace>
+					<key>form-resource</key>
+					<value>data-policy-consent-form</value>
+				</replace>
+				<replace>
+					<key>submit-action-link</key>
+					<value>consentaction</value>
+				</replace>
+				<replace>
+					<key>submit-resource</key>
+					<value>data-policy-consent</value>
+				</replace>
+				<replace>
+					<key>submit-result</key>
+					<value>data-policy</value>
+				</replace>
+			</template>
+		</plan>
+	</family>
+</definitions>

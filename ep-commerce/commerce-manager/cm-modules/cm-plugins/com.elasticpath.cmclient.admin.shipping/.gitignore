@@ -1,0 +1,11 @@
+.checkstyle
+.classpath
+.pmd
+.pmdruleset
+.ruleset
+bin
+build-modified.xml
+build.xml
+com.elasticpath.cmclient.admin.shipping.jar
+javaCompiler.com.elasticpath.cmclient.admin.shipping.jar.args
+temp.folder

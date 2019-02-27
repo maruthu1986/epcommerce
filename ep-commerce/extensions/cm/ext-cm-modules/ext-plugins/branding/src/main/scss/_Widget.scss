@@ -1,0 +1,34 @@
+Widget {
+
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Widget.html#Widget-Badge
+	&-Badge {
+		// WHAT'S THIS??
+		// border: 1px solid $danger-color;
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Widget.html#Widget-ToolTip
+	&-ToolTip {
+		@include dropdown_box();
+				
+		// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Widget.html#Widget-ToolTip-Pointer
+		&-Pointer {
+
+			&:up {
+				background-image: url('themes/icons/Widget-ToolTip-Pointer_up.png');
+			}
+			&:down {
+				background-image: url('themes/icons/Widget-ToolTip-Pointer_down.png');
+			}
+			&:left {
+				background-image: url('themes/icons/Widget-ToolTip-Pointer_left.png');
+			}
+			&:right {
+				background-image: url('themes/icons/Widget-ToolTip-Pointer_right.png');
+			}
+		}
+
+	}
+
+
+}

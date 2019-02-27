@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint
+		xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<!-- import services -->
+	<reference id="paymentTokenRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.customer.payment.token.PaymentTokenRepository"/>
+
+	<reference id="customerRepository"
+			interface="com.elasticpath.rest.resource.integration.epcommerce.repository.customer.CustomerRepository"/>
+
+	<reference id="cartOrderRepository"
+			   interface="com.elasticpath.rest.resource.integration.epcommerce.repository.cartorder.CartOrderRepository"/>
+
+	<reference id="paymentMethodIdentifierResolver"
+			 interface="com.elasticpath.rest.resource.integration.epcommerce.repository.customer.paymentmethods.PaymentMethodIdentifierResolver"/>
+
+	<!-- export services -->
+	<service ref="paymentTokenWriterStrategy"
+			 interface="com.elasticpath.rest.resource.paymenttokens.integration.PaymentTokenWriterStrategy"/>
+
+</blueprint>

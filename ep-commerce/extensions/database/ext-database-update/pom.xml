@@ -1,0 +1,245 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>ext-database-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ext-database-update</artifactId>
+	<name>Extension Database Update</name>
+	<description>Project to update the EP database using the data stored in the ext-data project.</description>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath.extensions</groupId>
+			<artifactId>ext-data</artifactId>
+		</dependency>
+	</dependencies>
+
+    <profiles>
+        <profile>
+            <id>reset-db</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+	                    <groupId>com.elasticpath.extensions</groupId>
+	                    <artifactId>ext-data-population-maven-plugin</artifactId>
+                        <configuration>
+                            <command>reset-db</command>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>update-db</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+	                    <groupId>com.elasticpath.extensions</groupId>
+	                    <artifactId>ext-data-population-maven-plugin</artifactId>
+                        <configuration>
+                            <command>update-db</command>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+		<profile>
+			<id>reset-conf</id>
+			<build>
+				<plugins>
+
+					<plugin>
+						<artifactId>maven-dependency-plugin</artifactId>
+					</plugin>
+
+					<!-- Invoke clean automatically to clean configuration directory -->
+					<plugin>
+						<artifactId>maven-clean-plugin</artifactId>
+						<configuration>
+							<filesets>
+								<fileset>
+									<directory>${user.home}/ep/conf</directory>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+							</filesets>
+						</configuration>
+						<executions>
+							<execution>
+								<id>auto-clean</id>
+								<phase>initialize</phase>
+								<goals>
+									<goal>clean</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- Copy configuration to ${user.home}/ep -->
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy-conf-files</id>
+								<phase>process-sources</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${user.home}/ep</outputDirectory>
+									<overwrite>true</overwrite>
+									<useBuildFilters>false</useBuildFilters>
+									<resources>
+										<resource>
+											<directory>${project.build.outputDirectory}/environments/${data.population.environment}/files</directory>
+											<filtering>false</filtering>
+											<includes>**/**</includes>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>update-conf</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-dependency-plugin</artifactId>
+					</plugin>
+
+					<!-- Copy configuration to ${user.home}/ep -->
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy-conf-files</id>
+								<phase>process-sources</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${user.home}/ep</outputDirectory>
+									<overwrite>true</overwrite>
+									<useBuildFilters>false</useBuildFilters>
+									<resources>
+										<resource>
+											<directory>${project.build.outputDirectory}/environments/${data.population.environment}/files</directory>
+											<filtering>false</filtering>
+											<includes>**/**</includes>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+    </profiles>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- Unpack the database data -->
+				<plugin>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>unpack-data</id>
+                            <phase>generate-sources</phase>
+							<goals>
+								<goal>unpack-dependencies</goal>
+							</goals>
+							<configuration>
+								<includeArtifactIds>ext-data</includeArtifactIds>
+								<type>jar</type>
+								<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+								<overWriteSnapshots>true</overWriteSnapshots>
+								<includes>**/**</includes>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- Check an environment profile has been specified before we update the database. -->
+                <plugin>
+	                <groupId>com.elasticpath.extensions</groupId>
+	                <artifactId>ext-data-population-maven-plugin</artifactId>
+                    <version>${project.version}</version>
+                    <executions>
+                        <execution>
+                            <id>data-population</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <dataDirectory>${project.build.outputDirectory}</dataDirectory>
+                                <configDirectory>${project.build.outputDirectory}/environments/${data.population.environment}</configDirectory>
+                                <workingDirectory>${project.build.outputDirectory}/temp</workingDirectory>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.elasticpath.extensions</groupId>
+                            <artifactId>ext-importexport</artifactId>
+                            <version>${project.version}</version>
+                            <exclusions>
+                                <!-- Exclude gemini from the transitive libraries since it pulls in a conflicting spring version (3.0.5 instead of 3.1.x) and liquibase doesn't need it. -->
+                                <exclusion>
+                                    <groupId>org.eclipse.gemini.blueprint</groupId>
+                                    <artifactId>gemini-blueprint-core</artifactId>
+                                </exclusion>
+                                <!-- Exclude spring-support since it was being pulled in via spring-modules-jakarta-commons (which seems to be required)
+                                    leading to an old incompatible version of the MBeanExporter class being loaded instead of the one defined in spring-context. -->
+                                <exclusion>
+                                    <groupId>org.springframework</groupId>
+                                    <artifactId>spring-support</artifactId>
+                                </exclusion>
+                                <!-- Exclude the xerces parser as it was breaking schema validation (see: https://jira.elasticpath.com/browse/MVSC-440) -->
+                                <exclusion>
+                                    <groupId>xerces</groupId>
+                                    <artifactId>xerces</artifactId>
+                                </exclusion>
+                            </exclusions>
+                        </dependency>
+	                    <!-- JDBC database driver -->
+                        <dependency>
+                            <groupId>${epdb.maven.groupId}</groupId>
+                            <artifactId>${epdb.maven.artifactId}</artifactId>
+                            <version>${epdb.maven.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.elasticpath.db</groupId>
+                            <artifactId>core-schema</artifactId>
+                            <version>${dce.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.elasticpath.extensions</groupId>
+                            <artifactId>ext-data-population-core</artifactId>
+                            <version>${project.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+			</plugins>
+		</pluginManagement>
+
+	</build>
+</project>

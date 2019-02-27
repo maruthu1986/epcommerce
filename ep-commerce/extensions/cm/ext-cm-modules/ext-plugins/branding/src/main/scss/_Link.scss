@@ -1,0 +1,28 @@
+// NOT SEEING THIS ANYWHERE!!!
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Link.html
+Link {
+	background-color: transparent;
+	background-image: none;
+	text-shadow: none;
+	font: $default-font;
+	color: $primary-color;
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Link.html#Link-Hyperlink
+	&-Hyperlink {
+		color: $primary-color;
+		text-shadow: none;
+		text-decoration: none;
+		&:disabled {
+			color: $gray;
+		}
+		&:hover {
+			color: $primary-color2;
+			text-decoration: none;
+			&:disabled {
+				color: $gray;
+				text-decoration: none;
+			}
+		}
+	}
+}
+

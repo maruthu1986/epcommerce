@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customer_consents>
+<customer_consent guid="4d35dd81-65a0-4235-8938-b72c0e84712e">
+    <data_policy_guid>d4bb9cf2-22b6-48c6-849e-fe91383bed4e</data_policy_guid>
+    <action>GRANTED</action>
+    <consent_date>2018-05-24T15:53:18-07:00</consent_date>
+    <customer_guid>a49c6db1-fb6d-46db-a947-74c2a4b379e1</customer_guid>
+</customer_consent>
+
+<customer_consent guid="cea8db44-4885-4000-8db8-34943fdbee8e">
+    <data_policy_guid>19f2ed39-d973-4cc7-a313-8e349df9b7bd</data_policy_guid>
+    <action>GRANTED</action>
+    <consent_date>2018-05-24T15:53:31-07:00</consent_date>
+    <customer_guid>a49c6db1-fb6d-46db-a947-74c2a4b379e1</customer_guid>
+</customer_consent>
+
+<customer_consent guid="8a953178-71d6-41a6-9c14-91e3f3118254">
+    <data_policy_guid>d4bb9cf2-22b6-48c6-849e-fe91383bed4e</data_policy_guid>
+    <action>GRANTED</action>
+    <consent_date>2018-05-24T15:55:03-07:00</consent_date>
+    <customer_guid>d452dc0c-1a11-4966-b943-1d8de12fc2b1</customer_guid>
+</customer_consent>
+
+<customer_consent guid="da1c1dc7-f39e-40e0-ade3-24e7862eb8a1">
+    <data_policy_guid>19f2ed39-d973-4cc7-a313-8e349df9b7bd</data_policy_guid>
+    <action>REVOKED</action>
+    <consent_date>2018-05-24T15:55:39-07:00</consent_date>
+    <customer_guid>d452dc0c-1a11-4966-b943-1d8de12fc2b1</customer_guid>
+</customer_consent>
+</customer_consents>

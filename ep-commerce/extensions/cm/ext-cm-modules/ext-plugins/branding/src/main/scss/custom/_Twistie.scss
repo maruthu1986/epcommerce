@@ -1,0 +1,32 @@
+// Twistie section styles - custom
+.Section {
+	// arrow icon
+	&_Twistie {
+		background-image: url('themes/icons/Spinner-DownButton-Icon.png');
+	}
+
+	// one twistie collapsable box
+	&_Section {
+		font: $default-font;
+	}
+
+	// next to the arrow icon
+	&_Label {
+		color: $default-font-color;
+		font: bold $default-font;
+	}
+}
+
+// the links inside the twistie collapsable box
+.ImageHyperlink {
+	background-color: $danger-color;
+	background-image: url('themes/icons/Spinner-DownButton-Icon.png');
+	color: $primary-color;
+	font: $default-font;
+	margin: 10px;
+	padding: 10px;
+	spacing: 10px;
+	text-decoration: underline;
+	text-shadow: none;
+}
+

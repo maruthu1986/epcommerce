@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<stores>
+<store enabled="true" code="searchbee">
+    <globalization default_currency="CAD" default_locale="en_CA" content_encoding="UTF-8" sub_country="BC" country="CA" timeZone="Europe/London"/>
+    <url>${searchbee.store.url}</url>
+    <name>SearchStore</name>
+    <state>200</state>
+    <type>B2B</type>
+    <description>This store is used specifically for tests related to the search feature</description>
+    <catalog>search_catalog</catalog>
+    <display_out_of_stock>false</display_out_of_stock>
+    <email_sender_name>search@elasticpath.com</email_sender_name>
+    <email_sender_address>search@elasticpath.com</email_sender_address>
+    <store_admin_email>admin@elasticpath.com</store_admin_email>
+    <credit_card_cvv2_enabled>true</credit_card_cvv2_enabled>
+    <store_full_credit_cards>false</store_full_credit_cards>
+    <locales>
+        <locale>en_CA</locale>
+    </locales>
+    <currencies>
+        <currency>CAD</currency>
+    </currencies>
+    <warehouses>
+        <warehouse>search_warehouse</warehouse>
+    </warehouses>
+    <tax_codes>
+        <guid>501</guid>
+        <guid>502</guid>
+    </tax_codes>
+    <tax_jurisdictions>
+        <jurisdiction>CATaxJurisdiction</jurisdiction>
+    </tax_jurisdictions>
+    <payment_gateways>
+        <gateway>DemoTokenPaymentProcessor</gateway>
+    </payment_gateways>
+    <credit_card_types>
+        <type>American Express</type>
+        <type>Visa</type>
+        <type>MasterCard</type>
+    </credit_card_types>
+</store>
+
+<store enabled="true" code="Kobee">
+    <globalization default_currency="CAD" default_locale="en" content_encoding="UTF-8" sub_country="BC" country="CA" timeZone="Europe/London"/>
+    <url>${kobee.store.url}</url>
+    <name>Kobee</name>
+    <state>200</state>
+    <type>B2B</type>
+    <description></description>
+    <catalog>Mobile</catalog>
+    <display_out_of_stock>false</display_out_of_stock>
+    <email_sender_name>CustomerService@elasticpath.com</email_sender_name>
+    <email_sender_address>CustomerService@elasticpath.com</email_sender_address>
+    <store_admin_email>StoreAdmin@elasticpath.com</store_admin_email>
+    <credit_card_cvv2_enabled>true</credit_card_cvv2_enabled>
+    <store_full_credit_cards>false</store_full_credit_cards>
+    <locales>
+        <locale>fr_CA</locale>
+        <locale>en</locale>
+    </locales>
+    <currencies>
+        <currency>CAD</currency>
+    </currencies>
+    <warehouses>
+        <warehouse>MOBEE_Warehouse</warehouse>
+    </warehouses>
+    <tax_codes/>
+    <tax_jurisdictions>
+        <jurisdiction>CATaxJurisdiction</jurisdiction>
+        <jurisdiction>USTaxJurisdiction</jurisdiction>
+    </tax_jurisdictions>
+    <payment_gateways>
+        <gateway>DemoTokenPaymentProcessor</gateway>
+    </payment_gateways>
+    <credit_card_types>
+        <type>American Express</type>
+        <type>Visa</type>
+        <type>MasterCard</type>
+    </credit_card_types>
+</store>
+
+<store enabled="true" code="sobee">
+    <globalization default_currency="CAD" default_locale="en_CA" content_encoding="UTF-8" sub_country="BC" country="CA" timeZone="America/Vancouver"/>
+    <url>${sobee.store.url}</url>
+    <name>Sobee</name>
+    <state>0</state>
+    <type>B2B</type>
+    <description></description>
+    <catalog>MobileCatalog</catalog>
+    <display_out_of_stock>false</display_out_of_stock>
+    <email_sender_name>CustomerService@elasticpath.com</email_sender_name>
+    <email_sender_address>CustomerService@elasticpath.com</email_sender_address>
+    <store_admin_email>StoreAdmin@elasticpath.com</store_admin_email>
+    <credit_card_cvv2_enabled>true</credit_card_cvv2_enabled>
+    <store_full_credit_cards>false</store_full_credit_cards>
+    <locales>
+        <locale>en_CA</locale>
+    </locales>
+    <currencies>
+        <currency>CAD</currency>
+    </currencies>
+    <warehouses>
+        <warehouse>MOBEE_Warehouse</warehouse>
+    </warehouses>
+    <tax_codes>
+        <guid>501</guid>
+        <guid>502</guid>
+    </tax_codes>
+    <tax_jurisdictions>
+        <jurisdiction>CATaxJurisdiction</jurisdiction>
+    </tax_jurisdictions>
+    <payment_gateways>
+        <gateway>DemoTokenPaymentProcessor</gateway>
+    </payment_gateways>
+    <credit_card_types>
+        <type>American Express</type>
+        <type>Visa</type>
+        <type>MasterCard</type>
+    </credit_card_types>
+</store>
+
+<store enabled="true" code="MOBEE">
+    <globalization default_currency="CAD" default_locale="en" content_encoding="UTF-8" sub_country="BC" country="CA" timeZone="Europe/London"/>
+    <url>${mobee.store.url}</url>
+    <name>Mobee</name>
+    <state>200</state>
+    <type>B2B</type>
+    <description></description>
+    <catalog>Mobile</catalog>
+    <display_out_of_stock>true</display_out_of_stock>
+    <email_sender_name>CustomerService@elasticpath.com</email_sender_name>
+    <email_sender_address>CustomerService@elasticpath.com</email_sender_address>
+    <store_admin_email>StoreAdmin@elasticpath.com</store_admin_email>
+    <credit_card_cvv2_enabled>true</credit_card_cvv2_enabled>
+    <store_full_credit_cards>false</store_full_credit_cards>
+    <locales>
+        <locale>fr</locale>
+        <locale>fr_CA</locale>
+        <locale>en</locale>
+    </locales>
+    <currencies>
+        <currency>CAD</currency>
+        <currency>EUR</currency>
+    </currencies>
+    <warehouses>
+        <warehouse>MOBEE_Warehouse</warehouse>
+    </warehouses>
+    <tax_codes>
+        <guid>502</guid>
+		<guid>501</guid>
+		<guid>500</guid>
+    </tax_codes>
+    <tax_jurisdictions>
+        <jurisdiction>CATaxJurisdiction</jurisdiction>
+        <jurisdiction>USTaxJurisdiction</jurisdiction>
+    </tax_jurisdictions>
+    <payment_gateways>
+        <gateway>DemoTokenPaymentProcessor</gateway>
+    </payment_gateways>
+    <credit_card_types>
+        <type>American Express</type>
+        <type>Visa</type>
+        <type>MasterCard</type>
+        <type>Diners Club</type>
+        <type>Discover</type>
+    </credit_card_types>
+</store>
+
+<store enabled="true" code="toastie">
+    <globalization default_currency="EUR" default_locale="fr_CA" content_encoding="UTF-8" sub_country="BC" country="CA" timeZone="Europe/London"/>
+    <url>${toastie.store.url}</url>
+    <name>toastie</name>
+    <state>200</state>
+    <type>B2B</type>
+    <description></description>
+    <catalog>Toastie</catalog>
+    <display_out_of_stock>false</display_out_of_stock>
+    <email_sender_name>CustomerService@elasticpath.com</email_sender_name>
+    <email_sender_address>CustomerService@elasticpath.com</email_sender_address>
+    <store_admin_email>StoreAdmin@elasticpath.com</store_admin_email>
+    <credit_card_cvv2_enabled>true</credit_card_cvv2_enabled>
+    <store_full_credit_cards>false</store_full_credit_cards>
+    <locales>
+        <locale>fr_CA</locale>
+        <locale>en</locale>
+        <locale>fr</locale>
+        <locale>hi_IN</locale>
+    </locales>
+    <currencies>
+        <currency>CAD</currency>
+        <currency>INR</currency>
+        <currency>EUR</currency>
+    </currencies>
+    <warehouses>
+        <warehouse>MOBEE_Warehouse</warehouse>
+    </warehouses>
+    <tax_codes>
+        <guid>501</guid>
+        <guid>502</guid>
+    </tax_codes>
+    <tax_jurisdictions>
+        <jurisdiction>CATaxJurisdiction</jurisdiction>
+		<jurisdiction>GBTaxJurisdiction</jurisdiction>
+    </tax_jurisdictions>
+    <payment_gateways>
+        <gateway>DemoTokenPaymentProcessor</gateway>
+    </payment_gateways>
+    <credit_card_types>
+        <type>American Express</type>
+        <type>Visa</type>
+        <type>MasterCard</type>
+    </credit_card_types>
+</store>
+
+<store enabled="true" code="Dobee">
+    <globalization default_currency="CAD" default_locale="en_CA" content_encoding="UTF-8" sub_country="BC" country="CA" timeZone="Europe/London"/>
+    <url>${dobee.store.url}</url>
+    <name>Dobee</name>
+    <state>100</state>
+    <type>B2B</type>
+    <description></description>
+    <catalog>MobileCatalog</catalog>
+    <display_out_of_stock>false</display_out_of_stock>
+    <email_sender_name>dobee.customerservice@elasticpath.com</email_sender_name>
+    <email_sender_address>dobee.customerservice@elasticpath.com</email_sender_address>
+    <store_admin_email>admin@elasticpath.com</store_admin_email>
+    <credit_card_cvv2_enabled>true</credit_card_cvv2_enabled>
+    <store_full_credit_cards>false</store_full_credit_cards>
+    <locales>
+        <locale>en_CA</locale>
+    </locales>
+    <currencies>
+        <currency>CAD</currency>
+    </currencies>
+    <warehouses>
+        <warehouse>MOBEE_Warehouse</warehouse>
+    </warehouses>
+    <tax_codes>
+        <guid>501</guid>
+        <guid>502</guid>
+    </tax_codes>
+    <tax_jurisdictions>
+        <jurisdiction>CATaxJurisdiction</jurisdiction>
+    </tax_jurisdictions>
+    <payment_gateways>
+        <gateway>DemoTokenPaymentProcessor</gateway>
+    </payment_gateways>
+    <credit_card_types>
+        <type>American Express</type>
+        <type>Visa</type>
+        <type>MasterCard</type>
+    </credit_card_types>
+</store>
+
+<store enabled="true" code="tobee123">
+    <globalization default_currency="CAD" default_locale="en" content_encoding="UTF-8" sub_country="BC" country="CA" timeZone="Europe/London"/>
+    <url>${tobee123.store.url}</url>
+    <name>tobee123</name>
+    <state>200</state>
+    <type>B2B</type>
+    <description></description>
+    <catalog>MobileCatalog</catalog>
+    <display_out_of_stock>false</display_out_of_stock>
+    <email_sender_name>CustomerService@elasticpath.com</email_sender_name>
+    <email_sender_address>CustomerService@elasticpath.com</email_sender_address>
+    <store_admin_email>StoreAdmin@elasticpath.com</store_admin_email>
+    <credit_card_cvv2_enabled>true</credit_card_cvv2_enabled>
+    <store_full_credit_cards>false</store_full_credit_cards>
+    <locales>
+        <locale>en</locale>
+    </locales>
+    <currencies>
+        <currency>CAD</currency>
+    </currencies>
+    <warehouses>
+        <warehouse>MOBEE_Warehouse</warehouse>
+    </warehouses>
+    <tax_codes>
+        <guid>501</guid>
+        <guid>502</guid>
+    </tax_codes>
+    <tax_jurisdictions>
+        <jurisdiction>CATaxJurisdiction</jurisdiction>
+    </tax_jurisdictions>
+    <payment_gateways>
+        <gateway>DemoTokenPaymentProcessor</gateway>
+    </payment_gateways>
+    <credit_card_types>
+        <type>American Express</type>
+        <type>Visa</type>
+        <type>MasterCard</type>
+    </credit_card_types>
+</store>
+
+<store enabled="true" code="rockjam">
+    <globalization default_currency="CAD" default_locale="en" content_encoding="UTF-8" sub_country="BC" country="CA" timeZone="Europe/London"/>
+    <url>${rockjam.store.url}</url>
+    <name>Rock Jam</name>
+    <state>200</state>
+    <type>B2B</type>
+    <description></description>
+    <catalog>rockjamvc</catalog>
+    <display_out_of_stock>false</display_out_of_stock>
+    <email_sender_name>CustomerService@elasticpath.com</email_sender_name>
+    <email_sender_address>CustomerService@elasticpath.com</email_sender_address>
+    <store_admin_email>StoreAdmin@elasticpath.com</store_admin_email>
+    <credit_card_cvv2_enabled>true</credit_card_cvv2_enabled>
+    <store_full_credit_cards>false</store_full_credit_cards>
+    <locales>
+        <locale>zh</locale>
+        <locale>en</locale>
+        <locale>fr</locale>
+        <locale>en_CA</locale>
+    </locales>
+    <currencies>
+        <currency>CAD</currency>
+    </currencies>
+    <warehouses>
+        <warehouse>MOBEE_Warehouse</warehouse>
+    </warehouses>
+    <tax_codes>
+        <guid>501</guid>
+        <guid>502</guid>
+    </tax_codes>
+    <tax_jurisdictions>
+        <jurisdiction>CATaxJurisdiction</jurisdiction>
+    </tax_jurisdictions>
+    <payment_gateways>
+        <gateway>DemoTokenPaymentProcessor</gateway>
+    </payment_gateways>
+    <credit_card_types>
+        <type>American Express</type>
+        <type>Visa</type>
+        <type>MasterCard</type>
+    </credit_card_types>
+</store>
+
+<store code="Tokenee" enabled="true">
+    <globalization timeZone="Europe/London" country="CA" sub_country="BC" content_encoding="UTF-8" default_locale="en" default_currency="CAD"/>
+    <url>${tokenee.store.url}</url>
+    <name>Tokenee</name>
+    <state>200</state>
+    <type>B2B</type>
+    <description>Store that is used for tokenized payment testing</description>
+    <catalog>TokeneeCatalog</catalog>
+    <display_out_of_stock>false</display_out_of_stock>
+    <email_sender_name>CustomerService@elasticpath.com</email_sender_name>
+    <email_sender_address>CustomerService@elasticpath.com</email_sender_address>
+    <store_admin_email>StoreAdmin@elasticpath.com</store_admin_email>
+    <credit_card_cvv2_enabled>false</credit_card_cvv2_enabled>
+    <store_full_credit_cards>false</store_full_credit_cards>
+    <locales>
+        <locale>en</locale>
+    </locales>
+    <currencies>
+        <currency>CAD</currency>
+    </currencies>
+    <warehouses>
+        <warehouse>MOBEE_Warehouse</warehouse>
+    </warehouses>
+    <tax_codes>
+        <guid>501</guid>
+        <guid>502</guid>
+        <guid>500</guid>
+    </tax_codes>
+    <tax_jurisdictions>
+        <jurisdiction>CATaxJurisdiction</jurisdiction>
+        <jurisdiction>USTaxJurisdiction</jurisdiction>
+    </tax_jurisdictions>
+    <payment_gateways>
+        <gateway>DemoTokenPaymentProcessor</gateway>
+    </payment_gateways>
+    <credit_card_types>
+        <type>American Express</type>
+        <type>Visa</type>
+        <type>MasterCard</type>
+    </credit_card_types>
+</store>
+
+</stores>

@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>registrations</name>
+
+		<resource>
+			<name>new-account-registration-form</name>
+			<description><![CDATA[Provides the form with which to register a new account.]]></description>
+			<uri>{base.family}/{base.scope}/newaccount/form</uri>
+			<form>
+				<entity>registration</entity>
+				<action-rel>registeraction</action-rel>
+				<result>profiles.profile</result>
+			</form>
+		</resource>
+
+		<entity>
+			<name>registration</name>
+			<description><![CDATA[Register a new account.]]></description>
+			<property>
+				<name>given-name</name>
+				<description><![CDATA[The first name associated with new account.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>family-name</name>
+				<description><![CDATA[The last name associated with new account.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>username</name>
+				<description>
+					<![CDATA[
+The username associated with new account. Usernames should be the customer's email address. By default, Cortex API is
+expecting a customer's email address for their username. Your implementation of Cortex API may differ, so check with
+your system administrator for your username rules.
+					]]>
+				</description>
+				<string/>
+			</property>
+			<property>
+				<name>password</name>
+				<description><![CDATA[The password associated with new account.]]></description>
+				<string/>
+			</property>
+			<entity-type>registrations.new-account-registration</entity-type>
+		</entity>
+
+		<relationship>
+			<name>registration-from-root</name>
+			<description><![CDATA[Provides the form with which to register a new account.]]></description>
+			<rel>newaccountform</rel>
+			<from>base.root</from>
+			<to>new-account-registration-form</to>
+		</relationship>
+
+	</family>
+</definitions>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<context:component-scan base-package="checkout"/>
+	<context:annotation-config/>
+	<import resource="classpath:spring/service/serviceSearch.xml"/>
+	<import resource="classpath:spring/dataaccess/daoSearch.xml"/>
+	<import resource="classpath:spring/models/domainModelSearch.xml"/>
+	
+	<import resource="classpath:integration-core-context.xml"/>
+	<import resource="classpath:ep-test-application.xml"/>
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/ep-itest-plugin.xml"/>
+	<import resource="classpath:serviceSF-test.xml"/>
+
+	<bean id="solrIndexConstantFactory" class="com.elasticpath.service.search.impl.SolrIndexConstantFactoryImpl">
+		<property name="indexTypesMap">
+			<map>
+				<entry key="product" value="product"/>
+				<entry key="customer" value="customer"/>
+				<entry key="category" value="category"/>
+				<!-- We don't like order indexes in the tests... not sure why. -->
+				<!-- 				<entry key="order" value="order" /> -->
+				<!-- 				<entry key="orderreturn" value="orderreturn" /> -->
+				<entry key="promotion" value="promotion"/>
+				<entry key="cmuser" value="cmuser"/>
+				<entry key="sku" value="sku"/>
+			</map>
+		</property>
+	</bean>
+
+	<!-- The QueueingSolrDocumentPublisher does publishing in a separate thread 
+		and takes care of publish/commit frequency itself. -->
+	<bean id="solrDocumentPublisher"
+		class="com.elasticpath.search.index.solr.service.impl.QueueingSolrDocumentPublisher"
+		scope="prototype" init-method="initialize">
+		<property name="documentPublisherTask">
+			<bean
+				class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+				<property name="daemon" value="true" />
+			</bean>
+		</property>
+	</bean>
+
+    <bean id="entityLoaderTaskExecutor"
+	        class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="daemon" value="true" />
+		<property name="corePoolSize" value="1" />
+		<property name="maxPoolSize" value="1" />
+		<property name="keepAliveSeconds" value="600" />
+		<property name="queueCapacity" value="200000" />
+		<property name="rejectedExecutionHandler">
+        	<bean class="java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy" />
+		</property>
+	</bean>
+
+ 
+	<bean id="documentCreatorTaskExecutor"
+	        class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="daemon" value="true" />
+		<property name="corePoolSize" value="1" />
+		<property name="maxPoolSize" value="1" />
+		<property name="keepAliveSeconds" value="600" />
+		<property name="queueCapacity" value="200000" />
+		<property name="rejectedExecutionHandler">
+        	<bean class="java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy" />
+		</property>
+	</bean>
+
+
+</beans>

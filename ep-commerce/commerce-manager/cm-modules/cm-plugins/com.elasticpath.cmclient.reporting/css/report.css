@@ -1,0 +1,64 @@
+/* BUILT-IN STYLES */
+
+.report {
+	font-family: "Arial,san-serif";
+	font-size: 12px;
+}
+
+.table-header-cell {
+	font-size: 18px;
+	text-align: center;
+}
+
+.table-footer {
+	font-weight: bold;
+}
+
+.table-footer-cell {
+	line-height: 20px; 
+}
+
+.table-group-header-1 {
+	font-weight: bold;
+}
+
+.table-group-footer-1 {
+	font-weight: bold;
+}
+
+.table-group-header-cell {
+	padding-bottom: 4px;
+}
+
+.table-group-footer-cell {
+ 	line-height: 25px;
+}
+
+.table-cell {
+	line-height: 18px;
+}
+
+/* CUSTOM STYLES */
+
+.table-header-line-2-cell {
+	font-size: 12px;
+	line-height: 18px;
+	text-align: center;
+}
+
+.table-group-header-emphasis {
+	font-size: 14px;
+	line-height: 24px;
+	background-color: #eeeeee;
+}
+
+.align-center {
+	text-align: center;  
+}
+
+.align-right {
+	text-align: right;  
+	margin-right: 10px;
+}
+
+

@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+				   logicalFilePath="ep-core-itests-additional-data/liquibase-changelog.xml">
+	<changeSet id="create-order-with-galaxys2withphoneplan" author="elasticpath" context="mobee-data">
+		<insert tableName="TORDERADDRESS">
+			<column name="UIDPK" valueNumeric="100000"/>
+			<column name="LAST_NAME" value="Potter"/>
+			<column name="FIRST_NAME" value="Harry"/>
+			<column name="PHONE_NUMBER" value="7789994564"/>
+			<column name="STREET_1" value="1234 Hogwarts Avenue"/>
+			<column name="STREET_2" value=""/>
+			<column name="CITY" value="Vancouver"/>
+			<column name="SUB_COUNTRY" value="BC"/>
+			<column name="ZIP_POSTAL_CODE" value="V6A 1N4"/>
+			<column name="COUNTRY" value="CA"/>
+			<column name="COMMERCIAL" valueNumeric="0"/>
+			<column name="GUID" value="55d9cc75-def3-41df-87b0-ebb09c853218"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:24.0"/>
+			<column name="CREATION_DATE" valueDate="2018-02-19 13:15:30.0"/>
+		</insert>
+		<insert tableName="TORDERADDRESS">
+			<column name="UIDPK" valueNumeric="100001"/>
+			<column name="LAST_NAME" value="Potter"/>
+			<column name="FIRST_NAME" value="Harry"/>
+			<column name="PHONE_NUMBER" value="7789994564"/>
+			<column name="STREET_1" value="1234 Hogwarts Avenue"/>
+			<column name="STREET_2" value=""/>
+			<column name="CITY" value="Vancouver"/>
+			<column name="SUB_COUNTRY" value="BC"/>
+			<column name="ZIP_POSTAL_CODE" value="V6A 1N4"/>
+			<column name="COUNTRY" value="CA"/>
+			<column name="COMMERCIAL" valueNumeric="0"/>
+			<column name="GUID" value="035dafa1-0752-4b6c-8379-371aef69b90b"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:24.0"/>
+			<column name="CREATION_DATE" valueDate="2018-02-19 13:15:30.0"/>
+		</insert>
+		<insert tableName="TORDER">
+			<column name="UIDPK" valueNumeric="100000"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:25.0"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:23.0"/>
+			<column name="ORDER_BILLING_ADDRESS_UID" valueNumeric="100000"/>
+			<column name="TOTAL" valueNumeric="704.43"/>
+			<column name="STATUS" value="PARTIALLY_SHIPPED"/>
+			<column name="ORDER_NUMBER" value="10000"/>
+			<column name="CUSTOMER_UID" valueNumeric="200025"/>
+			<column name="LOCALE" value="en"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="EXCHANGE_ORDER" valueNumeric="0"/>
+			<column name="CART_ORDER_GUID" value="e371b651-2780-43f7-8554-8d61a57f1cf3"/>
+			<column name="STORECODE" value="MOBEE"/>
+		</insert>
+		<insert tableName="TORDERSHIPMENT">
+			<column name="UIDPK" valueNumeric="100000"/>
+			<column name="TYPE" value="PHYSICAL"/>
+			<column name="STATUS" value="INVENTORY_ASSIGNED"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:24.0"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:23.0"/>
+			<column name="CARRIER_CODE" value="Canada Post"/>
+			<column name="SHIPPING_OPTION_NAME" value="Canada Post 2 days"/>
+			<column name="ITEM_SUBTOTAL" valueNumeric="599.00"/>
+			<column name="BEFORE_TAX_SHIPPING_COST" valueNumeric="29.95"/>
+			<column name="ITEM_TAX" valueNumeric="71.88"/>
+			<column name="SUBTOTAL_DISCOUNT" valueNumeric="0.00"/>
+			<column name="SHIPPING_COST" valueNumeric="29.95"/>
+			<column name="SHIPPING_TAX" valueNumeric="3.60"/>
+			<column name="INCLUSIVE_TAX" valueNumeric="0"/>
+			<column name="ORDER_ADDRESS_UID" valueNumeric="100001"/>
+			<column name="ORDER_UID" valueNumeric="100000"/>
+			<column name="SHIPMENT_NUMBER" value="10000-1"/>
+			<column name="SHIPPING_OPTION_CODE" value="B3599FB7-5DF4-667E-096D-4E30863B39CF"/>
+			<column name="TAX_DOCUMENT_ID" value="10000-1.2499A3F5-E64B-F521-D453-29B0D9A4AA73"/>
+		</insert>
+		<insert tableName="TORDERSHIPMENT">
+			<column name="UIDPK" valueNumeric="100001"/>
+			<column name="TYPE" value="SERVICE"/>
+			<column name="STATUS" value="SHIPPED"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-21 14:04:40.432"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:23.0"/>
+			<column name="ITEM_SUBTOTAL" valueNumeric="0.00"/>
+			<column name="ITEM_TAX" valueNumeric="0.00"/>
+			<column name="SUBTOTAL_DISCOUNT" valueNumeric="0.00"/>
+			<column name="INCLUSIVE_TAX" valueNumeric="0"/>
+			<column name="ORDER_UID" valueNumeric="100000"/>
+			<column name="SHIPMENT_NUMBER" value="10000-2"/>
+		</insert>
+		<insert tableName="TORDERSKU">
+			<column name="UIDPK" valueNumeric="100000"/>
+			<column name="GUID" value="3f5ce833-a121-4b2e-aef4-17d1943494db"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:24.0"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:23.0"/>
+			<column name="SKUCODE" value="galaxys2_sku"/>
+			<column name="TAXCODE" value="GOODS"/>
+			<column name="ORDER_SHIPMENT_UID" valueNumeric="100000"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="DISPLAY_NAME" value="Samsung Galaxy S2"/>
+			<column name="AMOUNT" valueNumeric="599.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="71.88"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="599.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="599.00"/>
+			<column name="UNIT_PRICE" valueNumeric="599.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="DISPLAY_SKU_OPTIONS" value=""/>
+			<column name="WEIGHT" valueNumeric="0"/>
+			<column name="ALLOCATED_QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="ORDERING" valueNumeric="0"/>
+			<column name="SKU_GUID" value="2839191C-066F-B716-B05E-43E6AD6CEFE7"/>
+			<column name="BUNDLE_CONSTITUENT" value="true"/>
+		</insert>
+		<insert tableName="TORDERSKU">
+			<column name="UIDPK" valueNumeric="100001"/>
+			<column name="GUID" value="fae7c4f7-073b-4159-b0a6-23fe2bf73b61"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:26.0"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:23.0"/>
+			<column name="SKUCODE" value="galaxys2withphoneplan"/>
+			<column name="TAXCODE" value="NONE"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="DISPLAY_NAME" value="Galaxy S2 with Phone Plan"/>
+			<column name="AMOUNT" valueNumeric="599.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="599.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="599.00"/>
+			<column name="UNIT_PRICE" valueNumeric="599.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="DISPLAY_SKU_OPTIONS" value=""/>
+			<column name="IMAGE" value=""/>
+			<column name="WEIGHT" valueNumeric="0"/>
+			<column name="ALLOCATED_QUANTITY" valueNumeric="0"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="ORDERING" valueNumeric="1"/>
+			<column name="SKU_GUID" value="d571699f-5e90-4880-8dc9-a531e7d1c50d"/>
+			<column name="BUNDLE_CONSTITUENT" value="false"/>
+		</insert>
+		<insert tableName="TORDERSKU">
+			<column name="UIDPK" valueNumeric="100002"/>
+			<column name="GUID" value="81e10a8b-6122-4f96-aa28-107288a7a27b"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:24.0"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:23.0"/>
+			<column name="SKUCODE" value="phone_plan_mon_sku"/>
+			<column name="TAXCODE" value="SERVICE"/>
+			<column name="ORDER_SHIPMENT_UID" valueNumeric="100001"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="DISPLAY_NAME" value="Phone Plan"/>
+			<column name="AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="DISPLAY_SKU_OPTIONS" value="per month"/>
+			<column name="WEIGHT" valueNumeric="0"/>
+			<column name="ALLOCATED_QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="ORDERING" valueNumeric="1"/>
+			<column name="SKU_GUID" value="db52a050-a3d3-4d92-ac11-5906b122481f"/>
+			<column name="BUNDLE_CONSTITUENT" value="true"/>
+		</insert>
+		<insert tableName="TORDERSKU">
+			<column name="UIDPK" valueNumeric="100003"/>
+			<column name="GUID" value="890fc408-e4f3-4ec6-ade3-2f42c90ff997"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:24.0"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:23.0"/>
+			<column name="SKUCODE" value="facebook_mon"/>
+			<column name="TAXCODE" value="NONE"/>
+			<column name="ORDER_SHIPMENT_UID" valueNumeric="100001"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="DISPLAY_NAME" value="Facebook"/>
+			<column name="AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="DISPLAY_SKU_OPTIONS" value="per month"/>
+			<column name="IMAGE" value=""/>
+			<column name="WEIGHT" valueNumeric="0"/>
+			<column name="ALLOCATED_QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="ORDERING" valueNumeric="1"/>
+			<column name="SKU_GUID" value="6ffa4028-971c-4adf-955f-8200e2fe665c"/>
+			<column name="BUNDLE_CONSTITUENT" value="true"/>
+		</insert>
+		<insert tableName="TORDERSKU">
+			<column name="UIDPK" valueNumeric="100004"/>
+			<column name="GUID" value="b2e86089-c047-41fa-ae87-6e3c830cf5e8"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:26.0"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:23.0"/>
+			<column name="SKUCODE" value="mobileservices"/>
+			<column name="TAXCODE" value="NONE"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="DISPLAY_NAME" value="Mobile Services"/>
+			<column name="AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="DISPLAY_SKU_OPTIONS" value=""/>
+			<column name="IMAGE" value=""/>
+			<column name="WEIGHT" valueNumeric="0"/>
+			<column name="ALLOCATED_QUANTITY" valueNumeric="0"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="ORDERING" valueNumeric="2"/>
+			<column name="SKU_GUID" value="22f20bed-7c97-440b-bd18-a66a5c4d1cd0"/>
+			<column name="BUNDLE_CONSTITUENT" value="true"/>
+		</insert>
+		<insert tableName="TORDERSKU">
+			<column name="UIDPK" valueNumeric="100005"/>
+			<column name="GUID" value="de7112dc-e077-4dff-aad1-e45e067e61b8"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:24.0"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:23.0"/>
+			<column name="SKUCODE" value="nba_mon"/>
+			<column name="TAXCODE" value="NONE"/>
+			<column name="ORDER_SHIPMENT_UID" valueNumeric="100001"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="DISPLAY_NAME" value="NBA"/>
+			<column name="AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="DISPLAY_SKU_OPTIONS" value="per month"/>
+			<column name="IMAGE" value=""/>
+			<column name="WEIGHT" valueNumeric="0"/>
+			<column name="ALLOCATED_QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="ORDERING" valueNumeric="0"/>
+			<column name="SKU_GUID" value="9e73fb6b-a607-45ab-96ab-95d5761e9f9d"/>
+			<column name="BUNDLE_CONSTITUENT" value="true"/>
+		</insert>
+		<insert tableName="TORDERSKU">
+			<column name="UIDPK" valueNumeric="100006"/>
+			<column name="GUID" value="f3452717-e1df-4ffe-b893-48514b267aca"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:24.0"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:23.0"/>
+			<column name="SKUCODE" value="spotify_mon"/>
+			<column name="TAXCODE" value="NONE"/>
+			<column name="ORDER_SHIPMENT_UID" valueNumeric="100001"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="DISPLAY_NAME" value="Spotify"/>
+			<column name="AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="DISPLAY_SKU_OPTIONS" value="per month"/>
+			<column name="IMAGE" value=""/>
+			<column name="WEIGHT" valueNumeric="0"/>
+			<column name="ALLOCATED_QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="ORDERING" valueNumeric="2"/>
+			<column name="SKU_GUID" value="8fa75682-93ac-4c62-a3ae-5938f13b6f99"/>
+			<column name="BUNDLE_CONSTITUENT" value="true"/>
+		</insert>
+		<insert tableName="TORDERSKU">
+			<column name="UIDPK" valueNumeric="100007"/>
+			<column name="GUID" value="375d6bea-27b6-4119-9b4e-3facf42152e4"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:24.0"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:23.0"/>
+			<column name="SKUCODE" value="spotify_mon"/>
+			<column name="TAXCODE" value="NONE"/>
+			<column name="ORDER_SHIPMENT_UID" valueNumeric="100001"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="DISPLAY_NAME" value="Spotify"/>
+			<column name="AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="DISPLAY_SKU_OPTIONS" value="per month"/>
+			<column name="IMAGE" value=""/>
+			<column name="WEIGHT" valueNumeric="0"/>
+			<column name="ALLOCATED_QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="ORDERING" valueNumeric="0"/>
+			<column name="SKU_GUID" value="8fa75682-93ac-4c62-a3ae-5938f13b6f99"/>
+			<column name="BUNDLE_CONSTITUENT" value="true"/>
+		</insert>
+		<insert tableName="TORDERSKU">
+			<column name="UIDPK" valueNumeric="100008"/>
+			<column name="GUID" value="9d6c3f8e-a207-4314-9030-8ed96677a2ca"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:26.0"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:23.0"/>
+			<column name="SKUCODE" value="mobilefreebies"/>
+			<column name="TAXCODE" value="NONE"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="DISPLAY_NAME" value="Mobile Freebies"/>
+			<column name="AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="DISPLAY_SKU_OPTIONS" value=""/>
+			<column name="IMAGE" value=""/>
+			<column name="WEIGHT" valueNumeric="0"/>
+			<column name="ALLOCATED_QUANTITY" valueNumeric="0"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="ORDERING" valueNumeric="3"/>
+			<column name="SKU_GUID" value="39ec4b1b-8971-40dc-8800-52e4f60cd4d6"/>
+			<column name="BUNDLE_CONSTITUENT" value="true"/>
+		</insert>
+		<insert tableName="TSHOPPER">
+			<column name="UIDPK" valueNumeric="100000"/>
+			<column name="TYPE" value="2018-02-19 13:21:23.000000 +00:00"/>
+			<column name="GUID" value=""/>
+		</insert>
+		<insert tableName="TSHOPPINGCART">
+			<column name="UIDPK" valueNumeric="100000"/>
+			<column name="GUID" value="0f830656-2763-4636-a098-d1843f2c5c76"/>
+			<column name="SHOPPER_UID" valueNumeric="100000"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:25.0"/>
+			<column name="STORECODE" value="MOBEE"/>
+			<column name="STATUS" value="INACTIVE"/>
+		</insert>
+		<insert tableName="TSHOPPINGCART">
+			<column name="UIDPK" valueNumeric="100001"/>
+			<column name="GUID" value="99a3121b-df7e-488e-b743-6f4bc39a7b64"/>
+			<column name="SHOPPER_UID" valueNumeric="100000"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:25.0"/>
+			<column name="STORECODE" value="MOBEE"/>
+			<column name="STATUS" value="ACTIVE"/>
+		</insert>
+		<insert tableName="TCARTITEM">
+			<column name="UIDPK" valueNumeric="100000"/>
+			<column name="GUID" value="39bd4fb2-34df-4372-8345-208d8a1dd563"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="599.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="599.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:25.0"/>
+			<column name="ORDERING" valueNumeric="1"/>
+			<column name="SHOPPING_CART_UID" valueNumeric="100000"/>
+			<column name="SKU_GUID" value="d571699f-5e90-4880-8dc9-a531e7d1c50d"/>
+			<column name="BUNDLE_CONSTITUENT" value="false"/>
+		</insert>
+		<insert tableName="TCARTITEM">
+			<column name="UIDPK" valueNumeric="100001"/>
+			<column name="GUID" value="f5e2f9de-caa1-4781-95ad-79a4c5fe7b0a"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="599.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="599.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="PARENT_ITEM_UID" valueNumeric="100000"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:25.0"/>
+			<column name="ORDERING" valueNumeric="0"/>
+			<column name="SKU_GUID" value="2839191C-066F-B716-B05E-43E6AD6CEFE7"/>
+			<column name="BUNDLE_CONSTITUENT" value="true"/>
+		</insert>
+		<insert tableName="TCARTITEM">
+			<column name="UIDPK" valueNumeric="100002"/>
+			<column name="GUID" value="44e74808-d3fc-4978-a38a-1ef9e4797884"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="PARENT_ITEM_UID" valueNumeric="100000"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:25.0"/>
+			<column name="ORDERING" valueNumeric="1"/>
+			<column name="SKU_GUID" value="db52a050-a3d3-4d92-ac11-5906b122481f"/>
+			<column name="BUNDLE_CONSTITUENT" value="false"/>
+		</insert>
+		<insert tableName="TCARTITEM">
+			<column name="UIDPK" valueNumeric="100003"/>
+			<column name="GUID" value="223b259a-75cd-4cd0-8887-4820a5438b51"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="PARENT_ITEM_UID" valueNumeric="100000"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:25.0"/>
+			<column name="ORDERING" valueNumeric="2"/>
+			<column name="SKU_GUID" value="22f20bed-7c97-440b-bd18-a66a5c4d1cd0"/>
+			<column name="BUNDLE_CONSTITUENT" value="true"/>
+		</insert>
+		<insert tableName="TCARTITEM">
+			<column name="UIDPK" valueNumeric="100004"/>
+			<column name="GUID" value="c5843606-95a4-4468-8407-b08578013803"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="PARENT_ITEM_UID" valueNumeric="100003"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:25.0"/>
+			<column name="ORDERING" valueNumeric="0"/>
+			<column name="SKU_GUID" value="9e73fb6b-a607-45ab-96ab-95d5761e9f9d"/>
+			<column name="BUNDLE_CONSTITUENT" value="false"/>
+		</insert>
+		<insert tableName="TCARTITEM">
+			<column name="UIDPK" valueNumeric="100005"/>
+			<column name="GUID" value="93d5e8ea-a33a-42a0-9654-a2e696336553"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="PARENT_ITEM_UID" valueNumeric="100003"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:25.0"/>
+			<column name="ORDERING" valueNumeric="1"/>
+			<column name="SKU_GUID" value="6ffa4028-971c-4adf-955f-8200e2fe665c"/>
+			<column name="BUNDLE_CONSTITUENT" value="true"/>
+		</insert>
+		<insert tableName="TCARTITEM">
+			<column name="UIDPK" valueNumeric="100006"/>
+			<column name="GUID" value="ed50d8a1-9ce6-4ccf-a498-aeb0fc23e6ec"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="PARENT_ITEM_UID" valueNumeric="100003"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:25.0"/>
+			<column name="ORDERING" valueNumeric="2"/>
+			<column name="SKU_GUID" value="8fa75682-93ac-4c62-a3ae-5938f13b6f99"/>
+			<column name="BUNDLE_CONSTITUENT" value="true"/>
+		</insert>
+		<insert tableName="TCARTITEM">
+			<column name="UIDPK" valueNumeric="100007"/>
+			<column name="GUID" value="cb054558-b6e0-42a9-994d-cbc1ee71854f"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="PARENT_ITEM_UID" valueNumeric="100000"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:25.0"/>
+			<column name="ORDERING" valueNumeric="3"/>
+			<column name="SKU_GUID" value="39ec4b1b-8971-40dc-8800-52e4f60cd4d6"/>
+			<column name="BUNDLE_CONSTITUENT" value="false"/>
+		</insert>
+		<insert tableName="TCARTITEM">
+			<column name="UIDPK" valueNumeric="100008"/>
+			<column name="GUID" value="adabf7f6-1ff0-4381-99b1-a3dd4e7c50bd"/>
+			<column name="QUANTITY" valueNumeric="1"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="0.00"/>
+			<column name="DISCOUNT_AMOUNT" valueNumeric="0.00"/>
+			<column name="TAX_AMOUNT" valueNumeric="0.00"/>
+			<column name="PARENT_ITEM_UID" valueNumeric="100007"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:25.0"/>
+			<column name="ORDERING" valueNumeric="0"/>
+			<column name="SKU_GUID" value="8fa75682-93ac-4c62-a3ae-5938f13b6f99"/>
+			<column name="BUNDLE_CONSTITUENT" value="true"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="10009"/>
+			<column name="GUID" value="206ac819-e44a-4f51-964d-fa58db1ad7c0"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="ORDERSKU_UID" valueNumeric="100002"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="30.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="30.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100010"/>
+			<column name="GUID" value="fe70bb85-2e7b-46e6-ae0e-777094655de3"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="ORDERSKU_UID" valueNumeric="100005"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="12.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="12.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100011"/>
+			<column name="GUID" value="280e8022-ff0f-45de-8481-b54b78853448"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="ORDERSKU_UID" valueNumeric="100006"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="14.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="14.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100012"/>
+			<column name="GUID" value="56bdf8ba-9725-42e4-84ef-171ee6bb05dc"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="ORDERSKU_UID" valueNumeric="100004"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="36.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="36.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100013"/>
+			<column name="GUID" value="5b953b93-11b8-4cb8-97ff-72a840c6870c"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="ORDERSKU_UID" valueNumeric="100003"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="10.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="10.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100014"/>
+			<column name="GUID" value="7a14c678-a803-46a9-818a-822ce5aa449e"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="ORDERSKU_UID" valueNumeric="100008"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="14.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="0.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100015"/>
+			<column name="GUID" value="afddfacf-3b7d-4ed8-b77b-ece508a87dbb"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="ORDERSKU_UID" valueNumeric="100007"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="14.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="0.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100016"/>
+			<column name="GUID" value="61eb7b8f-209e-4174-a938-4936eea48013"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="ORDERSKU_UID" valueNumeric="100001"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="80.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="66.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100017"/>
+			<column name="GUID" value="de07d252-e68d-4797-9c71-f2cd237c8955"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="CARTITEM_UID" valueNumeric="100000"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="80.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="66.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100018"/>
+			<column name="GUID" value="061a149e-c85e-4e42-ae55-ed7059bba7cd"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="CARTITEM_UID" valueNumeric="100002"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="30.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="30.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100019"/>
+			<column name="GUID" value="fb9a5674-cdb9-4d2f-a3bd-473022c5a024"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="CARTITEM_UID" valueNumeric="100003"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="36.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="36.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100020"/>
+			<column name="GUID" value="0634722f-843d-4fa3-9a09-6bde69e3224c"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="CARTITEM_UID" valueNumeric="100004"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="12.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="12.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100021"/>
+			<column name="GUID" value="d509bdc1-b9f2-465d-a446-739f459c4895"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="CARTITEM_UID" valueNumeric="100005"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="10.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="10.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100022"/>
+			<column name="GUID" value="57529af1-df2a-4243-97fb-c246c4c642a9"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="CARTITEM_UID" valueNumeric="100006"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="14.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="14.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100023"/>
+			<column name="GUID" value="3503702c-1cfe-4edf-be54-0756d66db032"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="CARTITEM_UID" valueNumeric="100007"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="14.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="0.00"/>
+		</insert>
+		<insert tableName="TSHOPPINGITEMRECURRINGPRICE">
+			<column name="UIDPK" valueNumeric="100024"/>
+			<column name="GUID" value="82dae395-7c6d-4e7f-9da1-32e87c49d7cb"/>
+			<column name="PAYMENT_SCHEDULE_NAME" value="MONTHLY"/>
+			<column name="FREQ_AMOUNT" valueNumeric="1.00000000"/>
+			<column name="FREQ_UNIT" value="MONTHLY"/>
+			<column name="CARTITEM_UID" valueNumeric="100008"/>
+			<column name="LIST_UNIT_PRICE" valueNumeric="14.00"/>
+			<column name="PROMO_UNIT_PRICE" valueNumeric="0.00"/>
+		</insert>
+		<insert tableName="TORDERSKUPARENT">
+			<column name="CHILD_UID" valueNumeric="100000"/>
+			<column name="PARENT_UID" valueNumeric="100001"/>
+		</insert>
+		<insert tableName="TORDERSKUPARENT">
+			<column name="CHILD_UID" valueNumeric="100002"/>
+			<column name="PARENT_UID" valueNumeric="100001"/>
+		</insert>
+		<insert tableName="TORDERSKUPARENT">
+			<column name="CHILD_UID" valueNumeric="100004"/>
+			<column name="PARENT_UID" valueNumeric="100001"/>
+		</insert>
+		<insert tableName="TORDERSKUPARENT">
+			<column name="CHILD_UID" valueNumeric="100008"/>
+			<column name="PARENT_UID" valueNumeric="100001"/>
+		</insert>
+		<insert tableName="TORDERSKUPARENT">
+			<column name="CHILD_UID" valueNumeric="100005"/>
+			<column name="PARENT_UID" valueNumeric="100004"/>
+		</insert>
+		<insert tableName="TORDERSKUPARENT">
+			<column name="CHILD_UID" valueNumeric="100003"/>
+			<column name="PARENT_UID" valueNumeric="100004"/>
+		</insert>
+		<insert tableName="TORDERSKUPARENT">
+			<column name="CHILD_UID" valueNumeric="100006"/>
+			<column name="PARENT_UID" valueNumeric="100004"/>
+		</insert>
+		<insert tableName="TORDERSKUPARENT">
+			<column name="CHILD_UID" valueNumeric="100007"/>
+			<column name="PARENT_UID" valueNumeric="100008"/>
+		</insert>
+		<insert tableName="TTAXJOURNAL">
+			<column name="UIDPK" valueNumeric="100000"/>
+			<column name="JOURNAL_TYPE" value="purchase"/>
+			<column name="TRANSACTION_TYPE" value="Order"/>
+			<column name="TRANSACTION_DATE" valueDate="2018-02-19 13:21:24.0"/>
+			<column name="ORDER_NUMBER" value="10000"/>
+			<column name="DOCUMENT_ID" value="10000-1.2499A3F5-E64B-F521-D453-29B0D9A4AA73"/>
+			<column name="ITEM_OBJECT_TYPE" value="Order SKU"/>
+			<column name="ITEM_GUID" value="3f5ce833-a121-4b2e-aef4-17d1943494db"/>
+			<column name="ITEM_CODE" value="galaxys2_sku"/>
+			<column name="ITEM_AMOUNT" valueNumeric="599.00"/>
+			<column name="TAX_NAME" value="GST"/>
+			<column name="TAX_CODE" value="GOODS"/>
+			<column name="TAX_AMOUNT" valueNumeric="29.95"/>
+			<column name="TAX_RATE" valueNumeric="0.050000"/>
+			<column name="TAX_JURISDICTION" value="CA"/>
+			<column name="TAX_REGION" value="CA"/>
+			<column name="TAX_PROVIDER" value="ElasticPath"/>
+			<column name="STORE_CODE" value="MOBEE"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="TAX_INCLUSIVE" valueBoolean="false"/>
+		</insert>
+		<insert tableName="TTAXJOURNAL">
+			<column name="UIDPK" valueNumeric="100001"/>
+			<column name="JOURNAL_TYPE" value="purchase"/>
+			<column name="TRANSACTION_TYPE" value="Order"/>
+			<column name="TRANSACTION_DATE" valueDate="2018-02-19 13:21:24.0"/>
+			<column name="ORDER_NUMBER" value="10000"/>
+			<column name="DOCUMENT_ID" value="10000-1.2499A3F5-E64B-F521-D453-29B0D9A4AA73"/>
+			<column name="ITEM_OBJECT_TYPE" value="Order SKU"/>
+			<column name="ITEM_GUID" value="3f5ce833-a121-4b2e-aef4-17d1943494db"/>
+			<column name="ITEM_CODE" value="galaxys2_sku"/>
+			<column name="ITEM_AMOUNT" valueNumeric="599.00"/>
+			<column name="TAX_NAME" value="PST"/>
+			<column name="TAX_CODE" value="GOODS"/>
+			<column name="TAX_AMOUNT" valueNumeric="41.93"/>
+			<column name="TAX_RATE" valueNumeric="0.070000"/>
+			<column name="TAX_JURISDICTION" value="CA"/>
+			<column name="TAX_REGION" value="BC"/>
+			<column name="TAX_PROVIDER" value="ElasticPath"/>
+			<column name="STORE_CODE" value="MOBEE"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="TAX_INCLUSIVE" valueBoolean="false"/>
+		</insert>
+		<insert tableName="TTAXJOURNAL">
+			<column name="UIDPK" valueNumeric="100002"/>
+			<column name="JOURNAL_TYPE" value="purchase"/>
+			<column name="TRANSACTION_TYPE" value="Order"/>
+			<column name="TRANSACTION_DATE" valueDate="2018-02-19 13:21:24.0"/>
+			<column name="ORDER_NUMBER" value="10000"/>
+			<column name="DOCUMENT_ID" value="10000-1.2499A3F5-E64B-F521-D453-29B0D9A4AA73"/>
+			<column name="ITEM_OBJECT_TYPE" value="Order Shipment"/>
+			<column name="ITEM_GUID" value="10000-1"/>
+			<column name="ITEM_CODE" value="SHIPPING"/>
+			<column name="ITEM_AMOUNT" valueNumeric="29.95"/>
+			<column name="TAX_NAME" value="GST"/>
+			<column name="TAX_CODE" value="SHIPPING"/>
+			<column name="TAX_AMOUNT" valueNumeric="1.50"/>
+			<column name="TAX_RATE" valueNumeric="0.050000"/>
+			<column name="TAX_JURISDICTION" value="CA"/>
+			<column name="TAX_REGION" value="CA"/>
+			<column name="TAX_PROVIDER" value="ElasticPath"/>
+			<column name="STORE_CODE" value="MOBEE"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="TAX_INCLUSIVE" valueBoolean="false"/>
+		</insert>
+		<insert tableName="TTAXJOURNAL">
+			<column name="UIDPK" valueNumeric="100003"/>
+			<column name="JOURNAL_TYPE" value="purchase"/>
+			<column name="TRANSACTION_TYPE" value="Order"/>
+			<column name="TRANSACTION_DATE" valueDate="2018-02-19 13:21:24.0"/>
+			<column name="ORDER_NUMBER" value="10000"/>
+			<column name="DOCUMENT_ID" value="10000-1.2499A3F5-E64B-F521-D453-29B0D9A4AA73"/>
+			<column name="ITEM_OBJECT_TYPE" value="Order Shipment"/>
+			<column name="ITEM_GUID" value="10000-1"/>
+			<column name="ITEM_CODE" value="SHIPPING"/>
+			<column name="ITEM_AMOUNT" valueNumeric="29.95"/>
+			<column name="TAX_NAME" value="PST"/>
+			<column name="TAX_CODE" value="SHIPPING"/>
+			<column name="TAX_AMOUNT" valueNumeric="2.10"/>
+			<column name="TAX_RATE" valueNumeric="0.070000"/>
+			<column name="TAX_JURISDICTION" value="CA"/>
+			<column name="TAX_REGION" value="BC"/>
+			<column name="TAX_PROVIDER" value="ElasticPath"/>
+			<column name="STORE_CODE" value="MOBEE"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="TAX_INCLUSIVE" valueBoolean="false"/>
+		</insert>
+		<insert tableName="torderaudit">
+			<column name="UIDPK" valueNumeric="100000"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:23.0"/>
+			<column name="DETAIL" value="Order is placed by Harry Potter."/>
+			<column name="ORDER_UID" valueNumeric="100000"/>
+			<column name="ORIGINATOR_TYPE" value="CUSTOMER"/>
+			<column name="TITLE" value="Order Placed"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:24.0"/>
+		</insert>
+		<insert tableName="torderaudit">
+			<column name="UIDPK" valueNumeric="100001"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:25.0"/>
+			<column name="DETAIL" value="Order is released for fulfilment."/>
+			<column name="ORDER_UID" valueNumeric="100000"/>
+			<column name="ORIGINATOR_TYPE" value="CUSTOMER"/>
+			<column name="TITLE" value="Order Released for Fulfilment"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:25.0"/>
+		</insert>
+		<insert tableName="tshipmenttax">
+			<column name="UIDPK" valueNumeric="100000"/>
+			<column name="TAX_CATEGORY_NAME" value="GST"/>
+			<column name="TAX_CATEGORY_DISPLAY_NAME" value="GST"/>
+			<column name="VALUE" valueNumeric="31.45"/>
+			<column name="ORDER_SHIPMENT_UID" valueNumeric="100000"/>
+		</insert>
+		<insert tableName="tshipmenttax">
+			<column name="UIDPK" valueNumeric="100001"/>
+			<column name="TAX_CATEGORY_NAME" value="PST"/>
+			<column name="TAX_CATEGORY_DISPLAY_NAME" value="PST"/>
+			<column name="VALUE" valueNumeric="44.03"/>
+			<column name="ORDER_SHIPMENT_UID" valueNumeric="100000"/>
+		</insert>
+		<insert tableName="torderpayment">
+			<column name="UIDPK" valueNumeric="100000"/>
+			<column name="CREATED_DATE" valueDate="2018-02-19 13:21:23.0"/>
+			<column name="DISPLAY_VALUE" value="test-token"/>
+			<column name="PAYMENT_GATEWAY" value="PAYMENT_TOKEN"/>
+			<column name="AMOUNT" valueNumeric="704.43"/>
+			<column name="REFERENCE_ID" value="testReferenceId"/>
+			<column name="REQUEST_TOKEN" value="testRequestToken"/>
+			<column name="AUTHORIZATION_CODE" value="testAuthorizationCode"/>
+			<column name="TRANSACTION_TYPE" value="Authorization"/>
+			<column name="CURRENCY" value="CAD"/>
+			<column name="EMAIL" value="testEmail"/>
+			<column name="STATUS" value="APPROVED"/>
+			<column name="ORDER_UID" valueNumeric="100000"/>
+			<column name="ORDERSHIPMENT_UID" valueNumeric="100000"/>
+			<column name="PAYMENT_FOR_SUBSCRIPTIONS" valueNumeric="0"/>
+			<column name="LAST_MODIFIED_DATE" valueDate="2018-02-19 13:21:24.0"/>
+		</insert>
+	</changeSet>
+</databaseChangeLog>

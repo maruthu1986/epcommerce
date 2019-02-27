@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.elasticpath</groupId>
+		<artifactId>ep-core-cucumber-itests</artifactId>
+		<version>703.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ep-core-itests-h2-database</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Core Cucumber Tests Data H2 Database</name>
+	<description>A H2 compatible database built from the data in the ep-core-itests-data artifact.</description>
+
+	<properties>
+		<com.h2database.version>1.3.172</com.h2database.version>
+		<data.population.cli.directory>${project.build.directory}/cli</data.population.cli.directory>
+		<commons.io.version>2.4</commons.io.version>
+		<commons.cli.version>1.2</commons.cli.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${com.h2database.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath</groupId>
+			<artifactId>ep-data-population-cli-tool-assembly</artifactId>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath</groupId>
+			<artifactId>ep-data-population-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.db</groupId>
+			<artifactId>core-schema</artifactId>
+			<version>703.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath</groupId>
+			<artifactId>ep-importexport</artifactId>
+			<version>703.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath</groupId>
+			<artifactId>ep-core</artifactId>
+			<version>703.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons.io.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>${commons.cli.version}</version>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>create-test-database</id>
+			<activation>
+				<property>
+					<name>!skipAllTests</name>
+				</property>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/filtered-resources</directory>
+						<targetPath>${project.build.outputDirectory}</targetPath>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+				<plugins>
+					<plugin>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>unpack-data</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>unpack-dependencies</goal>
+								</goals>
+								<configuration>
+									<includeArtifactIds>ep-core-itests-data</includeArtifactIds>
+									<type>jar</type>
+									<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+									<overWriteSnapshots>true</overWriteSnapshots>
+									<includes>**/**</includes>
+								</configuration>
+							</execution>
+							<execution>
+								<id>unpack-data-population-cli</id>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>com.elasticpath</groupId>
+											<artifactId>ep-data-population-cli-tool-assembly</artifactId>
+											<version>${ep.data.population.version}</version>
+											<overWrite>true</overWrite>
+											<outputDirectory>${project.build.directory}/cli</outputDirectory>
+										</artifactItem>
+										<artifactItem>
+											<groupId>com.elasticpath.data</groupId>
+											<artifactId>ep-shared-demo-data</artifactId>
+											<type>zip</type>
+											<version>${project.version}</version>
+											<outputDirectory>${project.build.directory}/classes/data</outputDirectory>
+										</artifactItem>
+										<artifactItem>
+											<groupId>com.elasticpath.data</groupId>
+											<artifactId>ep-mobee-demo-data</artifactId>
+											<type>zip</type>
+											<version>${project.version}</version>
+											<outputDirectory>${project.build.directory}/classes/data</outputDirectory>
+										</artifactItem>
+									</artifactItems>
+								</configuration>
+							</execution>
+							<execution>
+								<id>copy-dependencies</id>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>copy-dependencies</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${data.population.cli.directory}/lib</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>${maven-resources-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>filter</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>resources</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<escapeWindowsPaths>false</escapeWindowsPaths>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>com.google.code.maven-replacer-plugin</groupId>
+						<artifactId>maven-replacer-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>replace-slashes-in-db-url-for-windows</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>replace</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<file>target/classes/database.properties</file>
+							<token>\\</token>
+							<value>/</value>
+						</configuration>
+					</plugin>
+					<plugin>
+						<!-- We need to run data population as an external process. If run as a maven plugin
+		                     the database is not closed before it is zipped -->
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>data-population</id>
+								<phase>process-classes</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<condition property="shell.executable" value="cmd" else="/bin/bash">
+											<os family="windows" />
+										</condition>
+										<condition property="shell.argument" value="/c" else="-v">
+											<os family="windows" />
+										</condition>
+										<condition property="shell.script"
+												   value="${data.population.cli.directory}/data-population.bat"
+												   else="${data.population.cli.directory}/data-population.sh">
+											<os family="windows" />
+										</condition>
+										<exec executable="${shell.executable}" dir="${data.population.cli.directory}" failonerror="true">
+											<arg value="${shell.argument}" />
+											<arg value="${shell.script}" />
+											<arg value="--dataDirectory" />
+											<arg value="${project.build.outputDirectory}" />
+											<arg value="--configDirectory" />
+											<arg value="${project.build.outputDirectory}" />
+											<arg value="update-db" />
+										</exec>
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>wait-for-h2</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<waitfor>
+											<not>
+												<available file="${project.build.directory}/ep-core-cucumber-itests-db.lock.db"/>
+											</not>
+										</waitfor>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>make-database-zip</id>
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>src/main/assembly/ep-core-cucumber-itests-database-zip.xml
+								</descriptor>
+							</descriptors>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

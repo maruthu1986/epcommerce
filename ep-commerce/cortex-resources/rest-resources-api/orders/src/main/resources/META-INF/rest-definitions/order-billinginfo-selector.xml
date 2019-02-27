@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>orders</name>
+		<description>
+			<![CDATA[
+Use a selector to select the billing address to use for the purchase. Follow the workflow to read the billing address info
+and then create a choice to select the billing address to use for the purchase.
+				]]>
+		</description>
+
+		<resource>
+			<name>billingaddress-info-selector</name>
+			<description><![CDATA[Selector to choose a billing address for an order.]]></description>
+			<uri>{billingaddress-info}/selector</uri>
+			<selector-for>billingaddress-info</selector-for>
+		</resource>
+
+		<resource>
+			<name>billingaddress-info-selector-choice</name>
+			<description><![CDATA[A choice for the billing address selector.]]></description>
+			<uri>{billingaddress-info-selector}/{addresses.address}</uri>
+			<choices-for>billingaddress-info-selector</choices-for>
+		</resource>
+
+		<relationship>
+			<name>selector-for-billingaddress-info</name>
+			<description><![CDATA[Retrieve the selector.]]></description>
+			<rel>selector</rel>
+			<rev>billingaddressinfo</rev>
+			<from>billingaddress-info</from>
+			<to>billingaddress-info-selector</to>
+		</relationship>
+
+		<relationship>
+			<name>billingaddress-form</name>
+			<description><![CDATA[Form for the billing address.]]></description>
+			<rel>addressform</rel>
+			<from>billingaddress-info</from>
+			<to>addresses.address-form</to>
+		</relationship>
+
+	</family>
+</definitions>

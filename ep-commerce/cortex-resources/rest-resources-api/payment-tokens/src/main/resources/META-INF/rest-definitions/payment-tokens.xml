@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>paymenttokens</name>
+		<description><![CDATA[The Payment Tokens resource is responsible for saving payment tokens to a shopper's profile and order.]]></description>
+
+		<resource>
+			<name>order-payment-token</name>
+			<description><![CDATA[Provides the selected payment method on the order.]]></description>
+			<uri>{base.family}/{orders.order}</uri>
+			<entity>payment-token</entity>
+		</resource>
+
+		<entity>
+			<name>payment-token</name>
+			<description><![CDATA[The payment token entity.]]></description>
+			<is-a>paymentmethods.payment-method</is-a>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[A description of the payment token to be used for display purposes.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>token</name>
+				<description><![CDATA[The payment token created by a payment tokenization service.]]></description>
+				<string/>
+			</property>
+			<entity-type>elasticpath.paymenttokens.payment-token</entity-type>
+		</entity>
+
+	</family>
+</definitions>

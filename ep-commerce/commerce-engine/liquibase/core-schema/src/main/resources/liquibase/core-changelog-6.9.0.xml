@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+	logicalFilePath="com/elasticpath/core/db/core-changelog-6.9.0.xml">
+
+	<!-- Reminder:
+		- Table names cannot exceed 30 characters (Oracle limitation)
+		- Column names cannot exceed 30 characters (Oracle limitation)
+		- Index names cannot exceed 18 characters (DB2 limitation)
+
+		 Important:
+		- Using <preCondition> ? read: http://forum.liquibase.org/topic/unexpected-behaviour-of-preconditions-with-updatesql
+		- Using <preCondition> ? Consider adding onUpdateSql="TEST", but understand how it plays with updateSQL!
+	-->
+
+	<changeSet id="6.9.0-add-setting-order-message-channel-uri-expand" author="elasticpath" context="expand">
+		<comment>[HIVE-26] Adds a setting definition used to define the URI of the channel on which Order Event messages are sent and received</comment>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="115" />
+			<column name="PATH" value="COMMERCE/SYSTEM/MESSAGING/ORDERS/channelUri" />
+			<column name="VALUE_TYPE" value="String" />
+			<column name="MAX_OVERRIDE_VALUES" value="1" />
+			<column name="DEFAULT_VALUE" value="jms:topic:ep.orders" />
+			<column name="DESCRIPTION" value="The URI of the channel on which Order Event messages are sent and received.  Please note that changes will not take effect until the application(s) using this setting have been restarted." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1105" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="115" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1106" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="115" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.9.0-remove-billing-address-uid-expand-mssql" author="elasticpath" dbms="mssql" context="expand">
+		<comment>[HIVE-185] Remove BILLING_ADDRESS_UID foreign key constraint for MSSQL only</comment>
+		<dropForeignKeyConstraint constraintName="TCUSTOMERCREDITCARD_FK_2" baseTableName="TCUSTOMERCREDITCARD" />
+	</changeSet>
+	
+	<changeSet id="6.9.0-remove-billing-address-uid-expand-mysql" author="elasticpath" dbms="mysql" context="expand">
+		<comment>[HIVE-185] Remove BILLING_ADDRESS_UID foreign key constraint for MySQL only</comment>
+		<dropForeignKeyConstraint constraintName="TCUSTOMERCREDITCARD_FK_2" baseTableName="TCUSTOMERCREDITCARD" />
+	</changeSet>
+	
+	<changeSet id="6.9.0-remove-billing-address-uid-expand-hsqldb" author="elasticpath" dbms="hsqldb" context="expand">
+		<comment>[HIVE-185] Dropping all constraints on BILLING_ADDRESS_UID to resolve hsqldb specific issue.</comment>
+		<customChange class="liquibase.ext.elasticpath.HsqlDropForeignKey">
+			<param name="tableName">TCUSTOMERCREDITCARD</param>
+			<param name="columnName">BILLING_ADDRESS_UID</param>
+		</customChange>
+		
+		<dropIndex indexName="I_CCC_BA_UID" tableName="TCUSTOMERCREDITCARD" />
+	</changeSet>
+
+	<changeSet id="6.9.0-consolidate-default-payment-methods-migrate-data" author="elasticpath" context="migrate-data">
+		<comment>[HIVE-209] Consolidate preferred credit card and default credit card flag into default payment method on customer.</comment>
+		<sql>
+			UPDATE TCUSTOMER
+			SET DEFAULT_PAYMENT_METHOD_UID = (SELECT TCUSTOMERCREDITCARD.UIDPK FROM TCUSTOMERCREDITCARD,TCUSTOMERPAYMENTMETHOD
+			WHERE TCUSTOMER.UIDPK = TCUSTOMERPAYMENTMETHOD.CUSTOMER_UID
+			AND TCUSTOMERCREDITCARD.UIDPK = TCUSTOMERPAYMENTMETHOD.PAYMENT_METHOD_UID
+			AND TCUSTOMERCREDITCARD.DEFAULT_CARD = 1) WHERE TCUSTOMER.DEFAULT_PAYMENT_METHOD_UID is NULL
+		</sql>
+	</changeSet>
+	
+	<changeSet id="6.9.0-remove-payment-method-guid-contract-mssql" author="elasticpath" dbms="mssql" context="contract">
+		<comment>[HIVE-209] Remove PAYMENTMETHOD_GUID default value</comment>
+		<dropDefaultValue tableName="TCARTORDER" columnName="PAYMENTMETHOD_GUID"/>
+	</changeSet>	
+
+	<changeSet id="6.9.0-remove-default-card-and-payment-method-guid-contract" author="elasticpath" context="contract">
+		<comment>[HIVE-209] Drop TCUSTOMERCREDITCARD.DEFAULT_CARD and TCARTORDER.PAYMENTMETHOD_GUID</comment>
+		<dropColumn tableName="TCARTORDER" columnName="PAYMENTMETHOD_GUID"/>
+		<dropColumn tableName="TCUSTOMERCREDITCARD" columnName="DEFAULT_CARD"/>
+	</changeSet>
+
+	<changeSet id="6.9.0-remove-billing-address-uid-contract-mssql" author="elasticpath" dbms="mssql" context="contract">
+		<comment>[HIVE-185] Remove index I_CCC_BA_UID on BILLING_ADDRESS_UID column from TCUSTOMERCREDITCARD (resolves MSSQL failure)</comment>
+		<dropIndex indexName="I_CCC_BA_UID" tableName="TCUSTOMERCREDITCARD" />
+	</changeSet>
+	
+	<changeSet id="6.9.0-remove-billing-address-uid-contract" author="elasticpath" context="contract">
+		<comment>[HIVE-185] Drop unused billing address UID column and associated index.</comment>	
+		<dropColumn tableName="TCUSTOMERCREDITCARD" columnName="BILLING_ADDRESS_UID" />
+	</changeSet>
+
+</databaseChangeLog>

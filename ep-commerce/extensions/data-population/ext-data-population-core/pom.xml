@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>ext-data-population-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ext-data-population-core</artifactId>
+	<name>Extension Data Population Core</name>
+	<description>Extends data population accelerator core functionality.</description>
+	<packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.elasticpath</groupId>
+            <artifactId>ep-data-population-core</artifactId>
+        </dependency>
+    </dependencies>
+</project>

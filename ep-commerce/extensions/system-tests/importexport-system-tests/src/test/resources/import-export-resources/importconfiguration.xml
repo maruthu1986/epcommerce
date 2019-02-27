@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<importconfiguration>
+  <xmlvalidation>true</xmlvalidation>
+  <importstrategy>
+    <importer type="CUSTOMERPROFILE_ATTRIBUTE">
+      <importstrategy>INSERT_OR_UPDATE</importstrategy>
+    </importer>
+    <importer type="CUSTOMER">
+      <importstrategy>INSERT_OR_UPDATE</importstrategy>
+    </importer>
+  </importstrategy>
+  <packager type="NONE"/>
+  <retrieval>
+    <method>FILE</method>
+    <source>customers/</source>
+  </retrieval>
+  <transformerschain/>
+</importconfiguration>

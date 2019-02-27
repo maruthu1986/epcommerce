@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.cmclient</groupId>
+		<artifactId>cm-plugins</artifactId>
+		<version>703.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>com.elasticpath.cmclient.pricelistmanager</artifactId>
+	<packaging>eclipse-plugin</packaging>
+	<name>CM Pricelist Manager Plugin</name>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-compiler-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<compilerArgument>-warn:+discouraged,forbidden</compilerArgument>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath.cmclient</groupId>
+			<artifactId>com.elasticpath.cmclient.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.cmclient</groupId>
+			<artifactId>com.elasticpath.cmclient.policy</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.cmclient</groupId>
+			<artifactId>com.elasticpath.cmclient.conditionbuilder</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.cmclient</groupId>
+			<artifactId>com.elasticpath.cmclient.testlibs</artifactId>
+		</dependency>
+	</dependencies>
+</project>

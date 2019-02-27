@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.rest.integration.epcommerce</groupId>
+		<artifactId>epcommerce-rs-authentication-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ep-rs-authentication-spring-oauth2-tokenstore-epcommerce</artifactId>
+	<version>0.0.0-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+	<name>EP ∷ RelOS : RS Authentication - Spring OAuth2 ʃ Commerce Engine</name>
+	<description>Elastic Path REST - Authentication Spring OAuth2 Resource Commerce Engine Integration</description>
+
+	<properties>
+		<!-- Coverage defaults not met, setting bar at current for this module. Should be revised upwards only -->
+		<jacoco.instruction.covered-ratio>0.49</jacoco.instruction.covered-ratio>
+		<jacoco.line.covered-ratio>0.46</jacoco.line.covered-ratio>
+		<jacoco.complexity.covered-ratio>0.30</jacoco.complexity.covered-ratio>
+		<jacoco.method.covered-ratio>0.30</jacoco.method.covered-ratio>
+		<jacoco.class.covered-ratio>0.33</jacoco.class.covered-ratio>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath.rest.integration.epcommerce</groupId>
+			<artifactId>ep-rest-repositories-epcommerce</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.integration.epcommerce</groupId>
+			<artifactId>ep-rs-authentication-spring-oauth2</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-pmd-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

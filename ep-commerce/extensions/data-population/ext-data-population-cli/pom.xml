@@ -1,0 +1,101 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>ext-data-population-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ext-data-population-cli</artifactId>
+	<name>Extension Data Population CLI</name>
+	<description>Data population CLI tool that includes client extensions to core, importexport and data population functionality.</description>
+	<packaging>jar</packaging>
+
+	<properties>
+		<assembly.format>zip</assembly.format>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath</groupId>
+			<artifactId>ep-data-population-cli-tool-assembly</artifactId>
+			<type>zip</type>
+		</dependency>
+        <dependency>
+            <groupId>com.elasticpath.extensions</groupId>
+            <artifactId>ext-data-population-core</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>com.elasticpath.extensions</groupId>
+			<artifactId>ext-importexport</artifactId>
+			<!-- Exclude the Apache Commons libraries since Spring-Shell will NOT work with older versions. -->
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-io</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-cli</groupId>
+					<artifactId>commons-cli</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Depend on core-schema to pull in the standard Liquibase files -->
+		<dependency>
+			<groupId>com.elasticpath.db</groupId>
+			<artifactId>core-schema</artifactId>
+		</dependency>
+		<!-- Include JDBC driver dependency -->
+		<dependency>
+			<groupId>${epdb.maven.groupId}</groupId>
+			<artifactId>${epdb.maven.artifactId}</artifactId>
+			<version>${epdb.maven.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Expand all files from the Data-Population CLI Assembly other than the lib folder as we generate our own
+				which includes an explicit versioned EP dependency (above). -->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-database-population-cli-assembly-files</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeArtifactIds>ep-data-population-cli-tool-assembly</includeArtifactIds>
+							<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+							<excludes>lib/**</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Assemble the output into the deliverable. -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<descriptors>
+						<descriptor>assembly.xml</descriptor>
+					</descriptors>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

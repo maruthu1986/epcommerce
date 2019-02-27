@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>purchases</name>
+		<description>
+			<![CDATA[
+The Paymentmeans resource is responsible for recording a purchase's billing details, such as a customer's billing address and
+[paymentmethod][paymentmethods].
+
+[paymentmethods]: #paymentmethods
+			]]>
+		</description>
+
+		<uri-part>
+			<name>paymentmeans-id</name>
+			<description><![CDATA[The paymentmeans ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<uri-part>
+			<name>payment-id</name>
+			<description><![CDATA[The paymentmeans ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>purchase-paymentmeans</name>
+			<description><![CDATA[List of all the paymentmeans used for the purchase.]]></description>
+			<uri>{purchase}/paymentmeans</uri>
+			<list-of>purchase-paymentmean</list-of>
+		</resource>
+
+		<resource>
+			<name>purchase-paymentmean</name>
+			<description><![CDATA[Paymentmeans is responsible for recording a purchase's billing details such as a customer's billing address and paymentmethod.]]></description>
+			<uri>{purchase-paymentmeans}/{paymentmeans-id}</uri>
+			<entity>payment-means</entity>
+			<!-- this resource and payment methods do not conform with the Helix programming model and will need rework. -->
+			<!--<entity>paymenttokens.payment-token</entity>-->
+		</resource>
+
+		<relationship>
+			<name>paymentmeans-for-purchase</name>
+			<description><![CDATA[List payment means for a purchase.]]></description>
+			<rel>paymentmeans</rel>
+			<rev>purchase</rev>
+			<from>purchase</from>
+			<to>purchase-paymentmeans</to>
+		</relationship>
+
+		<relationship>
+			<name>paymentmeans-for-paymentmean</name>
+			<description><![CDATA[List payment means for a paymentmean.]]></description>
+			<rel>list</rel>
+			<from>purchase-paymentmean</from>
+			<to>purchase-paymentmeans</to>
+		</relationship>
+
+		<relationship>
+			<name>purchase-for-paymentmean</name>
+			<description><![CDATA[Purchase for a paymentmean.]]></description>
+			<rel>purchase</rel>
+			<from>purchase-paymentmean</from>
+			<to>purchase</to>
+		</relationship>
+
+		<entity>
+			<name>payment-means</name>
+			<description><![CDATA[Describes a payment means.]]></description>
+			<property>
+				<name>payment-means-id</name>
+				<description><![CDATA[The payment means identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+		</entity>
+
+		<entity>
+			<name>payment-means-payment-token</name>
+			<description><![CDATA[The payment token used for the purchase.]]></description>
+			<is-a>payment-means</is-a>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[A description of the payment token.]]></description>
+				<string/>
+			</property>
+		</entity>
+
+		<entity>
+			<name>expiration-date</name>
+			<description><![CDATA[Describes the expiration date of a credit card.]]></description>
+			<property>
+				<name>month</name>
+				<description><![CDATA[The month of the expiration date.]]></description>
+				<string>
+					<min-length>2</min-length>
+					<max-length>2</max-length>
+				</string>
+			</property>
+			<property>
+				<name>year</name>
+				<description><![CDATA[The year of the expiration date.]]></description>
+				<string>
+					<min-length>4</min-length>
+					<max-length>4</max-length>
+				</string>
+			</property>
+		</entity>
+
+		<entity>
+			<name>payment-means-credit-card</name>
+			<description><![CDATA[The credit card payment means for the purchase]]></description>
+			<is-a>payment-means</is-a>
+			<property>
+				<name>card-type</name>
+				<description><![CDATA[The card type used for the purchase.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>telephone-type</name>
+				<description><![CDATA[The type of telephone number.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>telephone-number</name>
+				<description><![CDATA[The telephone number.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>primary-account-number-id</name>
+				<description><![CDATA[The primary account number identifier.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>holder-name</name>
+				<description><![CDATA[The card holder name used for the purchase.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>expiry-date</name>
+				<description><![CDATA[The expiry date of card used for the purchase.]]></description>
+				<is-a>expiration-date</is-a>
+			</property>
+			<property>
+				<name>billing-address</name>
+				<description><![CDATA[The billing address used for the purchase.]]></description>
+				<is-a>addresses.address</is-a>
+			</property>
+			<entity-type>purchases.purchase.paymentmeans</entity-type>
+		</entity>
+
+	</family>
+</definitions>

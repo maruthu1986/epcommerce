@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<stores>
+<store enabled="true" code="SMOKETEST">
+    <globalization default_currency="CAD" default_locale="en" content_encoding="UTF-8" sub_country="BC" country="CA" timeZone="Europe/London"/>
+    <url>http://smoketest.elasticpath.com:8080/storefront</url>
+    <name>Smoketest</name>
+    <state>200</state>
+    <type>B2B</type>
+    <description></description>
+    <catalog>Mobile</catalog>
+    <display_out_of_stock>true</display_out_of_stock>
+    <email_sender_name>CustomerService@elasticpath.com</email_sender_name>
+    <email_sender_address>CustomerService@elasticpath.com</email_sender_address>
+    <store_admin_email>StoreAdmin@elasticpath.com</store_admin_email>
+    <credit_card_cvv2_enabled>true</credit_card_cvv2_enabled>
+    <store_full_credit_cards>false</store_full_credit_cards>
+    <locales>
+        <locale>fr_CA</locale>
+        <locale>en</locale>
+    </locales>
+    <currencies>
+        <currency>CAD</currency>
+    </currencies>
+    <warehouses>
+        <warehouse>SMOKETEST_Warehouse</warehouse>
+    </warehouses>
+    <tax_codes>
+		<guid>501</guid>
+    </tax_codes>
+    <tax_jurisdictions>
+        <jurisdiction>90A40DA5-CB0F-8470-B044-CA06D53F44F6</jurisdiction>
+    </tax_jurisdictions>
+    <payment_gateways>
+        <gateway>DemoPaymentProcessor</gateway>
+    </payment_gateways>
+    <credit_card_types>
+        <type>American Express</type>
+        <type>Visa</type>
+        <type>MasterCard</type>
+        <type>Diners Club</type>
+        <type>Discover</type>
+    </credit_card_types>
+</store>
+
+</stores>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>
+		Relos Crawler Properties:
+		- set max or seed parameters to -1 to ignore them
+		- blackList values to be removed when PB-940 (fromprice and definition), PB-965 (standaloneitem), PB-957 (paymentmeans) and PB-938 (appliedpromotions)
+		- blackList value crosssell to account for tests using unreachable product 'SourceProductWithCrossSellsAssocToNonStoreVisibleTargetProduct'
+		- uriBlackList crosssell URLs for tests expecting 404
+	</comment>
+	<entry key="maxZoomDepth">3</entry>
+	<entry key="maxZoomParameters">10</entry>
+	<entry key="maxLinksToFollow">-1</entry>
+	<entry key="seed">-1</entry>
+	<entry key="blackList">
+		.*(action)
+		.*(form)
+		(item)
+		(default)
+		(selector)
+		(onevent)
+		(appliedpromotions)
+		(fromprice)
+		(definition)
+		(standaloneitem)
+		(paymentmeans)
+		(crosssell)
+	</entry>
+	<entry key="uriBlackList">
+		.*(/recommendations/items/mobee/.*=/crosssell)$
+		.*(/purchases/mobee/.*=/paymentmeans)$
+		^(/)$
+	</entry>
+</properties>

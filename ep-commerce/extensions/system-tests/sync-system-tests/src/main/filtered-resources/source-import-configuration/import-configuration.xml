@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<importconfiguration>
+	<xmlvalidation>true</xmlvalidation>
+	<importstrategy>
+		<importer type="PRICELISTDESCRIPTOR">
+		</importer>
+	</importstrategy>
+	<packager type="NONE"/>
+	<retrieval>
+		<method>FILE</method>
+		<source>${project.build.directory}/classes/source-import-configuration/changes-for-import</source>
+	</retrieval>
+	<transformerschain/>
+</importconfiguration>

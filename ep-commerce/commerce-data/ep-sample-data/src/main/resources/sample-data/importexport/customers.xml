@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customers>
+<customer guid="734cfa36-8727-48aa-b37b-0c60c821b292" user_id="generic1@abc.com" store_code="store-VirtualAB">
+    <status>1</status>
+    <creationDate>2017-03-07T00:25:21-08:00</creationDate>
+    <last_edited>2017-03-06T16:28:12-08:00</last_edited>
+    <password>315eca1eef426b95f918d432a8189aef95ed203a4bd34a8eccdfaa8ee5e5cac0</password>
+    <salt>8be3d11e03760c72034e14954278433b812491e988534a0364ba48761d5d7e42</salt>
+    <first_time_buyer>true</first_time_buyer>
+    <addresses/>
+    <payment_methods/>
+    <groups>
+        <group>400</group>
+    </groups>
+    <customer_profile>
+        <profile_value key="CP_EMAIL" type="AttributeType_ShortText">generic1@abc.com</profile_value>
+        <profile_value key="CP_ANONYMOUS_CUST" type="AttributeType_Boolean">false</profile_value>
+        <profile_value key="CP_LAST_NAME" type="AttributeType_ShortText">Customer1</profile_value>
+        <profile_value key="CP_FIRST_NAME" type="AttributeType_ShortText">generic</profile_value>
+    </customer_profile>
+</customer>
+
+<customer guid="1807b938-8f7f-40d2-b7b8-f590873e9844" user_id="segment1@abc.com" store_code="store-VirtualAB">
+    <status>1</status>
+    <creationDate>2017-03-07T21:06:38-08:00</creationDate>
+    <last_edited>2017-03-07T13:17:40-08:00</last_edited>
+    <password>baa43cf01b7a962bda240007cdace545e2c9669b776ee9b2f490aac1d473ad47</password>
+    <salt>6b49d9f5e2e0449b4493bf4ed2135b786a09592127f73823ffe0c69ec5620e89</salt>
+    <first_time_buyer>true</first_time_buyer>
+    <addresses/>
+    <payment_methods/>
+    <groups>
+        <group>400</group>
+        <group>9e724e26-53ed-47cc-b445-cbf25a4ed16e</group>
+    </groups>
+    <customer_profile>
+        <profile_value key="CP_EMAIL" type="AttributeType_ShortText">segment1@abc.com</profile_value>
+        <profile_value key="CP_ANONYMOUS_CUST" type="AttributeType_Boolean">false</profile_value>
+        <profile_value key="CP_LAST_NAME" type="AttributeType_ShortText">Segment1</profile_value>
+        <profile_value key="CP_FIRST_NAME" type="AttributeType_ShortText">generic</profile_value>
+    </customer_profile>
+</customer>
+
+<customer guid="46c3184d-925d-429d-9e17-dfc657f1a54a" user_id="segment2@abc.com" store_code="store-VirtualAB">
+    <status>1</status>
+    <creationDate>2017-03-07T21:23:30-08:00</creationDate>
+    <last_edited>2017-03-07T13:24:18-08:00</last_edited>
+    <password>80b849ee6e3709b3b1fe034808e2c6ad295c2c706b34fa9aea79de1c6dcf4843</password>
+    <salt>9c30d21fd113c569289ca4e552b88325cf2fabde8944e73828a465da718016b2</salt>
+    <first_time_buyer>true</first_time_buyer>
+    <addresses/>
+    <payment_methods/>
+    <groups>
+        <group>400</group>
+        <group>8a70ebf0-4afb-4402-b8e7-00aaee5d89b5</group>
+    </groups>
+    <customer_profile>
+        <profile_value key="CP_ANONYMOUS_CUST" type="AttributeType_Boolean">false</profile_value>
+        <profile_value key="CP_LAST_NAME" type="AttributeType_ShortText">Segment2</profile_value>
+        <profile_value key="CP_EMAIL" type="AttributeType_ShortText">segment2@abc.com</profile_value>
+        <profile_value key="CP_FIRST_NAME" type="AttributeType_ShortText">generic</profile_value>
+    </customer_profile>
+</customer>
+
+<customer guid="46c3184d-925d-429d-1234-dfc657f1a54a" user_id="Segment_disabled@abc.com" store_code="store-VirtualAB">
+    <status>1</status>
+    <creationDate>2017-03-07T21:23:30-08:00</creationDate>
+    <last_edited>2017-03-07T13:24:18-08:00</last_edited>
+    <password>80b849ee6e3709b3b1fe034808e2c6ad295c2c706b34fa9aea79de1c6dcf4843</password>
+    <salt>9c30d21fd113c569289ca4e552b88325cf2fabde8944e73828a465da718016b2</salt>
+    <first_time_buyer>true</first_time_buyer>
+    <addresses/>
+    <payment_methods/>
+    <groups>
+        <group>400</group>
+        <group>dfebade0-105f-4d04-bbd5-b37a94b70827</group>
+    </groups>
+    <customer_profile>
+        <profile_value key="CP_ANONYMOUS_CUST" type="AttributeType_Boolean">false</profile_value>
+        <profile_value key="CP_LAST_NAME" type="AttributeType_ShortText">Segment_disabled</profile_value>
+        <profile_value key="CP_EMAIL" type="AttributeType_ShortText">Segment_disabled@abc.com</profile_value>
+        <profile_value key="CP_FIRST_NAME" type="AttributeType_ShortText">generic</profile_value>
+    </customer_profile>
+</customer>
+</customers>

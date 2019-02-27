@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="adminSections" name="com.elasticpath.cmclient.admin.adminSections" schema="schema/adminSections.exsd"/>
+   <extension-point id="Extender" name="Extender"   schema="../com.elasticpath.cmclient.core/schema/extender.exsd"/>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="%adminCategory.name"
+            id="com.elasticpath.cmclient.admin.category.main">
+      </category>
+      <view
+            category="com.elasticpath.cmclient.admin.category.main"
+            class="com.elasticpath.cmclient.admin.views.AdminSectionsNavigationView"
+            icon="icons/configuration_default_22.png"
+            id="com.elasticpath.cmclient.admin.views.AdminSectionsNavigationView"
+            name="%administrationView.name">
+      </view>
+   </extension>  
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.elasticpath.cmclient.admin.perspectives.AdminPerspectiveFactory"
+            icon="icons/configuration_default_22.png"
+            id="com.elasticpath.cmclient.admin.perspectives.AdminPerspective"
+            name="%adminPerspective.name">
+      </perspective>
+   </extension>
+
+   <extension
+           point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+              targetID="com.elasticpath.cmclient.admin.perspectives.AdminPerspective">
+         <actionSet
+                 id="com.elasticpath.cmclient.admin.workbenchActionSet">
+         </actionSet>
+      </perspectiveExtension>
+   </extension>
+   <extension
+           point="org.eclipse.ui.actionSets">
+      <actionSet
+              id="com.elasticpath.cmclient.admin.workbenchActionSet"
+              label="Configuration">
+      </actionSet>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+              locationURI="toolbar:com.elasticpath.cmclient.core.toolbars.activities?after=perspectiveMenu.warehouseItem">
+            <command
+                    commandId="com.elasticpath.cmclient.admin.command.openPerspective"
+                    icon="icons/configuration_default_34.png"
+                    id="perspectiveMenu.adminItem"
+                    tooltip="%administrationMenu.name">
+               <visibleWhen
+                     checkEnabled="true">
+               </visibleWhen>
+            </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="com.elasticpath.cmclient.admin.command.openPerspective"
+            name="Open Configuration Activity">
+      </command>
+      <!-- Open Perspective Handler is declared in ApplicationWorkbenchAdvisor.postStartup() -->
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="com.elasticpath.cmclient.admin.command.openPerspective"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+9">
+      </key>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.core.authorizations">
+      <activity
+            id="com.elasticpath.cmclient.admin.authorization.activity"
+	    name="%adminAuthorizationActivity.name"
+	    perspectiveId="com.elasticpath.cmclient.admin.perspectives.AdminPerspective">
+      </activity>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.core.bindings">
+      <perspectiveOpenCommand
+            openCommandId="com.elasticpath.cmclient.admin.command.openPerspective"
+            perspectiveId="com.elasticpath.cmclient.admin.perspectives.AdminPerspective">
+      </perspectiveOpenCommand>
+   </extension>
+</plugin>

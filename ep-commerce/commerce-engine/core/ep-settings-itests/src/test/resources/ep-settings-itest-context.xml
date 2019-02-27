@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:settings="http://www.elasticpath.com/schema/settings"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.elasticpath.com/schema/settings http://www.elasticpath.com/schema/settings/settings.xsd
+	">
+
+	<import resource="classpath:integration-core-context.xml" />
+	<import resource="classpath:ep-test-application.xml" />
+
+	<bean id="schemaExtension" class="liquibase.integration.spring.SpringLiquibase" scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="changeLog" value="classpath:ep-settings-itest-changelog.xml" />
+	</bean>
+
+	<bean id="settingFactoryBeanTestValue" parent="settingFactoryBean" depends-on="schemaExtension">
+		<property name="path" value="COMMERCE/ITEST/SETTINGS/sampleStringSetting"/>
+	</bean>
+
+	<settings:setting id="bigDecimalSetting" path="COMMERCE/ITEST/SETTINGS/sampleBigDecimalSetting"/>
+	<settings:setting id="booleanSetting" path="COMMERCE/ITEST/SETTINGS/sampleBooleanSetting"/>
+	<settings:setting id="collectionSetting" path="COMMERCE/ITEST/SETTINGS/sampleCollectionSetting"/>
+	<settings:setting id="integerSetting" path="COMMERCE/ITEST/SETTINGS/sampleIntegerSetting"/>
+	<settings:setting id="mapSetting" path="COMMERCE/ITEST/SETTINGS/sampleMapSetting"/>
+	<settings:setting id="stringSetting" path="COMMERCE/ITEST/SETTINGS/sampleStringSetting"/>
+	<settings:setting id="urlSetting" path="COMMERCE/ITEST/SETTINGS/sampleUrlSetting"/>
+	<settings:setting id="xmlSetting" path="COMMERCE/ITEST/SETTINGS/sampleXmlSetting"/>
+
+	<settings:setting id="contextDefaultSetting" path="COMMERCE/ITEST/SETTINGS/sampleContextualSetting"/>
+	<settings:setting id="contextOneSetting" path="COMMERCE/ITEST/SETTINGS/sampleContextualSetting" context="CONTEXT1" />
+	<settings:setting id="contextTwoSetting" path="COMMERCE/ITEST/SETTINGS/sampleContextualSetting" context="CONTEXT2" />
+
+	<!-- Extension point for plugging in additional test components. -->
+	<!-- This must occur as the last import in the context to facilitate overriding existing beans. -->
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/ep-itest-plugin.xml" />
+
+</beans>

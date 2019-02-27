@@ -1,0 +1,105 @@
+
+$serif: serif;
+$sans-serif: "Noto Sans", Arial, Helvetica, sans-serif;
+
+$gray-darker: #333;
+$gray-dark: #666;
+$gray: #999;
+$gray-light: #CCC;
+$gray-lighter: #E5E5E5;
+$gray-fair: #F0F0F0;
+
+// small
+$small-font-size: 11px;
+$small-font: $small-font-size $sans-serif;
+
+// large
+$large-font-size: 16px;
+$large-font: $large-font-size $sans-serif;
+
+// default
+$default-font-color: $gray-darker;
+$default-font-size: 12px;
+$default-font: $default-font-size $sans-serif;
+$default-bg: $gray-lighter;
+
+// primary
+$primary-color1: #00A1E0;
+$primary-color2: #0088CA;
+$primary-color3: #AED6F1; // 40%
+$primary-color4: #D6EAF8; // 20%
+$primary-color: $primary-color1;
+@mixin primary-rgba($variable-name, $opacity: 1) {
+  #{$variable-name}: rgba(0, 161, 224, $opacity);
+}
+
+// secondary
+$secondary-color: #FFFFFF;
+@mixin secondary-rgba($variable-name, $opacity: 1) {
+  #{$variable-name}: rgba(255, 255, 255, $opacity);
+}
+
+// info
+$info-color1: #3498DB;
+$info-color2: #67B2E4;
+$info-color3: #99CBED;
+$info-color4: #CCE5F6;
+$info-color: $info-color1;
+@mixin info-rgba($variable-name, $opacity: 1) {
+  #{$variable-name}: rgba(52, 152, 219, $opacity);
+}
+
+// success
+$success-color1: #2ECC71;
+$success-color2: #63D995;
+$success-color3: #96E5B8;
+$success-color4: #CBF2DB;
+$success-color: $success-color1;
+@mixin success-rgba($variable-name, $opacity: 1) {
+  #{$variable-name}: rgba(46, 204, 113, $opacity);
+}
+
+// warning
+$warning-color1: #F39C12;
+$warning-color2: #F6B54E;
+$warning-color3: #F9CD88;
+$warning-color4: #FCE6C4;
+$warning-color: $warning-color1;
+@mixin warning-rgba($variable-name, $opacity: 1) {
+  #{$variable-name}: rgba(243, 156, 18, $opacity);
+}
+
+// danger
+$danger-color1: #E74C3C;
+$danger-color2: #ED796D;
+$danger-color3: #F3A59D;
+$danger-color4: #F9D2CE;
+$danger-color: $danger-color1;
+@mixin danger-rgba($variable-name, $opacity: 1) {
+  #{$variable-name}: rgba(231, 76, 60, $opacity);
+}
+
+// widget global
+$widget_border_radius: 2px;
+$widget_border_color: $gray-light;
+$widget_field_padding: 5px 5px;
+$widget_body_color: $secondary-color;
+
+// ccombo
+$ccombo_field_padding: 4px 4px;
+
+// icons
+$icon-spacing: 3px; // because the icons have spacing, default is 0
+$icon-spacing-spacious: 5px; 
+$field-icon-width: 30px;
+
+// shadows
+$modal-shadow: 0 0 10px rgba(0,0,0,0.2);
+$dropdown_shadow: 0 1px 3px rgba(0,0,0,0.2);
+
+// tables/lists
+$table_border_color: $widget_border_color;
+$table_cell_border_color: $gray-lighter;
+$table_header_padding: 8px 7px 9px;
+$table_cell_padding: 2px 7px 4px;
+

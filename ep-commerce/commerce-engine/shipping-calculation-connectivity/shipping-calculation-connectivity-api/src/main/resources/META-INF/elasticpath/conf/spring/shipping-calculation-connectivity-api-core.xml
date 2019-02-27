@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<!-- Dtos -->
+	<bean id="shippingOption" scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.dto.impl.ShippingOptionImpl"/>
+	<bean id="shippingCalculationResult" scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.dto.impl.ShippingCalculationResultImpl"/>
+	<bean id="shippingAddress" scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.dto.impl.ShippingAddressImpl"/>
+	<bean id="unpricedShippableItem" scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.dto.impl.ShippableItemImpl"/>
+	<bean id="pricedShippableItem" scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.dto.impl.PricedShippableItemImpl"/>
+	<bean id="unpricedShippableItemContainer" scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.dto.impl.ShippableItemContainerImpl"/>
+	<bean id="pricedShippableItemContainer" scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.dto.impl.PricedShippableItemContainerImpl"/>
+
+	<!-- Builders -->
+	<bean id="shippingOptionBuilder" scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.dto.builder.impl.ShippingOptionBuilderImpl" />
+	<bean id="shippingCalculationResultBuilder" scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.dto.builder.impl.ShippingCalculationResultBuilderImpl" />
+	<bean id="shippingAddressBuilder" scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.dto.builder.impl.ShippingAddressBuilderImpl" />
+
+	<bean id="unpricedShippableItemBuilder" scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.dto.builder.impl.ShippableItemBuilderImpl" />
+	<bean id="pricedShippableItemBuilder" scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.dto.builder.impl.PricedShippableItemBuilderImpl" />
+
+	<bean id="unpricedShippableItemContainerBuilder" scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.dto.builder.impl.ShippableItemContainerBuilderImpl" />
+	<bean id="pricedShippableItemContainerBuilder" scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.dto.builder.impl.PricedShippableItemContainerBuilderImpl" />
+
+	<!-- Builder Supplier -->
+	<bean id="shippingOptionBuilderSupplier"
+		  class="com.elasticpath.commons.beanframework.spring.SupplierCreatingFactoryBean">
+		<property name="targetBeanName" value="shippingOptionBuilder"/>
+	</bean>
+	<bean id="shippingCalculationResultBuilderSupplier"
+		  class="com.elasticpath.commons.beanframework.spring.SupplierCreatingFactoryBean">
+		<property name="targetBeanName" value="shippingCalculationResultBuilder"/>
+	</bean>
+	<bean id="shippingAddressBuilderSupplier"
+		  class="com.elasticpath.commons.beanframework.spring.SupplierCreatingFactoryBean">
+		<property name="targetBeanName" value="shippingAddressBuilder"/>
+	</bean>
+
+	<bean id="unpricedShippableItemBuilderSupplier"
+		  class="com.elasticpath.commons.beanframework.spring.SupplierCreatingFactoryBean">
+		<property name="targetBeanName" value="unpricedShippableItemBuilder"/>
+	</bean>
+	<bean id="unpricedShippableItemContainerBuilderSupplier"
+		  class="com.elasticpath.commons.beanframework.spring.SupplierCreatingFactoryBean">
+		<property name="targetBeanName" value="unpricedShippableItemContainerBuilder"/>
+	</bean>
+
+	<bean id="pricedShippableItemBuilderSupplier"
+		  class="com.elasticpath.commons.beanframework.spring.SupplierCreatingFactoryBean">
+		<property name="targetBeanName" value="pricedShippableItemBuilder"/>
+	</bean>
+	<bean id="pricedShippableItemContainerBuilderSupplier"
+		  class="com.elasticpath.commons.beanframework.spring.SupplierCreatingFactoryBean">
+		<property name="targetBeanName" value="pricedShippableItemContainerBuilder"/>
+	</bean>
+
+	<!-- Core ShippingCalculationService -->
+	<bean id="coreShippingCalculationServiceTemplate"
+		  class="com.elasticpath.shipping.connectivity.service.impl.ShippingCalculationServiceImpl">
+		<property name="unpricedShippingCalculationPluginSelector" ref="unpricedShippingCalculationPluginSelector"/>
+		<property name="pricedShippingCalculationPluginSelector" ref="pricedShippingCalculationPluginSelector"/>
+		<property name="shippingCalculationResultBuilderSupplier" ref="shippingCalculationResultBuilderSupplier"/>
+	</bean>
+
+	<!-- Core Selectors -->
+	<bean id="coreStaticUnpricedShippingCalculationPluginSelector"
+		  class="com.elasticpath.shipping.connectivity.service.selector.impl.StaticUnpricedShippingCalculationPluginSelectorImpl">
+		<property name="shippingCalculationPluginList" ref="unpricedShippingCalculationPluginList"/>
+	</bean>
+
+	<bean id="coreStaticPricedShippingCalculationPluginSelector"
+		  class="com.elasticpath.shipping.connectivity.service.selector.impl.StaticPricedShippingCalculationPluginSelectorImpl">
+		<property name="shippingCalculationPluginList" ref="pricedShippingCalculationPluginList"/>
+	</bean>
+
+	<bean id="coreShippingCalculationPluginTemplate"
+		  abstract="true"
+		  class="com.elasticpath.shipping.connectivity.spi.AbstractShippingCalculationPlugin"/>
+
+	<bean id="coreNoOpShippingCalculationPlugin"
+		  class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<description>
+			No-operation version of shipping calculation plugin, as default behaviour to make sure program start without missing plugin issue.
+		</description>
+		<property name="serviceInterface" value="com.elasticpath.shipping.connectivity.spi.ShippingCalculationPlugin"/>
+	</bean>
+
+	<bean id="coreShippingCalculationService" parent="txRequiresNewProxyTemplate">
+		<property name="target" ref="coreShippingCalculationServiceTarget"/>
+	</bean>
+	<bean id="coreShippingCalculationServiceSupplier"
+		  class="com.elasticpath.commons.beanframework.spring.SupplierCreatingFactoryBean">
+		<property name="targetBeanName" value="coreShippingCalculationService"/>
+	</bean>
+
+	<bean id="coreShippingCalculationServiceTarget" parent="coreShippingCalculationServiceTemplate"/>
+
+	<bean id="servicePreInterceptors" class="java.util.ArrayList"/>
+
+	<bean id="txRequiresNewProxyTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_REQUIRES_NEW,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRES_NEW</prop>
+			</props>
+		</property>
+		<property name="preInterceptors" ref="servicePreInterceptors"/>
+	</bean>
+
+	<util:list id="coreUnpricedShippingCalculationPluginList">
+		<ref bean="coreNoOpShippingCalculationPlugin"/>
+	</util:list>
+
+	<util:list id="corePricedShippingCalculationPluginList">
+		<ref bean="coreNoOpShippingCalculationPlugin"/>
+	</util:list>
+
+</beans>

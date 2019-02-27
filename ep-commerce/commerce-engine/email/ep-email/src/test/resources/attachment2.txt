@@ -1,0 +1,1 @@
+Sample attachment #2 used by com.elasticpath.email.util.impl.EmailContentUtilTest.

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project name="validate" default="validate">
+	<property file="test.properties" />
+
+	<target name="validate" depends="validate-cortex" />
+
+	<macrodef name="check-webapp">
+		<attribute name="name"/>
+		<attribute name="url"/>
+		<attribute name="errorsAt" default="400"/>
+
+		<sequential>
+			<echo>Checking @{name} for @{url}</echo>
+			<waitfor maxwait="10" maxwaitunit="minute" checkevery="500" timeoutproperty="deployment.timeout.@{name}">
+				<http url="@{url}" errorsBeginAt="@{errorsAt}"/>
+			</waitfor>
+			<fail if="deployment.timeout.@{name}">Failed to deploy @{name}</fail>
+			<echo>Successfully deployed @{name}</echo>
+		</sequential>
+	</macrodef>
+
+	 
+	<target name="validate-cortex">
+		<!-- Different deployment techniques might not wait for the server to start up correctly. -->
+
+		<parallel failonany="true">
+			<check-webapp name="${ep.cortex.contextUrl}" url="${ep.rest.baseurl}/searches/mobee" errorsAt="402"/>
+		</parallel>
+	</target>
+</project>

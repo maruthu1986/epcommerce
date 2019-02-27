@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+	logicalFilePath="com/elasticpath/core/db/core-changelog-6.10.0.xml">
+
+	<!-- Reminder:
+		- Table names cannot exceed 30 characters (Oracle limitation)
+		- Column names cannot exceed 30 characters (Oracle limitation)
+		- Index names cannot exceed 18 characters (DB2 limitation)
+
+		 Important:
+		- Using <preCondition> ? read: http://forum.liquibase.org/topic/unexpected-behaviour-of-preconditions-with-updatesql
+		- Using <preCondition> ? Consider adding onUpdateSql="TEST", but understand how it plays with updateSQL!
+	-->
+
+	<changeSet id="6.10.0-add-setting-changeset-message-channel-uri-expand"
+		author="elasticpath" context="expand">
+		<comment>[HIVE-252] Adds a setting definition used to define the URI of the channel on which Changeset Event messages are sent and received</comment>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="116" />
+			<column name="PATH" value="COMMERCE/SYSTEM/MESSAGING/CHANGESETS/channelUri" />
+			<column name="VALUE_TYPE" value="String" />
+			<column name="MAX_OVERRIDE_VALUES" value="1" />
+			<column name="DEFAULT_VALUE" value="jms:queue:ep.changesets" />
+			<column name="DESCRIPTION"
+				value="The URI of the channel on which Changeset Event messages are sent and received.  Please note that changes will not take effect until the application(s) using this setting have been restarted." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1107" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="116" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1108" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="116" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-setting-to-enable-publish-workflow"
+		author="elasticpath" context="expand">
+		<comment>[HIVE-252] Adds a setting definition used to enable publish changeset workflow</comment>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="117" />
+			<column name="PATH" value="COMMERCE/SYSTEM/CHANGESETS/enablePublishWorkflow" />
+			<column name="VALUE_TYPE" value="Boolean" />
+			<column name="MAX_OVERRIDE_VALUES" value="1" />
+			<column name="DEFAULT_VALUE" value="true" />
+			<column name="DESCRIPTION"
+				value="Enable the publish workflow for changesets." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1109" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="116" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1110" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="116" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-tax-journal-for-tax-api-framework" author="elasticpath">
+		<comment>[Tax] Store order/orderReturn/exchangeOrder taxes</comment>
+		<addColumn tableName="TORDERSHIPMENT">
+			<column name="TAX_DOCUMENT_ID" type="VARCHAR(255)" />
+		</addColumn>
+		<addColumn tableName="TORDERRETURN">
+			<column name="TAX_DOCUMENT_ID" type="VARCHAR(255)"/>
+		</addColumn>
+		<addColumn tableName="TORDERRETURN">
+			<column name="SHIPPING_TAX" type="DECIMAL(19,2)" />
+		</addColumn>
+
+		<createTable tableName="TTAXJOURNAL">
+			<column name="UIDPK" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="JOURNAL_TYPE" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="TRANSACTION_TYPE" type="VARCHAR(255)"/>
+			<column name="TRANSACTION_DATE" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+			<column name="ORDER_NUMBER" type="VARCHAR(64)" />
+			<column name="DOCUMENT_ID" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="ITEM_OBJECT_TYPE" type="VARCHAR(255)" />
+			<column name="ITEM_GUID" type="VARCHAR(64)" />
+			<column name="ITEM_CODE" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="ITEM_AMOUNT" type="DECIMAL(19,2)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="TAX_NAME" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="TAX_CODE" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="TAX_AMOUNT" type="DECIMAL(19,2)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="TAX_RATE" type="DECIMAL(19,6)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="TAX_JURISDICTION" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="TAX_REGION" type="VARCHAR(255)"/>
+			<column name="TAX_PROVIDER" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="STORE_CODE" type="VARCHAR(64)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CURRENCY" type="VARCHAR(10))">
+				<constraints nullable="false" />
+			</column>
+			<column name="TAX_INCLUSIVE" type="BOOLEAN">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createIndex tableName="TTAXJOURNAL" indexName="I_TAXJOURNAL_DOC">
+			<column name="DOCUMENT_ID" />
+		</createIndex>
+		<createIndex tableName="TTAXJOURNAL" indexName="I_TAXJOURNAL_DATE">
+			<column name="TRANSACTION_DATE" />
+		</createIndex>
+
+		<insert tableName="JPA_GENERATED_KEYS">
+			<column name="ID"	value="TTAXJOURNAL" />
+			<column name="LAST_VALUE"	value="200000" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-setting-to-enable-notification-service"
+		author="elasticpath" context="expand">
+		<comment>[HIVE-252] Adds a setting definition used to enable Notification service.</comment>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="118" />
+			<column name="PATH" value="COMMERCE/SYSTEM/notificationsEnabled" />
+			<column name="VALUE_TYPE" value="Boolean" />
+			<column name="MAX_OVERRIDE_VALUES" value="1" />
+			<column name="DEFAULT_VALUE" value="true" />
+			<column name="DESCRIPTION"
+				value="Specifies whether notifications are enabled. If set to true will attempt to notify when new orders are created, and shipped. If false, will not notify." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1111" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="118" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-fix-existing-meta-data-for-publish-changeset-setting"
+		author="elasticpath" context="expand">
+		<comment>[HIVE-252] Fix publish changeset setting meta data.</comment>
+
+		<delete tableName="TSETTINGMETADATA">
+	        <where>UIDPK=1109</where>
+	    </delete>
+
+	    <delete tableName="TSETTINGMETADATA">
+	        <where>UIDPK=1110</where>
+	    </delete>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1109" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="117" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1110" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="117" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-setting-email-smtp-scheme" author="elasticpath">
+		<comment>[HIVE-135] Adds a setting definition used to define the protocol scheme of the SMTP server used to send emails. Expected values are 'smtp' and
+			'smtps'.
+		</comment>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="130"/>
+			<column name="PATH" value="COMMERCE/SYSTEM/EMAIL/smtpScheme"/>
+			<column name="VALUE_TYPE" value="String"/>
+			<column name="MAX_OVERRIDE_VALUES" value="1"/>
+			<column name="DEFAULT_VALUE" value="smtp"/>
+			<column name="DESCRIPTION" value="The protocol scheme of the SMTP server used to send emails.  Expected values are 'smtp' and 'smtps'."/>
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1300"/>
+			<column name="SETTING_DEFINITION_UID" valueNumeric="130"/>
+			<column name="METADATA_KEY" value="environmentSpecific"/>
+			<column name="VALUE" value="false"/>
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1301"/>
+			<column name="SETTING_DEFINITION_UID" valueNumeric="130"/>
+			<column name="METADATA_KEY" value="sfRefreshStrategy"/>
+			<column name="VALUE" value="application"/>
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-setting-email-channel-uri" author="elasticpath">
+		<comment>[HIVE-135] Adds a setting definition used to define the URI of the channel on which Email messages are sent and received</comment>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="131"/>
+			<column name="PATH" value="COMMERCE/SYSTEM/EMAIL/channelUri"/>
+			<column name="VALUE_TYPE" value="String"/>
+			<column name="MAX_OVERRIDE_VALUES" value="1"/>
+			<column name="DEFAULT_VALUE" value="jms:ep.emails"/>
+			<column name="DESCRIPTION"
+					value="The URI of the channel on which Email messages are sent and received.  Please note that changes will not take effect until the application(s) using this setting have been restarted."/>
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1310"/>
+			<column name="SETTING_DEFINITION_UID" valueNumeric="131"/>
+			<column name="METADATA_KEY" value="environmentSpecific"/>
+			<column name="VALUE" value="false"/>
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1311"/>
+			<column name="SETTING_DEFINITION_UID" valueNumeric="131"/>
+			<column name="METADATA_KEY" value="sfRefreshStrategy"/>
+			<column name="VALUE" value="application"/>
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-setting-email-dlq-channel-uri" author="elasticpath">
+		<comment>[HIVE-135] Adds a setting definition used to define the URI of the channel on which Email messages are stored if email submission is
+			unsuccessful
+		</comment>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="132"/>
+			<column name="PATH" value="COMMERCE/SYSTEM/EMAIL/deadLetterChannelUri"/>
+			<column name="VALUE_TYPE" value="String"/>
+			<column name="MAX_OVERRIDE_VALUES" value="1"/>
+			<column name="DEFAULT_VALUE" value="jms:ep.emails.dlq"/>
+			<column name="DESCRIPTION" value="The URI of the channel on which Email messages are stored if email submission is unsuccessful"/>
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1320"/>
+			<column name="SETTING_DEFINITION_UID" valueNumeric="132"/>
+			<column name="METADATA_KEY" value="environmentSpecific"/>
+			<column name="VALUE" value="false"/>
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1321"/>
+			<column name="SETTING_DEFINITION_UID" valueNumeric="132"/>
+			<column name="METADATA_KEY" value="sfRefreshStrategy"/>
+			<column name="VALUE" value="application"/>
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-setting-gift-certificate-message-channel-uri" author="elasticpath">
+		<comment>[HIVE-135] Adds a setting definition used to define the URI of the channel on which Gift Certificate Event messages are sent and received</comment>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="133" />
+			<column name="PATH" value="COMMERCE/SYSTEM/MESSAGING/GIFTCERTIFICATES/channelUri" />
+			<column name="VALUE_TYPE" value="String" />
+			<column name="MAX_OVERRIDE_VALUES" value="1" />
+			<column name="DEFAULT_VALUE" value="jms:topic:ep.giftcertificates" />
+			<column name="DESCRIPTION" value="The URI of the channel on which Gift Certificate Event messages are sent and received.  Please note that changes will not take effect until the application(s) using this setting are restarted." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1330" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="133" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1331" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="133" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-setting-customer-message-channel-uri" author="elasticpath">
+		<comment>[HIVE-135] Adds a setting definition used to define the URI of the channel on which Customer Event messages are sent and received</comment>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="134" />
+			<column name="PATH" value="COMMERCE/SYSTEM/MESSAGING/CUSTOMERS/channelUri" />
+			<column name="VALUE_TYPE" value="String" />
+			<column name="MAX_OVERRIDE_VALUES" value="1" />
+			<column name="DEFAULT_VALUE" value="jms:topic:ep.customers" />
+			<column name="DESCRIPTION" value="The URI of the channel on which Customer Event messages are sent and received.  Please note that changes will not take effect until the application(s) using this setting have been restarted." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1340" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="134" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1341" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="134" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-setting-cmuser-message-channel-uri" author="elasticpath">
+		<comment>[HIVE-135] Adds a setting definition used to define the URI of the channel on which CM User Event messages are sent and received</comment>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="135" />
+			<column name="PATH" value="COMMERCE/SYSTEM/MESSAGING/CMUSERS/channelUri" />
+			<column name="VALUE_TYPE" value="String" />
+			<column name="MAX_OVERRIDE_VALUES" value="1" />
+			<column name="DEFAULT_VALUE" value="jms:topic:ep.cmusers" />
+			<column name="DESCRIPTION" value="The URI of the channel on which CM User Event messages are sent and received" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1350" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="135" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1351" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="135" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-remove-setting-to-enable-notification-service" author="elasticpath">
+		<comment>[HIVE-135] Removes the setting definition used to enable Notification Service, since the Notification Service has been removed.</comment>
+		<delete tableName="TSETTINGMETADATA">
+			<where>UIDPK = 1111</where>
+		</delete>
+		<delete tableName="TSETTINGDEFINITION">
+			<where>UIDPK = 118</where>
+		</delete>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-setting-dataimport-message-channel-uri" author="elasticpath">
+		<comment>[HIVE-135] Adds a setting definition used to define the URI of the channel on which Data Import Event messages are sent and received</comment>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="136" />
+			<column name="PATH" value="COMMERCE/SYSTEM/MESSAGING/DATAIMPORT/channelUri" />
+			<column name="VALUE_TYPE" value="String" />
+			<column name="MAX_OVERRIDE_VALUES" value="1" />
+			<column name="DEFAULT_VALUE" value="jms:topic:ep.dataimport" />
+			<column name="DESCRIPTION" value="The URI of the channel on which Data Import Event messages are sent and received" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1360" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="136" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1361" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="136" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="extend-cart-order-add-coupons" author="ep"
+		context="expand">
+		<comment>A table to represent the collection of coupons associated with the Cart Order.</comment>
+		<createTable tableName="TCARTORDERCOUPON">
+			<column name="CARTORDER_UID" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="COUPON_GUID" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addPrimaryKey columnNames="CARTORDER_UID,COUPON_GUID"
+			constraintName="PK_TCARTORDERCOUPON" tableName="TCARTORDERCOUPON" />
+	</changeSet>
+
+	<changeSet id="6.10.0-add-description-and-enabled-flag-to-tcustomergroup" author="elasticpath">
+		<comment>[HIVE-123] Add a description and an enabled flag to TCUSTOMERGROUP to support exposure of CustomerGroup through cmclient.</comment>
+
+		<addColumn tableName="TCUSTOMERGROUP">
+			<column name="DESCRIPTION" type="VARCHAR(255)" />
+			<column name="ENABLED" type="INT" />
+		</addColumn>
+
+		<update tableName="TCUSTOMERGROUP">
+			<column name="DESCRIPTION" valueComputed="TCUSTOMERGROUP.NAME" />
+			<column name="ENABLED" value="1" />
+		</update>
+
+		<comment>[HIVE-123] Set up the new Customer Segment tags.</comment>
+
+		<insert tableName="TTAGVALUETYPE">
+			<column name="UIDPK" valueNumeric="20" />
+			<column name="GUID" value="customer_segment_set" />
+			<column name="JAVA_TYPE" value="java.util.Set" />
+		</insert>
+
+		<insert tableName="TTAGVALUETYPEOPERATOR">
+			<column name="TAGVALUETYPE_GUID" value="customer_segment_set" />
+			<column name="TAGOPERATOR_GUID" value="includes" />
+		</insert>
+
+		<insert tableName="TTAGVALUETYPEOPERATOR">
+			<column name="TAGVALUETYPE_GUID" value="customer_segment_set" />
+			<column name="TAGOPERATOR_GUID" value="notIncludes" />
+		</insert>
+
+		<insert tableName="TTAGDEFINITION">
+			<column name="UIDPK" valueNumeric="24" />
+			<column name="GUID" value="CUSTOMER_SEGMENT" />
+			<column name="NAME" value="CUSTOMER_SEGMENT" />
+			<column name="DESCRIPTION" value="Customer segments, also known as Customer groups." />
+			<column name="TAGVALUETYPE_GUID" value="customer_segment_set" />
+			<column name="TAGGROUP_UID" value="3" />
+		</insert>
+
+		<insert tableName="TLOCALIZEDPROPERTIES">
+			<column name="UIDPK" valueNumeric="61017" />
+			<column name="OBJECT_UID" valueNumeric="24" />
+			<column name="LOCALIZED_PROPERTY_KEY" value="tagDefinitionDisplayName_en" />
+			<column name="VALUE" value="are customer segment members" />
+			<column name="TYPE" value="TagDefinition" />
+		</insert>
+
+		<insert tableName="TTAGDICTIONARYTAGDEFINITION">
+			<column name="TAGDICTIONARY_GUID" value="PLA_SHOPPER" />
+			<column name="TAGDEFINITION_GUID" value="CUSTOMER_SEGMENT" />
+		</insert>
+
+		<insert tableName="TTAGDICTIONARYTAGDEFINITION">
+			<column name="TAGDICTIONARY_GUID" value="SHOPPER" />
+			<column name="TAGDEFINITION_GUID" value="CUSTOMER_SEGMENT" />
+		</insert>
+
+		<insert tableName="TTAGDICTIONARYTAGDEFINITION">
+			<column name="TAGDICTIONARY_GUID" value="PROMOTIONS_SHOPPER" />
+			<column name="TAGDEFINITION_GUID" value="CUSTOMER_SEGMENT" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-sku-guid-to-shopping-items"
+			   author="elasticpath" context="expand">
+		<validCheckSum>7:e035e136a89ea9c40653a19baff30617</validCheckSum>
+		<validCheckSum>7:5e8900c014fbc3c8f7a98ea46762d159</validCheckSum>
+		<validCheckSum>7:ad504f988c88ccfc1ca4b090fad91c3a</validCheckSum>
+
+		<comment>[HIVE-281] Add the sku guid field to shopping items</comment>
+
+		<!-- Add SKU_GUID column to TCARTITEM -->
+		<addColumn tableName="TCARTITEM">
+			<column name="SKU_GUID" type="VARCHAR(255)"
+					valueComputed="(select GUID from TPRODUCTSKU where TPRODUCTSKU.UIDPK = TCARTITEM.SKU_UID)"/>
+		</addColumn>
+
+		<addNotNullConstraint tableName="TCARTITEM" columnName="SKU_GUID" columnDataType="VARCHAR(255)" />
+		<createIndex tableName="TCARTITEM" indexName="I_CARTITEM_SKUGUID">
+			<column name="SKU_GUID" />
+		</createIndex>
+		<addForeignKeyConstraint baseTableName="TCARTITEM" baseColumnNames="SKU_GUID" constraintName="TCARTITEM_SKUGUID_FK"
+								 referencedTableName="TPRODUCTSKU" referencedColumnNames="GUID" />
+
+		<!-- Add SKU_GUID column to TORDERSKU -->
+		<addColumn tableName="TORDERSKU">
+			<column name="SKU_GUID" type="VARCHAR(255)"
+					valueComputed="(select GUID from TPRODUCTSKU where TPRODUCTSKU.UIDPK = TORDERSKU.PRODUCT_SKU_UID)"/>
+		</addColumn>
+
+		<addNotNullConstraint tableName="TORDERSKU" columnName="SKU_GUID" columnDataType="VARCHAR(255)" />
+		<createIndex tableName="TORDERSKU" indexName="I_ORDERSKU_SKUGUID">
+			<column name="SKU_GUID" />
+		</createIndex>
+		<addForeignKeyConstraint baseTableName="TORDERSKU" baseColumnNames="SKU_GUID" constraintName="TORDERSKU_SKUGUID_FK"
+								 referencedTableName="TPRODUCTSKU" referencedColumnNames="GUID" />
+	</changeSet>
+
+	<changeSet id="6.10.0-hsqldb" author="elasticpath" dbms="hsqldb" context="migrate-data">
+		<comment>[HIVE-281] Add constraint name to TCARTITEM_FK_2 so future changesets just work</comment>
+		<customChange class="liquibase.ext.elasticpath.HsqlDropForeignKey">
+			<param name="tableName">TCARTITEM</param>
+			<param name="columnName">SKU_UID</param>
+		</customChange>
+		<addForeignKeyConstraint baseTableName="TCARTITEM" baseColumnNames="SKU_UID" constraintName="TCARTITEM_FK_2"
+								 referencedTableName="TPRODUCTSKU" referencedColumnNames="UIDPK" />
+
+		<comment>[HIVE-281] Add constraint name to TORDERSKU_FK_3 foreign key so future changesets just work</comment>
+		<customChange class="liquibase.ext.elasticpath.HsqlDropForeignKey">
+			<param name="tableName">TORDERSKU</param>
+			<param name="columnName">PRODUCT_SKU_UID</param>
+		</customChange>
+		<addForeignKeyConstraint baseTableName="TORDERSKU" baseColumnNames="PRODUCT_SKU_UID" constraintName="TORDERSKU_FK_3"
+								 referencedTableName="TPRODUCTSKU" referencedColumnNames="UIDPK" />
+	</changeSet>
+
+	<changeSet id="6.10.0-h2" author="elasticpath" dbms="h2" context="migrate-data">
+		<comment>[HIVE-281] Add constraint name to TCARTITEM_FK_2 so future changesets just work</comment>
+		<customChange class="liquibase.ext.elasticpath.H2DropForeignKey">
+			<param name="tableName">TCARTITEM</param>
+			<param name="columnName">SKU_UID</param>
+		</customChange>
+		<addForeignKeyConstraint baseTableName="TCARTITEM" baseColumnNames="SKU_UID" constraintName="TCARTITEM_FK_2"
+								 referencedTableName="TPRODUCTSKU" referencedColumnNames="UIDPK" />
+
+		<comment>[HIVE-281] Add constraint name to TORDERSKU_FK_3 foreign key so future changesets just work</comment>
+		<customChange class="liquibase.ext.elasticpath.H2DropForeignKey">
+			<param name="tableName">TORDERSKU</param>
+			<param name="columnName">PRODUCT_SKU_UID</param>
+		</customChange>
+		<addForeignKeyConstraint baseTableName="TORDERSKU" baseColumnNames="PRODUCT_SKU_UID" constraintName="TORDERSKU_FK_3"
+								 referencedTableName="TPRODUCTSKU" referencedColumnNames="UIDPK" />
+	</changeSet>
+
+	<changeSet id="6.10.0-remove-sku-uid-from-shopping-items"
+			   author="elasticpath" context="contract">
+		<comment>[HIVE-281] Remove the sku uid fields from shopping items and order skus</comment>
+
+		<dropForeignKeyConstraint baseTableName="TCARTITEM" constraintName="TCARTITEM_FK_2"/>
+		<dropIndex tableName="TCARTITEM" indexName="I_CARTI_SKU_UID"/>
+		<dropColumn tableName="TCARTITEM" columnName="SKU_UID"/>
+
+		<dropForeignKeyConstraint baseTableName="TORDERSKU" constraintName="TORDERSKU_FK_3"/>
+		<dropIndex tableName="TORDERSKU" indexName="I_OS_PRODUCT_SKU_UID"/>
+		<dropColumn tableName="TORDERSKU" columnName="PRODUCT_SKU_UID"/>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-settings-for-product-lookup-cache" author="elasticpath" context="expand">
+		<comment>[HIVE-281] Add settings for the product lookup cache</comment>
+
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="119" />
+			<column name="PATH" value="COMMERCE/SYSTEM/CACHING/PRODUCT/timeToLive" />
+			<column name="VALUE_TYPE" value="Integer" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+			<column name="DEFAULT_VALUE" value="3600" />
+			<column name="DESCRIPTION" value="The max number of seconds a product should live in cache before it is evicted." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1112" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="119" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1113" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="119" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="120" />
+			<column name="PATH" value="COMMERCE/SYSTEM/CACHING/PRODUCT/timeToIdle" />
+			<column name="VALUE_TYPE" value="Integer" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+			<column name="DEFAULT_VALUE" value="3600" />
+			<column name="DESCRIPTION" value="The max number of seconds a product should live in cache without being touched before it is evicted." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1114" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="120" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1115" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="120" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="121" />
+			<column name="PATH" value="COMMERCE/SYSTEM/CACHING/PRODUCT/maxEntriesLocalHeap" />
+			<column name="VALUE_TYPE" value="Integer" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+			<column name="DEFAULT_VALUE" value="5000" />
+			<column name="DESCRIPTION" value="The max number of entries to store in the local heap (0 = no limit)." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1116" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="121" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1117" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="121" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-settings-for-product-sku-lookkup-cache" author="elasticpath" context="expand">
+		<comment>[HIVE-281] Add settings for the product sku lookup cache</comment>
+
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="122" />
+			<column name="PATH" value="COMMERCE/SYSTEM/CACHING/PRODUCTSKU/timeToLive" />
+			<column name="VALUE_TYPE" value="Integer" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+			<column name="DEFAULT_VALUE" value="3600" />
+			<column name="DESCRIPTION" value="The max number of seconds a product sku should live in cache before it is evicted." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1118" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="122" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1119" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="122" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="123" />
+			<column name="PATH" value="COMMERCE/SYSTEM/CACHING/PRODUCTSKU/timeToIdle" />
+			<column name="VALUE_TYPE" value="Integer" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+			<column name="DEFAULT_VALUE" value="3600" />
+			<column name="DESCRIPTION" value="The max number of seconds a product sku should live in cache without being touched before it is evicted." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1120" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="123" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1121" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="123" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="124" />
+			<column name="PATH" value="COMMERCE/SYSTEM/CACHING/PRODUCTSKU/maxEntriesLocalHeap" />
+			<column name="VALUE_TYPE" value="Integer" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+			<column name="DEFAULT_VALUE" value="10000" />
+			<column name="DESCRIPTION" value="The max number of product sku entries to store in the local heap (0 = no limit)." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1122" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="124" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1123" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="124" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-settings-for-category-reader-cache" author="elasticpath" context="expand">
+		<comment>[HIVE-300] Add settings for the category lookup cache</comment>
+
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="125" />
+			<column name="PATH" value="COMMERCE/SYSTEM/CACHING/CATEGORY/timeToLive" />
+			<column name="VALUE_TYPE" value="Integer" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+			<column name="DEFAULT_VALUE" value="3600" />
+			<column name="DESCRIPTION" value="The max number of seconds a category should live in cache before it is evicted." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1124" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="125" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1125" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="125" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="126" />
+			<column name="PATH" value="COMMERCE/SYSTEM/CACHING/CATEGORY/timeToIdle" />
+			<column name="VALUE_TYPE" value="Integer" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+			<column name="DEFAULT_VALUE" value="3600" />
+			<column name="DESCRIPTION" value="The max number of seconds a category should live in cache without being touched before it is evicted." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1126" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="126" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1127" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="126" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="127" />
+			<column name="PATH" value="COMMERCE/SYSTEM/CACHING/CATEGORY/maxEntriesLocalHeap" />
+			<column name="VALUE_TYPE" value="Integer" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+			<column name="DEFAULT_VALUE" value="0" />
+			<column name="DESCRIPTION" value="The max number of category entries to store in the local heap (0 = no limit)." />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1128" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="127" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1129" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="127" />
+			<column name="METADATA_KEY" value="sfRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="6.10.0-rename-category-parent-uid-fk-h2" author="elasticpath" dbms="h2" context="migrate-data">
+		<comment>[HIVE-300] Add constraint name to TCATEGORY_FK_2 so future changesets just work</comment>
+		<customChange class="liquibase.ext.elasticpath.H2DropForeignKey">
+			<param name="tableName">TCATEGORY</param>
+			<param name="columnName">PARENT_CATEGORY_UID</param>
+		</customChange>
+		<addForeignKeyConstraint baseTableName="TCATEGORY" baseColumnNames="PARENT_CATEGORY_UID" constraintName="TCATEGORY_FK_2"
+								 referencedTableName="TCATEGORY" referencedColumnNames="UIDPK" />
+	</changeSet>
+
+	<changeSet id="6.10.0-rename-category-parent-uid-fk-hsqldb" author="elasticpath" dbms="hsqldb" context="migrate-data">
+		<comment>[HIVE-300] Add constraint name to TCATEGORY_FK_2 so future changesets just work</comment>
+		<customChange class="liquibase.ext.elasticpath.HsqlDropForeignKey">
+			<param name="tableName">TCATEGORY</param>
+			<param name="columnName">PARENT_CATEGORY_UID</param>
+		</customChange>
+		<addForeignKeyConstraint baseTableName="TCATEGORY" baseColumnNames="PARENT_CATEGORY_UID" constraintName="TCATEGORY_FK_2"
+								 referencedTableName="TCATEGORY" referencedColumnNames="UIDPK" />
+	</changeSet>
+
+	<changeSet id="6.10.0-add-category-guid" author="elasticpath" context="expand" dbms="mysql,oracle,hsqldb,h2">
+		<comment>[HIVE-300] Add guid field to TCATEGORY field</comment>
+
+		<!-- Add GUID column to TCATEGORY.  Default the GUID of existing categories to the legacy "compound-guid" - CATEGORY_CODE|CATALOG_CODE to maintain backwards compatibility -->
+		<addColumn tableName="TCATEGORY">
+			<column name="GUID" type="VARCHAR(255)"/>
+		</addColumn>
+
+		<!--  Update Guids for Master Categories  -->
+		<update tableName="TCATEGORY">
+			<column name="GUID"
+					valueComputed="(select concat(TMASTERCATEGORY.CODE, concat('|', TCATALOG.CATALOG_CODE)) from TCATALOG, TMASTERCATEGORY
+					WHERE catalog_uid = TCATALOG.uidpk AND TCATEGORY.uidpk = TMASTERCATEGORY.uidpk)"/>
+			<where>exists (select TMASTERCATEGORY.uidpk FROM TMASTERCATEGORY where TMASTERCATEGORY.uidpk = TCATEGORY.uidpk)</where>
+		</update>
+
+		<!--  Update Guids for Linked Categories  -->
+		<update tableName="TCATEGORY">
+			<column name="GUID"
+					valueComputed="(select concat(TMASTERCATEGORY.CODE, concat('|', TCATALOG.CATALOG_CODE)) from TCATALOG, TMASTERCATEGORY, TLINKEDCATEGORY
+					WHERE catalog_uid = TCATALOG.uidpk AND TCATEGORY.uidpk = TLINKEDCATEGORY.uidpk AND TMASTERCATEGORY.uidpk = TLINKEDCATEGORY.MASTER_CATEGORY_UID)"/>
+			<where>exists (select TLINKEDCATEGORY.uidpk FROM TLINKEDCATEGORY where TLINKEDCATEGORY.uidpk = TCATEGORY.uidpk)</where>
+		</update>
+
+		<createIndex tableName="TCATEGORY" indexName="I_CATEGORY_GUID">
+			<column name="GUID" />
+		</createIndex>
+		<addNotNullConstraint tableName="TCATEGORY" columnName="GUID" columnDataType="java.sql.Types.VARCHAR(255)" />
+		<addUniqueConstraint tableName="TCATEGORY" columnNames="GUID" />
+
+		<comment>[HIVE-300] Convert PARENT_CATEGORY_UID field to PARENT_CATEGORY_GUID</comment>
+		<addColumn tableName="TCATEGORY">
+			<column name="PARENT_CATEGORY_GUID" type="VARCHAR(255)"/>
+		</addColumn>
+
+		<createTable tableName="TEMP_TCATEGORY_GUID">
+			<column name="UIDPK" type="BIGINT">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="GUID" type="VARCHAR(255)"/>
+		</createTable>
+
+		<sql>insert into TEMP_TCATEGORY_GUID(UIDPK, GUID) select UIDPK, GUID FROM TCATEGORY</sql>
+
+		<update tableName="TCATEGORY">
+			<column name="PARENT_CATEGORY_GUID" valueComputed="(select CAT2.GUID from TEMP_TCATEGORY_GUID CAT2 where CAT2.UIDPK = TCATEGORY.PARENT_CATEGORY_UID)"/>
+			<where>PARENT_CATEGORY_UID is not null</where>
+		</update>
+
+		<dropTable tableName="TEMP_TCATEGORY_GUID"/>
+
+		<createIndex tableName="TCATEGORY" indexName="I_CAT_PARENT_GUID">
+			<column name="PARENT_CATEGORY_GUID" />
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-category-guid" author="elasticpath" context="expand" dbms="mssql">
+		<comment>[HIVE-300] Add guid field to TCATEGORY field</comment>
+
+		<!-- Add GUID column to TCATEGORY.  Default the GUID of existing categories to the legacy "compound-guid" - CATEGORY_CODE|CATALOG_CODE to maintain backwards compatibility -->
+		<addColumn tableName="TCATEGORY">
+			<column name="GUID" type="VARCHAR(255)"/>
+		</addColumn>
+
+		<!--  Update Guids for Master Categories  -->
+		<update tableName="TCATEGORY">
+			<column name="GUID"
+					valueComputed="(select TMASTERCATEGORY.CODE + '|' + TCATALOG.CATALOG_CODE from TCATALOG, TMASTERCATEGORY
+					WHERE catalog_uid = TCATALOG.uidpk AND TCATEGORY.uidpk = TMASTERCATEGORY.uidpk)"/>
+			<where>exists (select TMASTERCATEGORY.uidpk FROM TMASTERCATEGORY where TMASTERCATEGORY.uidpk = TCATEGORY.uidpk)</where>
+		</update>
+
+		<!--  Update Guids for Linked Categories  -->
+		<update tableName="TCATEGORY">
+			<column name="GUID"
+					valueComputed="(select TMASTERCATEGORY.CODE + '|' + TCATALOG.CATALOG_CODE from TCATALOG, TMASTERCATEGORY, TLINKEDCATEGORY
+					WHERE catalog_uid = TCATALOG.uidpk AND TCATEGORY.uidpk = TLINKEDCATEGORY.uidpk AND TMASTERCATEGORY.uidpk = TLINKEDCATEGORY.MASTER_CATEGORY_UID)"/>
+			<where>exists (select TLINKEDCATEGORY.uidpk FROM TLINKEDCATEGORY where TLINKEDCATEGORY.uidpk = TCATEGORY.uidpk)</where>
+		</update>
+
+		<addNotNullConstraint tableName="TCATEGORY" columnName="GUID" columnDataType="java.sql.Types.VARCHAR(255)" />
+		<addUniqueConstraint tableName="TCATEGORY" columnNames="GUID" />
+		<createIndex tableName="TCATEGORY" indexName="I_CATEGORY_GUID">
+			<column name="GUID" />
+		</createIndex>
+
+		<comment>[HIVE-300] Convert PARENT_CATEGORY_UID field to PARENT_CATEGORY_GUID</comment>
+		<addColumn tableName="TCATEGORY">
+			<column name="PARENT_CATEGORY_GUID" type="VARCHAR(255)"/>
+		</addColumn>
+
+		<createTable tableName="TEMP_TCATEGORY_GUID">
+			<column name="UIDPK" type="BIGINT">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="GUID" type="VARCHAR(255)"/>
+		</createTable>
+
+		<sql>insert into TEMP_TCATEGORY_GUID(UIDPK, GUID) select UIDPK, GUID FROM TCATEGORY</sql>
+
+		<update tableName="TCATEGORY">
+			<column name="PARENT_CATEGORY_GUID" valueComputed="(select CAT2.GUID from TEMP_TCATEGORY_GUID CAT2 where CAT2.UIDPK = TCATEGORY.PARENT_CATEGORY_UID)"/>
+			<where>PARENT_CATEGORY_UID is not null</where>
+		</update>
+
+		<dropTable tableName="TEMP_TCATEGORY_GUID"/>
+
+		<createIndex tableName="TCATEGORY" indexName="I_CAT_PARENT_GUID">
+			<column name="PARENT_CATEGORY_GUID" />
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="6.10.0-remove-parent-category-uid" author="elasticpath" context="contract" >
+		<preConditions>
+			<changeSetExecuted id="6.10.0-add-category-guid" author="elasticpath" changeLogFile="com/elasticpath/core/db/core-changelog-6.10.0.xml"/>
+		</preConditions>
+
+		<comment>Remove the parent category uid field, now that its been replaced by parent guid</comment>
+
+		<dropForeignKeyConstraint baseTableName="TCATEGORY" constraintName="TCATEGORY_FK_2"/>
+		<dropIndex tableName="TCATEGORY" indexName="I_CAT_PARENT_UID"/>
+		<dropColumn tableName="TCATEGORY" columnName="PARENT_CATEGORY_UID"/>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-product-sku-tax-code" author="elasticpath" context="expand">
+		<comment>[CSC-35] Adds the concept of an optional SKU-specific tax code that, if present, takes
+		precendence over the parent product's tax code.</comment>
+		<addColumn tableName="TPRODUCTSKU">
+			<column name="TAX_CODE_UID" type="BIGINT" />
+		</addColumn>
+		<addForeignKeyConstraint baseTableName="TPRODUCTSKU" baseColumnNames="TAX_CODE_UID" constraintName="TPRODUCTSKU_FK_TAXCODE" referencedTableName="TTAXCODE" referencedColumnNames="UIDPK" />
+		<createIndex tableName="TPRODUCTSKU" indexName="I_TPRODUCTSKU_TAXCODE">
+			<column name="TAX_CODE_UID" />
+		</createIndex>
+	</changeSet>
+
+	<changeSet id="6.10.0-remove-old-site-optimisation-settings" author="elasticpath" context="contract">
+		<comment>Removes some obselete setting definitions that were used by a decommisioned feature (site optimisation).</comment>
+		<delete tableName="TSETTINGMETADATA">
+			<where>SETTING_DEFINITION_UID IN (
+				SELECT UIDPK
+				FROM TSETTINGDEFINITION
+				WHERE PATH LIKE 'COMMERCE/SYSTEM/ASYNC%'
+				)</where>
+		</delete>
+		<delete tableName="TSETTINGVALUE">
+			<where>SETTING_DEFINITION_UID IN (
+				SELECT UIDPK
+				FROM TSETTINGDEFINITION
+				WHERE PATH LIKE 'COMMERCE/SYSTEM/ASYNC%'
+				)</where>
+		</delete>
+		<delete tableName="TSETTINGDEFINITION">
+			<where>PATH LIKE 'COMMERCE/SYSTEM/ASYNC%'</where>
+		</delete>
+	</changeSet>
+
+	<changeSet id="6.10.0-migrate-changesets-to-sku-guid-from-sku-code" author="elasticpath" context="migrate-data">
+		<comment>[HIVE-330] In changesets, ProductSku is identified by GUID instead of skuCode.</comment>
+		<update tableName="TOBJECTGROUPMEMBER" >
+			<column name="OBJECT_IDENTIFIER" valueComputed="(SELECT TPRODUCTSKU.GUID FROM TPRODUCTSKU WHERE TPRODUCTSKU.SKUCODE = TOBJECTGROUPMEMBER.OBJECT_IDENTIFIER)" />
+			<where>OBJECT_TYPE = 'Product SKU' AND OBJECT_IDENTIFIER IN (SELECT TPRODUCTSKU.SKUCODE FROM TPRODUCTSKU)</where>
+		</update>
+	</changeSet>
+
+	<changeSet id="6.10.0-add-display-name-and-rule-code-to-applied-rule" author="elasticpath">
+		<comment>[Tax] Store order/orderReturn/exchangeOrder taxes</comment>
+		<addColumn tableName="TAPPLIEDRULE">
+			<column name="RULE_DESCRIPTION" type="VARCHAR(255)"/>
+		</addColumn>
+		<addColumn tableName="TAPPLIEDRULE">
+			<column name="RULE_DISPLAY_NAME" type="VARCHAR(255)"/>
+		</addColumn>
+		<addColumn tableName="TAPPLIEDRULE">
+			<column name="GUID" type="VARCHAR(255)"/>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="6.10.0-allow-context-overrides-for-message-channel-settings" author="elasticpath">
+		<comment>[HIVE-327] Allow Event Message Channel settings to be overridden via contexts</comment>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="MAX_OVERRIDE_VALUES" value="-1"/>
+			<where>PATH like 'COMMERCE/SYSTEM/MESSAGING/%'</where>
+		</update>
+	</changeSet>
+
+	<changeSet id="6.10.0-smaller-default-cache" author="elasticpath">
+		<comment>[HIVE-371] Adjusting default cache settings down to one second for category, product, productSku</comment>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="DEFAULT_VALUE" value="1" />
+			<where>PATH = 'COMMERCE/SYSTEM/CACHING/CATEGORY/timeToLive'</where>
+		</update>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="DEFAULT_VALUE" value="1" />
+			<where>PATH = 'COMMERCE/SYSTEM/CACHING/CATEGORY/timeToIdle'</where>
+		</update>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="DEFAULT_VALUE" value="1" />
+			<where>PATH = 'COMMERCE/SYSTEM/CACHING/PRODUCT/timeToLive'</where>
+		</update>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="DEFAULT_VALUE" value="1" />
+			<where>PATH = 'COMMERCE/SYSTEM/CACHING/PRODUCT/timeToIdle'</where>
+		</update>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="DEFAULT_VALUE" value="1" />
+			<where>PATH = 'COMMERCE/SYSTEM/CACHING/PRODUCTSKU/timeToLive'</where>
+		</update>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="DEFAULT_VALUE" value="1" />
+			<where>PATH = 'COMMERCE/SYSTEM/CACHING/PRODUCTSKU/timeToIdle'</where>
+		</update>
+	</changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,44 @@
+// NOT SEEING THIS ANYWHERE!!!
+Expand {
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/ExpandBar.html
+	&Bar {
+		background-color: $widget_body_color;;
+		color: $default-font-color;
+		font: $large-font;
+		&[BORDER] {
+			border: 1px solid $danger-color;
+			color: $default-font-color;
+			font: $large-font;
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/ExpandBar.html#ExpandItem
+	&Item {
+		// NOT SEEING THIS ANYWHERE
+		border: 1px solid $danger-color;
+		border-radius: $widget_border_radius;
+
+		// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/ExpandBar.html#ExpandItem-Header
+		&-Header {
+			background-color: transparent;
+			background-image: none;
+			border: none;
+			border-radius: 0;
+			cursor: pointer;
+			text-shadow: none;
+		}
+
+		// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/ExpandBar.html#ExpandItem-Button
+		&-Button {
+			&, &:hover {
+				background-image: url('themes/icons/Spinner-UpButton-Icon.png');
+			}
+			&:expanded {
+				&, &:hover {
+					background-image: url('themes/icons/Spinner-DownButton-Icon.png');
+				}
+			}
+		}
+	}
+
+}

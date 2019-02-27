@@ -1,0 +1,17 @@
+.checkstyle
+.pmd
+.pmdruleset
+.pmdruleset.xml
+*.
+.classpath
+.project
+.settings/
+*~
+\#*\#
+*.swp
+pmd-eclipse.log
+target/
+*.iml
+
+.idea/
+.DS_Store

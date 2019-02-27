@@ -1,0 +1,10 @@
+<!DOCTYPE aspectj PUBLIC
+		"-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+	<!-- -debug for more detailed info -->
+	<weaver options="-verbose -showWeaveInfo"/>
+	<aspects>
+		<aspect name="com.elasticpath.rest.resource.integration.epcommerce.repository.CacheRemoveAspect" />
+		<aspect name="com.elasticpath.rest.resource.integration.epcommerce.repository.CacheResultAspect" />
+	</aspects>
+</aspectj>

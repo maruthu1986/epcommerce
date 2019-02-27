@@ -1,0 +1,37 @@
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Label.html
+// used in pagination font
+Label,
+CLabel {
+	background-color: $widget_body_color;
+	background-image: none;
+	border: none;
+	border-radius: 0;
+	font: $default-font;
+	color: $default-font-color;
+	text-decoration: none;
+	text-shadow: none;
+
+
+	&[BORDER] {
+		background-color: $widget_body_color; // testing
+		background-image: none;
+		border: 1px solid $widget_border_color;
+	}
+}
+
+Label {
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Label.html#Label-SeparatorLine
+	// section separation line
+	&-SeparatorLine {
+		// &, &[SHADOW_IN], &[SHADOW_NONE], &[SHADOW_OUT] {
+		// background-color: $gray-light;
+		background-color: $widget_body_color;
+		background-image: none;
+		border: none;
+		border-radius: 0;
+		// width: 1px;
+		width: 0;
+		// }
+
+	}
+}

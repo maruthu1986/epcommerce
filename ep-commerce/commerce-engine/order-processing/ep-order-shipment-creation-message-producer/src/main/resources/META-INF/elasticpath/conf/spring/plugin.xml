@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:camel="http://camel.apache.org/schema/spring"
+		xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+		">
+
+	<camel:camelContext id="ep-order-shipment-created-message-producer" xmlns="http://camel.apache.org/schema/spring"
+						threadNamePattern="Camel (#camelId#) thread ##counter#">
+		<routeBuilder ref="orderShipmentCreationMessagePublisherRouteBuilder"/>
+	</camel:camelContext>
+
+	<bean name="ep-order-shipment-created-message-producer:beanPostProcessor" class="com.elasticpath.messaging.impl.FastCamelBeanPostProcessor">
+		<property name="annotatedClassList" ref="camelAnnotatedClassList"/>
+		<property name="camelId" value="ep-order-shipment-created-message-producer"/>
+	</bean>
+
+	<bean id="orderShipmentCreationMessagePublisherRouteBuilderTemplate"
+		  class="com.elasticpath.orderprocessing.ordershipment.messaging.OrderShipmentCreationMessagePublisherRouteBuilder"
+			abstract="true">
+		<property name="routeId" value="orderShipmentCreatedMessageProducer"/>
+		<property name="incomingEndpoint">
+			<bean parent="orderEventExternalEndpoint">
+				<property name="camelContextId" value="ep-order-shipment-created-message-producer"/>
+				<property name="context" value="orderShipmentCreatedMessageProducer"/>
+			</bean>
+		</property>
+		<property name="eventMessageDataFormat" ref="eventMessageDataFormat"/>
+		<property name="eventMessageFactory" ref="eventMessageFactory"/>
+		<property name="eventMessagePredicateFilter" ref="orderCreatedEventTypePredicate"/>
+		<property name="eventMessagePublisher" ref="orderEventMessagePublisher"/>
+		<property name="orderService" ref="orderService"/>
+	</bean>
+
+	<bean id="orderShipmentCreationMessagePublisherRouteBuilder" parent="orderShipmentCreationMessagePublisherRouteBuilderTemplate"/>
+
+</beans>

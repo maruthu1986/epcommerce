@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.rest.resource</groupId>
+		<artifactId>cortex-resource-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.elasticpath.rest.integration</groupId>
+	<artifactId>cortex-ep-integration-parent</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.0-SNAPSHOT</version>
+	<name>EP ∷ Cortex Integration</name>
+
+	<description>Elastic Path REST - Resources Commerce Engine Integrations</description>
+
+	<modules>
+		<module>commons</module>
+		<module>repositories</module>
+		<module>resources</module>
+	</modules>
+
+	<properties>
+		<!-- coverage defaults -->
+		<jacoco.instruction.covered-ratio>0.75</jacoco.instruction.covered-ratio>
+		<jacoco.branch.covered-ratio>0.60</jacoco.branch.covered-ratio>
+		<jacoco.line.covered-ratio>0.80</jacoco.line.covered-ratio>
+		<jacoco.complexity.covered-ratio>0.80</jacoco.complexity.covered-ratio>
+		<jacoco.method.covered-ratio>0.80</jacoco.method.covered-ratio>
+		<jacoco.class.covered-ratio>0.63</jacoco.class.covered-ratio>
+	</properties>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<compilerArgs combine.self="override">
+							<arg>-proc:none</arg>
+						</compilerArgs>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<configuration>
+						<additionalparam>-Xdoclint:none</additionalparam>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

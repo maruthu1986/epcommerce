@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<payment_gateways>
+<payment_gateway>
+    <name>DemoPaymentProcessor</name>
+    <type>paymentGatewayNull</type>
+    <properties/>
+</payment_gateway>
+</payment_gateways>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+    <util:list id="persistenceMappingExcludedFiles">
+        <!-- If you are overriding an *-orm.xml file, exclude the OOTB one here and -->
+        <!-- add a new mapping-file to your jpa-persistence.xml -->
+        <!-- <value>META-INF/sellingcontext-orm.xml</value> -->
+    </util:list>
+
+    <util:list id="persistenceMappingExcludedClasses">
+        <!-- If you want to exclude OOTB persistence classes do it here -->
+    </util:list>
+
+    <util:map id="persistencePropertyOverrides" key-type="java.lang.String">
+        <!-- Override OOTB and add new persistence properties here rather than in the jpa-persistence.xml file -->
+        <!-- to avoid load-order related conflicts. -->
+    </util:map>
+
+    <!-- Other JPA properties such as excluding unlisted classes or Jta/NonJta data source can be overridden as follows -->
+    <!--
+    <bean id="overridingPersistenceUnitPostProcessor" parent="defaultOverridingPersistenceUnitPostProcessor">
+        <property name="excludeUnlistedClasses" value="false"/>
+        <property name="jtaDataSource" ref="jtaDataSource"/>
+        <property name="nonJtaDataSource" ref="nonJtaDataSource"/>
+    </bean>
+    -->
+
+    <!-- Load our custom enums proactively so the extra enum values are available
+    now, and to the JPA entities in the particular since they still refer to
+    the OOTB enums so won't be able to load or save the extra enums until our
+    sub-classes load them into their maps.
+    This bean will need to also exist in domainModelCMClient.xml in the CMClient project
+    for CMClient to recognize the new extended enums.
+    -->
+    <bean id="enumLoader" class="com.elasticpath.extensions.commons.EnumLoader"
+          init-method="init">
+        <property name="enums">
+            <util:list>
+                <!--
+                 <value type="java.lang.Class">com.elasticpath.extensions.domain.order.ExtOrderStatus</value>
+                 -->
+            </util:list>
+        </property>
+    </bean>
+
+    <!-- Add Bean Definitions and Overrides Here -->
+    <import resource="ext-prototypes.xml"/>
+    <import resource="ext-services.xml"/>
+    <import resource="ext-dao.xml"/>
+
+    <!-- Log the extension version number on startup -->
+    <bean id="versionLoggerExt" class="com.elasticpath.extensions.commons.util.impl.VersionLoggerExt"
+          init-method="init"/>
+</beans>

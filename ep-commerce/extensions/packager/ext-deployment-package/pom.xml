@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>ext-packager-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ext-deployment-package</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Extension Deployment Package</name>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/filtered-resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${maven-resources-plugin.version}</version>
+				<configuration>
+					<delimiters>
+						<delimiter>@</delimiter>
+					</delimiters>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>resources</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<!-- Override version because 2.5.5 throws java.lang.OutOfMemoryError -->
+				<version>2.5.4</version>
+				<executions>
+					<execution>
+						<id>create-tomcat</id>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<phase>compile</phase>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptor>src/main/assembly/build-tomcat.xml</descriptor>
+							<attach>false</attach>
+							<outputDirectory>${project.build.directory}/assembly/webapps</outputDirectory>
+							<finalName>apache-tomcat-${tomcat.version}</finalName>
+						</configuration>
+					</execution>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptor>src/main/assembly/assembly.xml</descriptor>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat</artifactId>
+			<version>${tomcat.version}</version>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+
+		<!-- Database driver -->
+		<dependency>
+			<groupId>${epdb.maven.groupId}</groupId>
+			<artifactId>${epdb.maven.artifactId}</artifactId>
+			<version>${epdb.maven.version}</version>
+		</dependency>
+
+		<!-- Assets -->
+		<dependency>
+			<groupId>com.elasticpath.extensions</groupId>
+			<artifactId>ext-assets</artifactId>
+			<version>${project.version}</version>
+			<classifier>assets</classifier>
+			<type>zip</type>
+		</dependency>
+
+		<!-- Web apps -->
+		<dependency>
+			<groupId>com.elasticpath.extensions</groupId>
+			<artifactId>ext-cortex-webapp</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.relos</groupId>
+			<artifactId>ep-rest-studio</artifactId>
+			<version>${api-platform.version}</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.extensions</groupId>
+			<artifactId>ext-search-webapp</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.extensions</groupId>
+			<artifactId>ext-integration-webapp</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
+
+		<!-- Data population tools -->
+		<dependency>
+			<groupId>com.elasticpath.extensions</groupId>
+			<artifactId>ext-data-population-cli</artifactId>
+			<version>${project.version}</version>
+			<classifier>package</classifier>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.extensions</groupId>
+			<artifactId>ext-importexport-cli</artifactId>
+			<version>${project.version}</version>
+			<classifier>bin</classifier>
+			<type>zip</type>
+		</dependency>
+
+		<!-- Data population data -->
+		<dependency>
+			<groupId>com.elasticpath.db</groupId>
+			<artifactId>core-schema</artifactId>
+			<version>${dce.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.extensions</groupId>
+			<artifactId>ext-data</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- Data Sync Tool -->
+		<dependency>
+			<groupId>com.elasticpath.extensions</groupId>
+			<artifactId>ext-sync-cli</artifactId>
+			<version>${project.version}</version>
+			<classifier>bin</classifier>
+			<type>zip</type>
+		</dependency>
+
+		<!-- ActiveMQ dependencies -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>apache-activemq</artifactId>
+			<version>${org.apache.activemq.version}</version>
+			<type>zip</type>
+			<classifier>bin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-pool</artifactId>
+			<version>${org.apache.activemq.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-jms-pool</artifactId>
+			<version>${org.apache.activemq.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-client</artifactId>
+			<version>${org.apache.activemq.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+			<version>${org.apache.commons.pool2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-j2ee-management_1.1_spec</artifactId>
+			<version>${org.apache.geronimo.management.spec.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jms_1.1_spec</artifactId>
+			<version>${org.apache.geronimo.specs.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.fusesource.hawtbuf</groupId>
+			<artifactId>hawtbuf</artifactId>
+			<version>1.9</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<!-- When building perf packages, batch and cm wars are not required, because we don't perf test these apps.
+			However, these apps are required for QA boxes
+			-->
+			<id>include-batch-and-cm-wars</id>
+			<activation>
+				<property>
+					<name>exclude.batch.and.cm.wars</name>
+					<value>!true</value>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.elasticpath.extensions</groupId>
+					<artifactId>ext-batch-webapp</artifactId>
+					<version>${project.version}</version>
+					<type>war</type>
+				</dependency>
+				<dependency>
+					<groupId>com.elasticpath.extensions.cm</groupId>
+					<artifactId>ext-cm-webapp</artifactId>
+					<version>${project.version}</version>
+					<type>war</type>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+</project>

@@ -1,0 +1,9 @@
+* {
+	background-color: $secondary-color;
+	background-image: none;
+	color: $default-font-color;
+	font: $default-font;
+	&[BORDER] {
+		border: 1px solid $gray-light;
+	}
+}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<!--
+		Spring service bean overrides for non-OSGI environments.
+
+		In OSGI environments this should be done via a reference-listener in core-blueprint.xml
+	-->
+	<bean factory-bean="categoryLookupProxy" factory-method="bindImplementation">
+		<constructor-arg ref="cachingCategoryLookup"/>
+	</bean>
+
+	<bean factory-bean="productCharacteristicsServiceProxy" factory-method="bindImplementation">
+		<constructor-arg ref="cachingProductCharacteristicsService"/>
+	</bean>
+
+	<bean factory-bean="productLookupProxy" factory-method="bindImplementation">
+		<constructor-arg ref="cachingProductLookup"/>
+	</bean>
+
+	<bean factory-bean="ProductSkuLookupProxy" factory-method="bindImplementation">
+		<constructor-arg ref="cachingProductSkuLookup"/>
+	</bean>
+
+	<bean factory-bean="storeServiceProxy" factory-method="bindImplementation">
+		<constructor-arg ref="cachingStoreService"/>
+	</bean>
+
+	<bean factory-bean="priceAdjustmentServiceProxy" factory-method="bindImplementation">
+		<constructor-arg ref="cachingPriceAdjustmentService"/>
+	</bean>
+
+	<bean factory-bean="ruleServiceProxy" factory-method="bindImplementation">
+		<constructor-arg ref="cachingRuleService"/>
+	</bean>
+
+	<bean factory-bean="priceListAssignmentServiceProxy" factory-method="bindImplementation">
+		<constructor-arg ref="cachingPriceListAssignmentService"/>
+	</bean>
+
+	<bean factory-bean="baseAmountFinderProxy" factory-method="bindImplementation">
+		<constructor-arg ref="cachingBaseAmountFinder"/>
+	</bean>
+</beans>

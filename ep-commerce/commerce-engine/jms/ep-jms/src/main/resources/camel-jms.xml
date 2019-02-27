@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<bean id="jmsConfigTemplate" class="org.apache.camel.component.jms.JmsConfiguration"
+			abstract="true">
+		<property name="connectionFactory" ref="jmsConnectionFactory"/>
+		<property name="transacted" value="true"/>
+		<property name="transactionManager" ref="jmsTransactionManager"/>
+		<property name="cacheLevelName" value="CACHE_CONSUMER"/>
+	</bean>
+
+	<bean id="jmsConfig" parent="jmsConfigTemplate"/>
+
+	<bean id="jmsTemplate" class="org.apache.camel.component.jms.JmsComponent"
+			abstract="true">
+		<property name="configuration" ref="jmsConfig"/>
+	</bean>
+
+	<bean id="jms" parent="jmsTemplate"/>
+
+	<!--
+	  - For use within Camel routes.
+	  -
+	  - Camel's mechanism for routes to be marked with transaction propagation settings
+	  - involves referencing a bean in the Spring context.  Each propagation type must
+	  - be declared as a TransactionPolicy bean as below.
+	  -
+	  - The PROPAGATION_REQUIRED behaviour is the default, so this bean is not actually
+	  - required to be declared.  The route may simply use the .transacted() method to
+	  - invoke this propagation setting.
+	  -
+	  - To use a different propagation behaviour, define the bean as per the below, then
+	  - add the following DSL line at the beginning of the route:
+	  -		.transacted("YOUR_PROPAGATION_BEAN_ID")
+	  -
+	  -->
+	<bean id="JMS_PROPAGATION_REQUIRED" class="org.apache.camel.spring.spi.SpringTransactionPolicy">
+		<property name="transactionManager" ref="jmsTransactionManager"/>
+		<property name="propagationBehaviorName" value="PROPAGATION_REQUIRED"/>
+	</bean>
+
+</beans>

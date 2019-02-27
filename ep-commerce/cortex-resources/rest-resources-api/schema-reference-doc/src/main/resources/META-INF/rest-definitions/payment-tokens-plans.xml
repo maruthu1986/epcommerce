@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>paymenttokens</name>
+
+	<plan>
+		<name>create-new-payment-token-for-order</name>
+			<description>
+				<![CDATA[
+Create a new payment token for an order. The payment token created will only exist for this order and will not
+be saved to the shopper's profile. The newly created payment token will be automatically selected for the order.
+				]]>
+			</description>
+			<template>
+				<name>controls.form-control-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>paymentmethods.paymentmethod-info</value>
+				</replace>
+				<replace>
+					<key>read-form-link</key>
+					<value>paymenttokenform</value>
+				</replace>
+				<replace>
+					<key>form-resource</key>
+					<value>order-payment-token-form</value>
+				</replace>
+				<replace>
+					<key>submit-action-link</key>
+					<value>createpaymenttokenaction</value>
+				</replace>
+				<replace>
+					<key>submit-resource</key>
+					<value>order-payment-token</value>
+				</replace>
+				<replace>
+					<key>submit-result</key>
+					<value>order-payment-token</value>
+				</replace>
+			</template>
+		</plan>
+
+		<plan>
+			<name>create-new-payment-token-for-profile</name>
+			<description>
+				<![CDATA[
+Create a new payment token for a profile. If the profile does not have default payment method then this
+payment token will become the default payment method.
+				]]>
+			</description>
+			<template>
+				<name>controls.form-control-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>paymentmethods.paymentmethods</value>
+				</replace>
+				<replace>
+					<key>read-form-link</key>
+					<value>paymenttokenform</value>
+				</replace>
+				<replace>
+					<key>form-resource</key>
+					<value>profile-payment-token-form</value>
+				</replace>
+				<replace>
+					<key>submit-action-link</key>
+					<value>createpaymenttokenaction</value>
+				</replace>
+				<replace>
+					<key>submit-resource</key>
+					<value>paymentmethods.paymentmethod</value>
+				</replace>
+				<replace>
+					<key>submit-result</key>
+					<value>paymentmethods.paymentmethod</value>
+				</replace>
+			</template>
+		</plan>
+
+	</family>
+</definitions>

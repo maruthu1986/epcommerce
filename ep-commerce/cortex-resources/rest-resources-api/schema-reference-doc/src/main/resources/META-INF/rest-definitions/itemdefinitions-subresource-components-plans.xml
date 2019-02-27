@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>itemdefinitions</name>
+		<plan>
+			<name>read-item-definition-component</name>
+			<description><![CDATA[Read the item definition component from the list of available components.]]></description>
+			<template>
+				<name>collections.list-element-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>itemdefinitions.item-definition</value>
+				</replace>
+				<replace>
+					<key>start-name</key>
+					<value>definition</value>
+				</replace>
+				<replace>
+					<key>list-resource</key>
+					<value>item-definition-components</value>
+				</replace>
+				<replace>
+					<key>list-name</key>
+					<value>components</value>
+				</replace>
+				<replace>
+					<key>element-resource</key>
+					<value>item-definition-component</value>
+				</replace>
+			</template>
+		</plan>
+
+		<plan>
+			<name>read-nested-item-definition-components</name>
+			<description><![CDATA[Read an single nested item definition component.]]></description>
+			<template>
+				<name>collections.list-element-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>item-definition-component</value>
+				</replace>
+				<replace>
+					<key>start-name</key>
+					<value>definition</value>
+				</replace>
+				<replace>
+					<key>list-resource</key>
+					<value>item-definition-nested-components</value>
+				</replace>
+				<replace>
+					<key>list-name</key>
+					<value>components</value>
+				</replace>
+				<replace>
+					<key>element-resource</key>
+					<value>item-definition-nested-component</value>
+				</replace>
+			</template>
+		</plan>
+
+		<plan>
+			<name>read-item-definition-component-to-standalone-item</name>
+			<description><![CDATA[Read the component's stand alone item. Some components can be purchased separately.]]></description>
+			<step>
+				<description><![CDATA[The stand alone item.]]></description>
+				<start>item-definition-component</start>
+				<follow-link>standaloneitem</follow-link>
+				<result>items.item</result>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

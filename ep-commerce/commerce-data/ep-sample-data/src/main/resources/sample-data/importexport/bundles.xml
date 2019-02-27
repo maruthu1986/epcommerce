@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bundles>
+<bundle code="bundleNested_AssignedDynamic">
+    <constituents>
+        <constituent>
+            <guid>9246bfe3-78f4-4e6d-b3e1-40a05febabfb</guid>
+            <code type="product">bundle_Constituent8</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>8f1378e5-cf0c-49db-ace7-05ab1e132ef0</guid>
+            <code type="product">bundle_Constituent7</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>9cc9938b-6480-493c-81a3-432600baaa96</guid>
+            <code type="product">bundle_Constituent6</code>
+            <quantity>1</quantity>
+            <ordering>2</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+    <selectionrule>
+        <selectionparameter>2</selectionparameter>
+    </selectionrule>
+</bundle>
+
+<bundle code="bundleNested_AssignedFixed">
+    <constituents>
+        <constituent>
+            <guid>1d383eb0-d10f-4e2d-bd79-fc95617d16fd</guid>
+            <code type="product">bundle_Constituent8</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>8730641a-9238-435a-abb7-6ccfb5c1ccdb</guid>
+            <code type="product">bundle_Constituent7</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+</bundle>
+
+<bundle code="bundleNested_CalculatedDynamic">
+    <constituents>
+        <constituent>
+            <guid>5166615a-bb3c-48e5-9d51-a8f0e3abde88</guid>
+            <code type="product">bundle_Constituent8</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>44a02482-8dfd-4c51-828a-7dc717d097c8</guid>
+            <code type="product">bundle_Constituent7</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>f25c84ab-e1c7-4226-ae7b-112a4fc23ff7</guid>
+            <code type="product">bundle_Constituent6</code>
+            <quantity>1</quantity>
+            <ordering>2</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+    <selectionrule>
+        <selectionparameter>2</selectionparameter>
+    </selectionrule>
+</bundle>
+
+<bundle code="bundleNested_CalculatedFixed">
+    <constituents>
+        <constituent>
+            <guid>de25cd4e-2dfc-43ff-8e9d-51dbad875859</guid>
+            <code type="product">bundle_Constituent8</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>903e7e02-0880-4275-a5c2-08743367beb3</guid>
+            <code type="product">bundle_Constituent7</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+</bundle>
+
+<bundle code="bundle_AssignedFixed">
+    <constituents>
+        <constituent>
+            <guid>3202e68e-c489-488b-b4c0-4778ac2302cf</guid>
+            <code type="product">bundle_Constituent1</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>e2d9427e-6672-4888-8669-d7b04aba0284</guid>
+            <code type="product">bundle_Constituent2</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>da350cc8-2995-4fd3-9633-29cda6973c40</guid>
+            <code type="product">bundle_Constituent3</code>
+            <quantity>1</quantity>
+            <ordering>2</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+</bundle>
+
+<bundle code="bundle_AssignedFixed_constituentSKU">
+    <constituents>
+        <constituent>
+            <guid>7ec65d0c-efa4-45fa-add6-d7e80b722868</guid>
+            <code type="product">bundle_Constituent1</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>465126f1-9b51-499d-abc0-80124eafc959</guid>
+            <code type="product">bundle_Constituent2</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>38ab192c-7780-4879-9674-b632d97cb250</guid>
+            <code type="sku">bundle_Constituent5_multiSKU1</code>
+            <quantity>1</quantity>
+            <ordering>2</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+</bundle>
+
+<bundle code="bundle_AssignedFixed_mixed">
+    <constituents>
+        <constituent>
+            <guid>beca84f6-56bd-4103-8db9-bc3f5c6d68f5</guid>
+            <code type="product">bundle_Constituent3</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>cf5df416-a40f-4224-bfa5-f88400954fd3</guid>
+            <code type="product">bundle_Constituent6</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>8781aecc-9c36-4a3e-b405-b96227498282</guid>
+            <code type="product">bundle_Constituent9</code>
+            <quantity>1</quantity>
+            <ordering>2</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+</bundle>
+
+<bundle code="bundle_AssignedFixed_Nested">
+    <constituents>
+        <constituent>
+            <guid>87aa7509-f9f7-407e-b45b-3f0db8af87b6</guid>
+            <code type="product">bundle_Constituent1</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>9f533f10-96d1-40d5-bddd-901c7a899ddf</guid>
+            <code type="product">bundle_Constituent2</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>08c4a155-08a7-4db1-9912-69be5cc74e8d</guid>
+            <code type="product">bundleNested_AssignedFixed</code>
+            <quantity>1</quantity>
+            <ordering>2</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+</bundle>
+
+<bundle code="bundle_AssignedFixed_noInv">
+    <constituents>
+        <constituent>
+            <guid>bfdcb39a-7bb8-4944-8326-c9ee861a5aca</guid>
+            <code type="product">bundle_Constituent1</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>f0ec7033-39fc-419c-9130-008fd6a641eb</guid>
+            <code type="product">bundle_Constituent2</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>4795c8e9-f0cb-4180-a1ad-d0f4ed9c306d</guid>
+            <code type="product">bundle_Constituent4_noInv</code>
+            <quantity>1</quantity>
+            <ordering>2</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+</bundle>
+
+<bundle code="bundle_CalculatedFixed">
+    <constituents>
+        <constituent>
+            <guid>d92937b5-8ebb-429b-88af-4bcafff8918f</guid>
+            <code type="product">bundle_Constituent1</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>904262a5-fe31-4930-ba74-7a458c5b134a</guid>
+            <code type="product">bundle_Constituent2</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>015ef680-1c04-49ca-80cc-735ec461c85a</guid>
+            <code type="product">bundle_Constituent3</code>
+            <quantity>1</quantity>
+            <ordering>2</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+</bundle>
+
+<bundle code="bundle_CalculatedFixed_constituentSKU">
+    <constituents>
+        <constituent>
+            <guid>cc16aef7-e983-4fd4-8cae-a114cc0b7064</guid>
+            <code type="product">bundle_Constituent1</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>f9420549-76f3-4383-bfdc-6cb92fc5d1af</guid>
+            <code type="product">bundle_Constituent2</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>e917f55d-1379-4c3a-8510-4b687f1076d8</guid>
+            <code type="sku">bundle_Constituent5_multiSKU2</code>
+            <quantity>1</quantity>
+            <ordering>2</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+</bundle>
+
+<bundle code="bundle_CalculatedFixed_mixed">
+    <constituents>
+        <constituent>
+            <guid>786c84ca-8d22-451a-852a-2eaa178eda3a</guid>
+            <code type="product">bundle_Constituent3</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>08791e64-4533-4d6f-ad34-2c5fb082bf7a</guid>
+            <code type="product">bundle_Constituent6</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>fbb3fdfe-83ae-41c5-973d-f5f876c03109</guid>
+            <code type="product">bundle_Constituent9</code>
+            <quantity>1</quantity>
+            <ordering>2</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+</bundle>
+
+<bundle code="bundle_CalculatedFixed_Nested">
+    <constituents>
+        <constituent>
+            <guid>660e1a2e-4ae9-4d93-83a1-11cd616bef5c</guid>
+            <code type="product">bundle_Constituent1</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>4750e761-e704-42d1-9f65-1dc64624d60a</guid>
+            <code type="product">bundle_Constituent2</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>11e18341-6551-4aaf-be88-a7d1731fe316</guid>
+            <code type="product">bundleNested_CalculatedFixed</code>
+            <quantity>1</quantity>
+            <ordering>2</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+</bundle>
+
+<bundle code="bundle_CalculatedFixed_noInv">
+    <constituents>
+        <constituent>
+            <guid>a858fb7e-6558-4001-b7b2-f8d080d18713</guid>
+            <code type="product">bundle_Constituent1</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>5aa64475-7e36-4f46-8632-2832417aa02f</guid>
+            <code type="product">bundle_Constituent2</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>f6735115-9e27-4698-bc8f-ce54ec5d3535</guid>
+            <code type="product">bundle_Constituent4_noInv</code>
+            <quantity>1</quantity>
+            <ordering>2</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+</bundle>
+
+<bundle code="Bun_Not_Sold_Sep">
+    <constituents>
+        <constituent>
+            <guid>d9cd161d-ea40-4cb9-83a0-caf550c21004</guid>
+            <code type="product">Dig_Not_Sold_Sep</code>
+            <quantity>1</quantity>
+            <ordering>0</ordering>
+            <price_adjustments/>
+        </constituent>
+        <constituent>
+            <guid>ffc9e635-5962-4ae1-8bc1-26f441e0d5cb</guid>
+            <code type="product">Dig_MultiSku-Tax-SKU</code>
+            <quantity>1</quantity>
+            <ordering>1</ordering>
+            <price_adjustments/>
+        </constituent>
+    </constituents>
+</bundle>
+</bundles>

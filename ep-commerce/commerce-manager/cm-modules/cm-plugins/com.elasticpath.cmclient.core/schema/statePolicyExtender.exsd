@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="com.elasticpath.cmclient.core" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="com.elasticpath.cmclient.core" id="StatePolicyExtender" name="StatePolicyExtender"/>
+      </appInfo>
+      <documentation>
+         Definition for CM Extension points. Defines State Policy extension points.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="0" maxOccurs="unbounded">
+            <element ref="Determiners"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="Determiners">
+      <complexType>
+         <attribute name="className" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Name of the Determiner extension.
+                  Implements com.elasticpath.cmclient.policy.StateDeterminer
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":com.elasticpath.cmclient.policy.StateDeterminer"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="containerName" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The container name that the determiner matches against.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="policyToApplyTo" type="string" use="required">
+            <annotation>
+               <documentation>
+                The name of the Class to apply the determiner against.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+</schema>

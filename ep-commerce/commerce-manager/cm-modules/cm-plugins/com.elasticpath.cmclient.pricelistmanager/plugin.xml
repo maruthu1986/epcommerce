@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="statePolicy" name="Price List State Policy" schema="schema/statePolicy.exsd"/>
+   <extension-point id="Extender" name="Extender"   schema="../com.elasticpath.cmclient.core/schema/extender.exsd"/>
+   <extension-point id="StatePolicyExtender" name="StatePolicyExtender"   schema="../com.elasticpath.cmclient.core/schema/statePolicyExtender.exsd"/>
+
+
+   <extension point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.elasticpath.cmclient.pricelistmanager.perspective.PriceListManagerPerspectiveFactory"
+            id="com.elasticpath.cmclient.pricelistmanager.perspective"
+            name="%priceListManagerPerspective.name">
+      </perspective>
+   </extension>
+
+   <extension point="org.eclipse.ui.views">
+      <category
+            name="%viewsCategory.name"
+            id="com.elasticpath.cmclient.pricelistmanager.views.category">
+      </category>
+      <view
+	   allowMultiple="true"
+	   category="com.elasticpath.cmclient.pricelistmanager.views.category"
+	   class="com.elasticpath.cmclient.pricelistmanager.views.PriceListSearchView"
+	   icon="icons/search_default_22.png"
+	   id="com.elasticpath.cmclient.pricelistmanager.views.PriceListSearchView"
+	   name="%priceListSearchView.name">
+      </view>
+      <view
+	   category="com.elasticpath.cmclient.pricelistmanager.views.category"
+	   class="com.elasticpath.cmclient.pricelistmanager.views.PriceListSearchResultsView"
+	   icon="icons/price-list_default_22.png"
+	   id="com.elasticpath.cmclient.pricelistmanager.views.PriceListSearchResultsView"
+	   name="%priceListSearchResultsView.name">
+      </view>
+      <view
+	   category="com.elasticpath.cmclient.pricelistmanager.views.category"
+	   class="com.elasticpath.cmclient.pricelistassignments.views.PriceListAssigmentsSearchView"
+	   icon="icons/price-list-assignment_default_22.png"
+	   id="com.elasticpath.cmclient.pricelistassignments.views.PriceListAssigmentsSearchView"
+	   name="%priceListAssignmentSearchResultsView.name">
+      </view>      
+      
+   </extension>
+   
+   <extension point="org.eclipse.ui.editors">
+	     <editor
+	     	name="%priceListEditor.name"
+	     	default="true"
+	     	icon="icons/price-list_default_22.png"
+	     	class="com.elasticpath.cmclient.pricelistmanager.editors.PriceListEditor"
+	     	id="com.elasticpath.cmclient.pricelistmanager.editors.PriceListEditor"
+			contributorClass="com.elasticpath.cmclient.core.editors.BaseCmClientEditorContributor"
+	     >
+	     </editor>
+   </extension>   
+   
+   <extension point="com.elasticpath.cmclient.core.authorizations">
+	   <permissions>
+      	 <permission
+               activityId="com.elasticpath.cmclient.pricelistmanager.authorizations.activity"
+               key="PRICE_MANAGEMENT_MANAGE_PRODUCT_PRICING"
+               name="%manageProductPricingPermission.name">
+         </permission>
+      	 <permission
+               activityId="com.elasticpath.cmclient.pricelistmanager.authorizations.activity"
+               key="PRICE_MANAGEMENT_MANAGE_PRICE_LISTS"
+               name="%manageProductPriceListstPermission.name">
+         </permission>
+      	 <permission
+               activityId="com.elasticpath.cmclient.pricelistmanager.authorizations.activity"
+               key="PRICE_MANAGEMENT_IMPORT_PRICE_LIST_JOB"
+               name="%runProductPriceListsImportJobtPermission.name">
+         </permission>
+      	 <permission
+               activityId="com.elasticpath.cmclient.pricelistmanager.authorizations.activity"
+               key="PRICE_MANAGEMENT_EXPORT_PRICE_LISTS"
+               name="%runProductPriceListsExport.name">
+         </permission>
+	   </permissions>
+	   
+      <activity
+            id="com.elasticpath.cmclient.pricelistmanager.authorizations.activity"
+            name="%manageProductPricingPermission.name"
+            perspectiveId="com.elasticpath.cmclient.pricelistmanager.perspective">
+      </activity>
+   </extension>   
+
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="com.elasticpath.cmclient.pricelistmanager.perspective">
+         <actionSet
+               id="com.elasticpath.cmclient.pricelistmanager.workbenchActionSet">
+         </actionSet>
+      </perspectiveExtension>
+   </extension>
+   
+
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="com.elasticpath.cmclient.pricelistmanager.workbenchActionSet"
+            label="Create Price List ActionSet">
+      </actionSet>
+   </extension>   
+
+   <extension
+          point="org.eclipse.ui.menus">
+      <menuContribution
+              locationURI="toolbar:com.elasticpath.cmclient.core.toolbars.activities?after=perspectiveMenu.catalogItem">
+            <command
+                    commandId="com.elasticpath.cmclient.pricelistmanager.command.openPerspective"
+                    id="perspectiveMenu.pricelistmanagerItem"
+                    label="%priceListManagerMenu.name"
+                    icon="icons/price-list_default_34.png"
+                    tooltip="%priceListManagerMenu.name">
+               <visibleWhen
+                       checkEnabled="true">
+               </visibleWhen>
+            </command>
+      </menuContribution>
+
+        <menuContribution
+                locationURI="toolbar:org.eclipse.ui.main.toolbar?after=save">
+          <toolbar
+                  id="com.elasticpath.cmclient.core.toolbars.actions">
+             <command
+                   commandId="com.elasticpath.cmclient.pricelistmanager.command.create.pricelist"
+                   disabledIcon="icons/price-list-add_default_34.png"
+                   icon="icons/price-list-add_default_34.png"
+                   id="com.elasticpath.cmclient.pricelistmanager.toolbarMenus.createPriceList"
+                   label="%commands.createPriceList.name"
+                   tooltip="%commands.createPriceList.name">
+                <visibleWhen>
+                   <with
+                         variable="activeContexts">
+                      <iterate
+                            operator="or">
+                         <equals
+                               value="com.elasticpath.cmclient.pricelistmanager.workbenchActionSet">
+                         </equals>
+                      </iterate>
+                   </with>
+                </visibleWhen>
+             </command>
+             <command
+                   commandId="com.elasticpath.cmclient.pricelistmanager.command.create.pricelistassignment"
+                   disabledIcon="icons/price-list-assignment-add_default_34.png"
+                   icon="icons/price-list-assignment-add_default_34.png"
+                   id="com.elasticpath.cmclient.pricelistmanager.toolbarMenus.createPriceListAssignment"
+                   label="%commands.createPriceListAssignment.name"
+                   tooltip="%commands.createPriceListAssignment.name">
+                <visibleWhen>
+                   <with
+                         variable="activeContexts">
+                      <iterate
+                            operator="or">
+                         <equals
+                               value="com.elasticpath.cmclient.pricelistmanager.workbenchActionSet">
+                         </equals>
+                      </iterate>
+                   </with>
+                </visibleWhen>
+             </command>
+          </toolbar>
+       </menuContribution>
+   </extension>
+
+   <extension
+	     point="org.eclipse.ui.commands">
+	   <command
+          id="com.elasticpath.cmclient.pricelistmanager.command.openPerspective"
+          name="Open Price List Manager Perspective">
+       </command>	   
+      <category
+            description="Create Price List Command"
+            id="com.elasticpath.cmclient.pricelistmanager.commands"
+            name="%commands.createPriceList.name">
+      </category>
+      <command
+            categoryId="com.elasticpath.cmclient.fulfillment.commands"
+            defaultHandler="com.elasticpath.cmclient.pricelistmanager.handlers.CreatePriceListHandler"
+            description="Command handler for the create price list action"
+            id="com.elasticpath.cmclient.pricelistmanager.command.create.pricelist"
+            name="%commands.createPriceList.name">
+      </command>
+      
+      <category
+            description="Create Price List Assignment Command"
+            id="com.elasticpath.cmclient.pricelistmanager.commands"
+            name="%commands.createPriceListAssignment.name">
+      </category>
+      <command
+            categoryId="com.elasticpath.cmclient.pricelistmanager.commands"
+            defaultHandler="com.elasticpath.cmclient.pricelistmanager.handlers.CreatePriceListAssignmentHandler"
+            description="Command handler for the create price list assignment action"
+            id="com.elasticpath.cmclient.pricelistmanager.command.create.pricelistassignment"
+            name="%commands.createPriceListAssignment.name">
+      </command>
+      
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="com.elasticpath.cmclient.pricelistmanager.command.openPerspective">
+         <class
+               class="com.elasticpath.cmclient.pricelistmanager.perspective.OpenPriceListManagerPerspectiveHandler">
+         </class>
+      </handler>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.bindings">
+       <key
+             commandId="com.elasticpath.cmclient.pricelistmanager.command.openPerspective"
+             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+             sequence="M3+2">
+       </key>
+
+   </extension>
+
+    <extension
+          point="com.elasticpath.cmclient.catalog.statePolicy">
+
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.PriceAdjustmentTreeAuthorizationStatePolicy"
+             targetId="priceAdjustmentTree">
+       </statePolicyContribution>
+
+   </extension>
+
+    <extension
+          point="com.elasticpath.cmclient.pricelistmanager.statePolicy">
+		<statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.CsvExportPricelistActionStatePolicy"
+             targetId="csvExportPricelistAction">
+       </statePolicyContribution>          
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.CreatePriceListHandlerStatePolicy"
+             targetId="createPriceListHandler">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.CreatePriceListHandlerStatePolicy"
+             targetId="createPlaHandler">
+       </statePolicyContribution>       
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.PriceListEditorAuthorizationStatePolicy"
+             targetId="priceListEditor">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.PriceListEditorBaseAmountSectionAuthorizationStatePolicy"
+             targetId="priceListBaseAmountEditorPageContainer">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.CreatePriceListActionAuthorisationStatePolicy"
+             targetId="createPriceListAction">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.PriceListViewSelectionStatePolicy"
+             targetId="editPriceListAction">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.PriceListViewSelectionStatePolicy"
+             targetId="deletePriceListAction">
+	   </statePolicyContribution>             
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.PriceListViewSelectionStatePolicy"
+             targetId="csvExportPricelistAction">             
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.PriceListAssignmentViewSelectionStatePolicy"
+             targetId="editPriceListAssignmentAction">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.PriceListAssignmentViewSelectionStatePolicy"
+             targetId="deletePriceListAssignmentAction">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.PriceListAssignmentWizardAuthorisationStatePolicy"
+             targetId="priceListAssignmentWizard">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.PriceListAssignmentWizardStatePolicy"
+             targetId="priceListAssignmentWizard">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.PriceListAssignmentWizardAuthorisationStatePolicy"
+             targetId="priceListAssignmentWizardNewEntity">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.PriceListAssignmentWizardStatePolicy"
+             targetId="priceListAssignmentWizardNewEntity">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.BaseAmountDialogStatePolicy"
+             targetId="baseAmountDialog">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.pricelistmanager.policy.BaseAmountCreateStatePolicy"
+             targetId="priceListBaseAmountEditorPageContainer">
+       </statePolicyContribution>
+
+    </extension>
+
+    <extension point="com.elasticpath.cmclient.changeset.supportedComponents">
+       <editor
+             editorId="com.elasticpath.cmclient.pricelistmanager.editors.PriceListEditor"
+             objectType="Price List Descriptor">
+       </editor>
+       <wizard
+             class="com.elasticpath.cmclient.pricelistassignments.wizard.PriceListAssignmentWizard"
+             objectType="Price List Assignment">
+       </wizard>
+       <dialog
+             class="com.elasticpath.cmclient.pricelistmanager.dialogs.UpdatableBaseAmountDialog"
+             objectType="Base Amount">
+       </dialog>
+    </extension>
+    <extension
+          point="com.elasticpath.cmclient.core.bindings">
+       <perspectiveOpenCommand
+             openCommandId="com.elasticpath.cmclient.pricelistmanager.command.openPerspective"
+             perspectiveId="com.elasticpath.cmclient.pricelistmanager.perspective">
+       </perspectiveOpenCommand>
+    </extension>
+
+
+</plugin>

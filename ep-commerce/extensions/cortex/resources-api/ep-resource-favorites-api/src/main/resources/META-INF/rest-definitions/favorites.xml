@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>favorites</name>
+		<description><![CDATA[
+####Entry Point: /favorites/{scope}/default
+
+A favorites is list that customers build up containing items that they are interested in, or desire to purchase.
+This applies even to items which are out of stock, which allows a customer to track the item and to be notified when the item
+becomes available.
+A favorites is similar to a cart in that items can be added or removed.
+Items can also be moved between the favorites and the cart.
+Only one favorites is available per shopper. This default favorites is automatically available
+and cannot be deleted.
+
+
+[items]: #items
+[orders]: #orders
+[totals]: #totals
+		]]>
+		</description>
+
+		<uri-part>
+			<name>favorite-id</name>
+			<description><![CDATA[The favoritelist identifier.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>default-favorite</name>
+			<description><![CDATA[Alias of the shopper's default favoritelist.]]></description>
+			<uri>{favorites}/default</uri>
+			<alias>favorite</alias>
+		</resource>
+
+		<resource>
+			<name>favorite</name>
+			<description>
+				<![CDATA[
+					A favorite resource, can have line items.
+				]]>
+				<!--TBD fill more content of a what favorite consist of-->
+			</description>
+			<uri>{favorites}/{favorite-id}</uri>
+			<entity>favorite</entity>
+		</resource>
+
+		<relationship>
+			<name>default-favorite-from-root</name>
+			<description><![CDATA[Link from root resource to default favorite.]]></description>
+			<rel>defaultfavorite</rel>
+			<from>base.root</from>
+			<to>default-favorite</to>
+		</relationship>
+
+		<resource>
+			<name>favorites</name>
+			<description>Favorite list resource</description>
+			<uri>{base.family}/{base.scope}</uri>
+			<list-of>favorite</list-of>
+		</resource>
+
+		<relationship>
+			<name>profile-to-favorites</name>
+			<description><![CDATA[Retrieve a list of links to a shopper's favorites]]></description>
+			<rel>favorites</rel>
+			<rev>profile</rev>
+			<from>profiles.profile</from>
+			<to>favorites</to>
+		</relationship>
+
+		<entity>
+			<name>favorite</name>
+			<description><![CDATA[The favorite.]]></description>
+			<property>
+				<name>favorite-id</name>
+				<description><![CDATA[The favorite identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<entity-type>favorites.favorite</entity-type>
+		</entity>
+	</family>
+
+</definitions>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<!-- ============== SimpleTimeout caches - based on Ehcache === -->
+
+	<!-- ==== ep-core related caches ==== -->
+	<bean id="threadlocalStoreCache"
+		  class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="threadlocalStoreCache"/>
+		<property name="cacheManager" ref="epCoreEhcacheManager"/>
+		<property name="timeToLive" value="30" />
+		<property name="timeToIdle" value="30" />
+	</bean>
+
+	<!-- must be prototype because it is used in ep-core and ep-test-application modules, but with different timeouts -->
+	<bean id="dynamicContentDeliveryCache"
+		  class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean" scope="prototype">
+		<property name="name" value="dynamicContentDeliveryCache"/>
+		<property name="cacheManager" ref="epCoreEhcacheManager"/>
+		<property name="timeToLive" value="60" />
+		<property name="timeToIdle" value="60" />
+	</bean>
+
+	<bean id="groovyScriptCache"
+		  class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="groovyScriptCache"/>
+		<property name="cacheManager" ref="epCoreEhcacheManager"/>
+		<property name="timeToLive" value="86400" />
+		<property name="timeToIdle" value="86400" />
+	</bean>
+
+	<bean id="ruleSessionConfigurationCache"
+		  class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="ruleSessionConfigurationCache"/>
+		<property name="cacheManager" ref="epCoreEhcacheManager"/>
+		<property name="timeToLive" value="300" />
+		<property name="timeToIdle" value="300" />
+	</bean>
+
+	<bean id="catalogRuleBaseCache"
+		  class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="catalogRuleBaseCache"/>
+		<property name="cacheManager" ref="epCoreEhcacheManager"/>
+		<property name="timeToLive" value="300" />
+		<property name="timeToIdle" value="300" />
+	</bean>
+
+	<bean id="groovyConditionCache"
+		  class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="groovyConditionCache"/>
+		<property name="cacheManager" ref="epCoreEhcacheManager"/>
+		<property name="timeToLive" value="3600" />
+		<property name="timeToIdle" value="3600" />
+	</bean>
+
+	<bean id="groovyEvaluationCache"
+		  class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="groovyEvaluationCache"/>
+		<property name="cacheManager" ref="epCoreEhcacheManager"/>
+		<property name="timeToLive" value="600" />
+		<property name="timeToIdle" value="600" />
+	</bean>
+
+
+</beans>

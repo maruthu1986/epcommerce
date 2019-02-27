@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.14" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 1.0.1 Build &lt;20051130-1157></property>
+    <property name="units">in</property>
+    <text-property name="title">Registration</text-property>
+    <property name="comments">Copyright (c) 2006 &lt;&lt;Your Company Name here>></property>
+    <parameters>
+        <list-parameter name="store" id="489">
+            <property name="valueType">static</property>
+            <text-property name="promptText">store</text-property>
+            <property name="isRequired">true</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </list-parameter>
+        <scalar-parameter name="startDate" id="490">
+            <property name="valueType">static</property>
+            <property name="dataType">dateTime</property>
+            <text-property name="promptText">startDate</text-property>
+            <property name="isRequired">false</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Long Date</property>
+                <property name="pattern">Long Date</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="endDate" id="491">
+            <property name="valueType">static</property>
+            <property name="dataType">dateTime</property>
+            <text-property name="promptText">endDate</text-property>
+            <property name="isRequired">true</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Long Date</property>
+                <property name="pattern">Long Date</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="anonymousRegistration" id="492">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <text-property name="promptText">anonymousRegistration</text-property>
+            <property name="controlType">text-box</property>
+            <property name="defaultValue">""</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="EPScriptedDataSource" id="43"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Registration Dataset" id="660">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">Registration Date</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">Customer ID</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">First Name</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">Last Name</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">Email Address</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">Phone Number</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">User Type</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">Preferred Language</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">Preferred Currency</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">Receive HTML Email</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">Receive Newsletter</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">yearMonthDay</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">yearMonth</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">Registration Date</property>
+                    <property name="displayName">Registration Date</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Customer ID</property>
+                    <property name="displayName">Customer ID</property>
+                </structure>
+                <structure>
+                    <property name="columnName">First Name</property>
+                    <property name="displayName">First Name</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Last Name</property>
+                    <property name="displayName">Last Name</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Email Address</property>
+                    <property name="displayName">Email Address</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Phone Number</property>
+                    <property name="displayName">Phone Number</property>
+                </structure>
+                <structure>
+                    <property name="columnName">User Type</property>
+                    <property name="displayName">User Type</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Preferred Language</property>
+                    <property name="displayName">Preferred Language</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Preferred Currency</property>
+                    <property name="displayName">Preferred Currency</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Receive HTML Email</property>
+                    <property name="displayName">Receive HTML Email</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Receive Newsletter</property>
+                    <property name="displayName">Receive Newsletter</property>
+                </structure>
+                <structure>
+                    <property name="columnName">yearMonthDay</property>
+                    <property name="displayName">yearMonthDay</property>
+                </structure>
+                <structure>
+                    <property name="columnName">yearMonth</property>
+                    <property name="displayName">yearMonth</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">Registration Date</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">Customer ID</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">First Name</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">Last Name</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">Email Address</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">Phone Number</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">User Type</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">Preferred Language</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">Preferred Currency</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">Receive HTML Email</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">Receive Newsletter</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">yearMonthDay</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">yearMonth</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">EPScriptedDataSource</property>
+            <method name="open"><![CDATA[customerReportService = new Packages.com.elasticpath.cmclient.reporting.registration.service.impl.CustomerRegistrationReportServiceImpl;
+
+customers = customerReportService.registrationReport();
+java.lang.System.out.println(customers);
+
+totalRows = customers.size();
+
+currentRow = 0;]]></method>
+            <method name="fetch"><![CDATA[if (currentRow >= totalRows) {
+    return false;
+}
+
+var customer = customers.get(currentRow);
+
+currentRow++;
+row["Registration Date"] = customer[0];
+java.lang.System.out.println(customer[0]);
+row["Customer ID"] = new Number(customer[1]);
+java.lang.System.out.println(customer[1]);
+row["First Name"] = customer[2];
+java.lang.System.out.println(customer[2]);
+row["Last Name"] = customer[3];
+java.lang.System.out.println(customer[3]);
+row["Email Address"] = customer[4];
+java.lang.System.out.println(customer[4]);
+row["Phone Number"] = customer[5];
+java.lang.System.out.println(customer[5]);
+row["User Type"] = customer[6];
+java.lang.System.out.println(customer[6]);
+row["Preferred Language"] = customer[7];
+java.lang.System.out.println(customer[7]);
+row["Preferred Currency"] = customer[8];
+java.lang.System.out.println(customer[8]);
+row["Receive Newsletter"] = customer[9];
+java.lang.System.out.println(customer[9]);
+row["Receive HTML Email"] = customer[10];
+java.lang.System.out.println(customer[10]);
+
+
+
+var stringDate = new String(row["Registration Date"]);
+java.lang.System.out.println(stringDate);
+row["yearMonthDay"] = stringDate.substring(4, 7) + " " +  stringDate.substring(8, 10) + ", " + stringDate.substring(11, 15) ;
+row["yearMonth"] = stringDate.substring(4, 7) + " " + stringDate.substring(11, 15);
+return true;]]></method>
+            <method name="close"><![CDATA[customerService = null;
+customers = null;
+
+totalRows = null;
+currentRow = null;]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="tableBorder" id="531">
+            <property name="borderBottomColor">#4F81BD</property>
+            <property name="borderLeftColor">#4F81BD</property>
+            <property name="borderRightColor">#4F81BD</property>
+            <property name="borderTopColor">#4F81BD</property>
+        </style>
+        <style name="HederRow" id="532">
+            <property name="backgroundColor">#4F81BD</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontWeight">bold</property>
+            <property name="color">#FFFFFF</property>
+        </style>
+        <style name="firstLevelGroup" id="533">
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+            <property name="fontWeight">bold</property>
+        </style>
+        <style name="secondLevelGroup" id="534">
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+            <property name="fontWeight">normal</property>
+            <property name="fontStyle">italic</property>
+        </style>
+        <style name="columnHeader" id="535">
+            <property name="backgroundColor">#DBE5F1</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+            <property name="fontWeight">bold</property>
+        </style>
+        <style name="dataRow" id="536">
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+        </style>
+        <style name="highlight" id="573">
+            <property name="backgroundColor">#DBE5F1</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">custom</property>
+            <property name="height">11.5in</property>
+            <property name="width">15in</property>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="4">
+            <property name="style">tableBorder</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="width">100%</property>
+            <column id="5"/>
+            <row id="6">
+                <cell id="7">
+                    <text id="10">
+                        <property name="style">HederRow</property>
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="paddingLeft">5pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[Registration Report for <VALUE-OF>params["store"]</VALUE-OF><BR>
+(<VALUE-OF>params["startDate"]</VALUE-OF> - <VALUE-OF>params["endDate"]</VALUE-OF>; <VALUE-OF>params["anonymousRegistration"]</VALUE-OF>)]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="8">
+                <cell id="9">
+                    <table id="11">
+                        <property name="marginTop">0pt</property>
+                        <property name="height">2.2395833333in</property>
+                        <property name="width">12.4375in</property>
+                        <property name="dataSet">Registration Dataset</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">Registration Date</property>
+                                <expression name="expression">dataSetRow["Registration Date"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Customer ID</property>
+                                <expression name="expression">dataSetRow["Customer ID"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">First Name</property>
+                                <expression name="expression">dataSetRow["First Name"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Last Name</property>
+                                <expression name="expression">dataSetRow["Last Name"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Email Address</property>
+                                <expression name="expression">dataSetRow["Email Address"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Phone Number</property>
+                                <expression name="expression">dataSetRow["Phone Number"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">User Type</property>
+                                <expression name="expression">dataSetRow["User Type"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Preferred Language</property>
+                                <expression name="expression">dataSetRow["Preferred Language"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Preferred Currency</property>
+                                <expression name="expression">dataSetRow["Preferred Currency"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Receive HTML Email</property>
+                                <expression name="expression">dataSetRow["Receive HTML Email"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Receive Newsletter</property>
+                                <expression name="expression">dataSetRow["Receive Newsletter"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">yearMonthDay</property>
+                                <expression name="expression">dataSetRow["yearMonthDay"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">yearMonth</property>
+                                <expression name="expression">dataSetRow["yearMonth"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                        </list-property>
+                        <column id="36"/>
+                        <column id="37"/>
+                        <column id="38"/>
+                        <column id="39"/>
+                        <column id="40">
+                            <property name="width">1.375in</property>
+                        </column>
+                        <column id="392">
+                            <property name="width">1.2916666667in</property>
+                        </column>
+                        <column id="41"/>
+                        <column id="428"/>
+                        <column id="434">
+                            <property name="width">1.0625in</property>
+                        </column>
+                        <column id="408">
+                            <property name="width">0.96875in</property>
+                        </column>
+                        <column id="414">
+                            <property name="width">0.90625in</property>
+                        </column>
+                        <group id="462">
+                            <property name="groupName">yearMonthGroup</property>
+                            <property name="interval">none</property>
+                            <property name="sortDirection">asc</property>
+                            <expression name="keyExpr">row["yearMonth"]</expression>
+                            <structure name="toc">
+                                <expression name="expressionValue">row["yearMonth"]</expression>
+                            </structure>
+                            <property name="repeatHeader">false</property>
+                            <property name="hideDetail">false</property>
+                            <property name="pageBreakAfter">auto</property>
+                            <property name="pageBreakBefore">auto</property>
+                            <property name="pageBreakInside">auto</property>
+                            <header>
+                                <row id="463">
+                                    <property name="style">firstLevelGroup</property>
+                                    <list-property name="highlightRules">
+                                        <structure>
+                                            <property name="operator">eq</property>
+                                            <property name="backgroundColor">#FFFFFF</property>
+                                            <expression name="testExpr">true</expression>
+                                            <expression name="value1">true</expression>
+                                        </structure>
+                                    </list-property>
+                                    <cell id="464">
+                                        <property name="colSpan">11</property>
+                                        <property name="rowSpan">1</property>
+                                        <data id="682">
+                                            <property name="resultSetColumn">yearMonth</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </header>
+                            <footer>
+                                <row id="475">
+                                    <cell id="476"/>
+                                    <cell id="477"/>
+                                    <cell id="478"/>
+                                    <cell id="479"/>
+                                    <cell id="480"/>
+                                    <cell id="481"/>
+                                    <cell id="482"/>
+                                    <cell id="483"/>
+                                    <cell id="484"/>
+                                    <cell id="485"/>
+                                    <cell id="486"/>
+                                </row>
+                            </footer>
+                        </group>
+                        <group id="78">
+                            <property name="groupName">GroupByYearMonthDay</property>
+                            <property name="interval">none</property>
+                            <property name="sortDirection">asc</property>
+                            <expression name="keyExpr">row["yearMonthDay"]</expression>
+                            <structure name="toc">
+                                <expression name="expressionValue">row["yearMonthDay"]</expression>
+                            </structure>
+                            <property name="repeatHeader">true</property>
+                            <property name="hideDetail">false</property>
+                            <property name="pageBreakAfter">auto</property>
+                            <property name="pageBreakBefore">auto</property>
+                            <property name="pageBreakInside">auto</property>
+                            <header>
+                                <row id="634">
+                                    <property name="style">columnHeader</property>
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <list-property name="highlightRules">
+                                        <structure>
+                                            <property name="operator">eq</property>
+                                            <property name="backgroundColor">#DBE5F1</property>
+                                            <expression name="testExpr">true</expression>
+                                            <expression name="value1">true</expression>
+                                        </structure>
+                                    </list-property>
+                                    <cell id="635">
+                                        <property name="paddingTop">3px</property>
+                                        <label id="47">
+                                            <text-property name="text">Registration Date</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="636">
+                                        <property name="paddingTop">3px</property>
+                                        <label id="49">
+                                            <text-property name="text">Customer ID</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="637">
+                                        <property name="paddingTop">3px</property>
+                                        <label id="51">
+                                            <text-property name="text">First Name</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="638">
+                                        <property name="paddingTop">3px</property>
+                                        <label id="53">
+                                            <text-property name="text">Last Name</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="639">
+                                        <property name="paddingTop">3px</property>
+                                        <label id="55">
+                                            <text-property name="text">Email Address</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="640">
+                                        <property name="paddingTop">3px</property>
+                                        <label id="393">
+                                            <text-property name="text">Phone Number</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="641">
+                                        <property name="paddingTop">3px</property>
+                                        <label id="57">
+                                            <text-property name="text">User Type</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="642">
+                                        <property name="paddingTop">3px</property>
+                                        <label id="418">
+                                            <text-property name="text">Preferred Language</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="643">
+                                        <property name="paddingTop">3px</property>
+                                        <label id="435">
+                                            <text-property name="text">Preferred Currency</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="644">
+                                        <property name="paddingTop">3px</property>
+                                        <label id="415">
+                                            <text-property name="text">Receive HTML Email</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="645">
+                                        <property name="paddingTop">3px</property>
+                                        <label id="401">
+                                            <text-property name="text">Receive Newsletter</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                                <row id="684">
+                                    <property name="style">columnHeader</property>
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <list-property name="highlightRules">
+                                        <structure>
+                                            <property name="operator">eq</property>
+                                            <property name="backgroundColor">#FFFFFF</property>
+                                            <expression name="testExpr">true</expression>
+                                            <expression name="value1">true</expression>
+                                        </structure>
+                                    </list-property>
+                                    <cell id="685">
+                                        <property name="colSpan">11</property>
+                                        <property name="rowSpan">1</property>
+                                        <property name="paddingTop">3px</property>
+                                        <data id="683">
+                                            <property name="resultSetColumn">yearMonthDay</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </header>
+                            <footer>
+                                <row id="87">
+                                    <cell id="88"/>
+                                    <cell id="89"/>
+                                    <cell id="90"/>
+                                    <cell id="91"/>
+                                    <cell id="92"/>
+                                    <cell id="390"/>
+                                    <cell id="93"/>
+                                    <cell id="426"/>
+                                    <cell id="432"/>
+                                    <cell id="406"/>
+                                    <cell id="412"/>
+                                </row>
+                            </footer>
+                        </group>
+                        <detail>
+                            <row id="20">
+                                <property name="style">dataRow</property>
+                                <list-property name="highlightRules">
+                                    <structure>
+                                        <property name="operator">eq</property>
+                                        <expression name="testExpr">row["__rownum"] % 2</expression>
+                                        <expression name="value1">0</expression>
+                                        <property name="style">highlight</property>
+                                    </structure>
+                                </list-property>
+                                <cell id="21">
+                                    <data id="663">
+                                        <property name="resultSetColumn">Registration Date</property>
+                                    </data>
+                                </cell>
+                                <cell id="22">
+                                    <data id="664">
+                                        <property name="resultSetColumn">Customer ID</property>
+                                    </data>
+                                </cell>
+                                <cell id="23">
+                                    <data id="665">
+                                        <property name="resultSetColumn">First Name</property>
+                                    </data>
+                                </cell>
+                                <cell id="24">
+                                    <data id="666">
+                                        <property name="resultSetColumn">Last Name</property>
+                                    </data>
+                                </cell>
+                                <cell id="25">
+                                    <data id="667">
+                                        <property name="resultSetColumn">Email Address</property>
+                                    </data>
+                                </cell>
+                                <cell id="389">
+                                    <data id="668">
+                                        <property name="resultSetColumn">Phone Number</property>
+                                    </data>
+                                </cell>
+                                <cell id="26">
+                                    <data id="669">
+                                        <property name="resultSetColumn">User Type</property>
+                                    </data>
+                                </cell>
+                                <cell id="425">
+                                    <data id="670">
+                                        <property name="resultSetColumn">Preferred Language</property>
+                                    </data>
+                                </cell>
+                                <cell id="431">
+                                    <data id="671">
+                                        <property name="resultSetColumn">Preferred Currency</property>
+                                    </data>
+                                </cell>
+                                <cell id="405">
+                                    <data id="672">
+                                        <property name="resultSetColumn">Receive HTML Email</property>
+                                    </data>
+                                </cell>
+                                <cell id="411">
+                                    <data id="673">
+                                        <property name="resultSetColumn">Receive Newsletter</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="28">
+                                <cell id="29"/>
+                                <cell id="30"/>
+                                <cell id="31"/>
+                                <cell id="32"/>
+                                <cell id="33"/>
+                                <cell id="391"/>
+                                <cell id="34"/>
+                                <cell id="427"/>
+                                <cell id="433"/>
+                                <cell id="407"/>
+                                <cell id="413"/>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+            </row>
+        </grid>
+    </body>
+    <list-property name="images">
+        <structure>
+            <property name="name">icon-list.gif</property>
+            <property name="data">
+                R0lGODlhEAAOAOYAAAAAAP///4am6nqPvH+Tvombwi9iyDFlzTly4j5240B240Z75Ep9406B5FaG5ViH
+                5WWV82KO5mqZ9XGd9WyU526X53ei9n2n+Hab6Hqf6YSr+X+h6Yuw+oSl6Za5/Iuq6oOXwI6gxZSlx5qq
+                yqCvzaa0z7G91JC1+5q9/Z/A/qLC/6u50rXB1rrF2NLX4LzS9qe728LW9qO0z7PD3Ku50LvI3b3I2tvn
+                +sDK2+Ps+8rS3+zy/K2/28nb96OyyKe2zNLh+LbB0cPO3/P3/TVJY5Oit5alup6uw5qpvtjc4fn7/f7+
+                /v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAEwALAAAAAAQAA4AAAebgEwf
+                gx8CGxgUEQ8NCwkITIIqKSgeJxwaFxYTEhAHkIQdGRURDgwKCKgGkD9Lra6tSkM7OUSQPks4ODZLLCYr
+                QyQjQbVMR6+wsjk3w5BISzYtLEsrJSQ5IiHMTEavsbM3QD00xEW8vsAjIkAFIDLkyN/hMS/ukOXU1tgF
+                MQQD9UxFlCRxoUNIjRk8YCj8V4SIw4cQH0KaSLHixEAAOw==
+            </property>
+        </structure>
+    </list-property>
+</report>

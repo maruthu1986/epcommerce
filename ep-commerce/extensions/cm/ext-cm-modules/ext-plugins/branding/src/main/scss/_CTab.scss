@@ -1,0 +1,46 @@
+// also used in Tab
+$ctab_padding: 7px 15px 7px 12px; // because left icons have space in image
+@mixin tab_style() {
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/CTabFolder.html
+	&Folder {
+		border-color: $widget_border_color; // window border
+		border-radius: $widget_border_radius;
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/CTabFolder.html#CTabItem
+	&Item {
+	    // background-color or background-image causes tabs to lose borders
+		color: $default-font-color;
+		font: $default-font;
+		padding: $ctab_padding;
+		spacing: $icon-spacing;
+		text-decoration: none;
+		text-shadow: none;
+
+		&:selected {
+			color: $default-font-color;
+		}
+
+		&:disabled {
+			background-color: $default-bg;
+			background-image: none;
+			color: $default-font-color;
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/CTabFolder.html#CTabFolder-DropDownButton-Icon
+	&Folder-DropDownButton-Icon {
+		&, &:pressed {
+			background-image: url('themes/icons/DateTime-Calendar-NextYearButton.png');
+		}
+
+		&:hover {
+			background-image: url('themes/icons/DateTime-Calendar-NextYearButton_hover.png');
+			border: none;
+		}
+	}
+}
+
+CTab {
+	@include tab_style();
+}

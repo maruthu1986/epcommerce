@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>wishlists</name>
+
+		<resource>
+			<name>add-item-to-wishlist-form</name>
+			<description>Form for adding an item to the default wishlist</description>
+			<uri>{base.family}/{items.item}/form</uri>
+			<form>
+				<entity>add-item-to-wishlist-form</entity>
+				<action-rel>addtodefaultwishlistaction</action-rel>
+				<result>wishlist-line-item</result>
+			</form>
+		</resource>
+
+		<entity>
+			<name>add-item-to-wishlist-form</name>
+			<description>Form for adding an item to a wishlist</description>
+		</entity>
+
+		<relationship>
+			<name>item-to-wishlist-form</name>
+			<description>Link from items.item to a form used to add that item to a wishlist</description>
+			<rel>addtowishlistform</rel>
+			<from>items.item</from>
+			<to>add-item-to-wishlist-form</to>
+		</relationship>
+
+	</family>
+</definitions>

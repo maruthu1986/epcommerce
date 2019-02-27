@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+<family>
+	<name>lookups</name>
+
+	<resource>
+		<name>batch-items-form</name>
+		<description><![CDATA[Provides the form with which to search for items by a list of codes.]]></description>
+		<uri>{lookups}/batches/items/form</uri>
+		<form>
+			<entity>codes</entity>
+			<action-rel>batchitemslookupaction</action-rel>
+			<result>batch-items</result>
+		</form>
+	</resource>
+
+	<relationship>
+		<name>batch-items-form-from-lookups</name>
+		<description>A link from the lookups resource to the batch items form.</description>
+		<rel>batchitemslookupform</rel>
+		<from>lookups</from>
+		<to>batch-items-form</to>
+	</relationship>
+
+	<entity>
+		<name>codes</name>
+		<description>A list of codes.</description>
+		<property>
+			<name>codes</name>
+			<description>A list of codes.</description>
+			<array>
+				<string/>
+			</array>
+		</property>
+	</entity>
+
+</family>
+</definitions>

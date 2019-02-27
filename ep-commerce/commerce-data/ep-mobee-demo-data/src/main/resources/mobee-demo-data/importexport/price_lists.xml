@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<price_lists>
+<price_list>
+    <guid>011D3611-7551-86C3-0E77-D3594AFA9961</guid>
+    <description></description>
+    <currency_code>CAD</currency_code>
+    <name>Toastie CAD Price List</name>
+    <hidden>false</hidden>
+</price_list>
+
+<price_list>
+    <guid>0877BE38-1DD9-FD28-9F2F-6511C6967BBC</guid>
+    <description>Tobee123 Price List</description>
+    <currency_code>CAD</currency_code>
+    <name>Tobee123 Price List</name>
+    <hidden>false</hidden>
+</price_list>
+
+<price_list>
+    <guid>1A971BA1-D81F-A164-0FF0-53817D83B107</guid>
+    <description></description>
+    <currency_code>CAD</currency_code>
+    <name>Mobile Price List</name>
+    <hidden>false</hidden>
+</price_list>
+
+<price_list>
+    <guid>5241CE7D-3A39-6DAF-FA32-384C2B2A81CB</guid>
+    <description></description>
+    <currency_code>CAD</currency_code>
+    <name>Search Price List</name>
+    <hidden>false</hidden>
+</price_list>
+
+<price_list>
+    <guid>77B24E48-D11B-E3C1-3B44-6F67F80B41E0</guid>
+    <description></description>
+    <currency_code>CAD</currency_code>
+    <name>Kobee Price List</name>
+    <hidden>false</hidden>
+</price_list>
+
+<price_list>
+    <guid>F8C6DDBE-DB57-950C-1734-21DA07D5FDD7</guid>
+    <description></description>
+    <currency_code>EUR</currency_code>
+    <name>Toastie EUR Price List</name>
+    <hidden>false</hidden>
+</price_list>
+<price_list>
+    <guid>9398b2e0-867a-4937-895c-2f8670361de9</guid>
+	<description></description>
+    <currency_code>CAD</currency_code>
+    <name>Mobee CA Shopper Price List</name>
+    <hidden>false</hidden>
+</price_list>
+<price_list>
+    <guid>b24981de-d7a3-40cd-abdc-0fed512e5fa1</guid>
+	<description></description>
+    <currency_code>CAD</currency_code>
+    <name>Mobee Scope Price List</name>
+    <hidden>false</hidden>
+</price_list>
+
+<price_list>
+    <guid>c1275df1-1fdc-4d23-9703-cd0d8fbbcad4</guid>
+    <description>USD Price List for Campus Store</description>
+    <currency_code>USD</currency_code>
+    <name>MSRP USD Campus</name>
+    <hidden>false</hidden>
+</price_list>
+
+<price_list>
+    <guid>ffde669d-3d8e-4d9d-bb9a-832a60e0c110</guid>
+	<description></description>
+    <currency_code>CAD</currency_code>
+    <name>Mobee Time Range Price List</name>
+    <hidden>false</hidden>
+</price_list>
+
+<price_list>
+    <guid>c77df022-1c10-4d40-9ce0-efc9c73019ef</guid>
+	<description></description>
+    <currency_code>CAD</currency_code>
+    <name>Mobee First Time Buyer Price List</name>
+    <hidden>false</hidden>
+</price_list>
+
+<price_list>
+    <guid>b9ddddae-7c89-49a7-a0aa-33f8a37627c3</guid>
+	<description></description>
+    <currency_code>CAD</currency_code>
+    <name>Mobee Over 50 Price List</name>
+    <hidden>false</hidden>
+</price_list>
+
+<price_list>
+    <guid>0593e983-b24c-47c5-b7de-5e2b867af04d</guid>
+	<description></description>
+    <currency_code>CAD</currency_code>
+    <name>Mobee Female Shopper Price List</name>
+    <hidden>false</hidden>
+</price_list>
+<price_list>
+    <guid>d8ef0867-75da-4731-90c1-eee357f7eaf0</guid>
+    <description></description>
+    <currency_code>CAD</currency_code>
+    <name>Mobee Registered Price List</name>
+    <hidden>false</hidden>
+</price_list>
+<price_list>
+    <guid>d24535b4-b044-4659-8f38-c5874ee703e0</guid>
+	<description></description>
+    <currency_code>CAD</currency_code>
+    <name>Mobee CA BC Shopper Price List</name>
+    <hidden>false</hidden>
+</price_list>
+<price_list>
+    <guid>1e3530d3-0dff-4391-95c5-1bae092b92df</guid>
+    <description>itestsegmentpricelist</description>
+    <currency_code>CAD</currency_code>
+    <name>itestsegmentpricelist</name>
+    <hidden>false</hidden>
+</price_list>
+<price_list>
+    <guid>f2b16c04-e1a4-4bd5-be79-d05796ceb1f9</guid>
+    <description>EUR Price List</description>
+    <currency_code>EUR</currency_code>
+    <name>Mobee EUR Shopper Price List</name>
+    <hidden>false</hidden>
+</price_list>
+
+</price_lists>

@@ -1,0 +1,33 @@
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Tree.html
+// $table_cell_padding: 5px 7px;
+Tree {
+	@include grid_style(5px 7px);
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Tree.html#Tree-Indent
+	&-Indent {
+		width: ($field-icon-width) - 10px;
+
+		&:collapsed {
+			&, &:first, &:last {
+				background-image: url('themes/icons/Spinner-DownButton-Icon.png');
+				&:hover {
+					background-image: url('themes/icons/Spinner-DownButton-Icon_hover.png');
+				}
+			}
+
+		}
+
+		&:expanded {
+			&, &:first, &:last {
+				background-image: url('themes/icons/Spinner-UpButton-Icon.png');
+				&:hover {
+					background-image: url('themes/icons/Spinner-UpButton-Icon_hover.png');	
+				}
+			}
+		}
+		// Indicates that the level continues after this item. Never used for the final level and therefore never combined with the other states.
+		&:line {
+
+		}
+	}
+}

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.rest.integration</groupId>
+		<artifactId>cortex-ep-integration-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.elasticpath.rest.integration.epcommerce</groupId>
+	<artifactId>ep-commerce-engine-integrations-parent</artifactId>
+	<packaging>pom</packaging>
+	<name>EP ∷ Resources Parent ʃ Commerce Engine Integrations Parent</name>
+	<description>Elastic Path REST - Resources Commerce Engine Resource Integrations</description>
+
+	<modules>
+		<module>authentication-parent</module>
+		<module>event-handlers</module>
+		<module>itemdefinitions</module>
+		<module>items</module>
+		<module>itemselections</module>
+		<module>paymentmethods</module>
+		<module>paymenttokens</module>
+		<module>personalization</module>
+		<module>subject-lookups</module>
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest</groupId>
+			<artifactId>ep-rest-commons</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.elasticpath</groupId>
+			<artifactId>ep-core</artifactId>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.codehaus.groovy</groupId>
+					<artifactId>groovy-all</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.drools</groupId>
+					<artifactId>knowledge-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.drools</groupId>
+					<artifactId>drools-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.drools</groupId>
+					<artifactId>drools-compiler</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- block xerces from getting into our classpath -->
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.elasticpath.rest.tests</groupId>
+			<artifactId>ep-rest-test-utils</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-core</artifactId>
+			<version>${hamcrest.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>${hamcrest.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

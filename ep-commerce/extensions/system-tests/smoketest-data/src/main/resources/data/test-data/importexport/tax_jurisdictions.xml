@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tax_jurisdictions>
+<jurisdiction guid="90A40DA5-CB0F-8470-B044-CA06D53F44F6">
+    <region_code>CA</region_code>
+    <priceCalculationMethod>false</priceCalculationMethod>
+    <tax_categories>
+        <tax_category guid="140A23B1-E64E-406E-A331-088912B18253">
+            <name>PST</name>
+            <fieldMatch>FIELD_MATCH_SUBCOUNTRY</fieldMatch>
+            <localized_properties/>
+            <regions></regions>
+        </tax_category>
+        <tax_category guid="C922928F-08F9-CA7D-47E2-8F42B208E663">
+            <name>GST</name>
+            <fieldMatch>FIELD_MATCH_COUNTRY</fieldMatch>
+            <localized_properties/>
+            <regions></regions>
+        </tax_category>
+    </tax_categories>
+</jurisdiction>
+
+</tax_jurisdictions>

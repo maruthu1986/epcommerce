@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<system_configuration>
+
+	<!-- These are the minimal settings required for all servers to start successfully with no demo data -->
+
+	<configuration_setting>
+		<name_space>COMMERCE/SYSTEM/SEARCH/searchHost</name_space>
+		<description>The search server's URL. If this is not set correctly, searching and browsing in the storefront and in Commerce Manager will not work. For a search server cluster, this setting must contain two values. The default value must be set to the load balancer URL. A defined value with the context set to 'master' must be set to the master search server URL.</description>
+		<default_value type="url">${ep.search.url}</default_value>
+		<max_overrides>1</max_overrides>
+		<setting_metadata>
+			<value key="environmentSpecific">true</value>
+			<value key="apiRefreshStrategy">interval:timeout=COMMERCE/Cache/Cache_1</value>
+		</setting_metadata>
+	</configuration_setting>
+
+	<configuration_setting>
+		<name_space>COMMERCE/SYSTEM/ASSETS/assetLocation</name_space>
+		<description>The path to the directory that contains assets required by the application, including images, theme files, and digital goods.</description>
+		<default_value type="String">${ep.local.asset.path}</default_value>
+		<max_overrides>1</max_overrides>
+		<setting_metadata>
+			<value key="environmentSpecific">false</value>
+			<value key="apiRefreshStrategy">application</value>
+		</setting_metadata>
+	</configuration_setting>
+
+	<configuration_setting>
+		<name_space>COMMERCE/SYSTEM/EMAIL/mailHost</name_space>
+		<description>The host name of the email server.</description>
+		<default_value type="String">${ep.smtp.host:localhost}</default_value>
+		<max_overrides>1</max_overrides>
+		<setting_metadata>
+			<value key="environmentSpecific">true</value>
+		</setting_metadata>
+	</configuration_setting>
+
+	<configuration_setting>
+		<name_space>COMMERCE/SYSTEM/EMAIL/mailPort</name_space>
+		<description>The listener port of the email server.</description>
+		<default_value type="Integer">25</default_value>
+		<max_overrides>1</max_overrides>
+		<setting_metadata>
+			<value key="environmentSpecific">true</value>
+		</setting_metadata>
+	</configuration_setting>
+
+</system_configuration>

@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>taxes</name>
+		<description>
+			<![CDATA[
+Taxes describe the amount of tax owing for orders, shipments and shipment lineitems.
+
+[orders]: #orders
+			]]>
+		</description>
+
+		<resource>
+			<name>order-tax</name>
+			<description><![CDATA[A tax resource that identifies the tax owing for an order.]]></description>
+			<uri>{base.family}/{orders.order}</uri>
+			<entity>taxes</entity>
+		</resource>
+
+		<resource>
+			<name>shipment-tax</name>
+			<description><![CDATA[A tax resource that identifies the tax paid for a shipment.]]></description>
+			<uri>{base.family}/{shipments.shipment}</uri>
+			<entity>taxes</entity>
+		</resource>
+
+		<resource>
+			<name>shipment-line-item-tax</name>
+			<description><![CDATA[The shipment line item tax.]]></description>
+			<uri>{base.family}/{shipments.shipment-line-item}</uri>
+			<entity>taxes</entity>
+		</resource>
+
+		<relationship>
+			<name>taxes-for-order</name>
+			<description><![CDATA[Retrieves the total tax for an order, which includes the order's tax amount, currency, and type of tax (VAT, HST, etc.).]]></description>
+			<rel>tax</rel>
+			<rev>order</rev>
+			<from>orders.order</from>
+			<to>order-tax</to>
+		</relationship>
+
+		<relationship>
+			<name>taxes-for-shipment</name>
+			<description>
+				<![CDATA[Retrieves the total tax for a shipment, which includes the shipments' tax amount, currency, and type of tax (VAT, HST, etc.).]]></description>
+			<rel>tax</rel>
+			<rev>shipment</rev>
+			<from>shipments.shipment</from>
+			<to>shipment-tax</to>
+		</relationship>
+
+		<relationship>
+			<name>taxes-for-shipment-line-item</name>
+			<description><![CDATA[Retrieve the tax amount for a shipment line item.]]></description>
+			<rel>tax</rel>
+			<rev>lineitem</rev>
+			<from>shipments.shipment-line-item</from>
+			<to>shipment-line-item-tax</to>
+		</relationship>
+
+		<entity>
+			<name>taxes</name>
+			<description><![CDATA[Taxes owing for an order.]]></description>
+			<property>
+				<name>total</name>
+				<description><![CDATA[The total tax.]]></description>
+				<is-a>base.cost</is-a>
+			</property>
+			<property>
+				<name>cost</name>
+				<description><![CDATA[The cost of the tax(es).]]></description>
+				<array>
+					<is-a>base.named-cost</is-a>
+				</array>
+			</property>
+			<entity-type>taxes.taxes</entity-type>
+		</entity>
+
+	</family>
+</definitions>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<manifest>
+    <version>6.0</version>
+    <resource>tax_codes.xml</resource>
+    <resource>tax_jurisdictions.xml</resource>
+    <resource>warehouses.xml</resource>
+    <resource>payment_gateways.xml</resource>
+    <resource>catalogs.xml</resource>
+    <resource>stores.xml</resource>
+</manifest>

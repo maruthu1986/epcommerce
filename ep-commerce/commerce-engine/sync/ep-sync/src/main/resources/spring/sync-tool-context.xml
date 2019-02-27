@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		">
+
+	<description>This configuration file defines all the beans for the Data Sync Tool's own Spring context.
+		This does not include the source/target contexts which are initialized on demand by the ContextInitializerFactory.</description>
+
+	<bean id="syncToolLauncher" class="com.elasticpath.tools.sync.client.impl.SyncToolLauncherImpl"
+		  init-method="startUp" destroy-method="shutDown" lazy-init="true">
+		<property name="syncToolControllerFactory" ref="syncToolControllerFactory"/>
+		<property name="syncToolConfiguration" ref="syncToolConfiguration"/>
+	</bean>
+
+	<bean id="syncJobObjectsProcessor" class="com.elasticpath.tools.sync.processing.impl.SyncJobObjectsProcessorImpl">
+		<property name="syncBeanFactory" ref="syncBeanFactory" />
+	</bean>
+
+	<bean id="noProcessingJobObjectsProcessor" class="com.elasticpath.tools.sync.processing.impl.NoProcessingJobObjectsProcessorImpl" />
+
+	<bean id="syncBeanFactory" class="com.elasticpath.tools.sync.beanfactory.impl.SyncBeanFactoryImpl" factory-method="getInstance" />
+
+	<bean id="objectEventDistributor" class="com.elasticpath.tools.sync.client.controller.impl.SyncJobObjectEventDistributor">
+		<property name="exceptionHandlers">
+			<list>
+				<bean class="com.elasticpath.tools.sync.client.controller.exception.impl.ChangeSetExceptionHandlerImpl" />
+				<bean class="com.elasticpath.tools.sync.client.controller.exception.impl.TranasactionRollbackExceptionHandler" />
+				<bean class="com.elasticpath.tools.sync.client.controller.exception.impl.DefaultExceptionHandler" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="abstractSyncController" class="com.elasticpath.tools.sync.client.controller.impl.AbstractSyncController"
+		  abstract="true" scope="prototype">
+		<description>This abstract sync controller bean should be only used as a template for other beans.
+			The property 'abstract' must have value of 'true'</description>
+		<property name="contextInitializerFactory" ref="contextInitializerFactory" />
+		<property name="syncBeanFactory" ref="syncBeanFactory" />
+		<property name="objectEventDistributor" ref="objectEventDistributor" />
+		<property name="syncToolConfiguration" ref="syncToolConfiguration" />
+	</bean>
+
+	<bean id="exportController" class="com.elasticpath.tools.sync.client.controller.impl.ExportController" parent="fullController">
+		<property name="objectProcessor" ref="noProcessingJobObjectsProcessor" />
+		<property name="jobDescriptorDaoFactory" ref="jobDescriptorDaoFactory" />
+		<property name="transactionJobDaoFactory" ref="transactionJobDaoFactory" />
+		<property name="syncBeanFactory" ref="syncBeanFactory" />
+	</bean>
+
+	<bean id="fullController" class="com.elasticpath.tools.sync.client.controller.impl.FullController" parent="abstractSyncController">
+		<property name="objectProcessor" ref="syncJobObjectsProcessor" />
+		<property name="jobDescriptorDaoFactory" ref="nullJobDescriptorDaoFactory" />
+		<property name="transactionJobDaoFactory" ref="nullTransactionJobDaoFactory" />
+		<property name="domainSorter" ref="domainSorter" />
+	</bean>
+
+	<bean id="fullAndSaveController" parent="fullController">
+		<property name="jobDescriptorDaoFactory" ref="jobDescriptorDaoFactory" />
+		<property name="transactionJobDaoFactory" ref="transactionJobDaoFactory" />
+	</bean>
+
+	<bean id="loadController" class="com.elasticpath.tools.sync.client.controller.impl.LoadController" parent="abstractSyncController">
+		<property name="objectProcessor" ref="syncJobObjectsProcessor" />
+		<property name="transactionJobDaoFactory" ref="transactionJobDaoFactory" />
+	</bean>
+
+	<bean id="syncToolControllerFactory" class="org.springframework.beans.factory.config.ServiceLocatorFactoryBean">
+		<property name="serviceLocatorInterface" value="com.elasticpath.tools.sync.client.controller.SyncToolControllerFactory"/>
+		<property name="serviceMappings">
+			<props>
+				<!-- the keys in this map must correspond to the enum names in SyncToolControllerType.java -->
+				<prop key="EXPORT">exportController</prop>
+				<prop key="FULL">fullController</prop>
+				<prop key="FULL_AND_SAVE">fullAndSaveController</prop>
+				<prop key="LOAD">loadController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="jobDescriptorDaoFactory" class="com.elasticpath.tools.sync.job.descriptor.dao.impl.JobDescriptorDaoFactoryImpl">
+		<property name="fileSystemHelperFactory" ref="fileSystemHelperFactory" />
+		<property name="jobDescriptorFileName" value="jobdescriptor.xml" />
+	</bean>
+
+	<bean id="transactionJobDaoFactory" class="com.elasticpath.tools.sync.job.dao.impl.TransactionJobDaoFactoryImpl">
+		<property name="jobUnitFileName" value="jobunit.dat" />
+		<property name="fileSystemHelperFactory" ref="fileSystemHelperFactory"/>
+	</bean>
+
+	<bean id="nullJobDescriptorDaoFactory" class="com.elasticpath.tools.sync.job.descriptor.dao.impl.NullJobDescriptorDaoFactoryImpl" />
+
+	<bean id="nullTransactionJobDaoFactory" class="com.elasticpath.tools.sync.job.dao.impl.NullTransactionJobDaoFactoryImpl" />
+
+	<bean id="fileSystemHelperFactory" class="com.elasticpath.tools.sync.client.controller.impl.FileSystemHelperFactoryImpl">
+		<property name="objectsLimitPerFile" value="500" />
+		<property name="addTimestampToFolder" value="true" />
+	</bean>
+
+	<bean id="contextInitializerFactory" class="com.elasticpath.tools.sync.beanfactory.ContextInitializerFactory">
+		<property name="contextInitializersMap">
+			<map>
+				<entry key="local.source">
+					<bean class="com.elasticpath.tools.sync.beanfactory.impl.LocalContextInitializerImpl">
+						<property name="pathToXmlFile" value="spring/sync-source-local-context.xml" />
+					</bean>
+				</entry>
+				<entry key="local.target">
+					<bean class="com.elasticpath.tools.sync.beanfactory.impl.LocalContextInitializerImpl">
+						<property name="pathToXmlFile" value="spring/sync-target-local-context.xml" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="domainSorter" class="com.elasticpath.tools.sync.job.impl.DomainSorterImpl">
+		<property name="globalEpDependencyDescriptor" ref="globalEpDependencyDescriptor" />
+		<property name="customSortingPolicy">
+			<map>
+				<entry key="com.elasticpath.domain.catalog.Category">
+					<ref bean="categorySortingPolicy" />
+				</entry>
+				<entry key="com.elasticpath.domain.catalog.ProductBundle">
+					<ref bean="productBundleSortingPolicy" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="categorySortingPolicy" class="com.elasticpath.tools.sync.job.custom.CategorySortingPolicy">
+		<property name="syncBeanFactory" ref="syncBeanFactory" />
+	</bean>
+
+	<bean id="productBundleSortingPolicy" class="com.elasticpath.tools.sync.job.custom.ProductBundleSortingPolicy">
+		<property name="syncBeanFactory" ref="syncBeanFactory" />
+	</bean>
+
+	<!-- !!!! DOCsync-tool-contextXML -->
+	<bean id="globalEpDependencyDescriptor" parent="abstractGlobalEpDependencyDescriptor" />
+	<bean id="abstractGlobalEpDependencyDescriptor" abstract="true" class="com.elasticpath.tools.sync.job.impl.GlobalEpDependencyDescriptorImpl">
+		<property name="domainClassOrdering">
+			<map>
+				<entry key="com.elasticpath.domain.catalog.Catalog" value="-13000" />
+				<entry key="com.elasticpath.domain.skuconfiguration.SkuOption" value="-12800" />
+				<entry key="com.elasticpath.domain.skuconfiguration.SkuOptionValue" value="-12700" />
+				<entry key="com.elasticpath.domain.attribute.Attribute" value="-12500" />
+				<entry key="com.elasticpath.domain.catalog.Brand" value="-12400" />
+				<entry key="com.elasticpath.domain.catalog.CategoryType" value="-12000" />
+				<entry key="com.elasticpath.domain.cartmodifier.CartItemModifierGroup" value="-11500"/>
+				<entry key="com.elasticpath.domain.cartmodifier.CartItemModifierField" value="-11490"/>
+				<entry key="com.elasticpath.domain.cartmodifier.CartItemModifierGroupLdf" value="-11480"/>
+				<entry key="com.elasticpath.domain.catalog.ProductType" value="-11000" />
+				<entry key="com.elasticpath.domain.catalog.Category" value="-10000" />
+				<entry key="com.elasticpath.domain.catalog.Product" value="-9000" />
+				<entry key="com.elasticpath.domain.catalog.ProductBundle" value="-8000" />
+				<entry key="com.elasticpath.domain.catalog.ProductSku" value="-7000" />
+				<entry key="com.elasticpath.domain.rules.Rule" value="-6000" />
+				<entry key="com.elasticpath.common.dto.pricing.PriceListDescriptorDTO" value="-5000" />
+				<entry key="com.elasticpath.common.dto.pricing.BaseAmountDTO" value="-4000" />
+				<entry key="com.elasticpath.domain.pricing.PriceListAssignment" value="-3000" />
+				<entry key="com.elasticpath.domain.contentspace.DynamicContent" value="-2000" />
+				<entry key="com.elasticpath.domain.targetedselling.DynamicContentDelivery" value="-1000" />
+				<entry key="com.elasticpath.domain.pricing.PriceListDescriptor" value="-500" />
+				<entry key="com.elasticpath.domain.pricing.PriceListAssignment" value="-400" />
+				<entry key="com.elasticpath.domain.pricing.BaseAmount" value="-300" />
+			</map>
+		</property>
+	</bean>
+	<!-- !!!! DOCsync-tool-contextXML -->
+
+	<!--
+	This element will substitute ${} placeholders found in the listed property files.
+	If the placeholder is not found after searching locations, or JVM system properties, it will remain in the ${} form,
+	(with no substitution performed) and as a result could cause spurious results at run-time.
+	-->
+	<context:property-placeholder ignore-resource-not-found="true"
+								  location="
+			file:/etc/ep/ep.properties,
+			file:/ep/conf/ep.properties,
+			file:/ep/conf/ep.datasync.properties,
+			file:${user.home}/ep/conf/ep.properties,
+			file:${user.home}/ep/conf/ep.datasync.properties"/>
+
+	<!-- This element defines overrides of the format: beanName.property=value
+	for existing bean properties. If items in these property files do not conform
+	to format convention, they will not be overridden in run-time and as a result
+	use the default value originally stated in the bean. -->
+	<context:property-override
+			ignore-resource-not-found="true" local-override="true"
+			location="
+			file:/etc/ep/ep.override.properties,
+			file:/ep/conf/ep.override.properties,
+			file:/ep/conf/ep.datasync.override.properties,
+			file:${user.home}/ep/conf/ep.override.properties,
+			file:${user.home}/ep/conf/ep.datasync.override.properties"/>
+
+	<!-- This needs to be last in order to override beans within the synctool. (pre-6.4) -->
+	<import resource="classpath*:META-INF/conf/plugin-dstcontext.xml" />
+	<!-- As of 6.4.0 the naming scheme for EP "plugins" is to prefix them with "ep-", so we support both for now. -->
+	<import resource="classpath*:META-INF/conf/ep-dst-plugin.xml" />
+</beans>

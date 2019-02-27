@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2017 Elastic Path Software Inc. All rights reserved.
+  -->
+
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<!-- Rule code -> Rule cache-->
+	<bean id="ruleByRuleCodeEhCache" class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="ruleCache"/>
+		<property name="cacheManager" ref="epEhcacheManager"/>
+		<property name="timeToLive" value="600" />
+		<property name="timeToIdle" value="600" />
+
+	</bean>
+	<bean id="ruleByRuleCodeCache"
+		  factory-bean="localCacheFactory" factory-method="createCache"
+		  depends-on="ruleByRuleCodeEhCache">
+		<constructor-arg value="ruleCache"/>
+	</bean>
+
+	<!-- Rule name -> code cache-->
+	<bean id="ruleCodeByRuleNameEhCache" class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="ruleCodeByRuleNameCache"/>
+		<property name="cacheManager" ref="epEhcacheManager"/>
+		<property name="timeToLive" value="600" />
+		<property name="timeToIdle" value="600" />
+	</bean>
+	<bean id="ruleCodeByRuleNameCache"
+		  factory-bean="localCacheFactory" factory-method="createCache"
+		  depends-on="ruleCodeByRuleNameEhCache">
+		<constructor-arg value="ruleCodeByRuleNameCache"/>
+	</bean>
+
+
+	<!-- Rule uidPk -> Rule code cache -->
+	<bean id="ruleCodeByRuleUidEhCache" class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="ruleCodeByRuleUidCache"/>
+		<property name="cacheManager" ref="epEhcacheManager"/>
+		<property name="timeToLive" value="600" />
+		<property name="timeToIdle" value="600" />
+	</bean>
+	<bean id="ruleCodeByRuleUidCache"
+		  factory-bean="localCacheFactory" factory-method="createCache"
+		  depends-on="ruleCodeByRuleUidEhCache">
+		<constructor-arg value="ruleCodeByRuleUidCache"/>
+	</bean>
+
+	<!-- Caching rule codes by rule UidPks -->
+	<bean id="ruleCodesByRuleUidsCacheEhCache" class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="ruleCodesByRuleUidsCache"/>
+		<property name="cacheManager" ref="epEhcacheManager"/>
+		<property name="timeToLive" value="600" />
+		<property name="timeToIdle" value="600" />
+	</bean>
+	<bean id="ruleCodesByRuleUidsCache"
+		  factory-bean="localCacheFactory" factory-method="createCache"
+		  depends-on="ruleCodesByRuleUidsCacheEhCache">
+		<constructor-arg value="ruleCodesByRuleUidsCache"/>
+	</bean>
+
+	<bean id="cachingRuleService" class="com.elasticpath.caching.core.rules.CachingRuleServiceImpl">
+		<property name="decorated" ref="nonCachingRuleService"/>
+		<property name="ruleByRuleCodeCache" ref="ruleByRuleCodeCache" />
+		<property name="ruleCodeByRuleNameCache" ref="ruleCodeByRuleNameCache" />
+		<property name="ruleCodeByRuleUidCache" ref="ruleCodeByRuleUidCache" />
+		<property name="ruleCodesByRuleUidsCache" ref="ruleCodesByRuleUidsCache" />
+	</bean>
+
+</beans>

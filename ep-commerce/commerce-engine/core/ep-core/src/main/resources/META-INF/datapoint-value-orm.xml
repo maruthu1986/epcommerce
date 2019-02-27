@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) Elastic Path Software Inc., 2018
+  -->
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+				 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+				 version="2.0">
+
+		<named-query name="VERIFY_EXISTS_CUSTOMER_PROFILE_ATTRIBUTE">
+			<query>
+				SELECT 1
+				FROM CustomerProfileValueImpl cpv
+				WHERE cpv.localizedAttributeKey = ?1
+			</query>
+		</named-query>
+		<named-query name="VERIFY_EXISTS_GIFT_CERTIFICATE_ATTRIBUTE">
+			<query>
+				SELECT 1
+				FROM CartItemModifierFieldImpl cimf
+				WHERE cimf.code = ?1
+			</query>
+		</named-query>
+
+</entity-mappings>
+

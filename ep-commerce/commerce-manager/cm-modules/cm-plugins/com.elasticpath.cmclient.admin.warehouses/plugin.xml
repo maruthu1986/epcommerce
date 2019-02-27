@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="Extender" name="Extender"   schema="../com.elasticpath.cmclient.core/schema/extender.exsd"/>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="com.elasticpath.cmclient.admin.warehouses.views.WarehouseListView"
+            icon="icons/warehouse_default_22.png"
+            id="com.elasticpath.cmclient.admin.warehouses.views.WarehouseListView"
+            name="%warehousesView.name">
+      </view>
+      <category
+            id="com.elasticpath.cmclient.admin.warehouses.category"
+            name="%warehousesCategory.name"
+            parentCategory="com.elasticpath.cmclient.admin.category.main">
+      </category>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.admin.adminSections">
+      <adminSection
+            class="com.elasticpath.cmclient.admin.warehouses.WarehouseAdminSection"
+            id="com.elasticpath.cmclient.admin.warehouses.WarehouseAdminSection"
+            name="%adminSection.name">
+      </adminSection>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.core.authorizations">
+      <permissions>
+         <permission
+               activityId="com.elasticpath.cmclient.admin.authorization.activity"
+               key="ADMIN_WAREHOUSES_MANAGE"
+               name="Manage Warehouses">
+         </permission>
+      </permissions>
+   </extension>
+
+</plugin>

@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>lookups</name>
+		<description><![CDATA[A lookup is a means of looking up an item.]]></description>
+
+		<resource>
+			<name>lookups</name>
+			<description><![CDATA[All the top level lookups for a store.]]></description>
+			<uri>{base.family}/{base.scope}</uri>
+		</resource>
+
+		<resource>
+			<name>code-for-item</name>
+			<description><![CDATA[The item code resource.]]></description>
+			<uri>{base.family}/{items.item}</uri>
+			<entity>code</entity>
+		</resource>
+
+		<uri-part>
+			<name>batch-id</name>
+			<description>The batch id.</description>
+			<array>
+				<string/>
+			</array>
+		</uri-part>
+
+		<resource>
+			<name>batch-items</name>
+			<description><![CDATA[Provides a batched list of items.]]></description>
+			<uri>{batch-items-form}/{batch-id}</uri>
+			<list-of>items.item</list-of>
+		</resource>
+
+		<relationship>
+			<name>root-to-lookups</name>
+			<description>Link from root to lookups.</description>
+			<rel>lookups</rel>
+			<from>base.root</from>
+			<to>lookups</to>
+		</relationship>
+
+		<relationship>
+			<name>code-for-item</name>
+			<description><![CDATA[Read the code of an [item][items].]]></description>
+			<rel>code</rel>
+			<rev>item</rev>
+			<from>items.item</from>
+			<to>code-for-item</to>
+		</relationship>
+
+		<entity>
+			<name>code</name>
+			<description><![CDATA[The item SKU code.]]></description>
+			<property>
+				<name>code</name>
+				<description><![CDATA[The sku code.]]></description>
+				<string/>
+			</property>
+		</entity>
+
+	</family>
+
+</definitions>

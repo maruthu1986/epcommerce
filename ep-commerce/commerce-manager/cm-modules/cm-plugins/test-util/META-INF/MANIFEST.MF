@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: test-util
+Bundle-SymbolicName: test-util;singleton:=true
+Bundle-Version: 703.0.0.qualifier
+Bundle-Vendor: %providerName
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Bundle-Localization: plugin
+Require-Bundle:  org.eclipse.core.runtime,
+ com.elasticpath.cmclient.core,
+ org.eclipse.rap.ui,
+ org.eclipse.rap.jface.databinding,
+  org.eclipse.rap.ui.forms,
+  org.eclipse.rap.rwt,
+  org.eclipse.core.expressions,
+  com.elasticpath.cmclient.testlibs
+Export-Package: com.elasticpath.cmclient.tests
+

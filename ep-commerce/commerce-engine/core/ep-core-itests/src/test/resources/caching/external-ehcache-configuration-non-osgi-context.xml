@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	">
+
+	<!-- the order of imports is not important since epEhcacheManager bean (cache-manager-non-osgi.xml), depends on
+		defaultCacheManager (ehcache-jmx.xml)
+
+		Typical use is in non-OSGi environments like storefront, search & cm servers
+	     -->
+	<import resource="classpath:spring/core-caching/cache-manager-non-osgi.xml" />
+	<import resource="classpath:OSGI-INF/blueprint/openjpa-osgi-wrapper-context.xml" />
+
+	<bean id="defaultEhcacheConfiguration" class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+		<property name="name" value="osgi-testing-cache" />
+		<property name="timeToLive" value="111"/>
+		<property name="timeToIdle" value="222"/>
+	</bean>
+</beans>

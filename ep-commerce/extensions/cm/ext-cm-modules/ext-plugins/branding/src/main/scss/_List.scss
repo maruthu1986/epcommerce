@@ -1,0 +1,26 @@
+// NOT SEEING THIS ANYWHERE!!! >> somehow changing this affect to the header/sub header font color
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/List.html
+List {
+	background-color: $widget_body_color;
+	color: $default-font-color;
+	font: $default-font;
+	border: none;
+
+	&[BORDER] {
+		border: 1px solid $table_border_color;
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/List.html#List-Item
+	&-Item {
+		@include list_item(false, 5px 7px);
+
+		&:even {
+			background-color: $gray-fair;
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/List.html#List-GridLine
+	&-GridLine {
+		color: transparent;
+	}
+}

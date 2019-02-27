@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xmlns:camel="http://camel.apache.org/schema/spring"
+		xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+				http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+		">
+
+	<context:annotation-config />
+
+	<camel:camelContext id="ep-customer-messaging" xmlns="http://camel.apache.org/schema/spring"
+						threadNamePattern="Camel (#camelId#) thread ##counter#">
+		<routeBuilder ref="customerEventBuilder" />
+		<endpoint id="customerEventInternalEndpoint" uri="direct:ep.customers" />
+	</camel:camelContext>
+
+	<bean name="ep-customer-messaging:beanPostProcessor" class="com.elasticpath.messaging.impl.FastCamelBeanPostProcessor">
+		<property name="annotatedClassList" ref="camelAnnotatedClassList"/>
+		<property name="camelId" value="ep-customer-messaging"/>
+	</bean>
+
+	<!-- This explicitly creates a Camel Proxy (http://camel.apache.org/using-camelproxy.html). -->
+	<!-- This works around a known defect; see https://issues.apache.org/jira/browse/CAMEL-5956. -->
+	<!-- Once that defect is resolved, this bean can be substituted by an XML declaration as per the documentation. -->
+	<bean id="customerEventMessagePublisher" class="org.apache.camel.component.bean.PojoProxyHelper" factory-method="createProxy">
+		<constructor-arg ref="customerEventInternalEndpoint" />
+		<constructor-arg>
+			<util:list>
+				<value>com.elasticpath.messaging.EventMessagePublisher</value>
+			</util:list>
+		</constructor-arg>
+	</bean>
+
+	<!-- This is marked abstract; child beans should supply a value for the 'camelContextId' field.
+
+	If this is not set, the endpoints are shared between Camel contexts, which is rarely the desired result.
+
+	Consider a case where one Camel context is responsible for publishing to an endpoint, and another (perhaps multiple) context(s)
+	consume from the same endpoint.  In this scenario, the publishing context would 'own' the endpoint, and would inherit the consumers' routes.
+	The routes will appear to function correctly, but will make testing very difficult (NotifyBuilders that inspect the endpoint will fail to
+	work, since they are bound to a particular context), and will result in confusing logging wherever the Camel context name is included in the log
+	message.
+	-->
+	<bean id="customerEventExternalEndpoint" class="com.elasticpath.messaging.camel.SettingValueBackedCamelEndpointFactoryBean" abstract="true">
+		<property name="path" value="COMMERCE/SYSTEM/MESSAGING/CUSTOMERS/channelUri" />
+		<property name="settingsReader" ref="settingsReader"/>
+	</bean>
+
+	<!-- Concrete bean to facilitate testing.  Used in customerEventBuilder; should not be used in other routes. -->
+	<bean id="epCustomerMessagingCustomerEventExternalEndpoint" parent="customerEventExternalEndpoint">
+		<property name="camelContextId" value="ep-customer-messaging"/>
+	</bean>
+
+	<bean id="customerEventBuilder" class="com.elasticpath.messaging.camel.EventRouteBuilder">
+		<property name="incomingEndpoint" ref="customerEventInternalEndpoint" />
+		<property name="outgoingEndpoint" ref="epCustomerMessagingCustomerEventExternalEndpoint"/>
+		<property name="eventMessageDataFormat" ref="eventMessageDataFormat"/>
+	</bean>
+
+	<bean id="customerEventTypeProvider" class="com.elasticpath.messaging.spi.impl.EventTypeProviderImpl">
+		<property name="eventTypeClass" value="com.elasticpath.core.messaging.customer.CustomerEventType"/>
+		<property name="eventTypeLookup">
+			<bean class="com.elasticpath.core.messaging.customer.CustomerEventType$CustomerEventTypeLookup"/>
+		</property>
+	</bean>
+
+	<bean id="customerRegisteredEventTypePredicate" class="com.elasticpath.messaging.predicate.impl.CompatibleEventTypePredicate">
+		<property name="compatibleEventTypes">
+			<util:list>
+				<util:constant static-field="com.elasticpath.core.messaging.customer.CustomerEventType.CUSTOMER_REGISTERED"/>
+			</util:list>
+		</property>
+	</bean>
+
+	<bean id="passwordChangedEventTypePredicate" class="com.elasticpath.messaging.predicate.impl.CompatibleEventTypePredicate">
+		<property name="compatibleEventTypes">
+			<util:list>
+				<util:constant static-field="com.elasticpath.core.messaging.customer.CustomerEventType.PASSWORD_CHANGED"/>
+			</util:list>
+		</property>
+	</bean>
+	
+	<bean id="passwordForgottenEventTypePredicate" class="com.elasticpath.messaging.predicate.impl.CompatibleEventTypePredicate">
+		<property name="compatibleEventTypes">
+			<util:list>
+				<util:constant static-field="com.elasticpath.core.messaging.customer.CustomerEventType.PASSWORD_FORGOTTEN"/>
+			</util:list>
+		</property>
+	</bean>
+
+	<bean id="anonymousCustomerRegisteredEventTypePredicate" class="com.elasticpath.messaging.predicate.impl.CompatibleEventTypePredicate">
+		<property name="compatibleEventTypes">
+			<util:list>
+				<util:constant static-field="com.elasticpath.core.messaging.customer.CustomerEventType.ANONYMOUS_CUSTOMER_REGISTERED" />
+			</util:list>
+		</property>
+	</bean>
+	
+	<bean id="wishListSharedEventTypePredicate" class="com.elasticpath.messaging.predicate.impl.CompatibleEventTypePredicate">
+		<property name="compatibleEventTypes">
+			<util:list>
+				<util:constant static-field="com.elasticpath.core.messaging.customer.CustomerEventType.WISH_LIST_SHARED" />
+			</util:list>
+		</property>
+	</bean>
+	
+</beans>

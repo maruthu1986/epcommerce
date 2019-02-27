@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>carts</name>
+		<description><![CDATA[
+####Entry Point: /carts/{scope}/default
+
+A cart is basically a basket that customers put items into that they want to purchase. While Cortex API's shopping
+cart has this as its core functionality, there is much more to this shopping cart than just that.
+
+Key concepts developers should know about carts:
+
+-  You can't delete a cart, you can only empty a cart of its contents.
+
+-  The do not need to instantiate the cart, a cart is always available.
+
+-  The do not need to create an order for the cart, an order is always available.
+
+-  Cortex automatically persists carts between customer sessions so a customer can log on through a mobile phone and
+then log on through another device to complete the purchase
+
+
+[items]: #items
+[orders]: #orders
+[totals]: #totals
+			]]>
+		</description>
+
+		<uri-part>
+			<name>cart-id</name>
+			<description><![CDATA[The cart identifier.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>default-cart</name>
+			<description><![CDATA[Alias to the default cart for the current shopper.]]></description>
+			<uri>{base.family}/{base.scope}/default</uri>
+			<alias>cart</alias>
+		</resource>
+
+		<resource>
+			<name>cart</name>
+			<description>
+				<![CDATA[
+A cart resource, can have line items, [orders][orders], and [totals][totals].
+
+[orders]: #orders
+[totals]: #totals
+				]]>
+			</description>
+			<uri>{base.family}/{base.scope}/{cart-id}</uri>
+			<entity>cart</entity>
+		</resource>
+
+		<relationship>
+			<name>root-to-default-cart</name>
+			<description>
+				<![CDATA[
+Retrieve the shopper's default cart. When using *default* in the cart's URI, default evaluates to the logged in shopper's cart I.D.
+See the main Cortex documentation for more information on *default*.
+			]]>
+			</description>
+			<rel>defaultcart</rel>
+			<from>base.root</from>
+			<to>default-cart</to>
+		</relationship>
+
+		<entity>
+			<name>cart</name>
+			<description><![CDATA[The shopping cart.]]></description>
+			<property>
+				<name>cart-id</name>
+				<description><![CDATA[The cart identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>total-quantity</name>
+				<description>
+					<![CDATA[
+Lists the total number of [items][items] in the cart.
+
+[items]: #items
+					]]>
+				</description>
+				<integer/>
+			</property>
+			<entity-type>carts.cart</entity-type>
+		</entity>
+
+	</family>
+</definitions>

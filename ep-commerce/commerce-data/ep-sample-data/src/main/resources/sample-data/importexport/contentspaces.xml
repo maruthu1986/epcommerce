@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contentspaces>
+<contentspace guid="13F89EA9-A417-1743-A3B3-519D13E19FC4">
+    <name>End Of Year Sales Banner</name>
+    <description></description>
+</contentspace>
+
+<contentspace guid="1D13F6A8-5FB9-DFEC-5505-E2F1DE72B58B">
+    <name>Bottom Page Banner</name>
+    <description></description>
+</contentspace>
+
+<contentspace guid="2E72D444-B260-4EB2-960E-DD60DD20DED6">
+    <name>HomepageOfferBottomRight</name>
+    <description>384px Width x 225px Height</description>
+</contentspace>
+
+<contentspace guid="30E2EC19-D202-4DBD-9602-658D3F13D7F7">
+    <name>Homepage Left Banner</name>
+    <description></description>
+</contentspace>
+
+<contentspace guid="31D55BF3-41E6-4CD3-AA5D-4C09FD08A59C">
+    <name>HomepageOfferTopMiddle</name>
+    <description>250px Width x 110px Height</description>
+</contentspace>
+
+<contentspace guid="37538B70-9455-4731-835F-02A0332B3D2F">
+    <name>HomepageOfferTopRight</name>
+    <description>250px Width x 110px Height</description>
+</contentspace>
+
+<contentspace guid="4562B511-E86E-46AF-ACB2-29B9DFFC8324">
+    <name>HomepageOfferTopLeft</name>
+    <description>250px Width x 110px Height</description>
+</contentspace>
+
+<contentspace guid="53FCA53F-2189-7AB3-CD38-B6F9ECF5121B">
+    <name>Homepage Top Banner</name>
+    <description></description>
+</contentspace>
+
+<contentspace guid="5484D29B-5005-4B1E-92B6-87D75CAACC58">
+    <name>HomepageOfferBottomLeft</name>
+    <description>384px Width x 225px Height</description>
+</contentspace>
+
+<contentspace guid="5A1898C1-A4A6-4ADD-9157-E31CE7C704C2">
+    <name>HomepageHero</name>
+    <description>768px Width x Variable Height (200px suggested)</description>
+</contentspace>
+
+<contentspace guid="674796D7-F851-CD99-6850-FBF932A61A75">
+    <name>IOS Device Product Page Banner</name>
+    <description>IOS banner</description>
+</contentspace>
+
+<contentspace guid="89CB03BB-EE85-4363-86B9-59582CB60A97">
+    <name>top_banner</name>
+    <description>768px Width x Variable Height (40px suggested)</description>
+</contentspace>
+
+<contentspace guid="A6314754-967C-DC54-A3DC-FF362E334333">
+    <name>Super Awesome API Banner</name>
+    <description></description>
+</contentspace>
+
+<contentspace guid="AA0A277C-12A3-927E-F7A6-7265415DA913">
+    <name>Video Games Category Page Banner</name>
+    <description></description>
+</contentspace>
+
+<contentspace guid="AA0A277C-6FC4-927E-F7A6-1B3931FE0F16">
+    <name>Games Product Page Banner</name>
+    <description></description>
+</contentspace>
+
+<contentspace guid="ABFCE4D5-E1AB-7CD7-FAD6-4DFFDF2AD90C">
+    <name>Big Sales Banner</name>
+    <description></description>
+</contentspace>
+
+<contentspace guid="B7DEBE42-12A3-C2D3-068F-7265415DA913">
+    <name>Movies Category Banner</name>
+    <description></description>
+</contentspace>
+
+<contentspace guid="DB72D53C-80B6-0678-D44F-471BC387BAA3">
+    <name>Weekly Movie Promo Banner</name>
+    <description></description>
+</contentspace>
+
+<contentspace guid="F6C14754-967C-DC1F-A3DC-AF362E334F87">
+    <name>Promo Banner</name>
+    <description></description>
+</contentspace>
+
+<contentspace guid="F8E2609D-484D-4655-A0CD-072CD7CFC92A">
+    <name>PromoBanner</name>
+    <description>160px Width x Variable Height (110px suggested)</description>
+</contentspace>
+</contentspaces>

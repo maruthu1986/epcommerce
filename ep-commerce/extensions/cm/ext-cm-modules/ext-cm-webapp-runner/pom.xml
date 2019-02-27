@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.extensions.cm</groupId>
+		<artifactId>ext-cm-modules</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ext-cm-webapp-runner</artifactId>
+	<packaging>war</packaging>
+
+	<name>Extension CM Web App Runner</name>
+	<description>Runs the Commerce Manager Webapp  in a non-tycho reactor (enabling tomcat*:run-war for example)</description>
+
+	<properties>
+		<skipTests>true</skipTests>
+		<ep.database.timezone>UTC</ep.database.timezone>
+		<cm.contextFilePath>${project.build.directory}/tomcatconf/context.xml</cm.contextFilePath>
+		<epdb.jdbc.properties>serverTimezone=${ep.database.timezone};useLegacyDatetimeCode=false</epdb.jdbc.properties>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.elasticpath.extensions.cm</groupId>
+									<artifactId>ext-cm-webapp</artifactId>
+									<version>${project.version}</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}/${project.artifactId}-${project.version}</outputDirectory>
+									<includes>**</includes>
+									<type>war</type>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<path>${ep.cm.context}</path>
+					<port>${ep.cm.tomcat.port.http}</port>
+					<contextFile>${cm.contextFilePath}</contextFile>
+				</configuration>
+				<dependencies>
+					<!-- Include JDBC driver dependency -->
+					<dependency>
+						<groupId>${epdb.maven.groupId}</groupId>
+						<artifactId>${epdb.maven.artifactId}</artifactId>
+						<version>${epdb.maven.version}</version>
+					</dependency>
+					<!-- Include Active MQ dependencies -->
+					<dependency>
+						<groupId>org.apache.activemq</groupId>
+						<artifactId>activemq-pool</artifactId>
+						<version>${org.apache.activemq.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.activemq</groupId>
+						<artifactId>activemq-jms-pool</artifactId>
+						<version>${org.apache.activemq.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.activemq</groupId>
+						<artifactId>activemq-client</artifactId>
+						<version>${org.apache.activemq.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.activemq</groupId>
+						<artifactId>activemq-client</artifactId>
+						<version>${org.apache.activemq.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.commons</groupId>
+						<artifactId>commons-pool2</artifactId>
+						<version>2.4.2</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.geronimo.specs</groupId>
+						<artifactId>geronimo-j2ee-management_1.1_spec</artifactId>
+						<version>${org.apache.geronimo.management.spec.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.fusesource.hawtbuf</groupId>
+						<artifactId>hawtbuf</artifactId>
+						<version>1.9</version>
+					</dependency>
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-api</artifactId>
+						<version>1.6.6</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>create-tomcat-context-xml</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>${basedir}/tomcat</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+							<outputDirectory>${project.build.directory}/tomcatconf</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath.extensions.cm</groupId>
+			<artifactId>ext-cm-libs</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.extensions.cm</groupId>
+			<artifactId>ext-cm-webapp</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>
+

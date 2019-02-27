@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		">
+
+	<import resource="classpath:test-datasource.xml"/>
+
+	<bean id="persistenceUnitManager" class="com.elasticpath.persistence.openjpa.impl.OverrideAllowingPersistenceUnitManager">
+		<property name="defaultPersistenceUnitName" value="commerce-persistence-unit"/>
+		<!--<property name="persistenceXmlLocation" value="classpath*:META-INF/jpa-persistence.xml"/>-->
+		<property name="persistenceXmlLocation" value="META-INF/jpa-persistence.xml"/>
+		<property name="persistenceUnitPostProcessors" ref="persistenceUnitPostProcessors"/>
+		<property name="defaultDataSource" ref="dataSource"/>
+	</bean>
+
+	<bean id="abstractEntityManagerFactory" class="com.elasticpath.persistence.openjpa.impl.ConfigurableLocalContainerEntityManagerFactoryBean"
+		  init-method="getObject"
+		  abstract="true">
+		<property name="persistenceUnitManager" ref="persistenceUnitManager"/>
+		<property name="lifecycleListeners" ref="entityManagerLifecycleListeners"/>
+	</bean>
+
+	<util:list id="persistenceUnitPostProcessors">
+		<bean class="com.elasticpath.persistence.openjpa.impl.MergingPersistenceUnitPostProcessor"/>
+		<ref bean="overridingPersistenceUnitPostProcessor"/>
+		<bean class="com.elasticpath.persistence.openjpa.impl.RemoveTrailingBackslashPersistenceUnitPostProcessor"/>
+	</util:list>
+
+	<bean id="overridingPersistenceUnitPostProcessor" class="com.elasticpath.persistence.openjpa.impl.OverridingPersistenceUnitPostProcessor">
+		<property name="persistenceUnitName" value="commerce-persistence-unit"/>
+		<property name="excludedMappingFiles" ref="persistenceMappingExcludedFiles"/>
+		<property name="excludedManagedClassNames" ref="persistenceMappingExcludedClasses"/>
+		<property name="propertyOverrides" ref="persistencePropertyOverrides"/>
+		<property name="excludeUnlistedClasses" value="true"/>
+	</bean>
+
+	<util:list id="entityManagerLifecycleListeners"/>
+	<util:list id="persistenceEngineOperationListeners"/>
+	<util:list id="persistenceMappingExcludedFiles"/>
+	<util:list id="persistenceMappingExcludedClasses"/>
+	<util:map id="persistencePropertyOverrides" key-type="java.lang.String"/>
+
+	<!-- Entity Manager Factory -->
+	<bean id="entityManagerFactory" parent="abstractEntityManagerFactory"/>
+
+	<bean id="sharedEntityManager" class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
+		<property name="entityManagerFactory">
+			<ref bean="entityManagerFactory"/>
+		</property>
+	</bean>
+
+	<bean id="sessionFactory" class="com.elasticpath.persistence.openjpa.impl.JpaSessionFactoryImpl">
+		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+		<property name="transactionManager" ref="transactionManager"/>
+	</bean>
+
+	<bean id="persistenceEngineTarget"
+		  class="com.elasticpath.persistence.openjpa.impl.JpaPersistenceEngineImpl">
+		<property name="entityManager" ref="sharedEntityManager"/>
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="transactionManager" ref="transactionManager"/>
+		<property name="persistenceEngineOperationListeners" ref="persistenceEngineOperationListeners"/>
+	</bean>
+
+	<!-- Has a dependency of an applicationInitialization bean which can do any initialization the application requires -->
+	<!-- before the persistence engine is created. -->
+	<bean id="persistenceEngine" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces"
+				  value="com.elasticpath.persistence.api.PersistenceEngine,com.elasticpath.persistence.openjpa.JpaPersistenceEngine"/>
+		<property name="target" ref="persistenceEngineTarget"/>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+	</bean>
+
+</beans>

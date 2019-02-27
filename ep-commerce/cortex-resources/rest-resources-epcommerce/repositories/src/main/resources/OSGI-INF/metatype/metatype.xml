@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MetaData xmlns="http://www.osgi.org/xmlns/metatype/v1.0.0">
+	<OCD id="com.elasticpath.rest.RecommendationsPageSizeOcd" name="Recommendations Page Size Managed Service"
+			description="Recommendations Page Size Managed Service">
+		<AD
+				name="Page Size Value"
+				id="rest.recommendations.page.size.VALUE"
+				required="true"
+				type="Integer"
+				default="5"
+				min="1"
+				max="32767"
+		/>
+	</OCD>
+	<Designate pid="recommendationsPageSize">
+		<Object ocdref="com.elasticpath.rest.RecommendationsPageSizeOcd"/>
+	</Designate>
+</MetaData>

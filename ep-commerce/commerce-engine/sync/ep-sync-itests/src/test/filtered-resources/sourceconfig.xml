@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<connectionconfiguration type="local">
+	<url>${sync.source.db.url}</url>
+	<login>${sync.source.db.connection.username}</login>
+	<pwd>${sync.source.db.connection.password}</pwd>
+	<driver>${sync.source.db.connection.driver_class}</driver>
+</connectionconfiguration>

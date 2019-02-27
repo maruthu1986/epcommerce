@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: com.elasticpath.cmclient.reporting.giftcertificatesummary;singleton:=true
+Bundle-Version: 0.0.0.qualifier
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Require-Bundle: com.elasticpath.cmclient.reporting,
+ com.elasticpath.ep-persistence-api,
+ org.eclipse.core.databinding,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.ui.forms,
+ com.elasticpath.cmclient.testlibs
+Bundle-Activator: com.elasticpath.cmclient.reporting.giftcertificatesummary.GiftCertificateSummaryReportPlugin

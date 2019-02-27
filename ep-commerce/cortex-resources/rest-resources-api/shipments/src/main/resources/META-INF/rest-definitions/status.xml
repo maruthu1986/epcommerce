@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>shipments</name>
+		<entity>
+			<name>status</name>
+			<description><![CDATA[The status code of the shipment]]></description>
+			<property>
+				<name>code</name>
+				<description><![CDATA[The status code.]]></description>
+				<string />
+			</property>
+		</entity>
+	</family>
+</definitions>

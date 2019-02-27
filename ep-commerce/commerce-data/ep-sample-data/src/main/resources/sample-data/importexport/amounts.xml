@@ -1,0 +1,1370 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<amounts>
+<base_amount>
+    <guid>8AF93B85-83F7-4823-9438-7A2D158BA2D1</guid>
+    <object_guid>cartPromo_timeEnabled</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>100.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>CA654958-42A0-61F6-C3EE-31982257056E</guid>
+    <object_guid>bundle_AssignedFixed_mixed</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>180.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>78A5D163-2294-701E-DA2F-5DA21C0EFCA4</guid>
+    <object_guid>usedMerchandising_CrossSell1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>10.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>487A8603-98BA-3ACD-373D-89C7781F174D</guid>
+    <object_guid>excluded_Product</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>310.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>B1DB37CA-002B-1804-D9B6-BBC12E31B2A8</guid>
+    <object_guid>Dig_MultiSku-Tax-SKU</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>124.44</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>0BF48232-5FEB-4461-01A1-562F94DD4085</guid>
+    <object_guid>usedMerchandising_UpSell2</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>10.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>CE5A4E5B-9EF5-A854-7F7E-8542E97518E8</guid>
+    <object_guid>bundle_Constituent9</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>95.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>7A6278F2-0DCC-07B7-88AD-4E02B3E0344B</guid>
+    <object_guid>Dig_Multi-Category</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>122.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>A4CC383F-CC7E-AA68-974C-78C8B7B882CB</guid>
+    <object_guid>bundle_Constituent3</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>30.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>8AE73B3C-A45D-D20F-9D57-10223F223C8F</guid>
+    <object_guid>bundle_Constituent2</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>25.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>3E74F541-5B1C-64DE-F25E-D118AB99204F</guid>
+    <object_guid>Dig_Min_Qty_5</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>3.33</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>08978E2A-3E7D-E247-013A-F785D2B72DF6</guid>
+    <object_guid>merchandising_Warranty</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>99.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>78C194B2-8197-2089-D10E-07561C762D4D</guid>
+    <object_guid>bundle_AssignedFixed_noInv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>130.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>00DE503F-9A05-849C-8D8E-B812DE302965</guid>
+    <object_guid>Dig_MultiSku-Price</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>55.55</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>FC7CBBCC-702D-E73F-F92F-03992412F95B</guid>
+    <object_guid>cartPromo_Segment</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>100.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>6AF83CE6-2A7C-B674-9BA5-6620E256E13C</guid>
+    <object_guid>Ship_Single_Sku_Pre_Order</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>75.75</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>99073FA1-7FB7-BD1F-4131-984D1FB2AE3D</guid>
+    <object_guid>Dig_Not_Sold_Sep</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>13.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>36F9F5A2-F47D-C67A-0C72-8605141DA12E</guid>
+    <object_guid>bundle_Constituent6</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>65.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>1E8EFC66-9192-4853-BA3C-E02AEA05F74B</guid>
+    <object_guid>usedMerchandising_UpSell3</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>10.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>7B540D0B-8C4D-BCF5-FDAD-3C14ED6A1DF5</guid>
+    <object_guid>Dig_Non-Discountable</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>50.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>747D58F5-E221-A160-E4F1-BD0301FB9B87</guid>
+    <object_guid>bundle_AssignedFixed</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>50.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>251F9620-D80B-1ADF-15B2-5589EB6AAC22</guid>
+    <object_guid>usedMerchandising_CrossSell6</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>10.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>D5A58434-0606-1C31-B526-D6103FA78262</guid>
+    <object_guid>cartPromo_profileAttribute1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>100.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>BB0589DF-17F1-8A41-980B-289A2FAAEBFF</guid>
+    <object_guid>cartPromo_Segment2</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>200.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>557A81AC-64A0-B035-FCED-3C869ECEB3B7</guid>
+    <object_guid>Ship_Single_Sku_InStock-NoInv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>67.67</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>7C06E861-DC0E-3B99-D62D-3E5FD6CDE28D</guid>
+    <object_guid>usedMerchandising_Accessory6</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>662D4179-97F2-8694-BF64-E9C2FF9F9527</guid>
+    <object_guid>foundProduct_inExcludedCategory</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>150.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>B5D75DF8-A4BA-325C-DFCC-A05777B9727E</guid>
+    <object_guid>Ship_Sku_Expired-Inv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>99.99</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>03E3792D-989F-8A86-D1E2-F580A77803FF</guid>
+    <object_guid>usedMerchandising_CrossSell4</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>10.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>3411DDC1-D29F-AF3A-293B-1A43BE6291A6</guid>
+    <object_guid>Ship_Single_Sku_Pre_Order</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>95.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>C1AB3F8E-87C7-6A7F-1868-A4F7793C6B41</guid>
+    <object_guid>Ship_Sku_Expired-Inv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>150.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>70CBA6C6-18A3-3D6A-3162-832D55607D26</guid>
+    <object_guid>bundle_Constituent4_noInv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>45.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>587C9C0E-5FF2-4A48-7769-5031B5C4270E</guid>
+    <object_guid>Ship_Single_Sku_InStock-NoInv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>45.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>C8F6FDD6-177B-294D-5AA2-EFAEDCE93F35</guid>
+    <object_guid>Mix_Dig-Val2-NoInv</object_guid>
+    <object_type>SKU</object_type>
+    <quantity>1.00</quantity>
+    <list_price>23.33</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>58D1781E-B8F3-C836-A614-35E29E9169D3</guid>
+    <object_guid>Dig_Min_Qty_5</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>13.33</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>5DB5381D-6AF8-C120-3433-13844E3C0DB2</guid>
+    <object_guid>merchandising_Accessory</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>99.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>FCDE00D5-6F9A-2464-9615-23BE99678CB6</guid>
+    <object_guid>cartPromo_disabledSegment</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>200.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>A5380152-EAFD-61B9-C5C6-8C18DEEAF30F</guid>
+    <object_guid>Mix_Ship-Val1-Inv</object_guid>
+    <object_type>SKU</object_type>
+    <quantity>1.00</quantity>
+    <list_price>14.44</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>F6FEA84C-0EBE-F507-0D4B-0DD310C1A490</guid>
+    <object_guid>merchandising_Accessory</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>109.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>9D32FA57-AA88-0F99-A474-86BCEF6E4395</guid>
+    <object_guid>Dig_Multi-Category</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>77.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>EA6EE38D-7F9C-289E-10B2-738AB0818BA7</guid>
+    <object_guid>bundle_Constituent7</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>75.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>C06D7E1E-C09D-C114-AC58-07C1F28B9478</guid>
+    <object_guid>merchandising_Replacement</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>77.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>A2FE9A04-CF54-A0CE-27B1-55A49CEFA85D</guid>
+    <object_guid>product_inExcludedCategory</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>100.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>7F714528-F121-86DE-3E9D-C2810A624931</guid>
+    <object_guid>bundle_Constituent3</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>35.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>7B8E2EEF-C9C8-48DA-96BE-203C0ACAB35D</guid>
+    <object_guid>bundle_Constituent1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>FD6856A3-BD27-CA27-DA77-3FBD6CAE7EF5</guid>
+    <object_guid>usedMerchandising_Accessory1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>20.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>8C5809FC-991F-5B72-0695-9CC933148D2D</guid>
+    <object_guid>bundle_Constituent5</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>50.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>50078AB1-10A0-C803-9A79-7CC1EFCEF0FC</guid>
+    <object_guid>Mix_Ship-Val1-Inv</object_guid>
+    <object_type>SKU</object_type>
+    <quantity>1.00</quantity>
+    <list_price>24.44</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>BC4C9718-8142-BE41-0023-B9A59F658CD2</guid>
+    <object_guid>usedMerchandising_Accessory4</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>20.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>8F08259E-5965-C4A0-5450-61611B44513C</guid>
+    <object_guid>Dig_MultiSku-Val2-Price-SKU</object_guid>
+    <object_type>SKU</object_type>
+    <quantity>1.00</quantity>
+    <list_price>56.56</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>A20022B3-4474-5862-9FEB-63DF12A4BB22</guid>
+    <object_guid>cartPromo_disabledSegment</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>100.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>31622631-3CEB-392F-5F28-F30CED906125</guid>
+    <object_guid>excluded_Product</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>205.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>C9265F75-52E3-8552-BCD8-46353BAC70ED</guid>
+    <object_guid>Ship_Single_Sku_Back_Order</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>67.58</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>CC24CAB7-7F87-36C2-C0FD-B702553DCF0A</guid>
+    <object_guid>foundProduct_inExcludedCategory</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>100.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>A09A485C-C77F-ACC3-2D90-FE75ECC102FC</guid>
+    <object_guid>configurable_Produc</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>125.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>6560E7BF-224A-BB8A-728C-4BA833BD35C8</guid>
+    <object_guid>usedMerchandising_Accessory3</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>541932BE-27DF-0748-9CCD-40299F255608</guid>
+    <object_guid>cartPromo_timeDisabled</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>200.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>427FC0B6-0A55-A710-AFC6-AA3ED9A5CF2F</guid>
+    <object_guid>bundle_AssignedFixed_mixed</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>185.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>FB96F060-47C0-27E2-ADD4-1E1BBFBD301E</guid>
+    <object_guid>bundle_Constituent6</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>60.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>6869CFF6-1F26-C34A-4EA4-7686681B3802</guid>
+    <object_guid>usedMerchandising_CrossSell3</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>83127D22-1FB1-C2E8-300E-02858ACAA217</guid>
+    <object_guid>merchandising_Warranty</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>88.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>7FBB60ED-BCF2-C703-A5CA-BE5FC3EC557D</guid>
+    <object_guid>bundle_AssignedFixed_constituentSKU</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>145.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>ADC8AA10-62C0-B059-6697-BDBA3ABFA089</guid>
+    <object_guid>bundle_Constituent4</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>40.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>21AF468E-DF2D-53E9-7870-8E4CBD10BD41</guid>
+    <object_guid>bundle_Constituent7</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>70.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>193AC60F-7A21-B0A4-EC3F-2081D337D1E0</guid>
+    <object_guid>bundle_Constituent9</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>90.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>01422308-8CFB-B4F3-CBC6-46BCBF036781</guid>
+    <object_guid>usedMerchandising_Accessory1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>86DE1DA9-47F3-8761-F7C9-4AE7604CE062</guid>
+    <object_guid>cartPromo_Segment1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>200.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>3A13FD60-2B52-CC17-8915-569AACB7C004</guid>
+    <object_guid>Dig_Not_Visible</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>34.56</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>3FCFC46E-EC8F-D8F8-4B8B-E3C338F940FA</guid>
+    <object_guid>merchandising_CrossSell</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>88.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>50F96069-B6AC-8E70-1DE7-0C4DA868CAB3</guid>
+    <object_guid>bundle_Constituent2</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>20.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>5F910332-0643-8ED1-9E74-682D80A66C32</guid>
+    <object_guid>Mix_Dig-Val2-NoInv</object_guid>
+    <object_type>SKU</object_type>
+    <quantity>1.00</quantity>
+    <list_price>13.33</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>0711A07B-5C20-C10C-9FAE-87BE0F7C72F4</guid>
+    <object_guid>bundleNested_AssignedDynamic</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>120.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>9F5C11E9-7326-7818-1D69-43B276E15C4B</guid>
+    <object_guid>bundle_Constituent8</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>80.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>5B4A96FA-34C6-0E99-ED97-E653C1464001</guid>
+    <object_guid>Ship_Not_Visible</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>66.66</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>35205BA4-A6B4-322D-3E78-A5662E7414AE</guid>
+    <object_guid>usedMerchandising_CrossSell4</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>FB4D8BAD-F7FC-B38A-7401-D506087E8D29</guid>
+    <object_guid>merchandising_CrossSell</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>99.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>8509303C-DAE7-CA92-95C1-C8C3F40B52B8</guid>
+    <object_guid>usedMerchandising_Accessory2</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>69E4853E-9683-B6AD-AD66-8497001286D3</guid>
+    <object_guid>usedMerchandising_Accessory5</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>20.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>CD5430FC-204C-273C-35D1-D8015CECFBC9</guid>
+    <object_guid>Dig_MultiSku-Val2-Price-SKU</object_guid>
+    <object_type>SKU</object_type>
+    <quantity>1.00</quantity>
+    <list_price>100.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>D824DD79-AA80-C072-8CD5-194CE2E6AA6F</guid>
+    <object_guid>bundleNested_AssignedFixed</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>110.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>E92B69DE-D261-3528-4184-28E1CE5BBAE9</guid>
+    <object_guid>Ship_Not_Visible</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>44.44</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>6E908D83-7FBB-4FC7-C7EF-8AF2D655B257</guid>
+    <object_guid>Dig_Not_Visible</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>67.89</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>32A40071-78E0-62EE-0D11-DDE61F191052</guid>
+    <object_guid>usedMerchandising_Warrenty1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>10.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>1A66C693-1AAD-B3BB-731F-E5079116667B</guid>
+    <object_guid>Ship_Single_Sku_Always-Avail</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.99</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>81F58085-5551-20E2-7EB5-76E6629FE2D9</guid>
+    <object_guid>merchandising_Upsell</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>66.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>04923B22-7D06-AF3C-AFC7-1FBD7C7580FE</guid>
+    <object_guid>Ship_Single_Sku_Back_Order</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>55.75</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>13D06E84-C9B8-3835-3DD5-976C801AC1E7</guid>
+    <object_guid>bundle_Constituent5</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>55.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>AC0476E0-79C7-CF23-589E-3823F0DA1870</guid>
+    <object_guid>usedMerchandising_Replacement2</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>20.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>65D1DF8D-38E5-A28B-4690-D24FBF5F47D2</guid>
+    <object_guid>bundle_AssignedFixed_Nested</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>110.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>E8AB59E6-7131-A40B-55D4-348CD1A112BD</guid>
+    <object_guid>usedMerchandising_CrossSell3</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>10.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>E61E0DE9-C8DE-CD6E-FAAF-82159C5D00D1</guid>
+    <object_guid>usedMerchandising_CrossSell6</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>AF81B5B1-BBA0-0683-8549-E3A0107087DB</guid>
+    <object_guid>Mix_Ship-Val3-NoInv</object_guid>
+    <object_type>SKU</object_type>
+    <quantity>1.00</quantity>
+    <list_price>22.22</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>78A33A7A-A4FA-65AE-04C2-30CB2B46A6DB</guid>
+    <object_guid>product_inExcludedCategory</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>150.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>B9A117F3-70C8-6229-EC6F-FC4E705043A0</guid>
+    <object_guid>Ship_Single_Sku_Always-Avail_NoInv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>19.99</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>039C65CD-F913-FFB8-C8CB-9CF21B4BC2E5</guid>
+    <object_guid>Ship_Single_Sku_InStock-Inv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>78.88</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>680C0927-1601-7FA9-3B26-5D81A02F3D55</guid>
+    <object_guid>usedMerchandising_UpSell2</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>C13130ED-F225-F5BF-7A03-7A3348CA35E9</guid>
+    <object_guid>usedMerchandising_CrossSell5</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>10.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>C9F7E99E-0CCC-A71C-C897-964C830D8AB7</guid>
+    <object_guid>bundle_Constituent4</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>45.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>9733F2FE-AB77-A02B-CFC8-EE3BD226D6D4</guid>
+    <object_guid>bundle_AssignedFixed_noInv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>135.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>79BED111-F40A-EBA2-54DA-65D63BD43DF3</guid>
+    <object_guid>usedMerchandising_UpSell1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>10.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>05A28E52-330D-80F0-AAA8-42515A882F16</guid>
+    <object_guid>localized_SKU</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>45.55</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>487230C7-D74A-B04B-26F0-61F560CE7E67</guid>
+    <object_guid>Ship_Sku_Expired-NoInv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>125.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>8F28B353-4F96-2D01-067D-92E40712598C</guid>
+    <object_guid>Dig_Not_Sold_Sep</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>23.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>226B6574-6179-96A0-E387-466A53D56E47</guid>
+    <object_guid>usedMerchandising_CrossSell2</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>10.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>6464F054-70A7-E85B-1D98-8D0242DBE203</guid>
+    <object_guid>merchandising_Replacement</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>66.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>62F39003-CA5E-17F4-9B6E-C358927995A2</guid>
+    <object_guid>configuable_Product</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>175.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>527143A3-6F36-74C8-5B99-5DE6DAAB58F6</guid>
+    <object_guid>Ship_MultiSku-Inv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>33.33</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>794F00A0-2392-8E9E-7DFA-2C9C156DA080</guid>
+    <object_guid>usedMerchandising_UpSell1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>6848BF4D-FC9B-08B5-7313-3DAAFC6B48C2</guid>
+    <object_guid>Mix_Ship-Val3-NoInv</object_guid>
+    <object_type>SKU</object_type>
+    <quantity>1.00</quantity>
+    <list_price>12.22</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>E5AE716E-EAD4-DF5E-C907-76E5CA773890</guid>
+    <object_guid>merchandising_Upsell</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>55.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>1602DD3A-B142-E14E-CB88-5BC28AAA5E88</guid>
+    <object_guid>cartPromo_timeEnabled</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>200.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>72C4C97E-3063-3929-6B13-BE48A20E22AD</guid>
+    <object_guid>Ship_Single_Sku_Always-Avail</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>34.98</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>E23C65A6-1C4A-B47E-4CFD-382A8BF96CF6</guid>
+    <object_guid>usedMerchandising_CrossSell5</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>4764B8AF-6A8E-CEA3-6D8B-107B17BB6E2C</guid>
+    <object_guid>cartPromo_Segment1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>100.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>8FAB9315-BBF5-F081-2703-0A2967504E20</guid>
+    <object_guid>bundleNested_AssignedDynamic</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>125.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>F572F30F-DBF5-74EA-9507-5FCD70B2E7B2</guid>
+    <object_guid>usedMerchandising_Accessory2</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>20.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>2EACC952-91D5-144E-6ACF-3F6E2615CFAE</guid>
+    <object_guid>usedMerchandising_Accessory3</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>20.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>3D10CE69-EF3B-A0D6-397E-02EAB314ABD9</guid>
+    <object_guid>bundle_Constituent4_noInv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>40.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>12AB9670-6E9B-FEC0-6302-F090564B0C0E</guid>
+    <object_guid>cartPromo_timeDisabled</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>100.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>3B31C978-5DB8-6B91-6D98-051664B01BE2</guid>
+    <object_guid>Dig_MultiSku-Tax-SKU</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>159.99</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>46B89D4E-D48D-A3DB-EEB1-EC53098810A5</guid>
+    <object_guid>usedMerchandising_Replacement1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>5825F260-AE03-6549-DDBC-C5803104E868</guid>
+    <object_guid>usedMerchandising_UpSell3</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>3939BB20-C777-1BD5-0CE8-2DAAB393F14C</guid>
+    <object_guid>usedMerchandising_Replacement2</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>4714065D-8BF7-F7FD-E192-1C175C8A6871</guid>
+    <object_guid>localized_SKU</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>89.99</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>41201FC0-4F6C-742F-FA48-5246619BF138</guid>
+    <object_guid>Dig_MultiSku-Val3-Price-SKU</object_guid>
+    <object_type>SKU</object_type>
+    <quantity>1.00</quantity>
+    <list_price>89.89</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>AC78F2C0-5CF5-922B-DA47-56113C5A4A49</guid>
+    <object_guid>bundleNested_AssignedFixed</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>100.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>BAFFDBA5-1094-FC03-CCBF-F865415280DB</guid>
+    <object_guid>bundle_Constituent5_multiSKU</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>50.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>A33B9B04-1586-4EBB-3AA9-90BB6E5ADF79</guid>
+    <object_guid>bundle_AssignedFixed_Nested</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>115.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>A87D39FB-1AAB-CB23-843D-058EBD260255</guid>
+    <object_guid>cartPromo_Segment2</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>100.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>D99DABDA-D467-DF46-3683-B735638CE276</guid>
+    <object_guid>Dig_MultiSku-Price</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>32.32</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>6DB02182-CC08-C6EB-3B72-70E8A94808F1</guid>
+    <object_guid>cartPromo_profileAttribute1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>200.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>0B8CE4A3-1A7E-7524-8305-8DDC8BBF3CF9</guid>
+    <object_guid>Ship_MultiSku-Inv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>66.66</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>BF282372-D8C2-AA34-49AD-BED727B89B10</guid>
+    <object_guid>bundle_Constituent8</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>85.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>CA80DDD1-EA1A-8B89-D321-97EC968DD60B</guid>
+    <object_guid>usedMerchandising_CrossSell2</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>5A9362B7-5E8B-9C48-D669-986F2DD3CA2F</guid>
+    <object_guid>usedMerchandising_CrossSell1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>0603647C-58E4-EB6E-E86C-F1518D9861BC</guid>
+    <object_guid>bundle_AssignedFixed</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>60.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>76188620-5852-5315-3C62-6C5DEABB5F5F</guid>
+    <object_guid>bundle_AssignedFixed_constituentSKU</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>140.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>F6C3F3E6-A607-CB83-DC5E-3A47B421D37E</guid>
+    <object_guid>Ship_Sku_Expired-NoInv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>33.33</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>86E2007B-B03D-6631-877D-1AFC236BFD57</guid>
+    <object_guid>usedMerchandising_Accessory6</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>20.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>CFE89D55-A9B2-9D3E-D28B-5AD609A2BC82</guid>
+    <object_guid>usedMerchandising_Warrenty1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>FB2C4B71-A76E-064C-2DDC-D99BC6D03787</guid>
+    <object_guid>usedMerchandising_Accessory4</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>D7A5C39B-71D7-D9D7-8AAB-898044E3B275</guid>
+    <object_guid>configurable_Produc</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>175.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>BF1A7ED8-DA95-0404-5FE6-A6EFC0608D16</guid>
+    <object_guid>bundle_Constituent5_multiSKU</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>55.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>F17C529D-AA0F-74F6-BB0D-71D99DFB71A5</guid>
+    <object_guid>Ship_Single_Sku_InStock-Inv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>89.75</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>36F3DEE0-C0AB-9F52-54A3-54E1DE0339EA</guid>
+    <object_guid>usedMerchandising_Replacement1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>20.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>ADFF6C0E-7B6D-56C6-5892-60A5DA7B8F68</guid>
+    <object_guid>Dig_MultiSku-Val3-Price-SKU</object_guid>
+    <object_type>SKU</object_type>
+    <quantity>1.00</quantity>
+    <list_price>88.88</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>B228B30E-5EBC-2E6F-D243-46160E68B010</guid>
+    <object_guid>cartPromo_Segment</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>200.00</list_price>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>BC937A29-D163-F761-06EF-A61ADC0B87FA</guid>
+    <object_guid>Ship_Single_Sku_Always-Avail_NoInv</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>23.98</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>29BB5E38-F792-9E3C-B292-BEE7E702BACB</guid>
+    <object_guid>usedMerchandising_Accessory5</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>15.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>37A07799-55AA-4A97-FF8C-63B73F3C454E</guid>
+    <object_guid>Dig_Non-Discountable</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>35.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>9F196C16-3545-BBB1-D86A-DDBDCABCD688</guid>
+    <object_guid>configuable_Product</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>125.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+
+<base_amount>
+    <guid>0DF4E52D-878C-4554-E773-19F700230B3C</guid>
+    <object_guid>bundle_Constituent1</object_guid>
+    <object_type>PRODUCT</object_type>
+    <quantity>1.00</quantity>
+    <list_price>10.00</list_price>
+    <price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+</base_amount>
+</amounts>

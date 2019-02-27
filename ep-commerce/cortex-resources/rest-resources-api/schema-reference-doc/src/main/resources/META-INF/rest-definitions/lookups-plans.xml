@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>lookups</name>
+
+		<plan>
+			<name>search-item-by-code</name>
+			<description><![CDATA[Search for an item by item code.]]></description>
+			<template>
+				<name>controls.form-control-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>lookups</value>
+				</replace>
+				<replace>
+					<key>read-form-link</key>
+					<value>itemlookupform</value>
+				</replace>
+				<replace>
+					<key>form-resource</key>
+					<value>lookup-item-form</value>
+				</replace>
+				<replace>
+					<key>submit-resource</key>
+					<value>lookup-item-form</value>
+				</replace>
+				<replace>
+					<key>submit-action-link</key>
+					<value>itemlookupaction</value>
+				</replace>
+				<replace>
+					<key>submit-result</key>
+					<value>items.item</value>
+				</replace>
+			</template>
+		</plan>
+
+		<plan>
+			<name>read-code-for-item</name>
+			<description><![CDATA[Read the code of an [item][items].]]></description>
+			<step>
+				<description><![CDATA[Follow a link from item to code.]]></description>
+				<start>items.item</start>
+				<follow-link>code</follow-link>
+				<link-back>item</link-back>
+				<result>code-for-item</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>lookup-batch-items</name>
+			<description><![CDATA[Look up a batch of items with a list of codes.]]></description>
+			<template>
+				<name>controls.form-control-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>lookups</value>
+				</replace>
+				<replace>
+					<key>read-form-link</key>
+					<value>batchitemslookupform</value>
+				</replace>
+				<replace>
+					<key>form-resource</key>
+					<value>batch-items-form</value>
+				</replace>
+				<replace>
+					<key>submit-resource</key>
+					<value>batch-items-form</value>
+				</replace>
+				<replace>
+					<key>submit-action-link</key>
+					<value>batchlookupaction</value>
+				</replace>
+				<replace>
+					<key>submit-result</key>
+					<value>batch-items</value>
+				</replace>
+			</template>
+		</plan>
+
+		<plan>
+			<name>search-navigation-by-code</name>
+			<description><![CDATA[Search for a Navigation item by category code.]]></description>
+			<template>
+				<name>controls.form-control-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>lookups</value>
+				</replace>
+				<replace>
+					<key>read-form-link</key>
+					<value>navigations.navigationlookupform</value>
+				</replace>
+				<replace>
+					<key>form-resource</key>
+					<value>navigations.navigation-lookup-form</value>
+				</replace>
+				<replace>
+					<key>submit-resource</key>
+					<value>navigations.navigation-lookup-form</value>
+				</replace>
+				<replace>
+					<key>submit-action-link</key>
+					<value>navigations.navigationlookupaction</value>
+				</replace>
+				<replace>
+					<key>submit-result</key>
+					<value>navigations.navigation</value>
+				</replace>
+			</template>
+		</plan>
+
+	</family>
+</definitions>

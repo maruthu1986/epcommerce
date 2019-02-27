@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<import resource="structuredMessage.xml" />
+
+	<bean id="globalMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>org.springframework.security/messages</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+
+	<!-- Dependency injection of caching decorators into aspects -->
+	<bean class="com.elasticpath.rest.resource.integration.epcommerce.repository.CacheResultAspect" factory-method="aspectOf">
+		<property name="cacheResultDecorator" ref="cacheResultDecorator"/>
+	</bean>
+
+	<bean class="com.elasticpath.rest.resource.integration.epcommerce.repository.CacheRemoveAspect" factory-method="aspectOf">
+		<property name="cacheRemoveDecorator" ref="cacheRemoveDecorator"/>
+	</bean>
+
+	<bean id="intervalRefreshStrategy" class="com.elasticpath.settings.refreshstrategy.impl.IntervalRefreshStrategyImpl">
+		<property name="settingsReader" ref="settingsService"/>
+		<property name="timeoutParamKey" value="timeout"/>
+	</bean>
+
+	<bean id="immediateRefreshStrategy" class="com.elasticpath.settings.refreshstrategy.impl.ImmediateRefreshStrategyImpl">
+		<property name="settingsReader" ref="settingsService"/>
+	</bean>
+
+	<bean id="applicationLifetimeRefreshStrategy" class="com.elasticpath.settings.refreshstrategy.impl.ApplicationLifetimeRefreshStrategyImpl">
+		<property name="settingsReader" ref="settingsService"/>
+	</bean>
+
+	<bean id="cachedSettingsReader" class="com.elasticpath.settings.impl.CachedSettingsReaderImpl">
+		<property name="settingsService" ref="settingsService"/>
+		<property name="refreshStrategies">
+			<map>
+				<entry key="interval" value-ref="intervalRefreshStrategy"/>
+				<entry key="immediate" value-ref="immediateRefreshStrategy"/>
+				<entry key="application" value-ref="applicationLifetimeRefreshStrategy"/>
+			</map>
+		</property>
+		<property name="refreshStrategyKey" value="apiRefreshStrategy"/>
+		<property name="defaultRefreshStrategy" ref="immediateRefreshStrategy"/>
+	</bean>
+
+	<bean name="epCustomerViolationsInterpreter" class="com.elasticpath.rest.resource.integration.epcommerce.common.validator.EpConstraintViolationsInterpreterImpl">
+		<constructor-arg>
+			<map>
+				<entry key="customerProfile.profileValueMap[CP_FIRST_NAME]" value="given-name"/>
+				<entry key="customerProfile.profileValueMap[CP_LAST_NAME]" value="family-name"/>
+				<entry key="customerProfile.profileValueMap[CP_EMAIL]" value="username"/>
+				<entry key="email" value="username"/>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="conversionServiceTemplate" class="org.springframework.context.support.ConversionServiceFactoryBean" abstract="true">
+		<property name="converters">
+			<set>
+				<ref bean="messageConverter"/>
+				<ref bean="profileEntityConverter"/>
+				<ref bean="totalEntityConverter"/>
+				<ref bean="shoppingCartConverter"/>
+				<ref bean="availabilityEntityConverter"/>
+				<ref bean="orderToTaxesEntityConverter"/>
+				<ref bean="shipmentToTaxesEntityConverter"/>
+				<ref bean="customerAddressConverter"/>
+				<ref bean="addressEntityConverter"/>
+				<ref bean="purchaseEntityConverter"/>
+				<ref bean="paymentMeansEntityConverter"/>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="conversionService" parent="conversionServiceTemplate"/>
+	
+	<context:component-scan base-package="com.elasticpath.rest" scope-resolver="org.springframework.context.annotation.Jsr330ScopeMetadataResolver"/>
+</beans>

@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>purchases</name>
+		<description>
+			<![CDATA[
+Purchase line items are collections of items the customer purchased. Each line item can contain one or more of the same item,
+but will not have two different items. For example, one line item can have 7 Rock-Star t-shirts or one Rock-Star t-shirt,
+but it won't have one Rock-Star t-shirt and a Song track. The Song track and t-shirt would be in separate line items.
+			]]>
+		</description>
+
+		<uri-part>
+			<name>line-item-id</name>
+			<description>
+				<![CDATA[The line item identifier. A line item can be a simple item, a bundle item, or a nested bundle item. 
+				For a simple item, the line-item-id is a list containing only one id. For a component in a bundle item or a nested bundle item, 
+				the line-item-id is a list of all item ids from the root item to the component item.]]>
+			</description>
+			<path/>
+		</uri-part>
+
+		<resource>
+			<name>purchase-line-items</name>
+			<description>
+				<![CDATA[
+Retrieves a list of all the line items in a purchase. Each line item contains an item that was bought during the purchase.
+Line items can contain one or more of the same item, but will not have two different items. For example, one line item can
+have 7 Rock-Star t-shirts or one Rock-Star t-shirt, but it won't have one Rock-Star t-shirt and a Song track. The Song
+track and t-shirt would be in separate line items.
+				]]>
+			</description>
+			<uri>{purchase}/lineitems</uri>
+			<list-of>purchase-line-item</list-of>
+		</resource>
+
+		<resource>
+			<name>purchase-line-item</name>
+			<description><![CDATA[A purchased line item.]]></description>
+			<uri>{purchase-line-items}/{line-item-id}</uri>
+			<entity>purchase-line-item</entity>
+		</resource>
+
+		<relationship>
+			<name>line-items-for-purchase</name>
+			<description>
+				<![CDATA[Retrieve a purchase's line items, which includes details on the item that was purchased such as item name, quantity purchased, and cost.]]></description>
+			<rel>lineitems</rel>
+			<rev>purchase</rev>
+			<from>purchase</from>
+			<to>purchase-line-items</to>
+		</relationship>
+
+		<relationship>
+			<name>purchase-line-items-for-line-item</name>
+			<description>
+				<![CDATA[Retrieve the line items list that the line item belongs to.]]></description>
+			<rel>list</rel>
+			<from>purchase-line-item</from>
+			<to>purchase-line-items</to>
+		</relationship>
+
+		<relationship>
+			<name>purchase-line-item-to-purchase</name>
+			<description><![CDATA[Link from line item to the purchase.]]></description>
+			<rel>purchase</rel>
+			<from>purchase-line-item</from>
+			<to>purchase</to>
+		</relationship>
+
+		<relationship>
+			<name>purchase-line-item-to-item</name>
+			<description><![CDATA[Link from the purchase line item to the item.]]></description>
+			<rel>item</rel>
+			<from>purchase-line-item</from>
+			<to>items.item</to>
+		</relationship>
+
+		<!--COMPONENTS-->
+
+		<resource>
+			<name>purchase-line-item-components</name>
+			<description><![CDATA[List of component line items of a purchased line item.]]></description>
+			<uri>{purchase-line-item}/components/</uri>
+			<list-of>purchase-line-item</list-of>
+		</resource>
+
+		<relationship>
+			<name>components-for-purchase-line-item</name>
+			<description><![CDATA[Components for the purchased line item.]]></description>
+			<rel>components</rel>
+			<rev>lineitem</rev>
+			<from>purchase-line-item</from>
+			<to>purchase-line-item-components</to>
+		</relationship>
+
+		<relationship>
+			<name>parent-components-for-purchase-line-item</name>
+			<description><![CDATA[Link to components to which this component belongs to.]]></description>
+			<rel>list</rel>
+			<from>purchase-line-item</from>
+			<to>purchase-line-item-components</to>
+		</relationship>
+
+		<!--END OF COMPONENTS-->
+
+		<!--OPTIONS-->
+
+		<resource>
+			<name>purchase-line-item-options</name>
+			<description><![CDATA[The list of options of the purchased line item.]]></description>
+			<uri>{purchase-line-item}/options</uri>
+			<list-of>purchase-line-item-option</list-of>
+		</resource>
+
+		<resource>
+			<name>purchase-line-item-option</name>
+			<description><![CDATA[The option of the purchased line item.]]></description>
+			<uri>{purchase-line-item-options}/{itemdefinitions.option-id}</uri>
+			<entity>purchase-line-item-option</entity>
+		</resource>
+
+		<resource>
+			<name>purchase-line-item-option-value</name>
+			<description><![CDATA[The option value for the purchased line item.]]></description>
+			<uri>{purchase-line-item-option}/values/{itemdefinitions.option-value-id}</uri>
+			<entity>purchase-line-item-option-value</entity>
+		</resource>
+
+		<relationship>
+			<name>options-for-purchase-line-item</name>
+			<description><![CDATA[The options for the item purchased. ]]></description>
+			<rel>options</rel>
+			<rev>lineitem</rev>
+			<from>purchase-line-item</from>
+			<to>purchase-line-item-options</to>
+		</relationship>
+
+		<relationship>
+			<name>line-item-options-for-purchase-line-item-option</name>
+			<description><![CDATA[The line item options list containing the item option. ]]></description>
+			<rel>list</rel>
+			<from>purchase-line-item-option</from>
+			<to>purchase-line-item-options</to>
+		</relationship>
+
+		<relationship>
+			<name>value-for-purchase-line-item-option</name>
+			<description><![CDATA[The option value for the item purchased. ]]></description>
+			<rel>value</rel>
+			<rev>option</rev>
+			<from>purchase-line-item-option</from>
+			<to>purchase-line-item-option-value</to>
+		</relationship>
+
+		<!--END OF OPTIONS-->
+
+		<entity>
+			<name>purchase-line-item-configuration</name>
+			<description><![CDATA[The configuration of a key/value]]></description>
+			<dynamic/>
+		</entity>
+
+		<entity>
+			<name>purchase-line-item</name>
+			<description><![CDATA[A collection of items the customer purchased]]></description>
+			<property>
+				<name>line-item-id</name>
+				<description><![CDATA[The line item ID.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>purchase-id</name>
+				<description><![CDATA[The purchase ID.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>name</name>
+				<description><![CDATA[The name of the item that was purchased.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>quantity</name>
+				<description><![CDATA[The number of items that were purchased.]]></description>
+				<integer/>
+			</property>
+			<property>
+				<name>configuration</name>
+				<description><![CDATA[The Fields associated with the purchase line item (Dictionary of String/Strings) ]]></description>
+				 <is-a>purchase-line-item-configuration</is-a>
+			</property>
+			<property>
+				<name>line-extension-tax</name>
+				<description><![CDATA[The tax paid for the purchased item(s).]]></description>
+				<array>
+					<is-a>base.cost</is-a>
+				</array>
+			</property>
+			<property>
+				<name>line-extension-amount</name>
+				<description><![CDATA[The purchase price of the item(s), excluding taxes.]]></description>
+				<array>
+					<is-a>base.cost</is-a>
+				</array>
+			</property>
+			<property>
+				<name>line-extension-total</name>
+				<description><![CDATA[The total amount paid for the item(s), including taxes.]]></description>
+				<array>
+					<is-a>base.cost</is-a>
+				</array>
+			</property>
+			<entity-type>purchases.line-item</entity-type>
+		</entity>
+
+		<entity>
+			<name>purchase-line-item-option</name>
+			<description><![CDATA[The purchase line item option entity.]]></description>
+			<property>
+				<name>name</name>
+				<description><![CDATA[The name of the item option.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[The localized name of the item option, intended for display in the client application.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>selected-value-id</name>
+				<description><![CDATA[The id of the selected value.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>option-id</name>
+				<description><![CDATA[The id of the option.]]></description>
+				<string/>
+			</property>
+			<entity-type>purchases.option</entity-type>
+		</entity>
+
+		<entity>
+			<name>purchase-line-item-option-value</name>
+			<description><![CDATA[The line item option value entity.]]></description>
+			<property>
+				<name>name</name>
+				<description><![CDATA[The name of the item option.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[The localized name of the option name, intended for display in the client application.]]></description>
+				<string/>
+			</property>
+			<entity-type>purchases.value</entity-type>
+		</entity>
+
+	</family>
+</definitions>

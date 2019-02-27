@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>wishlists</name>
+
+		<uri-part>
+			<name>line-item-id</name>
+			<description>
+				<![CDATA[
+The line item identifier. This ID is a unique number assigned by Cortex API when the [item][items]is added to a wishlist.
+
+[items]: #items
+				]]>
+			</description>
+			<string/>
+		</uri-part>
+
+
+		<resource>
+			<name>wishlist-line-items</name>
+			<description><![CDATA[The line items list in a wishlist.]]></description>
+			<uri>{wishlist}/lineitems</uri>
+			<list-of>wishlist-line-item</list-of>
+		</resource>
+
+		<resource>
+			<name>wishlist-line-item</name>
+			<description><![CDATA[An individual line item in a wishlist.]]></description>
+			<uri>{wishlist-line-items}/{line-item-id}</uri>
+			<entity>wishlist-line-item</entity>
+		</resource>
+
+		<relationship>
+			<name>wishlist-line-items-for-wishlist</name>
+			<description><![CDATA[A collection of items that have been added to a wishlist.]]></description>
+			<rel>lineitems</rel>
+			<rev>wishlist</rev>
+			<from>wishlist</from>
+			<to>wishlist-line-items</to>
+		</relationship>
+
+		<relationship>
+			<name>wishlist-line-items-for-wishlist-line-item</name>
+			<description><![CDATA[A collection of items that have been added to a wishlist.]]></description>
+			<rel>list</rel>
+			<from>wishlist-line-item</from>
+			<to>wishlist-line-items</to>
+		</relationship>
+
+		<relationship>
+			<name>wishlist-for-wishlist-line-item</name>
+			<description><![CDATA[Retrieve the wishlist that has the given line item. This workflow is
+			useful when you need to determine which wishlist the line item belongs to.]]></description>
+			<rel>wishlist</rel>
+			<from>wishlist-line-item</from>
+			<to>wishlist</to>
+		</relationship>
+
+		<relationship>
+			<name>item-for-wishlist-line-item</name>
+			<description>What's the item this line item points to?</description>
+			<rel>item</rel>
+			<from>wishlist-line-item</from>
+			<to>items.item</to>
+		</relationship>
+
+		<entity>
+			<name>wishlist-line-item</name>
+			<description><![CDATA[A line item in a wishlist.]]></description>
+			<property>
+				<name>line-item-id</name>
+				<description><![CDATA[The internal line item identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>item-id</name>
+				<description><![CDATA[The internal item identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>wishlist-id</name>
+				<description><![CDATA[The internal wishlist identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>configuration</name>
+				<description><![CDATA[The details of the line item configuration.]]></description>
+				<is-a>carts.line-item-configuration</is-a>
+			</property>
+			<entity-type>wishlists.wishlist-line-item</entity-type>
+		</entity>
+	</family>
+</definitions>

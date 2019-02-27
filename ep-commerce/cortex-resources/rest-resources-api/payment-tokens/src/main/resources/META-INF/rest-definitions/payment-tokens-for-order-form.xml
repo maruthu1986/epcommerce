@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>paymenttokens</name>
+		<description><![CDATA[The Payment Tokens resource is responsible for saving payment tokens to a shopper's profile and order.]]></description>
+
+		<resource>
+			<name>order-payment-token-form</name>
+			<description><![CDATA[Provides the form with which to create a new payment token.]]></description>
+			<uri>{order-payment-token}/form</uri>
+			<entity>payment-token</entity>
+		</resource>
+
+		<relationship>
+			<name>form-for-order-payment-token</name>
+			<description>Form to create a new payment token for an order.</description>
+			<rel>paymenttokenform</rel>
+			<from>paymentmethods.paymentmethod-info</from>
+			<to>order-payment-token-form</to>
+		</relationship>
+
+		<relationship>
+			<name>action-for-payment-token-for-order</name>
+			<description>Action to create payment token for an order.</description>
+			<rel>createpaymenttokenaction</rel>
+			<from>order-payment-token-form</from>
+			<to>order-payment-token</to>
+		</relationship>
+
+
+	</family>
+</definitions>

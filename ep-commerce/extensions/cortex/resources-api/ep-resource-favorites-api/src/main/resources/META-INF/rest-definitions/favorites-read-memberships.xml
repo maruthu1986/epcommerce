@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>favorites</name>
+		<resource>
+			<name>read-favorite-memberships</name>
+			<description>Retrieve the list of favorites that an item has been added to</description>
+			<uri>{base.family}/memberships/{items.item}</uri>
+			<list-of>favorite</list-of>
+		</resource>
+		<relationship>
+			<name>favorite-membership-from-item</name>
+			<description>Favorite memberships for a given item</description>
+			<rel>favoritememberships</rel>
+			<from>items.item</from>
+			<to>read-favorite-memberships</to>
+		</relationship>
+
+	</family>
+</definitions>

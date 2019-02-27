@@ -1,0 +1,14 @@
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Grid.html
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Table.html
+Table,
+Grid {
+	@include grid_style();
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Grid.html#GridItem
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Table.html#TableItem
+	&Item {
+        &:even {
+            background-color: $gray-fair;
+        }
+	}
+}

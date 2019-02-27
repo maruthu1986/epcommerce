@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<changeSet id="add-change-set-for-sync-acceptance-test" author="elasticpath">
+		<insert tableName="TCHANGESET">
+			<column name="UIDPK">1</column>
+			<column name="NAME">acceptance-testing</column>
+			<column name="DESCRIPTION">change set for sync acceptance test</column>
+			<column name="OBJECT_GROUP_ID">01234567-890A-BCDE-F012-34567890ABCD</column>
+			<column name="CREATED_BY_USER_GUID">300</column><!-- admin cmuser -->
+			<column name="CREATED_DATE">2014-06-26 00:00:00</column>
+			<column name="STATE_CODE">OPEN</column>
+		</insert>
+		<insert tableName="TCHANGESETUSER">
+			<column name="UIDPK">1</column>
+			<column name="USER_GUID">300</column><!-- admin cmuser -->
+			<column name="CHANGESET_UID">1</column>
+		</insert>
+	</changeSet>
+
+</databaseChangeLog>

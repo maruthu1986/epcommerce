@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>purchases</name>
+		<plan>
+			<name>purchases-list</name>
+			<description><![CDATA[Retrieve a customer's purchase.]]></description>
+			<step>
+				<description><![CDATA[Read list of purchases.]]></description>
+				<start>purchases</start>
+				<follow-link>element</follow-link>
+				<link-back>list</link-back>
+				<result>purchase</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-purchase-billing-address</name>
+			<description><![CDATA[Read the billing address for the purchase.]]></description>
+			<step>
+				<description><![CDATA[Read the purchase.]]></description>
+				<start>purchases</start>
+				<follow-link>element</follow-link>
+				<link-back>list</link-back>
+				<result>purchase</result>
+			</step>
+			<step>
+				<description><![CDATA[Read the billing address.]]></description>
+				<start>purchase</start>
+				<follow-link>billingaddress</follow-link>
+				<link-back>purchase</link-back>
+				<result>addresses.address</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>create-purchase</name>
+			<description><![CDATA[Submit the purchase form to complete the purchase.]]></description>
+			<!-- Not using the form template here since purchase field does not have any fields.-->
+			<step>
+				<description><![CDATA[Retrieve the form.]]></description>
+				<start>orders.order</start>
+				<follow-link>purchaseform</follow-link>
+				<result>create-purchase-form</result>
+			</step>
+			<step>
+				<description><![CDATA[Submit the form]]></description>
+				<start>create-purchase-form</start>
+				<submit>create-purchase-form</submit>
+				<to>create-purchase-action</to>
+				<via-link>submitorderaction</via-link>
+				<result>purchase</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-purchase-lookup-form</name>
+			<description><![CDATA[Retrieve the purchase lookup form.]]></description>
+			<step>
+				<description><![CDATA[The purchase lookup form.]]></description>
+				<start>lookups.lookups</start>
+				<follow-link>purchaselookupform</follow-link>
+				<result>purchase-lookup-form</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>lookup-purchase-by-number</name>
+			<description><![CDATA[Look up a purchase by the purchase number.]]></description>
+			<step>
+				<description><![CDATA[Submit the form]]></description>
+				<start>purchase-lookup-form</start>
+				<submit>purchase-lookup-form</submit>
+				<to>purchase-lookup-action</to>
+				<via-link>purchaselookupaction</via-link>
+				<result>purchase</result>
+			</step>
+		</plan>
+	</family>
+</definitions>

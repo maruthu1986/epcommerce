@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.elasticpath.rest.integration.epcommerce</groupId>
+		<artifactId>ep-commerce-engine-integrations-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ep-resource-event-handlers-epcommerce</artifactId>
+	<packaging>bundle</packaging>
+	<name>EP ∷ RelOS : RS Event Handlers ʃ Commerce Engine</name>
+	<description>Elastic Path REST - Commerce Engine Event Handlers</description>
+
+	<properties>
+		<!-- Coverage defaults not met, setting bar at current for this module. Should be revised upwards only -->
+		<jacoco.instruction.covered-ratio>0.41</jacoco.instruction.covered-ratio>
+		<jacoco.branch.covered-ratio>0.33</jacoco.branch.covered-ratio>
+		<jacoco.line.covered-ratio>0.38</jacoco.line.covered-ratio>
+		<jacoco.complexity.covered-ratio>0.36</jacoco.complexity.covered-ratio>
+		<jacoco.method.covered-ratio>0.37</jacoco.method.covered-ratio>
+		<jacoco.class.covered-ratio>0.40</jacoco.class.covered-ratio>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath.rest.relos.rs.events</groupId>
+			<artifactId>ep-rs-events-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.integration.epcommerce</groupId>
+			<artifactId>ep-rest-repositories-epcommerce</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.integration.epcommerce</groupId>
+			<artifactId>ep-rest-commons-epcommerce</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-pmd-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

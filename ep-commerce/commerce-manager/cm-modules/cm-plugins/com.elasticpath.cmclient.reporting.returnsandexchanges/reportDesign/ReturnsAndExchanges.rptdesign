@@ -1,0 +1,890 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="comments">Copyright (c) 2013 Elastic Path</property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.7.0.v201706222054</property>
+    <text-property name="title">Returns And Exchanges Report</text-property>
+    <simple-property-list name="includeResource">
+        <value>src/main/com/elasticpath/cmclient/reporting/returnsandexchanges/ReturnsAndExchangesReportPluginResources</value>
+    </simple-property-list>
+    <property name="units">in</property>
+    <property name="layoutPreference">fixed layout</property>
+    <list-property name="cssStyleSheets">
+        <structure>
+            <property name="fileName">cm-modules/cm-plugins/com.elasticpath.cmclient.reporting/css/report.css</property>
+            <property name="useExternalCss">false</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="store" id="99">
+            <text-property name="promptText">store</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="startDate" id="100">
+            <text-property name="promptText">startDate</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+        </scalar-parameter>
+        <scalar-parameter name="endDate" id="101">
+            <text-property name="promptText">endDate</text-property>
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+        </scalar-parameter>
+        <scalar-parameter name="currency" id="102">
+            <text-property name="promptText">currency</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="rmaType" id="783">
+            <text-property name="promptText">rmaType</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="internationalizedStatuses" id="665">
+            <text-property name="promptText">internationalizedStatuses</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="EPScriptedDataSource" id="11">
+            <method name="open"><![CDATA[
+            	returnsAndExchangesReportService = new Packages.com.elasticpath.cmclient.reporting.returnsandexchanges.service.impl.ReturnsAndExchangesReportServiceImpl;
+			]]></method>
+        </script-data-source>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="OrderReturnDataSet" id="571">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">Return Status</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">Order Number</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">RMA Number</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">Return Date</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">Return Amount</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">Return Taxes</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">Return Shipping</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">Return Reason</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">Created By</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">Order Created Date</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">Order Total</property>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">Order Status</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">Customer ID</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">Last Name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">First Name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">Email</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">Return Type</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">Exchange Order</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">Return Status</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Order Number</property>
+                </structure>
+                <structure>
+                    <property name="columnName">RMA Number</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Return Date</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Return Amount</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Return Taxes</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Return Shipping</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Return Reason</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Created By</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Order Created Date</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Order Total</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Order Status</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Customer ID</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Last Name</property>
+                </structure>
+                <structure>
+                    <property name="columnName">First Name</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Email</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Return Type</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Exchange Order</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">Return Status</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">Order Number</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">RMA Number</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">Return Date</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">Return Amount</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">Return Taxes</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">Return Shipping</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">Return Reason</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">Created By</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">Order Created Date</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">Order Total</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">Order Status</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">Customer ID</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">Last Name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">First Name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">Email</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">Return Type</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">Exchange Order</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">EPScriptedDataSource</property>
+            <method name="open"><![CDATA[
+                returnOrders = returnsAndExchangesReportService.orderReturnDataSet();
+                totalRows = returnOrders.size();
+                currentRow = 0;
+            ]]></method>
+            <method name="fetch"><![CDATA[
+                if (currentRow >= totalRows) {
+                   return false;
+                }
+
+                var returnOrder = returnOrders.get(currentRow);
+
+                currentRow++;
+                row["Return Status"] = returnOrder[0];
+                row["Order Number"] = returnOrder[1];
+                row["RMA Number"] = returnOrder[2];
+                row["Return Date"] = returnOrder[3];
+                row["Return Amount"] = returnOrder[4];
+                row["Return Taxes"] = returnOrder[5];
+                row["Return Shipping"] = returnOrder[6];
+                row["Return Reason"] = returnOrder[7];
+                row["Created By"] = returnOrder[8];
+                row["Order Created Date"] = returnOrder[9];
+                row["Order Total"] = returnOrder[10];
+                row["Order Status"] = returnOrder[11];
+                row["Customer ID"] = returnOrder[12];
+                row["Last Name"] = returnOrder[13];
+                row["First Name"] = returnOrder[14];
+                row["Email"] = returnOrder[15];
+                row["Return Type"] = returnOrder[16];
+                row["Exchange Order"] = returnOrder[17];
+                return true;
+            ]]></method>
+            <method name="close"><![CDATA[
+                returnsAndExchangesReportService = null;
+                returnOrders = null;
+                totalRows = null;
+                currentRow = null;
+            ]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="currency" id="742">
+            <property name="paddingRight">6px</property>
+            <structure name="numberFormat">
+                <property name="category">Currency</property>
+                <property name="pattern">#,##0.00 ;(#,##0.00){RoundingMode=HALF_UP}</property>
+            </structure>
+            <property name="textAlign">right</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">custom</property>
+            <property name="orientation">landscape</property>
+            <property name="topMargin">0.5in</property>
+            <property name="leftMargin">1in</property>
+            <property name="bottomMargin">0.5in</property>
+            <property name="rightMargin">1in</property>
+            <property name="height">11in</property>
+            <property name="width">17in</property>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="179">
+            <property name="width">100%</property>
+            <property name="dataSet">OrderReturnDataSet</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">Return Status</property>
+                    <expression name="expression" type="javascript">dataSetRow["Return Status"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Order Number</property>
+                    <expression name="expression" type="javascript">dataSetRow["Order Number"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">RMA Number</property>
+                    <expression name="expression" type="javascript">dataSetRow["RMA Number"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Return/Exchange Date</property>
+                    <expression name="expression" type="javascript">dataSetRow["Return Date"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Return Type</property>
+                    <expression name="expression" type="javascript">dataSetRow["Return Type"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Exchange Order</property>
+                    <expression name="expression" type="javascript">dataSetRow["Exchange Order"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Return Amount</property>
+                    <expression name="expression" type="javascript">dataSetRow["Return Amount"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">Return Shipping</property>
+                    <expression name="expression" type="javascript">dataSetRow["Return Shipping"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">Return Taxes</property>
+                    <expression name="expression" type="javascript">dataSetRow["Return Taxes"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">Return Reason</property>
+                    <expression name="expression" type="javascript">dataSetRow["Return Reason"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Returned By</property>
+                    <expression name="expression" type="javascript">dataSetRow["Created By"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Order Total</property>
+                    <expression name="expression" type="javascript">dataSetRow["Order Total"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">Customer ID</property>
+                    <expression name="expression" type="javascript">dataSetRow["Customer ID"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Last Name</property>
+                    <expression name="expression" type="javascript">dataSetRow["Last Name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">First Name</property>
+                    <expression name="expression" type="javascript">dataSetRow["First Name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Email</property>
+                    <expression name="expression" type="javascript">dataSetRow["Email"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Total: Return Amount</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">dataSetRow["Return Amount"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">false</property>
+                </structure>
+                <structure>
+                    <property name="name">Total: Return Taxes</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">dataSetRow["Return Taxes"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">false</property>
+                </structure>
+                <structure>
+                    <property name="name">Total: Return Shipping</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">dataSetRow["Return Shipping"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">false</property>
+                </structure>
+                <structure>
+                    <property name="name">Subtotal: Return Amount</property>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>GroupByStatus</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["Return Amount"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">false</property>
+                </structure>
+                <structure>
+                    <property name="name">Subtotal: Return Taxes</property>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>GroupByStatus</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["Return Taxes"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">false</property>
+                </structure>
+                <structure>
+                    <property name="name">Subtotal: Return Shipping</property>
+                    <property name="dataType">float</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>GroupByStatus</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["Return Shipping"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">false</property>
+                </structure>
+            </list-property>
+            <property name="pageBreakInterval">0</property>
+            <column id="484">
+                <property name="width">0.5in</property>
+            </column>
+            <column id="850">
+                <property name="width">0.5in</property>
+            </column>
+            <column id="485">
+                <property name="width">1.3in</property>
+            </column>
+            <column id="869">
+                <property name="width">0.4in</property>
+            </column>
+            <column id="888">
+                <property name="width">0.4in</property>
+            </column>
+            <column id="486">
+                <property name="width">0.6in</property>
+            </column>
+            <column id="901">
+                <property name="width">0.6in</property>
+            </column>
+            <column id="428">
+                <property name="width">0.6in</property>
+            </column>
+            <column id="909">
+                <property name="width">0.1in</property>
+            </column>
+            <column id="860">
+                <property name="width">0.9in</property>
+            </column>
+            <column id="408">
+                <property name="width">0.7in</property>
+            </column>
+            <column id="456">
+                <property name="width">0.7in</property>
+            </column>
+            <column id="450">
+                <property name="width">0.7in</property>
+            </column>
+            <column id="683">
+                <property name="width">0.7in</property>
+            </column>
+            <column id="678">
+                <property name="width">1.4in</property>
+            </column>
+            <header>
+                <row id="180">
+                    <cell id="181">
+                        <property name="colSpan">15</property>
+                        <property name="rowSpan">1</property>
+                        <text id="65">
+                            <property name="style">table-header-cell</property>
+                            <property name="contentType">html</property>
+                            <text-property name="content"><![CDATA[Returns and Exchanges Report for <VALUE-OF>params["store"]</VALUE-OF>]]></text-property>
+                        </text>
+                    </cell>
+                </row>
+                <row id="891">
+                    <cell id="892">
+                        <property name="colSpan">15</property>
+                        <property name="rowSpan">1</property>
+                        <text id="893">
+                            <property name="style">table-header-line-2-cell</property>
+                            <property name="contentType">html</property>
+                            <text-property name="content"><![CDATA[<VALUE-OF>params["startDate"]</VALUE-OF> - <VALUE-OF>params["endDate"]</VALUE-OF>, 
+                            <b>Currency:</b> <VALUE-OF>params["currency"]</VALUE-OF>,
+                            <b>Return Status:</b> <VALUE-OF>params["internationalizedStatuses"].value</VALUE-OF>]]></text-property>
+                        </text>
+                    </cell>
+                </row>
+            </header>
+            <group id="804">
+                <property name="groupName">GroupByStatus</property>
+                <expression name="keyExpr" type="javascript">row["Return Status"]</expression>
+                <structure name="toc">
+                    <expression name="expressionValue" type="javascript">row["Return Status"]</expression>
+                </structure>
+                <property name="hideDetail">false</property>
+                <header>
+                    <row id="805">
+                        <cell id="806">
+                            <property name="colSpan">15</property>
+                            <property name="rowSpan">1</property>
+                            <text-data id="835">
+                                <property name="style">table-group-header-emphasis</property>
+                                <expression name="valueExpr" type="javascript">"Status: " + row["Return Status"]</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                    </row>
+                    <row id="702">
+                        <cell id="703">
+                            <label id="182">
+                                <text-property name="text" key="orderNumber">Order Number</text-property>
+                            </label>
+                        </cell>
+                        <cell id="846">
+                            <label id="851">
+                                <text-property name="text" key="rmaCode">RMA Number</text-property>
+                            </label>
+                        </cell>
+                        <cell id="704">
+                            <label id="184">
+                                <text-property name="text" key="returnDate">Return/Exchange Date</text-property>
+                            </label>
+                        </cell>
+                        <cell id="865">
+                            <label id="871">
+                                <text-property name="text" key="returnType">Return Type</text-property>
+                            </label>
+                        </cell>
+                        <cell id="884">
+                            <label id="889">
+                                <property name="style">align-center</property>
+                                <text-property name="text" key="exchangeOrder">Exchange Order</text-property>
+                            </label>
+                        </cell>
+                        <cell id="705">
+                            <label id="53">
+                                <property name="style">align-right</property>
+                                <text-property name="text" key="returnAmount">Return Amount</text-property>
+                            </label>
+                        </cell>
+                        <cell id="897">
+                            <label id="435">
+                                <property name="style">align-right</property>
+                                <text-property name="text" key="returnShipping">Return Shipping</text-property>
+                            </label>
+                        </cell>
+                        <cell id="707">
+                            <label id="418">
+                                <property name="style">align-right</property>
+                                <text-property name="text" key="returnTax">Return Taxes</text-property>
+                            </label>
+                        </cell>
+                        <cell id="905"/>
+                        <cell id="856">
+                            <label id="861">
+                                <text-property name="text" key="returnReason">Return Reason</text-property>
+                            </label>
+                        </cell>
+                        <cell id="709">
+                            <label id="415">
+                                <text-property name="text" key="returnedBy">Returned By</text-property>
+                            </label>
+                        </cell>
+                        <cell id="713">
+                            <label id="465">
+                                <property name="style">align-center</property>
+                                <text-property name="text" key="customerId">Customer ID</text-property>
+                            </label>
+                        </cell>
+                        <cell id="714">
+                            <label id="466">
+                                <text-property name="text" key="lastName">Last Name</text-property>
+                            </label>
+                        </cell>
+                        <cell id="715">
+                            <label id="684">
+                                <text-property name="text" key="firstName">First Name</text-property>
+                            </label>
+                        </cell>
+                        <cell id="716">
+                            <label id="685">
+                                <text-property name="text" key="email">Email Address</text-property>
+                            </label>
+                        </cell>
+                    </row>
+                </header>
+                <footer>
+                    <row id="820">
+                        <cell id="821">
+                            <property name="colSpan">3</property>
+                            <text-data id="836">
+                                <expression name="valueExpr" type="javascript">params["currency"] + " Subtotal: " + row["Return Status"]</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </cell>
+                        <cell id="867"/>
+                        <cell id="886"/>
+                        <cell id="823">
+                            <data id="878">
+                                <property name="style">currency</property>
+                                <property name="resultSetColumn">Subtotal: Return Amount</property>
+                            </data>
+                        </cell>
+                        <cell id="899">
+                            <data id="880">
+                                <property name="style">currency</property>
+                                <property name="resultSetColumn">Subtotal: Return Shipping</property>
+                            </data>
+                        </cell>
+                        <cell id="824">
+                            <data id="879">
+                                <property name="style">currency</property>
+                                <property name="resultSetColumn">Subtotal: Return Taxes</property>
+                            </data>
+                        </cell>
+                        <cell id="907"/>
+                        <cell id="858"/>
+                        <cell id="826"/>
+                        <cell id="830"/>
+                        <cell id="831"/>
+                        <cell id="832"/>
+                        <cell id="833"/>
+                    </row>
+                </footer>
+            </group>
+            <detail>
+                <row id="686">
+                    <cell id="687">
+                        <data id="785">
+                            <structure name="stringFormat">
+                                <property name="category">Custom</property>
+                            </structure>
+                            <property name="orphans">inherit</property>
+                            <property name="whiteSpace">nowrap</property>
+                            <structure name="toc"/>
+                            <property name="resultSetColumn">Order Number</property>
+                        </data>
+                    </cell>
+                    <cell id="847">
+                        <data id="852">
+                            <property name="resultSetColumn">RMA Number</property>
+                        </data>
+                    </cell>
+                    <cell id="688">
+                        <data id="786">
+                            <property name="resultSetColumn">Return/Exchange Date</property>
+                        </data>
+                    </cell>
+                    <cell id="866">
+                        <data id="875">
+                            <property name="resultSetColumn">Return Type</property>
+                        </data>
+                    </cell>
+                    <cell id="885">
+                        <data id="890">
+                            <property name="style">align-center</property>
+                            <property name="resultSetColumn">Exchange Order</property>
+                        </data>
+                    </cell>
+                    <cell id="689">
+                        <data id="787">
+                            <property name="style">currency</property>
+                            <property name="resultSetColumn">Return Amount</property>
+                        </data>
+                    </cell>
+                    <cell id="898">
+                        <data id="789">
+                            <property name="style">currency</property>
+                            <property name="resultSetColumn">Return Shipping</property>
+                        </data>
+                    </cell>
+                    <cell id="691">
+                        <data id="788">
+                            <property name="style">currency</property>
+                            <property name="resultSetColumn">Return Taxes</property>
+                        </data>
+                    </cell>
+                    <cell id="906"/>
+                    <cell id="857">
+                        <data id="862">
+                            <property name="resultSetColumn">Return Reason</property>
+                        </data>
+                    </cell>
+                    <cell id="693">
+                        <data id="790">
+                            <property name="resultSetColumn">Returned By</property>
+                        </data>
+                    </cell>
+                    <cell id="697">
+                        <data id="794">
+                            <property name="style">align-center</property>
+                            <property name="resultSetColumn">Customer ID</property>
+                        </data>
+                    </cell>
+                    <cell id="698">
+                        <data id="795">
+                            <property name="resultSetColumn">Last Name</property>
+                        </data>
+                    </cell>
+                    <cell id="699">
+                        <data id="796">
+                            <property name="resultSetColumn">First Name</property>
+                        </data>
+                    </cell>
+                    <cell id="700">
+                        <data id="797">
+                            <property name="resultSetColumn">Email</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="756">
+                    <cell id="757">
+                        <property name="colSpan">3</property>
+                        <text-data id="772">
+                            <expression name="valueExpr" type="javascript">params["currency"] + " TOTAL"</expression>
+                            <property name="contentType">html</property>
+                        </text-data>
+                    </cell>
+                    <cell id="868"/>
+                    <cell id="887"/>
+                    <cell id="759">
+                        <data id="853">
+                            <property name="style">currency</property>
+                            <property name="resultSetColumn">Total: Return Amount</property>
+                        </data>
+                    </cell>
+                    <cell id="900">
+                        <data id="801">
+                            <property name="style">currency</property>
+                            <property name="resultSetColumn">Total: Return Shipping</property>
+                        </data>
+                    </cell>
+                    <cell id="761">
+                        <data id="800">
+                            <property name="style">currency</property>
+                            <property name="resultSetColumn">Total: Return Taxes</property>
+                        </data>
+                    </cell>
+                    <cell id="908"/>
+                    <cell id="859"/>
+                    <cell id="763"/>
+                    <cell id="767"/>
+                    <cell id="768"/>
+                    <cell id="769"/>
+                    <cell id="770"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

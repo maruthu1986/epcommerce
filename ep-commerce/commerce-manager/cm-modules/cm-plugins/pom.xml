@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.cmclient</groupId>
+		<artifactId>cm-modules</artifactId>
+		<version>703.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>cm-plugins</artifactId>
+	<version>703.0.0-SNAPSHOT</version><!-- Version is required here for releasing tasks -->
+	<packaging>pom</packaging>
+	<name>CM Plugins Parent</name>
+
+	<modules>
+		<module>com.elasticpath.cmclient.core</module>
+		<module>com.elasticpath.cmclient.policy</module>
+		<module>com.elasticpath.cmclient.conditionbuilder</module>
+		<module>com.elasticpath.cmclient.pricelistmanager</module>
+		<module>com.elasticpath.cmclient.jobs</module>
+		<module>com.elasticpath.cmclient.admin</module>
+		<module>com.elasticpath.cmclient.admin.users</module>
+		<module>com.elasticpath.cmclient.catalog</module>
+		<module>com.elasticpath.cmclient.admin.configuration</module>
+		<module>com.elasticpath.cmclient.store</module>
+		<module>com.elasticpath.cmclient.admin.stores</module>
+		<module>com.elasticpath.cmclient.admin.taxes</module>
+		<module>com.elasticpath.cmclient.admin.shipping</module>
+		<module>com.elasticpath.cmclient.admin.payment</module>
+		<module>com.elasticpath.cmclient.admin.warehouses</module>
+		<module>com.elasticpath.cmclient.fulfillment</module>
+		<module>com.elasticpath.cmclient.changeset</module>
+		<module>com.elasticpath.cmclient.warehouse</module>
+		<module>com.elasticpath.cmclient.advancedsearch</module>
+		<module>com.elasticpath.cmclient.admin.customers</module>
+		<module>com.elasticpath.cmclient.admin.datapolicies</module>
+		<module>com.elasticpath.cmclient.ep-local-auth</module>
+		<module>test-util</module>
+
+		<module>com.elasticpath.cmclient.reporting</module>
+		<module>com.elasticpath.cmclient.reporting.promotionusage</module>
+		<module>com.elasticpath.cmclient.reporting.ordersbystatus</module>
+		<module>com.elasticpath.cmclient.reporting.ordersummary</module>
+		<module>com.elasticpath.cmclient.reporting.returnsandexchanges</module>
+		<module>com.elasticpath.cmclient.reporting.customerpersonaldata</module>
+	</modules>
+
+</project>

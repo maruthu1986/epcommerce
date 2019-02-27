@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>datapolicies</name>
+		<description><![CDATA[The data policies resource retrieves the data policies associated with a customer]]></description>
+
+		<uri-part>
+			<name>policy-id</name>
+			<description><![CDATA[The ID of the data policy.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>data-policies</name>
+			<description><![CDATA[The data policies associated with a customer.]]></description>
+			<uri>{base.family}/{base.scope}</uri>
+			<list-of>data-policy</list-of>
+		</resource>
+
+		<resource>
+			<name>data-policy</name>
+			<description><![CDATA[The data policy associated with a customer.]]></description>
+			<uri>{data-policies}/{policy-id}</uri>
+			<entity>data-policy</entity>
+		</resource>
+
+		<relationship>
+			<name>data-policy-to-data-policies</name>
+			<description><![CDATA[Relationship from data policy to data policies.]]></description>
+			<rel>list</rel>
+			<from>data-policy</from>
+			<to>data-policies</to>
+		</relationship>
+
+		<relationship>
+			<name>profile-to-data-policies</name>
+			<description><![CDATA[Read the list of data policies associated with the store. Must be enabled via a system configuration setting.]]></description>
+			<rel>data-policies</rel>
+			<rev>profile</rev>
+			<from>profiles.profile</from>
+			<to>data-policies</to>
+		</relationship>
+
+		<relationship>
+			<name>data-policies-to-profile</name>
+			<description><![CDATA[Link from data policies to a profile.]]></description>
+			<rel>profile</rel>
+			<from>data-policies</from>
+			<to>profiles.profile</to>
+		</relationship>
+
+		<relationship>
+			<name>root-to-data-policies</name>
+			<description>
+				<![CDATA[Retrieve the data policies for the store.]]>
+			</description>
+			<rel>data-policies</rel>
+			<from>base.root</from>
+			<to>data-policies</to>
+		</relationship>
+
+		<advisor>
+			<name>data-policy-for-registrations</name>
+			<description>Advisor for the registrations resource</description>
+			<linked-to>data-policy-consent-form</linked-to>
+			<blocks>registrations.new-account-registration-formregistrations.new-account-registration-form</blocks>
+		</advisor>
+
+		<advisor>
+			<name>data-policy-for-addresses</name>
+			<description>Advisor for the addresses resource</description>
+			<linked-to>data-policy-consent-form</linked-to>
+			<blocks>addresses.address-form</blocks>
+		</advisor>
+
+		<entity>
+			<name>data-policy</name>
+			<description><![CDATA[A data policy associated with the given data policy segments.]]></description>
+			<property>
+				<name>policy-reference-key</name>
+				<description><![CDATA[The data policy reference key.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>policy-name</name>
+				<description><![CDATA[The data policy name.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>data-policy-consent</name>
+				<description><![CDATA[The data policy consent flag.]]></description>
+				<string/>
+			</property>
+			<entity-type>data-policies.data-policy</entity-type>
+		</entity>
+
+	</family>
+</definitions>

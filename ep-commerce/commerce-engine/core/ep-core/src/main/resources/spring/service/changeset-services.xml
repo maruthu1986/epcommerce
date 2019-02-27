@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	<bean id="changeSetManagementService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.changeset.impl.ChangeSetManagementServiceImpl">
+				<property name="changeSetMemberDao" ref="changeSetMemberDao"/>
+				<property name="changeSetDao" ref="changeSetDao"/>
+				<property name="timeService" ref="timeService"/>
+				<property name="changeSetHelper" ref="changeSetHelper"/>
+				<property name="changeSetPolicy" ref="changeSetPolicy"/>
+				<property name="eventMessageFactory" ref="eventMessageFactory"/>
+				<property name="changeSetEventMessagePublisher" ref="changeSetEventMessagePublisher"/>
+			</bean>
+		</property>
+	</bean>
+</beans>

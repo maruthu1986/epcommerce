@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="Extender" name="Extender"   schema="../com.elasticpath.cmclient.core/schema/extender.exsd"/>
+   <extension-point id="StatePolicyExtender" name="StatePolicyExtender"   schema="../com.elasticpath.cmclient.core/schema/statePolicyExtender.exsd"/>
+
+   <extension-point 
+   		id="com.elasticpath.cmclient.fulfillment.order.contributedactions" 
+   		name="Order Data ContributedActions" 
+   		schema="schema/com.elasticpath.cmclient.fulfillment.order.contributedactions.exsd"/>
+   		
+   <extension-point 
+   		id="com.elasticpath.cmclient.fulfillment.ordersku.contributedactions" 
+   		name="Order Sku Data ContributedActions" 
+   		schema="schema/com.elasticpath.cmclient.fulfillment.ordersku.contributedactions.exsd"/>
+   		
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.elasticpath.cmclient.fulfillment.perspective.FulfillmentPerspectiveFactory"
+            icon="icons/user_default_22.png"
+            id="com.elasticpath.cmclient.fulfillment.perspective"
+            name="%fulfillmentPerspective.name">
+      </perspective>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="%viewsCategory.name"
+            id="com.elasticpath.cmclient.fulfillment.views.category">
+      </category>
+      <view
+            name="%searchView.name"
+            icon="icons/search_default_22.png"
+            category="com.elasticpath.cmclient.fulfillment.views.category"
+            class="com.elasticpath.cmclient.fulfillment.views.SearchView"
+            id="com.elasticpath.cmclient.fulfillment.views.SearchView">
+      </view>
+      <view
+            category="com.elasticpath.cmclient.fulfillment.views.category"
+            class="com.elasticpath.cmclient.fulfillment.views.customer.CustomerSearchResultsView"
+            icon="icons/user_default_22.png"
+            id="com.elasticpath.cmclient.fulfillment.views.customer.CustomerSearchResultsView"
+            name="%searchResultsView.name">
+      </view>
+      <view
+            category="com.elasticpath.cmclient.fulfillment.views.category"
+            class="com.elasticpath.cmclient.fulfillment.views.order.OrderSearchResultsView"
+            icon="icons/order_default_22.png"
+            id="com.elasticpath.cmclient.fulfillment.views.order.OrderSearchResultsView"
+            name="%orderSearchResultsView.name">
+      </view>
+   </extension>
+
+   <extension
+           point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+              class="com.elasticpath.cmclient.fulfillment.FulfillmentFeatureEnablementPropertyTester"
+              id="com.elasticpath.cmclient.fulfillment.FulfillmentFeatureEnablementPropertyTester"
+              namespace="com.elasticpath.cmclient.fulfillment"
+              properties="enableCreateOrder"
+              type="java.lang.Object">
+      </propertyTester>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            description="Create Order Command"
+            id="com.elasticpath.cmclient.fulfillment.commands"
+            name="Create Order">
+      </category>
+      <command
+            categoryId="com.elasticpath.cmclient.fulfillment.commands"
+            defaultHandler="com.elasticpath.cmclient.fulfillment.editors.actions.handler.CreateOrderHandler"
+            description="Create Order"
+            id="com.elasticpath.cmclient.fulfillment.command.create.order"
+            name="Create Order">
+      </command>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.bindings">
+       <key
+             commandId="com.elasticpath.cmclient.fulfillment.command.openPerspective"
+             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+             sequence="M3+4">
+       </key>
+   </extension>
+
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="%customerDetailsEditor.name"
+            icon="icons/user_default_22.png"
+            class="com.elasticpath.cmclient.fulfillment.editors.customer.CustomerDetailsEditor"
+            id="com.elasticpath.cmclient.fulfillment.editors.customer.CustomerDetailsEditor"
+            contributorClass="com.elasticpath.cmclient.core.editors.BaseCmClientEditorContributor">
+      </editor>
+      <editor
+            name="%orderEditor.name"
+            icon="icons/order_default_22.png"
+            class="com.elasticpath.cmclient.fulfillment.editors.order.OrderEditor"
+            id="com.elasticpath.cmclient.fulfillment.editors.order.OrderEditor"
+            contributorClass="com.elasticpath.cmclient.core.editors.BaseCmClientEditorContributor">
+      </editor>
+      
+      <editor
+            name="EP Browser Editor"
+            icon="icons/order_default_22.png"
+            class="com.elasticpath.cmclient.fulfillment.editors.browser.EpBrowserEditor"
+            id="com.elasticpath.cmclient.fulfillment.editors.browser.EpBrowserEditor">
+      </editor>
+      
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="com.elasticpath.cmclient.fulfillment.perspective">
+         <actionSet
+               id="com.elasticpath.cmclient.fulfillment.workbenchActionSet">
+         </actionSet>
+      </perspectiveExtension>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="com.elasticpath.cmclient.fulfillment.workbenchActionSet"
+            label="Create Order ActionSet">
+      </actionSet>
+   </extension>
+   
+   <extension point="com.elasticpath.cmclient.core.authorizations">
+      <permissions>
+         <permission
+               activityId="com.elasticpath.cmclient.fulfillment.authorizations.activity.customerService"
+               key="FULFILLMENT_ORDER_EDIT"
+               name="%createEditOrdersPermission.name"/>
+         <permission
+               activityId="com.elasticpath.cmclient.fulfillment.authorizations.activity.customerService"
+               key="CUSTOMER_EDIT"
+               name="%editCustomersPermission.name"/>
+         <permission
+               activityId="com.elasticpath.cmclient.fulfillment.authorizations.activity.customerService"
+               key="VIEW_CREDITCARD_NUMBER"
+               name="%viewFullCreditCardNumbersPermission.name"/>
+         <permission
+               activityId="com.elasticpath.cmclient.fulfillment.authorizations.activity.customerService"
+               key="ORDER_UNLOCK"
+               name="%unlockOrdersPermission.name"/>
+         <permission
+               activityId="com.elasticpath.cmclient.fulfillment.authorizations.activity.customerService"
+               key="CREATE_EDIT_RETURNS"
+               name="%createEditReturnsPermission.name"/>
+         <permission
+               activityId="com.elasticpath.cmclient.fulfillment.authorizations.activity.customerService"
+               key="CREATE_EDIT_EXCHANGES"
+               name="%createEditExchangesPermission.name"/>
+         <permission
+               activityId="com.elasticpath.cmclient.fulfillment.authorizations.activity.customerService"
+               key="CREATE_REFUND"
+               name="%createRefundsPermission.name"/>
+         <permission
+               activityId="com.elasticpath.cmclient.fulfillment.authorizations.activity.customerService"
+               key="EDIT_GIFT_CERTIFICATE_RECIPIENT"
+               name="%editGiftCertificateRecipientPermission.name"/>
+         <permission
+               activityId="com.elasticpath.cmclient.fulfillment.authorizations.activity.customerService"
+               key="ASSIGN_CUSTOMER_SEGMENTS"
+               name="%assignCustomerSegments.name"/>
+      </permissions>
+      <activity
+            id="com.elasticpath.cmclient.fulfillment.authorizations.activity.customerService"
+            name="%activityPermission.name"
+            perspectiveId="com.elasticpath.cmclient.fulfillment.perspective">
+      </activity>
+   </extension>
+
+   <extension
+           point="org.eclipse.ui.menus">
+      <menuContribution
+              locationURI="toolbar:com.elasticpath.cmclient.core.toolbars.activities?after=perspectiveMenu.storeItem">
+            <command
+                    commandId="com.elasticpath.cmclient.fulfillment.command.openPerspective"
+                    icon="icons/user_default_34.png"
+                    id="perspectiveMenu.fulfillmentItem"
+                    tooltip="%fulfillmentMenu.name">
+               <visibleWhen
+                       checkEnabled="true">
+               </visibleWhen>
+            </command>
+      </menuContribution>
+       <menuContribution
+               locationURI="toolbar:org.eclipse.ui.main.toolbar?after=save">
+          <toolbar
+                  id="com.elasticpath.cmclient.core.toolbars.actions">
+             <command
+                   commandId="com.elasticpath.cmclient.fulfillment.command.create.order"
+                   icon="icons/order-create_default_22.png"
+                   id="com.elasticpath.cmclient.fulfillment.toolbarMenus.createOrder"
+                   label="%createOrder.label"
+                   tooltip="%createOrder.toolTip">
+                <visibleWhen>
+                   <and>
+                      <with variable="activeContexts">
+                         <iterate operator="or">
+                            <equals value="com.elasticpath.cmclient.fulfillment.workbenchActionSet"/>
+                         </iterate>
+                      </with>
+                      <test property="com.elasticpath.cmclient.fulfillment.enableCreateOrder"/>
+                   </and>
+                </visibleWhen>
+             </command>
+          </toolbar>
+       </menuContribution>
+    </extension>
+    <extension
+          point="org.eclipse.ui.commands">
+       <command
+             id="com.elasticpath.cmclient.fulfillment.command.openPerspective"
+             name="Open Fulfillment Perspective">
+       </command>
+       <!-- Open Perspective Handler is declared in ApplicationWorkbenchAdvisor.postStartup() -->
+    </extension>
+    <extension
+          point="com.elasticpath.cmclient.core.bindings">
+       <perspectiveOpenCommand
+             openCommandId="com.elasticpath.cmclient.fulfillment.command.openPerspective"
+             perspectiveId="com.elasticpath.cmclient.fulfillment.perspective">
+       </perspectiveOpenCommand>
+    </extension>
+    <extension
+          id="com.elasticpath.cmclient.fulfillment.ordersku.contributedactions.ResendGiftCertificateEmailContributedAction"
+          name="ResendGiftCertificateEmailAction"
+          point="com.elasticpath.cmclient.fulfillment.ordersku.contributedactions">
+       <client
+             class="com.elasticpath.cmclient.fulfillment.editors.order.actions.impl.GiftCertificateContributedAction">
+       </client>
+    </extension>
+
+</plugin>

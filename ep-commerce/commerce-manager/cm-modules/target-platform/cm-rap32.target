@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?><target name="cm-rap32" sequenceNumber="7">
+<locations>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="3.2.0.20170613-1148"/>
+<unit id="org.eclipse.rap.feature.feature.group" version="3.2.0.20170609-1144"/>
+<repository location="http://download.eclipse.org/rt/rap/3.2/"/>
+</location>
+</locations>
+<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+</target>

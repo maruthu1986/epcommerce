@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd"
+		logicalFilePath="com.thelab.ep/db/ext-database/schema-customizations-changelog.xml">
+
+	<!-- Important:
+	- Table names cannot exceed 30 characters (Oracle limitation)
+	- Column names cannot exceed 30 characters (Oracle limitation)
+	- Index names cannot exceed 18 characters (DB2 limitation)
+
+	 Important:
+	- Using <preCondition> ? read: http://forum.liquibase.org/topic/unexpected-behaviour-of-preconditions-with-updatesql
+	- Using <preCondition> ? Consider adding onUpdateSql="TEST", but understand how it plays with updateSQL!
+	-->
+
+	<!--
+	<changeSet id="1" author="example@example.com">
+		<createTable tableName="TEXAMPLE">
+			<column name="uidpk" type="int">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="guid" type="varchar(64)"/>
+			<column name="firstname" type="varchar(255)"/>
+			<column name="lastname" type="varchar(255)"/>
+			<column name="username" type="varchar(255)">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="testid" type="int" />
+		</createTable>
+	</changeSet>
+	-->
+
+</databaseChangeLog>

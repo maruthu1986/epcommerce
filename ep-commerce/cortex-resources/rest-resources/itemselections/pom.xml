@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.rest.resource.cortex</groupId>
+		<artifactId>rest-resources</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ep-resource-itemselections</artifactId>
+	<packaging>bundle</packaging>
+	<name>EP ∷ / Item Selections</name>
+	<description>Elastic Path REST - Item Selections Resource</description>
+
+	<properties>
+		<!--Jacoco-->
+		<jacoco.instruction.covered-ratio>0.68</jacoco.instruction.covered-ratio>
+		<jacoco.line.covered-ratio>0.65</jacoco.line.covered-ratio>
+		<jacoco.complexity.covered-ratio>0.38</jacoco.complexity.covered-ratio>
+		<jacoco.class.covered-ratio>0.58</jacoco.class.covered-ratio>
+		<jacoco.branch.covered-ratio>0.41</jacoco.branch.covered-ratio>
+		<jacoco.method.covered-ratio>0.60</jacoco.method.covered-ratio>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath.rest.resource.cortex</groupId>
+			<artifactId>ep-resource-uribuilder-apis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.definitions</groupId>
+			<artifactId>ep-resource-itemselections-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.definitions</groupId>
+			<artifactId>ep-resource-collections-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.resource.cortex</groupId>
+			<artifactId>ep-resource-commons</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest</groupId>
+			<artifactId>ep-rs-annotated-dispatch</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-pmd-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath</groupId>
+		<artifactId>commerce-parent</artifactId>
+		<version>703.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>parent</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Elastic Path Parent</name>
+	<version>703.0.0-SNAPSHOT</version>
+
+	<inceptionYear>2000</inceptionYear>
+	<url>http://www.elasticpath.com</url>
+
+	<description>Elastic Path Digital Commerce Platform</description>
+
+	<organization>
+		<name>Elastic Path Software, Inc</name>
+		<url>http://www.elasticpath.com</url>
+	</organization>
+
+	<modules>
+		<module>liquibase</module>
+		<module>batch</module>
+		<module>search</module>
+		<module>querylanguage</module>
+		<module>importexport</module>
+		<module>sync</module>
+		<module>messaging</module>
+		<module>core</module>
+		<module>email</module>
+		<module>order-processing</module>
+		<module>common-web</module>
+		<module>ep-test-utils</module>
+		<module>ep-test-support</module>
+		<module>geoip</module>
+		<module>ep-query-analyzer</module>
+
+		<!-- used in itests -->
+		<module>itests-parent</module>
+		<module>ep-test-application</module>
+
+		<!-- payment gateway specific projects -->
+		<module>payment-gateway-connectivity</module>
+		<module>jms</module>
+		<module>tax-calculation-connectivity</module>
+		<module>shipping-calculation-connectivity</module>
+		<module>data-population</module>
+	</modules>
+
+	<distributionManagement>
+		<repository>
+			<id>ep-releases</id>
+			<url>${ep.releases.repository.url}</url>
+		</repository>
+		<snapshotRepository>
+			<id>ep-snapshots</id>
+			<url>${ep.snapshots.repository.url}</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://jira.elasticpath.com</url>
+	</issueManagement>
+
+	<build>
+		<!-- By default Maven surefire includes *Test.java and Test*.java. TestBase.java is then picked up by maven because of this and throws an error because it has no tests in it. We will temporarily exclude it, and determine what to do with it in 6.4 -->
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>${argLine}</argLine>
+					<redirectTestOutputToFile>true</redirectTestOutputToFile>
+					<excludes>
+						<exclude>**/TestBase.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+

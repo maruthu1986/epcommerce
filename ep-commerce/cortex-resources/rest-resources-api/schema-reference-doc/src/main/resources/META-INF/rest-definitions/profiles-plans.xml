@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>profiles</name>
+
+		<plan>
+			<name>alias-default-profile</name>
+			<description><![CDATA[Retrieve the customer's default profile.]]></description>
+			<step>
+				<description><![CDATA[The customer's default profile.]]></description>
+				<start>default-profile</start>
+				<read-self/>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-profile</name>
+			<description>
+				<![CDATA[
+Retrieve the customer's first name, last name, username, [addresses][address], and link to the customer's [paymentmethods][paymentmethods].
+
+[address]: #address
+[paymentmethods]: #paymentmethods
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[The customer's profile.]]></description>
+				<start>profile</start>
+				<read-self/>
+			</step>
+		</plan>
+
+		<!-- exists for docs to show that purches link from profiles. -->
+		<plan>
+			<name>read-purchases-from-profile</name>
+			<description><![CDATA[Retrieve a list of purchases for the logged in customer.]]></description>
+			<step>
+				<description><![CDATA[The list of purchases.]]></description>
+				<start>profile</start>
+				<follow-link>purchases</follow-link>
+				<result>purchases.purchases</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>update-profile</name>
+			<description><![CDATA[Update the customer's profile.]]></description>
+			<step>
+				<description><![CDATA[Update the profile.]]></description>
+				<start>profile</start>
+				<update-self/>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

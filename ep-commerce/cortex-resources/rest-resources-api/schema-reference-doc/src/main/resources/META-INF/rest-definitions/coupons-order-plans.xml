@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>coupons</name>
+		<description>
+			<![CDATA[
+Coupons for an [order][order] can be managed through the coupon info resource. This is where [coupons][coupons]
+that are applied to an [order][order] are listed, as well as a form to apply new [coupons][coupons]. Each coupon is
+linked to the promotions it triggered. If no promotions were triggered then no promotion link will be present.
+
+[coupons]: #coupons
+[order]: #orders
+			]]>
+		</description>
+
+		<plan>
+			<name>read-coupons-applied-to-order</name>
+			<description><![CDATA[Read coupons applied to the order.]]></description>
+			<step>
+				<description><![CDATA[Read coupon-info from an order.]]></description>
+				<start>orders.order</start>
+				<follow-link>couponinfo</follow-link>
+				<link-back>order</link-back>
+				<result>couponinfo</result>
+			</step>
+			<step>
+				<description><![CDATA[Read coupon from couponinfo.]]></description>
+				<start>couponinfo</start>
+				<follow-link>coupon</follow-link>
+				<result>order-coupon</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>apply-coupon-to-order</name>
+			<description><![CDATA[Apply a coupon to the order.]]></description>
+			<template>
+				<name>controls.form-control-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>couponinfo</value>
+				</replace>
+				<replace>
+					<key>read-form-link</key>
+					<value>couponform</value>
+				</replace>
+				<replace>
+					<key>form-resource</key>
+					<value>apply-coupon-to-order-form</value>
+				</replace>
+				<replace>
+					<key>submit-action-link</key>
+					<value>applycouponaction</value>
+				</replace>
+				<replace>
+					<key>submit-resource</key>
+					<value>order-coupon-action</value>
+				</replace>
+				<replace>
+					<key>submit-result</key>
+					<value>order-coupon</value>
+				</replace>
+			</template>
+		</plan>
+
+		<plan>
+			<name>remove-a-coupon-from-order</name>
+			<description><![CDATA[Remove an applied coupon from the order.]]></description>
+			<step>
+				<description><![CDATA[Remove the coupon from an order.]]></description>
+				<start>order-coupon</start>
+				<delete-self/>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<bean id="orderShipmentShippedEmailProducerTemplate" class="com.elasticpath.email.handler.order.producer.impl.OrderShipmentShippedEmailProducer"
+		abstract="true">
+		<property name="emailComposer" ref="emailComposer" />
+		<property name="emailNotificationHelper" ref="emailNotificationHelper" />
+	</bean>
+
+	<bean id="orderShipmentShippedEmailProducer" parent="orderShipmentShippedEmailProducerTemplate" />
+
+	<bean id="orderShipmentShippedEmailHandlingRouteBuilderTemplate" parent="abstractEventMessageTriggeredEmailRouteBuilder"
+		  abstract="true">
+		<property name="routeId" value="orderShipmentShippedEmailHandler"/>
+		<property name="incomingEndpoint">
+			<bean parent="orderEventExternalEndpoint">
+				<property name="camelContextId" value="ep-order-email-handler" />
+				<property name="context" value="orderShipmentShippedEmailHandler"/>
+			</bean>
+		</property>
+		<property name="outgoingEndpoint">
+			<bean parent="emailSendingEndpoint">
+				<property name="camelContextId" value="ep-order-email-handler" />
+			</bean>
+		</property>
+		<property name="eventMessagePredicateFilter" ref="orderShipmentShippedEventTypePredicate" />
+		<property name="emailProducer" ref="orderShipmentShippedEmailProducer" />
+	</bean>
+
+	<bean id="orderShipmentShippedEmailHandlingRouteBuilder" parent="orderShipmentShippedEmailHandlingRouteBuilderTemplate"/>
+
+</beans>

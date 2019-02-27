@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>carts</name>
+		<description>
+			<![CDATA[
+A cart's line items is a collection of [items][items] that have been added to a cart. A line item can have one or more of the same [items][items] in it.
+For example, one line item can have seven Rocker T-Shirt or a single Rocker T-Shirt, but it won't have one Rocker T-Shirt and a song track. The song
+track and T-shirt would be in separate line items.
+			]]>
+		</description>
+
+		<uri-part>
+			<name>line-item-id</name>
+			<description>
+				<![CDATA[
+The line item identifier. This ID is a unique number assigned by Cortex API when the [item][items]is added to a cart.
+
+[items]: #items
+				]]>
+			</description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>line-items</name>
+			<description><![CDATA[The line items list in a cart.]]></description>
+			<uri>{cart}/lineitems</uri>
+			<list-of>line-item</list-of>
+		</resource>
+
+		<resource>
+			<name>line-item</name>
+			<description><![CDATA[An individual line item in a cart.]]></description>
+			<uri>{line-items}/{line-item-id}</uri>
+			<entity>line-item</entity>
+		</resource>
+
+		<resource>
+			<name>dependent-line-items</name>
+			<description><![CDATA[A collection of a line item's dependent line items.
+			If item B is dependant on item A, and item A is removed from the cart, item B must be removed from the cart.]]></description>
+			<uri>{line-item}/dependents</uri>
+			<list-of>carts.line-item</list-of>
+		</resource>
+
+		<relationship>
+			<name>line-items-for-cart</name>
+			<description><![CDATA[A collection of items that have been added to a cart.]]></description>
+			<rel>lineitems</rel>
+			<rev>cart</rev>
+			<from>cart</from>
+			<to>line-items</to>
+		</relationship>
+
+		<relationship>
+			<name>cart-for-line-item</name>
+			<description><![CDATA[Retrieve the cart that has the given line item. This workflow is
+			useful when you need to determine which cart the line item belongs to.]]></description>
+			<rel>cart</rel>
+			<from>line-item</from>
+			<to>cart</to>
+		</relationship>
+
+		<relationship>
+			<name>item-for-line-item</name>
+			<description>What's the item this line item points to?</description>
+			<rel>item</rel>
+			<from>line-item</from>
+			<to>items.item</to>
+		</relationship>
+
+		<relationship>
+			<name>line-items-for-line-item</name>
+			<description>The list of line items the line item is in.</description>
+			<rel>list</rel>
+			<from>line-item</from>
+			<to>line-items</to>
+		</relationship>
+
+		<relationship>
+			<name>lineitem-to-dependent-lineitems</name>
+			<description>Link from the cart Line Item resource to its collection of dependent line items.</description>
+			<rel>dependentlineitems</rel>
+			<from>carts.line-item</from>
+			<to>dependent-line-items</to>
+		</relationship>
+
+		<relationship>
+			<name>lineitem-to-parent-lineitem</name>
+			<description>Link from a dependent cart Line Item resource to its parent cart Line Item resource.</description>
+			<rel>parent</rel>
+			<from>carts.line-item</from>
+			<to>carts.line-item</to>
+		</relationship>
+
+		<entity>
+			<name>line-item-configuration</name>
+			<description><![CDATA[The configuration of a line item.]]></description>
+			<dynamic/>
+			<entity-type>carts.line-item-configuration</entity-type>
+		</entity>
+
+		<entity>
+			<name>line-item</name>
+			<description><![CDATA[A line item in a cart.]]></description>
+			<property>
+				<name>quantity</name>
+				<description><![CDATA[The total number of items in the line item.]]></description>
+				<integer/>
+			</property>
+			<property>
+				<name>line-item-id</name>
+				<description><![CDATA[The internal line item identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>item-id</name>
+				<description><![CDATA[The internal item identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>cart-id</name>
+				<description><![CDATA[The internal cart identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>configuration</name>
+				<description><![CDATA[The details of the line item configuration.]]></description>
+				<is-a>line-item-configuration</is-a>
+			</property>
+			<entity-type>carts.line-item</entity-type>
+		</entity>
+
+	</family>
+
+</definitions>

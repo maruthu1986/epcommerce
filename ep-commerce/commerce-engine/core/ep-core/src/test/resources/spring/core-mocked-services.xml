@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<!-- import all mocked services in registered plugin module -->
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/plugin-mocked-services.xml"/>
+
+	<!-- This needs to be an empty list -->
+	<bean id="servicePreInterceptors" class="java.util.ArrayList" />
+
+	<bean id="dataSource" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="org.springframework.jndi.JndiObjectFactoryBean"/>
+	</bean>
+
+	<!-- Define a no-datasource version of the entity manager factory as datasource is only defined at the web-app level -->
+	<bean id="entityManagerFactory" parent="abstractEntityManagerFactory">
+        <property name="jpaPropertyMap">
+            <map>
+                <entry key="openjpa.MetaDataRepository" value="Preload=false"/>
+            </map>
+        </property>
+    </bean>
+
+	<!-- These two beans are application-specific dependencies, so we will stub them with no-op beans -->
+	<bean id="searchConfigFactory" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.service.search.SearchConfigFactory" />
+	</bean>
+
+    <!-- Create no-op beans for those beans which try to do some startup-initialization requiring the persistence layer -->
+	<bean id="inventoryFacade" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.inventory.InventoryFacade" />
+	</bean>
+
+	<bean id="jmsConnectionFactory" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="javax.jms.ConnectionFactory"/>
+	</bean>
+	<bean id="transactionManager" class="com.elasticpath.test.support.transaction.spring.DummyPlatformTransactionManager"/>
+	<bean id="eventMessageFactory" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.factory.EventMessageFactory"/>
+	</bean>
+	<bean id="messageSourceCache" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.commons.util.MessageSourceCache"/>
+	</bean>
+
+	<bean id="customerEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher"/>
+	</bean>
+	<bean id="orderEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher"/>
+	</bean>
+
+	<!-- Short-circuit endpoints to avoid settings framework call -->
+	<bean id="customerEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+	</bean>
+	<bean id="orderEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+	</bean>
+	<bean id="changeSetEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+	</bean>
+	<bean id="cmUserEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+	</bean>
+	<bean id="dataImportEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+	</bean>
+	<bean id="epChangeSetMessagingChangeSetEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+		<property name="camelContextId" value="ep-changeSet-messaging"/>
+	</bean>
+	<bean id="giftCertificateEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+	</bean>	
+	<bean id="epCmUserMessagingCmUserEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+		<property name="camelContextId" value="ep-cm-user-messaging" />
+	</bean>		
+	<bean id="epDataImportMessagingDataImportEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+		<property name="camelContextId" value="ep-dataimport-messaging"/>
+	</bean>	
+
+	<bean id="priceListStackInvalidator" class="com.elasticpath.domain.customer.impl.TagSetInvalidationDeterminerImpl">
+		<property name="tagDictionaryDao" ref="tagDictionaryDao" />
+		<property name="tagDictionaries">
+			<list>
+				<value>TAG_DICTIONARY</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="promoInvalidator" class="com.elasticpath.domain.customer.impl.TagSetInvalidationDeterminerImpl">
+		<property name="tagDictionaryDao" ref="tagDictionaryDao" />
+		<property name="tagDictionaries">
+			<list>
+				<value>TAG_DICTIONARY</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="shippingCalculationService" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.shipping.connectivity.service.ShippingCalculationService" />
+	</bean>
+
+</beans>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>ext-commerce-engine-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.elasticpath.extensions</groupId>
+	<artifactId>ext-cortex-ce-parent</artifactId>
+	<version>0.0.0-SNAPSHOT</version>
+	<name>Extension Cortex CE Parent</name>
+	<packaging>pom</packaging>
+
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://jira.elasticpath.com</url>
+	</issueManagement>
+
+	<modules>
+		<module>resources-api</module>
+		<module>resources</module>
+		<module>helix-resources</module>
+		<module>repositories</module>
+		<module>ext-commerce-engine-wrapper</module>
+		<module>ext-cortex-webapp</module>
+		<module>system-tests</module>
+		<module>ext-health-monitor</module>
+	</modules>
+
+	<properties>
+		<io.cucumber.version>2.4.0</io.cucumber.version>
+		<cucumber-groovy.version>2.0.1</cucumber-groovy.version>
+
+		<ep.health.monitoring.version>1.1.2.20171228014437-844ef</ep.health.monitoring.version>
+
+		<org.apache.commons.pool2.version>2.4.2</org.apache.commons.pool2.version>
+
+		<org.apache.activemq.tooling.version>5.14.3</org.apache.activemq.tooling.version>
+
+		<bundle.environment>prod-bundles</bundle.environment>
+		<!--In production environments bundle.location can be set via the modules.properties mechanism or by passing a system property to the app server. -->
+		<bundle.location/>
+		<!-- These archetype properties have to be outside the with-archetypes profile to be overridden by the build-server profile. -->
+		<archetype-goal>install</archetype-goal>
+		<archetype-invoker-build-server-profile-1/>
+		<archetype-invoker-build-server-profile-2/>
+		<archetype-invoker-snapshot-repository-id>cannot be blank</archetype-invoker-snapshot-repository-id>
+		<!-- See http://jira.codehaus.org/browse/MINVOKER-118 -->
+		<archetype-invoker-release-repository-id>cannot be blank</archetype-invoker-release-repository-id>
+		<!-- See http://jira.codehaus.org/browse/MINVOKER-118 -->
+
+		<org.apache.servicemix.commons.configuration.version>1.9_2</org.apache.servicemix.commons.configuration.version>
+		<felix.shell.version>1.4.3</felix.shell.version>
+		<felix.shell.remote.version>1.1.2</felix.shell.remote.version>
+		<h2database.version>1.3.175</h2database.version>
+		<httpcore.version>4.3.3</httpcore.version>
+		<javax.validation.api.version>1.1.0.Final</javax.validation.api.version>
+		<junit.version>4.12</junit.version>
+
+		<!-- plugins -->
+		<cargo.plugin.version>1.2.4</cargo.plugin.version>
+		<gmaven.plugin.version>1.5</gmaven.plugin.version>
+		<!-- 2.8.0-01 and later require maven-compiler-plugin 3.0 or higher -->
+		<groovy.eclipse.compiler.plugin.version>2.9.2-04</groovy.eclipse.compiler.plugin.version>
+		<maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
+		<properties.plugin.version>1.0-alpha-2</properties.plugin.version>
+		<maven-sling-plugin.version>2.1.0</maven-sling-plugin.version>
+		<tomcat7.plugin.version>2.2</tomcat7.plugin.version>
+		<trinidad.plugin.version>20120309</trinidad.plugin.version>
+
+		<war-bundle-directory>${project.build.directory}/${project.artifactId}-${project.version}/WEB-INF/bundles</war-bundle-directory>
+		<war-bundle-directory-level-1>${war-bundle-directory}-level1</war-bundle-directory-level-1>
+		<war-bundle-directory-level-2>${war-bundle-directory}-level2</war-bundle-directory-level-2>
+		<war-bundle-directory-level-3>${war-bundle-directory}-level3</war-bundle-directory-level-3>
+		<war-bundle-directory-level-4>${war-bundle-directory}-level4</war-bundle-directory-level-4>
+
+		<!--Cortex settings -->
+		<ep.cortex.host>localhost</ep.cortex.host>
+		<ep.cortex.contextUrl>/cortex</ep.cortex.contextUrl>
+		<ep.studio.contextUrl>/studio</ep.studio.contextUrl>
+		<ep.cortex.uri.prefix/><!-- empty by default -->
+		<ep.cortex.url>http://${ep.cortex.host}:${ep.cortex.port.http}${ep.cortex.contextUrl}</ep.cortex.url>
+
+		<!-- Cortex Felix Settings-->
+		<ep.cortex.felix.url>http://${ep.cortex.host}:${ep.cortex.port.http}${ep.cortex.contextUrl}/system/console/bundles/</ep.cortex.felix.url>
+
+		<!-- Search Server Settings -->
+		<ep.search.host>localhost</ep.search.host>
+		<ep.search.contextUrl>/searchserver</ep.search.contextUrl>
+		<ep.search.url>http://${ep.search.host}:${ep.search.port.http}${ep.search.contextUrl}</ep.search.url>
+
+		<ep.jms.host>localhost</ep.jms.host>
+		<ep.jms.port.tcp>61616</ep.jms.port.tcp>
+		<ep.jms.type>org.apache.activemq.pool.PooledConnectionFactory</ep.jms.type>
+		<ep.jms.factory>org.apache.activemq.jndi.JNDIReferenceFactory</ep.jms.factory>
+		<ep.jms.url>tcp://${ep.jms.host}:${ep.jms.port.tcp}</ep.jms.url>
+
+		<!-- Where your assets are located on your machine during development. -->
+		<!-- This setting it put into your configured database by the snapitup-data artifact. -->
+		<ep.local.asset.path>${user.home}/ep-assets</ep.local.asset.path>
+
+		<ep.velocity.cache.seconds>-1</ep.velocity.cache.seconds>
+		<ep.velocity.library.autoreload>false</ep.velocity.library.autoreload>
+		<ep.product.attribute.filter.enable>true</ep.product.attribute.filter.enable>
+		<ep.localeUrlTool.localeControllerUrl>locale.ep</ep.localeUrlTool.localeControllerUrl>
+
+		<!-- Logging properties -->
+		<ep.log.to>CONSOLE, FILE</ep.log.to>
+		<!-- log4j -->
+		<ep.log.to.logback><![CDATA[<appender-ref ref="CONSOLE" /><appender-ref ref="FILE" />]]></ep.log.to.logback>
+		<!-- logback -->
+		<ep.log.level>INFO</ep.log.level>
+		<!-- ep.log.dir is relative to where appserver is started -->
+		<ep.log.dir>target/logs</ep.log.dir>
+
+		<!-- Quartz Jobs -->
+		<ep.cm.triggers.topseller>
+			topSellerSchedulingTriggers<!-- disabled -->
+		</ep.cm.triggers.topseller>
+		<ep.cm.triggers.productrecommendation>
+			productRecommendationScheduling<!-- disabled -->
+		</ep.cm.triggers.productrecommendation>
+		<ep.cm.triggers.auto.shipmentrelease>
+			releaseShipmentSchedulingTriggers<!-- disabled -->
+		</ep.cm.triggers.auto.shipmentrelease>
+		<ep.search.triggers.index>
+			indexBuildTriggers<!-- disabled -->
+		</ep.search.triggers.index>
+		<ep.search.triggers.rulecompile>
+			ruleCompileTriggers<!-- disabled -->
+		</ep.search.triggers.rulecompile>
+		<ep.cm.triggers.searchterms.aggregator>
+			disabled<!-- searchTermsAggregatorTriggers -->
+		</ep.cm.triggers.searchterms.aggregator>
+
+		<ep.cm.topseller.delay>30000</ep.cm.topseller.delay>
+		<ep.cm.topseller.interval>30000</ep.cm.topseller.interval>
+		<ep.cm.productrecommendation.delay>30000</ep.cm.productrecommendation.delay>
+		<ep.cm.productrecommendation.interval>30000</ep.cm.productrecommendation.interval>
+		<ep.cm.searchterms.aggregator.delay>30000</ep.cm.searchterms.aggregator.delay>
+		<ep.cm.searchterms.aggregator.interval>30000</ep.cm.searchterms.aggregator.interval>
+
+		<!-- GeoIP -->
+		<ep.geoip.provider>
+			demo
+		</ep.geoip.provider>
+
+		<!-- Default webapp ports for deploying in a single Tomcat container -->
+		<ep.search.tomcat.port.http>8080</ep.search.tomcat.port.http>
+		<ep.cortex.tomcat.port.http>8080</ep.cortex.tomcat.port.http>
+
+		<jsr305.version>3.0.1</jsr305.version>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>ep-developer</id>
+			<properties>
+				<!-- The default developer configuration is to run tomcat on different ports for each webapp, and no https except for storefront (so no change of port needed) -->
+				<ep.search.tomcat.port.http>8082</ep.search.tomcat.port.http>
+				<ep.cortex.tomcat.port.http>9080</ep.cortex.tomcat.port.http>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>tomcat-developer</id>
+			<properties>
+				<ep.search.port.http>${ep.search.tomcat.port.http}</ep.search.port.http>
+				<ep.cortex.port.http>${ep.cortex.tomcat.port.http}</ep.cortex.port.http>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>activemq-dev-jms</id>
+			<properties>
+				<env>default</env>
+			</properties>
+		</profile>
+	</profiles>
+
+	<dependencyManagement>
+		<!-- webapp -->
+		<dependencies>
+			<!-- We need this dependency here.-->
+			<dependency>
+				<groupId>org.apache.geronimo.specs</groupId>
+				<artifactId>geronimo-jms_1.1_spec</artifactId>
+				<version>${org.apache.geronimo.specs.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.cucumber</groupId>
+				<artifactId>cucumber-java</artifactId>
+				<version>${io.cucumber.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.cucumber</groupId>
+				<artifactId>cucumber-groovy</artifactId>
+				<version>${cucumber-groovy.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.cucumber</groupId>
+				<artifactId>cucumber-junit</artifactId>
+				<version>${io.cucumber.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.cucumber</groupId>
+				<artifactId>cucumber-core</artifactId>
+				<version>${io.cucumber.version}</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${maven.deploy.plugin.version}</version>
+					<configuration>
+						<deployAtEnd>true</deployAtEnd>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<compilerArgs combine.self="override">
+							<arg>-proc:none</arg>
+						</compilerArgs>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>com.elasticpath.tools</groupId>
+					<artifactId>ep-core-tool</artifactId>
+					<version>${dce.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>${epdb.maven.groupId}</groupId>
+							<artifactId>${epdb.maven.artifactId}</artifactId>
+							<version>${epdb.maven.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.gmaven</groupId>
+					<artifactId>gmaven-plugin</artifactId>
+					<version>${gmaven.plugin.version}</version>
+					<configuration>
+						<providerSelection>1.8</providerSelection>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>properties-maven-plugin</artifactId>
+					<version>${properties.plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.sling</groupId>
+					<artifactId>maven-sling-plugin</artifactId>
+					<version>${maven-sling-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>install-bundle</id>
+							<goals>
+								<goal>install</goal>
+							</goals>
+							<configuration>
+								<slingUrl>${ep.cortex.felix.url}</slingUrl>
+								<bundleStartLevel>5</bundleStartLevel>
+								<refreshPackages>false</refreshPackages>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>ep-releases</id>
+			<url>${ep.releases.repository.url}</url>
+		</repository>
+		<snapshotRepository>
+			<id>ep-snapshots</id>
+			<url>${ep.snapshots.repository.url}</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>

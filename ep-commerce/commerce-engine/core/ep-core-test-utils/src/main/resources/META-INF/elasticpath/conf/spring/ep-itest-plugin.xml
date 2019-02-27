@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<bean id="promotionConfigureService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.impl.PromotionConfigureServiceImpl">
+				<property name="productLookup">
+					<ref bean="productLookup" />
+				</property>
+				<property name="productSkuService">
+					<ref bean="productSkuService" />
+				</property>
+				<property name="brandService">
+					<ref bean="brandService" />
+				</property>
+				<property name="categoryLookup" ref="categoryLookup"/>
+				<property name="shippingServiceLevelService">
+					<ref bean="shippingServiceLevelService" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="additionalAuthorizationService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.impl.AdditionalAuthorizationServiceImpl">
+				<property name="paymentService">
+					<ref bean="paymentService" />
+				</property>
+				<property name="elasticPath">
+					<ref bean="elasticPath" />
+				</property>
+				<property name="storeService" ref="nonCachingStoreService"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="shipmentService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.impl.ShipmentServiceImpl">
+				<property name="beanFactory" ref="coreBeanFactory" />
+				<property name="allocationService" ref="allocationService" />
+				<property name="eventOriginatorHelper" ref="eventOriginatorHelper" />
+				<property name="priceLookupFacade" ref="priceLookupFacade" />
+				<property name="productInventoryManagementService" ref="productInventoryManagementService" />
+				<property name="productSkuLookup" ref="productSkuLookup"/>
+				<property name="productLookup" ref="productLookup"/>
+				<property name="storeService" ref="nonCachingStoreService"/>
+				<property name="taxCodeRetriever" ref="taxCodeRetriever"/>
+				<property name="timeService" ref="timeService"/>
+				<property name="pricingSnapshotService" ref="pricingSnapshotService"/>
+				<property name="taxSnapshotService" ref="taxSnapshotService"/>
+				<property name="orderSkuFactory" ref="orderSkuFactory"/>
+				<property name="shippingCalculationService" ref="shippingCalculationService"/>
+				<property name="pricedShippableItemContainerTransformer" ref="pricedShippableItemContainerFromOrderShipmentTransformer"/>
+			</bean>
+		</property>
+	</bean>
+
+</beans>

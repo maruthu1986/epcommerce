@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     Integration context snippet that overrides the default entity manager configuration to add the AuditEntityListener
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		">
+
+	<util:list id="entityManagerLifecycleListeners">
+		<ref bean="databaseTimestampsEntityListener"/>
+		<ref bean="objectDeletedEntityListener"/>
+		<ref bean="changeSetPersistenceListener"/>
+		<ref bean="persistablePostLoadListener"/>
+		<ref bean="auditEntityListener"/>
+	</util:list>
+
+	<util:list id="persistenceEngineOperationListeners">
+		<ref bean="auditEntityListener"/>
+	</util:list>
+</beans>

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<promotions>
+<promotion type="Cart">
+    <store_code>store-VirtualAB</store_code>
+    <name>cartPromo_Segment1</name>
+    <displayName>
+        <value language="es">cartPromo_Segment1</value>
+    </displayName>
+    <code>6f12f328-aeca-4d56-b458-9a2eeb21494e</code>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartProductAmountDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>discountAmount</key>
+                    <value>5</value>
+                </parameter>
+                <parameter>
+                    <key>productCode</key>
+                    <value>cartPromo_Segment</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+    <selling_context>
+        <guid>ac02214a-9334-4eec-9e7a-68879a48ea13</guid>
+        <name>cartPromo_Segment1</name>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>42239a84-06c0-4319-acaf-e2116b67f8e6</guid>
+                <name>4154006714990400</name>
+                <condition_string> { AND { AND { CUSTOMER_SEGMENT.includes 'Segment1' }  }  } </condition_string>
+                <dictionary_guid>PROMOTIONS_SHOPPER</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>store-VirtualAB</store_code>
+    <name>cartPromo_disabled_Segment</name>
+    <displayName>
+        <value language="es">cartPromo_disabled_Segment</value>
+    </displayName>
+    <code>a42dd2e4-7d4a-4674-ad06-2ca2c1d1215a</code>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>50</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1</value>
+                </parameter>
+                <parameter>
+                    <key>productCode</key>
+                    <value>cartPromo_Segment</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+    <selling_context>
+        <guid>c819b975-5cdb-4da3-8336-c65f6e14ea9e</guid>
+        <name>cartPromo_disabled_Segment</name>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>edb8af1a-bcc8-40f7-9681-1a1379807c09</guid>
+                <name>4154240015980500</name>
+                <condition_string> { AND { AND { CUSTOMER_SEGMENT.includes 'Segment_disabled' }  }  } </condition_string>
+                <dictionary_guid>PROMOTIONS_SHOPPER</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>store-VirtualAB</store_code>
+    <name>non-Discountable Product Type</name>
+    <displayName>
+        <value language="es">non-Discountable Product Type</value>
+    </displayName>
+    <code>0754357c-6412-4df8-87db-2f351a0cdd15</code>
+    <description>associated product type is non-discountable for product being promoted</description>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartProductAmountDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>discountAmount</key>
+                    <value>5</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1</value>
+                </parameter>
+                <parameter>
+                    <key>productCode</key>
+                    <value>Dig_Non-Discountable</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>store-VirtualAB</store_code>
+    <name>cartPromo_Segment2</name>
+    <displayName>
+        <value language="es">cartPromo_Segment2</value>
+    </displayName>
+    <code>eb59d412-2a66-4505-91aa-2755ae364525</code>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1</value>
+                </parameter>
+                <parameter>
+                    <key>productCode</key>
+                    <value>cartPromo_Segment</value>
+                </parameter>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>10</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+    <selling_context>
+        <guid>9859ad05-fd10-4843-915f-a236c7509ff2</guid>
+        <name>cartPromo_Segment2</name>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>085dd1cf-294b-4893-8b82-89844f0b2397</guid>
+                <name>4154127367148800</name>
+                <condition_string> { AND { AND { CUSTOMER_SEGMENT.includes 'Segment2' }  }  } </condition_string>
+                <dictionary_guid>PROMOTIONS_SHOPPER</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>store-VirtualAB</store_code>
+    <name>non-Discountable Product Type3_Coupon</name>
+    <displayName>
+        <value language="es">non-Discountable Product Type3_Coupon</value>
+    </displayName>
+    <code>1e230b8b-b8aa-4773-86b0-9cb314477053</code>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartProductAmountDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>discountAmount</key>
+                    <value>5</value>
+                </parameter>
+                <parameter>
+                    <key>productCode</key>
+                    <value>Dig_Non-Discountable</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Catalog">
+    <catalog_code>Virtual_CatAB_SP</catalog_code>
+    <name>Non-Discountable Catalog Promo</name>
+    <displayName>
+        <value language="es">Non-Discountable Catalog Promo</value>
+    </displayName>
+    <code>b37e3326-330e-4ab1-908b-659a87c9dd2e</code>
+    <description>promotion on a product whose product type indicates it as non-promotable</description>
+    <availability>
+        <enabled>true</enabled>
+        <enabledate>2017-02-09T22:26:00Z</enabledate>
+    </availability>
+    <actions>
+        <action type="catalogCurrencyAmountDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>discountAmount</key>
+                    <value>20</value>
+                </parameter>
+                <parameter>
+                    <key>currency</key>
+                    <value>USD</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+        <action type="catalogCurrencyAmountDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>discountAmount</key>
+                    <value>20</value>
+                </parameter>
+                <parameter>
+                    <key>currency</key>
+                    <value>EUR</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>store-VirtualAB</store_code>
+    <name>time_Enabled</name>
+    <displayName>
+        <value language="es">time_Enabled</value>
+    </displayName>
+    <code>449d6c50-cbec-4203-86d0-7f5886def9ba</code>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>10</value>
+                </parameter>
+                <parameter>
+                    <key>productCode</key>
+                    <value>cartPromo_timeEnabled</value>
+                </parameter>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+    <selling_context>
+        <guid>b773a804-b35d-4687-8171-e838ddb83119</guid>
+        <name>time_Enabled</name>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>8006757d-4d07-46bf-a737-554455947ac9</guid>
+                <name>4148265397162700</name>
+                <condition_string> { AND { SHOPPING_START_TIME.greaterThan (1488240480000L) }  } </condition_string>
+                <dictionary_guid>TIME</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</promotion>
+
+<promotion type="Cart">
+    <store_code>store-VirtualAB</store_code>
+    <name>time_Disabled</name>
+    <displayName>
+        <value language="es">time_Disabled</value>
+    </displayName>
+    <code>38aaf615-e499-4113-87f2-4130d703a416</code>
+    <availability>
+        <enabled>true</enabled>
+    </availability>
+    <actions>
+        <action type="cartProductPercentDiscountAction">
+            <parameters>
+                <parameter>
+                    <key>numItems</key>
+                    <value>1</value>
+                </parameter>
+                <parameter>
+                    <key>discountPercent</key>
+                    <value>10</value>
+                </parameter>
+                <parameter>
+                    <key>productCode</key>
+                    <value>cartPromo_timeDisabled</value>
+                </parameter>
+            </parameters>
+            <exceptions/>
+        </action>
+    </actions>
+    <selling_context>
+        <guid>3f3e2dd4-6f3d-4e4e-821d-6807a88b4fb8</guid>
+        <name>time_Disabled</name>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>ce0cdf27-0e7b-4e1c-9169-f5b13d5fb2de</guid>
+                <name>4148468016342200</name>
+                <condition_string> { AND { SHOPPING_START_TIME.greaterThan (1483229460000L) }  { SHOPPING_START_TIME.lessThan (1488240660000L) }  } </condition_string>
+                <dictionary_guid>TIME</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</promotion>
+</promotions>

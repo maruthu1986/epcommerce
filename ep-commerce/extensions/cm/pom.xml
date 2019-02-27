@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>ext-commerce-engine-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.elasticpath.extensions.cm</groupId>
+	<artifactId>ext-cm-parent</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Extension CM Parent</name>
+	<description>Builds the Pom-first maven modules, then invokes the manifest-first tycho modules. </description>
+
+
+	<properties>
+		<maven.invoker.plugin.version>3.0.1</maven.invoker.plugin.version>
+	</properties>
+
+	<modules>
+		<module>ext-cm-libs</module>
+		<module>ext-cm-modules/ext-cm-repository</module>
+
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-invoker-plugin</artifactId>
+				<version>${maven.invoker.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>build-cm-tycho-projects</id>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<pom>ext-cm-modules/pom.xml</pom>
+							<goals>${session.goals}</goals>
+							<profiles>${session.profiles}</profiles>
+							<properties>${session.userProperties}</properties>
+							<showErrors>true</showErrors>
+							<streamLogs>true</streamLogs>
+							<noLog>true</noLog>
+						</configuration>
+						<inherited>false</inherited>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>RAP</id>
+			<url>http://download.eclipse.org/rt/rap/3.4</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>OxygenRepository</id>
+			<url>http://download.eclipse.org/releases/oxygen</url>
+			<layout>p2</layout>
+		</repository>
+	</repositories>
+	<!--Used by IDEs to add tycho modules to project-->
+	<profiles>
+		<profile>
+			<id>with-tycho-modules</id>
+			<modules>
+				<module>ext-cm-modules</module>
+				<module>ext-cm-modules/system-tests</module>
+			</modules>
+		</profile>
+	</profiles>
+
+</project>

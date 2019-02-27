@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>addresses</name>
+
+		<resource>
+			<name>address-form</name>
+			<description><![CDATA[The list of addresses for the customer]]></description>
+			<uri>{addresses}/form</uri>
+			<form>
+				<entity>address</entity>
+				<action-rel>createaddressaction</action-rel>
+				<result>address</result>
+			</form>
+		</resource>
+
+		<relationship>
+			<name>add-address-form-from-addresses</name>
+			<description><![CDATA[Form to create an address.]]></description>
+			<rel>addressform</rel>
+			<from>addresses</from>
+			<to>address-form</to>
+		</relationship>
+	</family>
+</definitions>

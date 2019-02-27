@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>carts</name>
+		<description>Cart memberships resource</description>
+
+		<resource>
+			<name>read-cart-memberships</name>
+			<description>Carts memberships for a given item</description>
+			<uri>{base.family}/memberships/{items.item}</uri>
+			<list-of>cart</list-of>
+		</resource>
+
+		<relationship>
+			<name>cart-memberships-from-item</name>
+			<description>Cart memberships from item</description>
+			<rel>cartmemberships</rel>
+			<from>items.item</from>
+			<to>read-cart-memberships</to>
+		</relationship>
+	</family>
+</definitions>

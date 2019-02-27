@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>wishlists</name>
+
+		<plan>
+			<name>wishlists</name>
+			<description><![CDATA[Returns a list of links to the shopper’s wishlists. Only the default wishlist is currently supported, so responses will contain only one link..]]></description>
+			<step>
+				<description>Read wishlists</description>
+				<start>wishlists</start>
+				<read-self/>
+			</step>
+		</plan>
+		<plan>
+			<name>wishlist</name>
+			<description><![CDATA[Retrieves a collection of links to wishlist lineitems.]]></description>
+			<step>
+				<description>Read a wishlist</description>
+				<start>wishlist</start>
+				<read-self/>
+			</step>
+		</plan>
+
+		<plan>
+			<name>default-wishlist</name>
+			<description><![CDATA[Retrieves the shopper’s default wishlist.]]></description>
+			<step>
+				<description>Read the default wishlist</description>
+				<start>default-wishlist</start>
+				<read-self/>
+			</step>
+		</plan>
+
+		<plan>
+			<name>wishlist-line-items</name>
+			<description><![CDATA[Retrieves a collection of links to wishlist items and a link to the wishlist.]]></description>
+			<step>
+				<description>Read wishlist items</description>
+				<start>wishlist-line-items</start>
+				<read-self/>
+			</step>
+		</plan>
+
+
+		<plan>
+			<name>wishlist-line-item</name>
+			<description><![CDATA[
+			Retrieves wishlist item details, which include:
+			 - A link to the list of wishlist items
+			 - A link to the wishlist
+			 - A link to the item in the items resource
+			 - A link to the movetocart form
+			]]></description>
+			<template>
+				<name>collections.list-element-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>wishlist</value>
+				</replace>
+				<replace>
+					<key>start-name</key>
+					<value>wishlist</value>
+				</replace>
+				<replace>
+					<key>list-resource</key>
+					<value>wishlist-line-items</value>
+				</replace>
+				<replace>
+					<key>list-name</key>
+					<value>lineitems</value>
+				</replace>
+				<replace>
+					<key>element-resource</key>
+					<value>wishlist-line-item</value>
+				</replace>
+			</template>
+		</plan>
+
+		<plan>
+			<name>delete-wishlist-items</name>
+			<description><![CDATA[Deletes the items from a shopper’s wishlist.
+]]></description>
+			<step>
+				<description><![CDATA[Start at the wishlist line items]]></description>
+				<start>wishlist-line-items</start>
+				<delete-self/>
+			</step>
+		</plan>
+
+
+		<plan>
+			<name>delete-wishlist-item</name>
+			<description><![CDATA[Delete item from wishlist.]]></description>
+			<step>
+				<description><![CDATA[Delete item from wishlist.]]></description>
+				<start>wishlist-line-item</start>
+				<delete-self/>
+			</step>
+		</plan>
+
+		<plan>
+			<name>add-item-to-default-wishlist</name>
+			<description><![CDATA[Adds an item to the default wishlist.
+			After executing the add item to default wishlist action a redirect link is provided to the newly added item on the wishlist.]]></description>
+			<step>
+				<description><![CDATA[Start at an item]]></description>
+				<start>items.item</start>
+				<follow-link>addtowishlistform</follow-link>
+				<result>add-item-to-wishlist-form</result>
+			</step>
+			<step>
+				<description><![CDATA[Submit the form]]></description>
+				<start>add-item-to-wishlist-form</start>
+				<submit>add-item-to-wishlist-form</submit>
+				<to>add-item-to-wishlist-action</to>
+				<via-link>addtodefaultwishlistaction</via-link>
+				<result>wishlist-line-item</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>move-from-wishlist-to-cart</name>
+			<description><![CDATA[Moves a line item from the wishlist to the cart. You must specify the quantity in the request body.<br/><br/>
+Once posted, the item deletes from the wishlist and adds to the cart. Then Cortex returns a redirect link to the newly added cart line item.
+You can also get to the movetocart form by following the link in a wishlist line item. The movetocart form contains an action link to move the item to the cart. Note that the action link will only be present if the wishlist line item is purchasable. If the wishlist line item is not purchasable, the action link will not appear on the form. Only purchasable items can be moved from wishlists into a cart.]]></description>
+			<step>
+				<description><![CDATA[Start at a wish list line item]]></description>
+				<start>wishlist-line-item</start>
+				<follow-link>movetocartform</follow-link>
+				<result>move-to-cart-form</result>
+			</step>
+			<step>
+				<description><![CDATA[Submit the form]]></description>
+				<start>move-to-cart-form</start>
+				<submit>move-to-cart-form</submit>
+				<to>add-to-default-cart-action</to>
+				<via-link>movetocartaction</via-link>
+				<result>carts.line-item</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>move-from-cart-to-wishlist</name>
+			<description><![CDATA[Moves a line item from the cart to the wishlist.<br/><br/>
+Once posted, Cortex will return a redirect link to the newly added wishlist line item. You can also get to the movetowishlist form by following the link in a cart line item. The movetowishlist form contains an action link to move the item to the wishlist.]]></description>
+			<step>
+				<description><![CDATA[Start at a cart line item]]></description>
+				<start>carts.line-item</start>
+				<follow-link>movetowishlistform</follow-link>
+				<result>move-to-wishlist-form</result>
+			</step>
+			<step>
+				<description><![CDATA[Start at a cart line item]]></description>
+				<start>move-to-wishlist-form</start>
+				<submit>move-to-wishlist-form</submit>
+				<to>move-to-wishlist-action</to>
+				<via-link>movetowishlistaction</via-link>
+				<result>wishlist-line-item</result>
+			</step>
+		</plan>
+
+		<plan>
+		<name>read-wishlist-memberships</name>
+		<description><![CDATA[
+Retrieves the list of wishlists that the item has been added to.
+
+	GET:{cortex}/wishlists/memberships/{item_uri}
+
+The list is empty if the item is not in your wishlist.]]></description>
+			<step>
+				<description><![CDATA[Retrieves the list of wishlists that the item has been added to.]]></description>
+				<start>items.item</start>
+				<follow-link>wishlistmemberships</follow-link>
+				<result>read-wishlist-memberships</result>
+			</step>
+		</plan>
+
+	</family>
+
+</definitions>

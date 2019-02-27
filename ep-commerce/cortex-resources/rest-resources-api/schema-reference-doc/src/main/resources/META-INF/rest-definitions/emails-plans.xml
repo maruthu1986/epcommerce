@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>emails</name>
+		<plan>
+			<name>read-email</name>
+			<description><![CDATA[Read an email from a list of the customer's emails.]]></description>
+			<template>
+				<name>collections.list-element-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>profiles.profile</value>
+				</replace>
+				<replace>
+					<key>start-name</key>
+					<value>profile</value>
+				</replace>
+				<replace>
+					<key>list-resource</key>
+					<value>emails</value>
+				</replace>
+				<replace>
+					<key>list-name</key>
+					<value>emails</value>
+				</replace>
+				<replace>
+					<key>element-resource</key>
+					<value>email</value>
+				</replace>
+			</template>
+		</plan>
+
+		<plan>
+			<name>add-email</name>
+			<description><![CDATA[
+Add an email to a logged in customer. Out of the box, customers can have only one email,
+which is their user name. If you create a new email for a registered customer, this changes the customer's user name.
+				]]>
+			</description>
+			<template>
+				<name>controls.form-control-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>emails</value>
+				</replace>
+				<replace>
+					<key>read-form-link</key>
+					<value>emailform</value>
+				</replace>
+				<replace>
+					<key>form-resource</key>
+					<value>add-email-form</value>
+				</replace>
+				<replace>
+					<key>submit-action-link</key>
+					<value>createemailaction</value>
+				</replace>
+				<replace>
+					<key>submit-resource</key>
+					<value>add-email-action</value>
+				</replace>
+				<replace>
+					<key>submit-result</key>
+					<value>email</value>
+				</replace>
+			</template>
+		</plan>
+	</family>
+</definitions>

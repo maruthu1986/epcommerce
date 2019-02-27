@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../openjpa-osgi-wrapper/src/main/resources/ehcache.xsd"
+		 name="test-ep-core"
+		 updateCheck="false">
+
+	<defaultCache
+			maxElementsInMemory="222"
+			eternal="false"
+			timeToIdleSeconds="120"
+			timeToLiveSeconds="120"
+			diskExpiryThreadIntervalSeconds="120"
+			memoryStoreEvictionPolicy="LRU"
+			statistics="true"/>
+
+	<cache name="osgi-testing-cache"
+		   maxElementsInMemory="789"
+		   eternal="false"
+		   timeToIdleSeconds="456"
+		   timeToLiveSeconds="123"
+		   statistics="true">
+	</cache>
+</ehcache>

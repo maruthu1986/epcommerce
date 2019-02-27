@@ -1,0 +1,7 @@
+.checkstyle
+.classpath
+.pmd
+.pmdruleset
+.settings
+.project
+target/

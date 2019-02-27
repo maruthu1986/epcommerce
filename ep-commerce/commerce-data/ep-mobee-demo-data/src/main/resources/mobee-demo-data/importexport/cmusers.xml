@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<cmusers>
+	<cmuser guid="TOKENEE_PRODUCT_PRICING_MANAGER">
+		<user_name>tokenee_product_pricing_manager</user_name>
+		<email>tokenee_product_pricing_manager@allstore.com</email>
+		<first_name>Tokenee</first_name>
+		<last_name>Product Pricing Manager</last_name>
+		<password>e38ad214943daad1d64c102faec29de4afe9da3d</password>
+		<creation_date>2010-06-16T00:00:00-07:00</creation_date>
+		<last_password_change>2015-06-16T00:00:00-07:00</last_password_change>
+		<last_modified>2010-06-16T00:00:00-07:00</last_modified>
+		<total_failed_login_attempts>0</total_failed_login_attempts>
+		<enabled>true</enabled>
+		<has_temporary_password>false</has_temporary_password>
+		<user_password_history_items/>
+		<has_access_to_all_warehouses>true</has_access_to_all_warehouses>
+		<has_access_to_all_catalogs>true</has_access_to_all_catalogs>
+		<has_access_to_all_stores>false</has_access_to_all_stores>
+		<has_access_to_all_price_lists>false</has_access_to_all_price_lists>
+		<user_role_guids>
+			<user_role_guids>202</user_role_guids>
+			<user_role_guids>F64A4413-C442-980F-CF6B-C195A38CA4FD</user_role_guids>
+		</user_role_guids>
+		<price_list_guids/>
+		<catalog_codes/>
+		<store_codes>
+			<store_code>Tokenee</store_code>
+		</store_codes>
+		<warehouse_codes/>
+	</cmuser>
+	<!-- See ep-shared-demo-data for additional definitions -->
+</cmusers>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath</groupId>
+		<artifactId>itests-parent</artifactId>
+		<version>703.0.0-SNAPSHOT</version>
+		<relativePath>../../itests-parent</relativePath>
+	</parent>
+
+	<artifactId>ep-sync-itests</artifactId>
+	<packaging>jar</packaging>
+	<name>Sync Tool Integrations Tests</name>
+	<description>Sync Tool Integrations Tests</description>
+
+	<properties>
+		<!-- database configuration settings for the main test execution context -->
+		<ep.sync.test.db.rdbms>h2mem</ep.sync.test.db.rdbms>
+		<ep.sync.test.db.name>test_db</ep.sync.test.db.name>
+		<ep.sync.test.db.connection.host>127.0.0.1</ep.sync.test.db.connection.host>
+		<ep.sync.test.db.connection.port/>
+		<ep.sync.test.db.connection.username>sa</ep.sync.test.db.connection.username>
+		<ep.sync.test.db.connection.password/>
+		<ep.sync.test.db.connection.driver_class>org.h2.Driver</ep.sync.test.db.connection.driver_class>
+		<ep.sync.test.db.script.dir>../database/target/derby</ep.sync.test.db.script.dir>
+
+		<!-- database configuration settings for source -->
+		<!--same as the main test execution context by default -->
+		<sync.source.db.url>jdbc:h2:mem:${ep.sync.test.db.name}</sync.source.db.url>
+		<sync.source.db.connection.username>${ep.sync.test.db.connection.username}</sync.source.db.connection.username>
+		<sync.source.db.connection.password>${ep.sync.test.db.connection.password}</sync.source.db.connection.password>
+		<sync.source.db.connection.driver_class>${ep.sync.test.db.connection.driver_class}</sync.source.db.connection.driver_class>
+
+		<!--database configuration settings for target-->
+		<sync.target.db.url>jdbc:h2:mem:target_db</sync.target.db.url>
+		<sync.target.db.connection.username>sa</sync.target.db.connection.username>
+		<sync.target.db.connection.password/>
+		<sync.target.db.connection.driver_class>org.h2.Driver</sync.target.db.connection.driver_class>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath</groupId>
+			<artifactId>ep-sync</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath</groupId>
+			<artifactId>ep-test-application</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath</groupId>
+			<artifactId>ep-core-caching</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${com.h2database.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-pmd-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<skip>${skipITests}</skip>
+					<argLine>-Dorg.apache.camel.jmx.disabled=true</argLine>
+					<includes>
+						<include>**/Test*.java</include>
+						<include>**/*Test.java</include>
+						<include>**/*IT.java</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<executions>
+					<!-- Overriding default execution to use jacoco-provided argLine, else jacoco doesn't run -->
+					<execution>
+						<id>default-test</id>
+						<configuration>
+							<excludes>
+								<exclude>**/Test*.java</exclude>
+								<exclude>**/*Test.java</exclude>
+								<exclude>**/*IT.java</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

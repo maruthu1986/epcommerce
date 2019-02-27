@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>coupons</name>
+
+		<resource>
+			<name>apply-coupon-to-order-form</name>
+			<description><![CDATA[The coupon form to apply a coupon to an order.]]></description>
+			<uri>/{base.family}/{orders.order}/form</uri>
+			<form>
+				<entity>coupon</entity>
+				<action-rel>applycouponaction</action-rel>
+				<result>order-coupon</result>
+			</form>
+		</resource>
+
+		<relationship>
+			<name>apply-coupon-form-from-couponinfo</name>
+			<description><![CDATA[Form to apply a coupon to the order.]]></description>
+			<rel>couponform</rel>
+			<from>couponinfo</from>
+			<to>apply-coupon-to-order-form</to>
+		</relationship>
+	</family>
+</definitions>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>datapolicies</name>
+		<description>
+			<![CDATA[
+Provide data policy consent access to the user.
+			]]>
+		</description>
+		<resource>
+			<name>data-policy-consent-form</name>
+			<description><![CDATA[The form to grant or revoke data policy consent.]]></description>
+			<uri>{datapolicies.data-policy}/form</uri>
+			<form>
+				<entity>data-policy</entity>
+				<action-rel>consentaction</action-rel>
+				<result>data-policy</result>
+			</form>
+		</resource>
+
+		<relationship>
+			<name>data-policy-to-data-policy-consent-form</name>
+			<description><![CDATA[A form to grant or revoke consent for a data policy.]]></description>
+			<rel>datapolicyconsentform</rel>
+			<from>data-policy</from>
+			<to>data-policy-consent-form</to>
+		</relationship>
+
+	</family>
+</definitions>

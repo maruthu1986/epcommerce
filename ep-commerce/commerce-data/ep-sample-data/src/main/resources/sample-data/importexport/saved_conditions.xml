@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<saved_conditions>
+<condition>
+    <guid>53CBBD97-FE31-5C56-204A-6830E1BA6BA0</guid>
+    <name>Out of range start date</name>
+    <description></description>
+    <condition_string> { AND { SHOPPING_START_TIME.greaterThan (1608943860000L) }  } </condition_string>
+    <dictionary_guid>TIME</dictionary_guid>
+</condition>
+</saved_conditions>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+  logicalFilePath="ext-data/data/test-data/liquibase-changelog.xml">
+
+	<!-- Run any pre-importexport changesets, these should ALL have context="test-data" to ensure they only run when desired (see below). -->
+	<include file="pre-importexport/liquibase-changelog.xml" relativeToChangelogFile="true" />
+
+	<!-- Then run the importexport changeset, this will load the test data only if the 'test-data' context is activated. -->
+	<changeSet id="ext-importexport-test-data${importexport.test-data.qualifier}" author="com.elasticpath.extensions" context="test-data">
+		<comment>Import of the test data</comment>
+
+		<customChange class="com.elasticpath.datapopulation.importexport.ImportExportChange">
+			<param name="dataSet" value="test-data" />
+		</customChange>
+	</changeSet>
+
+	<!-- Finally run any post-importexport changesets, again these should ALL have context="test-data". -->
+	<include file="post-importexport/liquibase-changelog.xml" relativeToChangelogFile="true" />
+
+</databaseChangeLog>

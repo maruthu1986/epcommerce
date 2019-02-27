@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>searches</name>
+
+		<uri-part>
+			<name>search-id</name>
+			<description><![CDATA[The search object's identifier]]></description>
+			<composite/>
+		</uri-part>
+
+		<uri-part>
+			<name>page-id</name>
+			<description><![CDATA[The paged search result's page identifier]]></description>
+			<integer/>
+		</uri-part>
+
+		<resource>
+			<name>searches</name>
+			<description><![CDATA[Starting search resource.]]></description>
+			<uri>{base.family}/{base.scope}</uri>
+		</resource>
+
+		<resource>
+			<name>keyword-search-form</name>
+			<description>
+				<![CDATA[
+Search form to fill searching information.
+
+~! # Keyword Size Limit #
+Keywords can be up to 500 characters long. Any longer and Cortex API returns status 400 and a error message.
+!~
+				]]>
+			</description>
+			<uri>{searches}/keywords/form</uri>
+			<form>
+				<entity>search-keywords</entity>
+				<action-rel>itemkeywordsearchaction</action-rel>
+				<result>keyword-search-result</result>
+			</form>
+		</resource>
+
+		<resource>
+			<name>keyword-search-result</name>
+			<description><![CDATA[The paged result of keyword search query.]]></description>
+			<uri>{searches}/keywords/items/{search-id}/{page-id}</uri>
+			<paginates>items.item</paginates>
+		</resource>
+
+		<resource>
+			<name>navigation-search-result</name>
+			<description><![CDATA[The paged result of navigation search query.]]></description>
+			<uri>{base.family}/{navigations.navigation}/{page-id}</uri>
+			<paginates>items.item</paginates>
+		</resource>
+
+		<entity>
+			<name>search-keywords</name>
+			<description><![CDATA[Search keywords.]]></description>
+			<property>
+				<name>keywords</name>
+				<description><![CDATA[Search keywords.]]></description>
+				<string>
+					<min-length>1</min-length>
+					<max-length>500</max-length>
+				</string>
+			</property>
+			<property>
+				<name>page-size</name>
+				<description>
+					<![CDATA[
+Defines the number of search results to list per page. This field is optional. If the field is not specified,
+Cortex API's default page-size value is used, which can differ depending on your implementation.
+					]]>
+				</description>
+				<integer/>
+			</property>
+			<entity-type>searches.keyword-search</entity-type>
+		</entity>
+
+		<relationship>
+			<name>searches-to-keyword-search-form</name>
+			<description><![CDATA[Link from searched to keyword-search-form.]]></description>
+			<rel>keywordsearchform</rel>
+			<from>searches</from>
+			<to>keyword-search-form</to>
+		</relationship>
+
+		<relationship>
+			<name>root-to-searches</name>
+			<description><![CDATA[Link from root resource to searches.]]></description>
+			<rel>searches</rel>
+			<from>base.root</from>
+			<to>searches</to>
+		</relationship>
+
+		<relationship>
+			<name>navigation-to-navigation-search-result</name>
+			<description><![CDATA[Link from navigation to navigation-search-result.]]></description>
+			<rel>items</rel>
+			<from>navigations.navigation</from>
+			<to>navigation-search-result</to>
+		</relationship>
+
+	</family>
+</definitions>

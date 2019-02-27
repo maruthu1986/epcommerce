@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.rest.integration.epcommerce</groupId>
+		<artifactId>ep-commerce-engine-integrations-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>epcommerce-rs-authentication-parent</artifactId>
+	<packaging>pom</packaging>
+	<name>EP ∷ RelOS : RS Authentication Parent ʃ Commerce Engine</name>
+	<description>Elastic Path REST - RelOS RS Authentication Parent</description>
+
+	<properties>
+		<jacoco.instruction.covered-ratio>0.00</jacoco.instruction.covered-ratio>
+		<jacoco.branch.covered-ratio>0.00</jacoco.branch.covered-ratio>
+		<jacoco.line.covered-ratio>0.00</jacoco.line.covered-ratio>
+		<jacoco.complexity.covered-ratio>0.00</jacoco.complexity.covered-ratio>
+		<jacoco.method.covered-ratio>0.00</jacoco.method.covered-ratio>
+		<jacoco.class.covered-ratio>0.00</jacoco.class.covered-ratio>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath.rest</groupId>
+			<artifactId>ep-rest-commons</artifactId>
+		</dependency>
+	</dependencies>
+
+	<modules>
+		<module>authentication</module>
+		<module>spring-oauth2</module>
+		<module>oauth2-tokenstore-epcommerce</module>
+		<module>oauth2-tokenstore-memory</module>
+	</modules>
+
+</project>

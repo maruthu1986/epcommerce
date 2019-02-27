@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:camel="http://camel.apache.org/schema/spring"
+		xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+		">
+
+	<camel:camelContext id="ep-gift-certificate-email-handler" xmlns="http://camel.apache.org/schema/spring"
+						threadNamePattern="Camel (#camelId#) thread ##counter#">
+		<routeBuilder ref="giftCertificateCreatedEmailHandlingRouteBuilder"/>
+	</camel:camelContext>
+
+	<bean name="ep-gift-certificate-email-handler:beanPostProcessor" class="com.elasticpath.messaging.impl.FastCamelBeanPostProcessor">
+		<property name="annotatedClassList" ref="camelAnnotatedClassList"/>
+		<property name="camelId" value="ep-gift-certificate-email-handler"/>
+	</bean>
+
+	<bean id="giftCertificateCreatedEmailProducerTemplate"
+		  class="com.elasticpath.email.handler.giftcertificate.producer.impl.GiftCertificateEmailProducer"
+		  abstract="true">
+		<property name="emailComposer" ref="emailComposer"/>
+		<property name="giftCertificateEmailPropertyHelper" ref="emailPropertyHelperGiftCertificate"/>
+		<property name="orderService" ref="orderService"/>
+		<property name="productSkuLookup" ref="productSkuLookup" />
+	</bean>
+
+	<bean id="giftCertificateCreatedEmailProducer" parent="giftCertificateCreatedEmailProducerTemplate"/>
+
+	<bean id="giftCertificateCreatedEmailHandlingRouteBuilderTemplate" parent="abstractEventMessageTriggeredEmailRouteBuilder"
+		  abstract="true">
+		<property name="routeId" value="giftCertificateCreatedEmailHandler"/>
+		<property name="incomingEndpoint">
+			<bean parent="giftCertificateEventExternalEndpoint">
+				<property name="camelContextId" value="ep-gift-certificate-email-handler"/>
+				<property name="context" value="giftCertificateCreatedEmailHandler"/>
+			</bean>
+		</property>
+		<property name="outgoingEndpoint">
+			<bean parent="emailSendingEndpoint">
+				<property name="camelContextId" value="ep-gift-certificate-email-handler"/>
+			</bean>
+		</property>
+		<property name="eventMessagePredicateFilter" ref="giftCertificateCreatedEventTypePredicate"/>
+		<property name="emailProducer" ref="giftCertificateCreatedEmailProducer"/>
+	</bean>
+
+	<bean id="giftCertificateCreatedEmailHandlingRouteBuilder" parent="giftCertificateCreatedEmailHandlingRouteBuilderTemplate"/>
+
+	<bean id="emailPropertyHelperGiftCertificate" class="com.elasticpath.email.handler.giftcertificate.helper.impl.GiftCertificateEmailPropertyHelperImpl">
+		<property name="moneyFormatter" ref="moneyFormatter" />
+		<property name="beanFactory" ref="coreBeanFactory" />
+		<property name="pricingSnapshotService" ref="pricingSnapshotService"/>
+	</bean>
+
+</beans>

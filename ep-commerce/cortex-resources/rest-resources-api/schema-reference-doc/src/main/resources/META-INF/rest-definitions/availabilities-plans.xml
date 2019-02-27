@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>availabilities</name>
+
+		<plan>
+			<name>read-cart-line-item-availability</name>
+			<description><![CDATA[Read a line item's availability. The availability rule identifies the purchasable state of the item(s) in the line item.]]></description>
+			<step>
+				<description><![CDATA[Read availability for specific line item.]]></description>
+				<start>carts.line-item</start>
+				<follow-link>availability</follow-link>
+				<result>availability-for-cart-line-item</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-item-availability</name>
+			<description><![CDATA[Read an item's availability. The availability rule identifies the item's purchasability.]]></description>
+			<step>
+				<description><![CDATA[Read availability for specific item.]]></description>
+				<start>items.item</start>
+				<follow-link>availability</follow-link>
+				<result>availability-for-item</result>
+			</step>
+		</plan>
+	</family>
+</definitions>

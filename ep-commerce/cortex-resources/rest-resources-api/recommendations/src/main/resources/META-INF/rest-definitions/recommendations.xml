@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>recommendations</name>
+		<description>
+			<![CDATA[
+Recommendations suggest additional items that may interest shoppers. For example, if a shopper is viewing an iPod,
+you may want to display related items such as iPod accessories. If the shopper is viewing items in a Digital Camera
+[navigation node][navigations] then you can use recommendations to highlight a set of featured digital cameras in that node.
+
+Recommendations are lists of items, accessible through [item][items] for item recommendations,  [navigation nodes][navigations]
+for navigation recommendations, and the recommendations entry point for store recommendations.
+The recommendation's rel name reflects the type of recommendation.  For example, when accessing an item's recommendations
+ a rel name could be "crosssells", which indicates the rel links to a list of "cross-sell" items.
+			]]>
+		</description>
+
+		<uri-part>
+			<name>group-id</name>
+			<description><![CDATA[The recommendations group ID.]]></description>
+			<plain-string/>
+		</uri-part>
+
+		<uri-part>
+			<name>page-id</name>
+			<description>Identifier for a pagination page.</description>
+			<integer/>
+		</uri-part>
+
+		<resource>
+			<name>item-recommendation-groups</name>
+			<description><![CDATA[Groups of items recommended for an item.]]></description>
+			<uri>/{base.family}/{items.item}</uri>
+		</resource>
+
+		<relationship>
+			<name>recommendations-for-item</name>
+			<description><![CDATA[Read other items recommended for an item.]]></description>
+			<rel>recommendations</rel>
+			<from>items.item</from>
+			<to>item-recommendation-groups</to>
+		</relationship>
+
+		<!--Alias resource as entry point to the first page of paginated-recommendation groups-->
+		<resource>
+			<name>item-recommendation-group</name>
+			<description><![CDATA[Other items recommended for an item.]]></description>
+			<uri>/{item-recommendation-groups}/{group-id}</uri>
+			<alias>paginated-recommendations</alias>
+		</resource>
+
+		<!-- A paginated resource that displays a list of links to individual country resources -->
+		<resource>
+			<name>paginated-recommendations</name>
+			<description>A list of recommendation groups.</description>
+			<uri>/{item-recommendation-group}/pages/{page-id}</uri>
+			<paginates>items.item</paginates>
+		</resource>
+
+		<!--All of the recommendation groups for the item-->
+		<relationship>
+			<name>recommendations-for-item-crosssell</name>
+			<description><![CDATA[Link from groups to specific recommendation group.]]></description>
+			<rel>crosssell</rel>
+			<from>item-recommendation-groups</from>
+			<to>item-recommendation-group</to>
+		</relationship>
+
+		<relationship>
+			<name>recommendations-for-item-upsell</name>
+			<description><![CDATA[Link from groups to specific recommendation group.]]></description>
+			<rel>upsell</rel>
+			<from>item-recommendation-groups</from>
+			<to>item-recommendation-group</to>
+		</relationship>
+
+		<relationship>
+			<name>recommendations-for-item-warranty</name>
+			<description><![CDATA[Link from groups to specific recommendation group.]]></description>
+			<rel>warranty</rel>
+			<from>item-recommendation-groups</from>
+			<to>item-recommendation-group</to>
+		</relationship>
+
+		<relationship>
+			<name>recommendations-for-item-accessory</name>
+			<description><![CDATA[Link from groups to specific recommendation group.]]></description>
+			<rel>accessory</rel>
+			<from>item-recommendation-groups</from>
+			<to>item-recommendation-group</to>
+		</relationship>
+
+		<relationship>
+			<name>recommendations-for-item-replacement</name>
+			<description><![CDATA[Link from groups to specific recommendation group.]]></description>
+			<rel>replacement</rel>
+			<from>item-recommendation-groups</from>
+			<to>item-recommendation-group</to>
+		</relationship>
+
+		<relationship>
+			<name>recommendations-for-item-recommendation</name>
+			<description><![CDATA[Link from groups to specific recommendation group.]]></description>
+			<rel>recommendation</rel>
+			<from>item-recommendation-groups</from>
+			<to>item-recommendation-group</to>
+		</relationship>
+
+	</family>
+</definitions>

@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>addresses</name>
+		<description><![CDATA[
+<a id="addresses">
+### addresses
+</a>
+
+The Addresses resource is responsible for the customer's shipping and billing address. This resource allows you to
+retrieve a logged in customer's addresses, edit existing addresses, and create new addresses.
+
+#### Shipping Address vs. Billing Addresses
+
+A shipping address is where you ship the physical goods that you purchased in the store. A billing address is the address
+associated with the [paymentmethods][paymentmethods] used for a purchase. For example, the billing address would be the
+address on the credit card that is being used for a purchase. Customers choose which billing and shipping address to use
+for a purchase through the [orders][orders] resources.
+
+Currently you cannot create an address and label it as a shipping only address or label it as a billing
+only address. Cortex does not make a distinction between the shipping and billing addresses. Read Billing Address
+billing addresses retrieves a list of all the customer's addresses; similarly, Read Shipping Address
+retrieves a list of all the customer's addresses. Future versions of the API may allow the possibility to label what the
+address is for, but out of the box this API version does not support this functionality.
+
+[paymentmethods]: #paymentmethods
+[orders]: #orders
+]]></description>
+
+
+		<uri-part>
+			<name>address-id</name>
+			<description><![CDATA[The address ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>addresses</name>
+			<description><![CDATA[The list of addresses for the customer]]></description>
+			<uri>{base.family}/{base.scope}</uri>
+			<list-of>address</list-of>
+		</resource>
+
+		<resource>
+			<name>address</name>
+			<description><![CDATA[The address for the customer]]></description>
+			<uri>{addresses}/{address-id}</uri>
+			<entity>address</entity>
+		</resource>
+
+		<resource>
+			<name>billing-addresses</name>
+			<description><![CDATA[The billing addresses for the customer]]></description>
+			<uri>{addresses}/billing</uri>
+			<list-of>address</list-of>
+		</resource>
+
+		<resource>
+			<name>default-billing-address</name>
+			<description><![CDATA[The default billing address for the customer]]></description>
+			<uri>{billing-addresses}/default</uri>
+			<alias>address</alias>
+		</resource>
+
+		<resource>
+			<name>shipping-addresses</name>
+			<description><![CDATA[The shipping addresses for the customer]]></description>
+			<uri>{addresses}/shipping</uri>
+			<list-of>address</list-of>
+		</resource>
+
+		<resource>
+			<name>default-shipping-address</name>
+			<description><![CDATA[The default shipping address for the customer]]></description>
+			<uri>{shipping-addresses}/default</uri>
+			<alias>address</alias>
+		</resource>
+
+		<relationship>
+			<name>addresses-for-profile</name>
+			<description><![CDATA[Read the list of the profile's addresses.]]></description>
+			<rel>addresses</rel>
+			<rev>profile</rev>
+			<from>profiles.profile</from>
+			<to>addresses</to>
+		</relationship>
+
+		<relationship>
+			<name>profile-for-address</name>
+			<description><![CDATA[Read the profile's that the address belongs to.]]></description>
+			<rel>profile</rel>
+			<from>address</from>
+			<to>profiles.profile</to>
+		</relationship>
+
+		<relationship>
+			<name>addresses-for-address</name>
+			<description><![CDATA[Read the profile's that the address belongs to.]]></description>
+			<rel>list</rel>
+			<from>address</from>
+			<to>addresses</to>
+		</relationship>
+
+		<relationship>
+			<name>billing-addresses-from-addresses</name>
+			<description><![CDATA[Read billing addresses from the list of addresses.]]></description>
+			<rel>billingaddresses</rel>
+			<rev>addresses</rev>
+			<from>addresses</from>
+			<to>billing-addresses</to>
+		</relationship>
+
+		<relationship>
+			<name>default-billing-address-from-billing-addresses</name>
+			<description><![CDATA[Read the default billing address from the list of billing addresses.]]></description>
+			<rel>default</rel>
+			<from>billing-addresses</from>
+			<to>default-billing-address</to>
+		</relationship>
+
+		<relationship>
+			<name>profile-from-billing-addresses</name>
+			<description><![CDATA[Read the profile linked to the billing addresses.]]></description>
+			<rel>profile</rel>
+			<from>billing-addresses</from>
+			<to>profiles.profile</to>
+		</relationship>
+
+		<relationship>
+			<name>shipping-addresses-from-addresses</name>
+			<description><![CDATA[Read shipping addresses from the list of addresses.]]></description>
+			<rel>shippingaddresses</rel>
+			<rev>addresses</rev>
+			<from>addresses</from>
+			<to>shipping-addresses</to>
+		</relationship>
+
+		<relationship>
+			<name>default-shipping-address-from-shipping-addresses</name>
+			<description><![CDATA[Read the default shipping address from the list of shipping addresses.]]></description>
+			<rel>default</rel>
+			<from>shipping-addresses</from>
+			<to>default-shipping-address</to>
+		</relationship>
+
+		<relationship>
+			<name>profile-from-shipping-addresses</name>
+			<description><![CDATA[Read the profile linked to the shipping addresses.]]></description>
+			<rel>profile</rel>
+			<from>shipping-addresses</from>
+			<to>profiles.profile</to>
+		</relationship>
+
+		<entity>
+			<name>address</name>
+			<description><![CDATA[The address for the customer.]]></description>
+			<property>
+				<name>address-id</name>
+				<description><![CDATA[The internal address identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>name</name>
+				<description><![CDATA[The customer name.]]></description>
+				<is-a>base.name</is-a>
+			</property>
+			<property>
+				<name>address</name>
+				<description>
+					<![CDATA[The customer address. Address field names are based on the v.card specification. For more information on this specification, see [v.card](http://tools.ietf.org/html/rfc2426).]]></description>
+				<is-a>address-detail</is-a>
+			</property>
+			<entity-type>addresses.address</entity-type>
+		</entity>
+
+		<entity>
+			<name>address-detail</name>
+			<description><![CDATA[Describes a customers address]]></description>
+			<property>
+				<name>address-id</name>
+				<description><![CDATA[The internal address identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>street-address</name>
+				<description><![CDATA[The street address.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>extended-address</name>
+				<description><![CDATA[Extra field for address information. This field is optional.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>locality</name>
+				<description><![CDATA[The city name.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>region</name>
+				<description><![CDATA[Valid region codes for this field can be retrieved using the [Geographies][geographies] Resource.
+
+[geographies]: #geographies
+]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>postal-code</name>
+				<description><![CDATA[Postal code or zip code.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>country-name</name>
+				<description><![CDATA[Valid country codes for this field can be retrieved using the [Geographies][geographies] Resource.
+
+[geographies]: #geographies
+]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>phone-number</name>
+				<description><![CDATA[Phone number]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>organization</name>
+				<description><![CDATA[The organization]]></description>
+				<string/>
+			</property>
+		</entity>
+
+	</family>
+</definitions>

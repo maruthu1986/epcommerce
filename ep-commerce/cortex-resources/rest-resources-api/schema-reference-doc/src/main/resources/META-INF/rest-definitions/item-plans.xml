@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>items</name>
+
+		<plan>
+			<name>read-item</name>
+			<description><![CDATA[Retrieve an item with a specific item ID.]]></description>
+			<step>
+				<description><![CDATA[Retrieve an item.]]></description>
+				<start>item</start>
+				<read-self/>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

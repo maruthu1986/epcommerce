@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>wishlists</name>
+		<description><![CDATA[
+####Entry Point: /wishlists/{scope}/default
+
+A wishlist is list that customers build up containing items that they are interested in, or desire to purchase.
+This applies even to items which are out of stock, which allows a customer to track the item and to be notified when the item
+becomes available.
+A wishlist is similar to a cart in that items can be added or removed.
+Items can also be moved between the wishlist and the cart.
+Only one wishlist is available per shopper. This default wishlist is automatically available
+and cannot be deleted.
+
+
+[items]: #items
+[orders]: #orders
+[totals]: #totals
+		]]>
+		</description>
+
+		<uri-part>
+			<name>wishlist-id</name>
+			<description><![CDATA[The wishlist identifier.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>default-wishlist</name>
+			<description><![CDATA[Alias of the shopper's default wishlist.]]></description>
+			<uri>{wishlists}/default</uri>
+			<alias>wishlist</alias>
+		</resource>
+
+		<resource>
+			<name>wishlist</name>
+			<description>
+				<![CDATA[
+					A wishlist resource, can have line items.
+				]]>
+				<!--TBD fill more content of a what wishlists consist of-->
+			</description>
+			<uri>{wishlists}/{wishlist-id}</uri>
+			<entity>wishlist</entity>
+		</resource>
+
+		<relationship>
+			<name>default-wishlist-from-root</name>
+			<description><![CDATA[Link from root resource to default wishlist.]]></description>
+			<rel>defaultwishlist</rel>
+			<from>base.root</from>
+			<to>default-wishlist</to>
+		</relationship>
+
+		<resource>
+			<name>wishlists</name>
+			<description>Wishlist list resource</description>
+			<uri>{base.family}/{base.scope}</uri>
+			<list-of>wishlist</list-of>
+		</resource>
+
+		<relationship>
+			<name>profile-to-wishlists</name>
+			<description><![CDATA[Retrieve a list of links to a shopper's wishlists]]></description>
+			<rel>wishlists</rel>
+			<rev>profile</rev>
+			<from>profiles.profile</from>
+			<to>wishlists</to>
+		</relationship>
+
+		<entity>
+			<name>wishlist</name>
+			<description><![CDATA[The wishlist.]]></description>
+			<property>
+				<name>wishlist-id</name>
+				<description><![CDATA[The wishlist identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<entity-type>wishlists.wishlist</entity-type>
+		</entity>
+	</family>
+
+</definitions>

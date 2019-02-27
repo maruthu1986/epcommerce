@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="ext-cm-webapp"
+      label="ext-cm-webapp"
+      version="0.0.0.qualifier"
+      provider-name="%featureProvider">
+
+    <includes id="com.elasticpath.cmclient.platform.feature" version="0.0.0"  />
+
+    <!-- OSGI Webconsole, for Development only, do not include in prod builds-->
+    <plugin id="org.apache.felix.webconsole" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+    <plugin id="org.apache.commons.fileupload" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+    <plugin id="org.json" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+    <plugin id="com.elasticpath.extensions.cm.ext-cm-libs" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+    <!-- Extension plugins -->
+
+    <plugin id="branding" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+    <plugin id="status" download-size="0" install-size="0" version="0.0.0" unpack="false"/>
+</feature>

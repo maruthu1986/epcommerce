@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	                       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- exclude the setting factory bean reference to replace coreShippingCalculationResultEhCache -->
+	<bean id="mockShippingCalculationResultCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheName" value="shippingCalculationResultCache"/>
+		<property name="cacheManager" ref="shippingEhcacheManager"/>
+		<property name="timeToLive" value="0"/>
+		<property name="timeToIdle" value="0"/>
+		<property name="maxElementsInMemory" value="0"/>
+		<property name="overflowToDisk" value="false"/>
+		<property name="statisticsEnabled" value="true"/>
+	</bean>
+
+	<bean id="mockShippingCalculationService" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.shipping.connectivity.service.ShippingCalculationService"/>
+	</bean>
+
+	<alias alias="shippingCalculationResultCache" name="mockShippingCalculationResultCache"/>
+
+	<!-- overriding and mocking beans in reference section -->
+	<alias alias="nonCachingShippingCalculationService" name="mockShippingCalculationService"/>
+
+</beans>

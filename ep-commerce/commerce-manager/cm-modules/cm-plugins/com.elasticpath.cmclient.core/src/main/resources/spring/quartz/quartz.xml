@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2017 Elastic Path Software Inc. All rights reserved.
+  -->
+
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<import resource="import-jobs.xml"/>
+
+	<bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers" ref="schedulingTriggers"/>
+		<property name="quartzProperties">
+			<props>
+				<prop key="org.quartz.scheduler.jmx.export">true</prop>
+				<prop key="org.quartz.scheduler.jmx.objectName">quartz:type=QuartzScheduler,name=CMJmxScheduler,instanceId=NONE_CLUSTER</prop>
+			</props>
+		</property>
+	</bean>
+
+	<util:list id="schedulingTriggers">
+		<ref bean="processImportJobTrigger"/>
+		<ref bean="importCSVFileCleanupTrigger"/>
+		<ref bean="staleFileCleanupJobTrigger"/>
+	</util:list>
+
+	<bean id="processImportJobTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="processImportJob"/>
+		<!-- Start delay in milliseconds: server will wait for this long before starting to process import jobs -->
+		<property name="startDelay" value="10000" />
+		<!-- Repeat interval in milliseconds: after the initial delay and first run, the server will process jobs every 'x' milliseconds -->
+		<property name="repeatInterval" value="5000" />
+	</bean>
+
+	<bean id="importCSVFileCleanupTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="importCSVFileCleanupProcessorJob"/>
+		<!-- run every day at midnight -->
+		<property name="cronExpression" value="0 0 0 * * ?"/>
+	</bean>
+
+	<bean id="staleFileCleanupJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="staleFileCleanupJob"/>
+		</property>
+		<!-- Runs at 2am -->
+		<property name="cronExpression" value="0 2 * * * ?" />
+	</bean>
+</beans>

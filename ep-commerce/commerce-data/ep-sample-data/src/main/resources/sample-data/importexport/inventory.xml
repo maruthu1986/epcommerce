@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<inventory>
+<sku code="Dig_MultiSku-Val1-Price-Prod"/>
+
+<sku code="Dig_MultiSku-Val2-Price-SKU"/>
+
+<sku code="Mix_Dig-Val2-NoInv"/>
+
+<sku code="Bun_Not_Sold_Sep"/>
+
+<sku code="Dig_Not_Sold_Sep"/>
+
+<sku code="Mix_Ship-Val3-NoInv"/>
+
+<sku code="Mix_Ship-Val1-Inv">
+    <warehouse code="Generic_Warehouse_B">
+        <onhand>5</onhand>
+        <available>5</available>
+        <allocated>0</allocated>
+        <reserved>0</reserved>
+        <reordermin>0</reordermin>
+        <reorderqty>1</reorderqty>
+    </warehouse>
+    <warehouse code="Generic_Warehouse_A">
+        <onhand>10</onhand>
+        <available>10</available>
+        <allocated>0</allocated>
+        <reserved>0</reserved>
+        <reordermin>0</reordermin>
+        <reorderqty>1</reorderqty>
+    </warehouse>
+</sku>
+
+<sku code="Dig_Non-Discountable"/>
+
+<sku code="Ship_Not_Visible"/>
+
+<sku code="Dig_Min_Qty_5"/>
+
+<sku code="Dig_Not_Visible"/>
+
+<sku code="Dig_MultiSku-Val1-productTax"/>
+
+<sku code="excluded_Product"/>
+
+<sku code="Dig_Multi-Category"/>
+
+<sku code="configProduct_SKU1"/>
+
+<sku code="Dig_MultiSku-Val2-Tax1"/>
+
+<sku code="Dig_MultiSku-Val3-Tax2"/>
+
+<sku code="Dig_MultiSku-Val4-noTax"/>
+
+<sku code="usedMerchandising_CrossSell1"/>
+
+<sku code="merchandising_CrossSell"/>
+
+<sku code="merchandising_Upsell"/>
+
+<sku code="product_inExcludedCategory"/>
+
+<sku code="usedMerchandising_CrossSell5"/>
+
+<sku code="usedMerchandising_CrossSell4"/>
+
+<sku code="usedMerchandising_CrossSell3"/>
+
+<sku code="usedMerchandising_CrossSell2"/>
+
+<sku code="usedMerchandising_UpSell3"/>
+
+<sku code="usedMerchandising_UpSell2"/>
+
+<sku code="usedMerchandising_UpSell1"/>
+
+<sku code="usedMerchandising_CrossSell6"/>
+
+<sku code="usedMerchandising_Accessory3"/>
+
+<sku code="usedMerchandising_Accessory2"/>
+
+<sku code="usedMerchandising_Accessory1"/>
+
+<sku code="usedMerchandising_Warrenty1"/>
+
+<sku code="usedMerchandising_Replacement1"/>
+
+<sku code="usedMerchandising_Accessory6"/>
+
+<sku code="usedMerchandising_Accessory5"/>
+
+<sku code="usedMerchandising_Accessory4"/>
+
+<sku code="merchandising_Replacement"/>
+
+<sku code="merchandising_Accessory"/>
+
+<sku code="merchandising_Warranty"/>
+
+<sku code="cartPromo_profileAttribute1"/>
+
+<sku code="cartPromo_timeDisabled"/>
+
+<sku code="cartPromo_timeEnabled"/>
+
+<sku code="foundProduct_inExcludedCategory"/>
+
+<sku code="cartPromo_Segment"/>
+
+<sku code="bundle_Constituent3"/>
+
+<sku code="bundle_Constituent2"/>
+
+<sku code="bundle_Constituent1"/>
+
+<sku code="bundle_Constituent8"/>
+
+<sku code="bundle_Constituent7"/>
+
+<sku code="bundle_Constituent6"/>
+
+<sku code="bundleNested_CalculatedDynamic"/>
+
+<sku code="bundleNested_CalculatedFixed"/>
+
+<sku code="bundleNested_AssignedDynamic"/>
+
+<sku code="bundleNested_AssignedFixed"/>
+
+<sku code="bundle_CalculatedFixed_Nested"/>
+
+<sku code="bundle_AssignedFixed_Nested"/>
+
+<sku code="bundle_CalculatedFixed"/>
+
+<sku code="bundle_AssignedFixed"/>
+
+<sku code="bundle_AssignedFixed_noInv"/>
+
+<sku code="bundle_Constituent5_multiSKU2"/>
+
+<sku code="bundle_Constituent5_multiSKU1"/>
+
+<sku code="bundle_Constituent4_noInv"/>
+
+<sku code="bundle_Constituent9"/>
+
+<sku code="bundle_CalculatedFixed_constituentSKU"/>
+
+<sku code="bundle_AssignedFixed_constituentSKU"/>
+
+<sku code="bundle_CalculatedFixed_noInv"/>
+
+<sku code="hummingbird_100"/>
+
+<sku code="hummingbird_50"/>
+
+<sku code="bundle_CalculatedFixed_mixed"/>
+
+<sku code="berries_20"/>
+
+<sku code="bundle_AssignedFixed_mixed"/>
+
+<sku code="berries_50"/>
+
+<sku code="hummingbird_20"/>
+
+<sku code="berries_100"/>
+
+<sku code="Ship_Single_Sku_Always-Avail"/>
+
+<sku code="Ship_Single_Sku_Back_Order"/>
+
+<sku code="Ship_Single_Sku_Pre_Order"/>
+
+<sku code="Ship_Sku_Expired-Inv"/>
+
+<sku code="Ship_Single_Sku_Always-Avail_NoInv"/>
+
+<sku code="Ship_Single_Sku_InStock-Inv">
+    <warehouse code="Generic_Warehouse_B">
+        <onhand>20</onhand>
+        <available>20</available>
+        <allocated>0</allocated>
+        <reserved>0</reserved>
+        <reordermin>0</reordermin>
+        <reorderqty>1</reorderqty>
+    </warehouse>
+    <warehouse code="Generic_Warehouse_A">
+        <onhand>10</onhand>
+        <available>10</available>
+        <allocated>0</allocated>
+        <reserved>0</reserved>
+        <reordermin>0</reordermin>
+        <reorderqty>1</reorderqty>
+    </warehouse>
+</sku>
+
+<sku code="Ship_Single_Sku_InStock-NoInv"/>
+
+<sku code="Ship_MultiSku-Val2-Inv">
+    <warehouse code="Generic_Warehouse_B">
+        <onhand>10</onhand>
+        <available>10</available>
+        <allocated>0</allocated>
+        <reserved>0</reserved>
+        <reordermin>0</reordermin>
+        <reorderqty>1</reorderqty>
+    </warehouse>
+    <warehouse code="Generic_Warehouse_A">
+        <onhand>15</onhand>
+        <available>15</available>
+        <allocated>0</allocated>
+        <reserved>0</reserved>
+        <reordermin>0</reordermin>
+        <reorderqty>1</reorderqty>
+    </warehouse>
+</sku>
+
+<sku code="Ship_MultiSku-Val1-Inv">
+    <warehouse code="Generic_Warehouse_B">
+        <onhand>5</onhand>
+        <available>5</available>
+        <allocated>0</allocated>
+        <reserved>0</reserved>
+        <reordermin>0</reordermin>
+        <reorderqty>1</reorderqty>
+    </warehouse>
+    <warehouse code="Generic_Warehouse_A">
+        <onhand>10</onhand>
+        <available>10</available>
+        <allocated>0</allocated>
+        <reserved>0</reserved>
+        <reordermin>0</reordermin>
+        <reorderqty>1</reorderqty>
+    </warehouse>
+</sku>
+
+<sku code="localized_SKU"/>
+
+<sku code="Ship_Sku_Expired-NoInv"/>
+
+<sku code="Dig_MultiSku-Val3-Price-SKU"/>
+
+<sku code="Dig_MultiSku-Val4-Price-Prod"/>
+
+<sku code="Ship_MultiSku-Val3-NoInv">
+    <warehouse code="Generic_Warehouse_B">
+        <onhand>1</onhand>
+        <available>1</available>
+        <allocated>0</allocated>
+        <reserved>0</reserved>
+        <reordermin>0</reordermin>
+        <reorderqty>1</reorderqty>
+    </warehouse>
+</sku>
+
+<sku code="Ship_MultiSku-Val4-Inv">
+    <warehouse code="Generic_Warehouse_B">
+        <onhand>15</onhand>
+        <available>15</available>
+        <allocated>0</allocated>
+        <reserved>0</reserved>
+        <reordermin>0</reordermin>
+        <reorderqty>1</reorderqty>
+    </warehouse>
+    <warehouse code="Generic_Warehouse_A">
+        <onhand>20</onhand>
+        <available>20</available>
+        <allocated>0</allocated>
+        <reserved>0</reserved>
+        <reordermin>0</reordermin>
+        <reorderqty>1</reorderqty>
+    </warehouse>
+</sku>
+</inventory>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bundles>
+    <bundle code="galaxys2withphoneplan">
+        <constituents>
+            <constituent>
+                <guid>5dcf6d2e-39ef-44bb-878c-cc1c4e504da0</guid>
+                <code type="product">galaxys2</code>
+                <quantity>1</quantity>
+                <ordering>0</ordering>
+                <price_adjustments/>
+            </constituent>
+            <constituent>
+                <guid>1d617d21-2260-449d-907b-9025584a8596</guid>
+                <code type="sku">phone_plan_mon_sku</code>
+                <quantity>1</quantity>
+                <ordering>1</ordering>
+                <price_adjustments/>
+            </constituent>
+            <constituent>
+                <guid>63b8e04a-2b26-4be4-a5cc-75928b1fe855</guid>
+                <code type="product">mobileservices</code>
+                <quantity>1</quantity>
+                <ordering>2</ordering>
+                <price_adjustments/>
+            </constituent>
+            <constituent>
+                <guid>e2268db3-8a8d-4fa8-acfc-fb79caafbdc6</guid>
+                <code type="product">mobilefreebies</code>
+                <quantity>1</quantity>
+                <ordering>3</ordering>
+                <price_adjustments/>
+            </constituent>
+        </constituents>
+    </bundle>
+
+    <bundle code="mobilefreebies">
+        <constituents>
+            <constituent>
+                <guid>b06dfceb-6449-4da4-b643-732ac5aca63f</guid>
+                <code type="sku">spotify_mon</code>
+                <quantity>1</quantity>
+                <ordering>0</ordering>
+                <price_adjustments>
+                    <adjustment>
+                        <guid>6988792b-9878-431d-a556-a442fa857252</guid>
+                        <price_list_guid>1A971BA1-D81F-A164-0FF0-53817D83B107</price_list_guid>
+                        <adjustment_amount>-14.00</adjustment_amount>
+                    </adjustment>
+                </price_adjustments>
+            </constituent>
+            <constituent>
+                <guid>4ea641e9-b4c5-4752-a7f0-32fa39812c59</guid>
+                <code type="sku">facebook_mon</code>
+                <quantity>1</quantity>
+                <ordering>1</ordering>
+                <price_adjustments>
+                    <adjustment>
+                        <guid>3be0cbd7-db22-4def-8008-7db628ef5dcf</guid>
+                        <price_list_guid>1A971BA1-D81F-A164-0FF0-53817D83B107</price_list_guid>
+                        <adjustment_amount>-10.00</adjustment_amount>
+                    </adjustment>
+                </price_adjustments>
+            </constituent>
+            <constituent>
+                <guid>2b83429d-fc1d-45f1-8f42-96980f9fa52f</guid>
+                <code type="sku">nba_mon</code>
+                <quantity>1</quantity>
+                <ordering>2</ordering>
+                <price_adjustments>
+                    <adjustment>
+                        <guid>c0d15ed6-1743-42b5-8e84-ecb9a0d3e5b5</guid>
+                        <price_list_guid>1A971BA1-D81F-A164-0FF0-53817D83B107</price_list_guid>
+                        <adjustment_amount>-12.00</adjustment_amount>
+                    </adjustment>
+                </price_adjustments>
+            </constituent>
+        </constituents>
+        <selectionrule>
+            <selectionparameter>1</selectionparameter>
+        </selectionrule>
+    </bundle>
+
+    <bundle code="mobileservices">
+        <constituents>
+            <constituent>
+                <guid>ce4e240f-55fc-4ffc-9f04-4dd85fc10814</guid>
+                <code type="sku">nba_mon</code>
+                <quantity>1</quantity>
+                <ordering>0</ordering>
+                <price_adjustments/>
+            </constituent>
+            <constituent>
+                <guid>080352cb-7029-4896-b225-0073d9b4982a</guid>
+                <code type="sku">facebook_mon</code>
+                <quantity>1</quantity>
+                <ordering>1</ordering>
+                <price_adjustments/>
+            </constituent>
+            <constituent>
+                <guid>cbb5bd69-52bc-4345-9117-096dbbad27ee</guid>
+                <code type="sku">spotify_mon</code>
+                <quantity>1</quantity>
+                <ordering>2</ordering>
+                <price_adjustments/>
+            </constituent>
+        </constituents>
+        <selectionrule>
+            <selectionparameter>3</selectionparameter>
+        </selectionrule>
+    </bundle>
+</bundles>

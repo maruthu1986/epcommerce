@@ -1,0 +1,18 @@
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Widget.html#ErrorBox
+ErrorBox {
+	background-color: $widget_body_color;;
+	color: $default-font-color;
+	border: 1px solid $danger-color;
+	border-radius: $widget_border_radius;
+	font: $default-font;
+	box-shadow: $modal-shadow;
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Widget.html#ErrorBox-Titlebar
+	&-Titlebar {
+		background-color: $danger-color4;
+		background-image: none;
+		border-bottom: 1px solid $danger-color; // border NOT WORKING!!
+		font: $large-font;
+		color: $danger-color;
+	}
+}

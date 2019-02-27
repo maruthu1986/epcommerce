@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>itemdefinitions</name>
+		<description>
+			<![CDATA[
+An item definition describes the item. The item's name, media [assets][assets] (pictures of the item), options, components, from price, and details describing the item's characteristics are all part of the item definitions.
+Not every item definition contains assets, options, components, etc. What is available on the item definition depends on
+the item and how your storefront has implemented Cortex API. Some resources may be customized for your implementation, so more, or even less details may exist.
+
+[assets]: #assets
+			]]>
+		</description>
+
+		<uri-part>
+			<name>option-id</name>
+			<description><![CDATA[The option ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<uri-part>
+			<name>option-value-id</name>
+			<description><![CDATA[The option value ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>item-definition</name>
+			<description><![CDATA[An item's definition, which includes its name, media assets (pictures of the item), options, components, from price, and details.]]></description>
+			<uri>{base.family}/{base.scope}/{items.item-id}</uri>
+			<entity>item-definition</entity>
+		</resource>
+
+		<relationship>
+			<name>item-definition-for-item</name>
+			<description><![CDATA[Read the item definition from the item.]]></description>
+			<rel>definition</rel>
+			<rev>item</rev>
+			<from>items.item</from>
+			<to>item-definition</to>
+		</relationship>
+
+		<resource>
+			<name>item-definition-options</name>
+			<description><![CDATA[The list of item definition options.]]></description>
+			<uri>{item-definition}/options</uri>
+			<list-of>item-definition-option</list-of>
+		</resource>
+
+		<relationship>
+			<name>options-for-item-definition</name>
+			<description><![CDATA[Read the options for an item definition.]]></description>
+			<rel>options</rel>
+			<from>item-definition</from>
+			<to>item-definition-options</to>
+		</relationship>
+
+		<resource>
+			<name>item-definition-option</name>
+			<description><![CDATA[The item definition option.]]></description>
+			<uri>{item-definition-options}/{option-id}</uri>
+			<entity>item-definition-option</entity>
+		</resource>
+
+		<relationship>
+			<name>value-for-item-definition-option</name>
+			<description><![CDATA[Read the item definition option value.]]></description>
+			<rel>value</rel>
+			<rev>option</rev>
+			<from>item-definition-option</from>
+			<to>item-definition-option-value</to>
+		</relationship>
+
+		<resource>
+			<name>item-definition-option-value</name>
+			<description><![CDATA[The item definition option value.]]></description>
+			<uri>{item-definition-option}/values/{option-value-id}</uri>
+			<entity>item-definition-option-value</entity>
+		</resource>
+
+		<entity>
+			<name>item-definition</name>
+			<description><![CDATA[An item definition is a description of an item.]]></description>
+			<property>
+				<name>item-id</name>
+				<description><![CDATA[item identification.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[The localized name of the item definition, intended for display in the client application.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>details</name>
+				<description><![CDATA[The details of the item definition.]]></description>
+				<array>
+					<is-a>base.details</is-a>
+				</array>
+			</property>
+			<entity-type>elasticpath.itemdefinitions.item-definition</entity-type>
+		</entity>
+
+		<entity>
+			<name>item-definition-option</name>
+			<description><![CDATA[The item definition option]]></description>
+			<property>
+				<name>item-id</name>
+				<description><![CDATA[The internal item identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[The localized name of the item definition option, intended for display in the client application.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>name</name>
+				<description><![CDATA[The name of the item definition option.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>option-id</name>
+				<description><![CDATA[The internal option identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>option-value-id</name>
+				<description><![CDATA[The internal option value identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>component-id</name>
+				<description><![CDATA[The internal component identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<entity-type>elasticpath.itemdefinitions.option</entity-type>
+		</entity>
+
+		<entity>
+			<name>item-definition-option-value</name>
+			<description><![CDATA[The description of the item definition option that is currently selected.]]></description>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[The localized name of the item definition option value, intended for display in the client application.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>name</name>
+				<description><![CDATA[The name of the item definition option value.]]></description>
+				<string/>
+			</property>
+			<entity-type>elasticpath.itemdefinitions.value</entity-type>
+		</entity>
+
+	</family>
+</definitions>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>orders</name>
+		<description><![CDATA[Advisors on the order resource]]></description>
+
+		<advisor>
+			<name>order-validation-info</name>
+			<description>Advisor on the order for validation violations.</description>
+			<advises>orders.order</advises>
+		</advisor>
+	</family>
+</definitions>

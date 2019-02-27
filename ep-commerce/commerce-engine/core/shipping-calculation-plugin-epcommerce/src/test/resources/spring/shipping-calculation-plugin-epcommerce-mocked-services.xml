@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	                       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<bean id="shippingServiceLevelService" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.service.shipping.ShippingServiceLevelService"/>
+	</bean>
+
+	<!--<bean id="shippingCalculationResultBuilderSupplier" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">-->
+	<!--<property name="serviceInterface" value="java.util.function.Supplier"/>-->
+	<!--</bean>-->
+
+	<!--<bean id="shippingOptionBuilderSupplier" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">-->
+	<!--<property name="serviceInterface" value="java.util.function.Supplier"/>-->
+	<!--</bean>-->
+
+	<bean id="productSkuLookup" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.service.catalog.ProductSkuLookup"/>
+	</bean>
+
+	<bean id="shippingOptionTransformer" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.service.shipping.ShippingOptionTransformer"/>
+	</bean>
+
+	<bean id="pricedShippableItemContainerTransformer" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.service.shipping.transformers.PricedShippableItemContainerTransformer"/>
+	</bean>
+	<bean id="pricingSnapshotService" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.service.shoppingcart.PricingSnapshotService"/>
+	</bean>
+	<bean id="shippingCalculationService" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.shipping.connectivity.service.ShippingCalculationService"/>
+	</bean>
+
+</beans>

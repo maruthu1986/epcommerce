@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:settings="http://www.elasticpath.com/schema/settings"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			http://www.elasticpath.com/schema/settings http://www.elasticpath.com/schema/settings/settings.xsd
+	">
+
+	<context:annotation-config/>
+
+	<import resource="classpath:integration-core-context.xml" />
+	<import resource="classpath:ep-test-application.xml" />
+	<import resource="classpath:integration-checkout-context.xml" />
+	<import resource="classpath:spring/core-caching/cache-manager.xml" />
+	<import resource="classpath:spring/core-caching/cache-factory.xml" />
+	<import resource="classpath:spring/core-caching/cache-pricing.xml" />
+
+	<bean id="productRecommendationService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.catalog.impl.ProductRecommendationServiceImpl">
+				<property name="productService" ref="productService"/>
+				<property name="productAssociationService" ref="productAssociationService"/>
+				<property name="storeService" ref="nonCachingStoreService"/>
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="timeService" ref="timeService"/>
+				<property name="maxHistoryDaysSettingProvider">
+					<settings:setting path="COMMERCE/STORE/PRODUCTRECOMMENDATIONS/numberOrderHistoryDays"/>
+				</property>
+				<property name="maxRecommendationsSettingProvider">
+					<settings:setting path="COMMERCE/STORE/PRODUCTRECOMMENDATIONS/numberMaxRecommendations"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+    <bean id="solrIndexConstantFactory" class="com.elasticpath.service.search.impl.SolrIndexConstantFactoryImpl">
+		<property name="indexTypesMap">
+			<map>
+				<entry key="product" value="product" />
+				<entry key="customer" value="customer" />
+				<entry key="category" value="category" />
+				<!-- We don't like order indexes in the tests... not sure why. -->
+<!-- 				<entry key="order" value="order" /> -->
+<!-- 				<entry key="orderreturn" value="orderreturn" /> -->
+				<entry key="promotion" value="promotion" />
+				<entry key="cmuser" value="cmuser" />
+				<entry key="shippingservicelevel" value="shippingservicelevel" />
+				<entry key="sku" value="sku" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- for concurrency test purpose -->
+	<bean id="syncedInventoryJournalRollupService1" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.test.integration.inventory.SyncedInventoryJournalRollupServiceImpl1">
+				<property name="inventoryJournalDao" ref="inventoryJournalDao" />
+				<property name="inventoryJournalLockDao" ref="inventoryJournalLockDao" />
+				<property name="beanFactory" ref="coreBeanFactory"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="syncedInventoryJournalRollupService2" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.test.integration.inventory.SyncedInventoryJournalRollupServiceImpl2">
+				<property name="inventoryJournalDao" ref="inventoryJournalDao" />
+				<property name="inventoryJournalLockDao" ref="inventoryJournalLockDao" />
+				<property name="beanFactory" ref="coreBeanFactory"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="cyberSourceSubscriberFactory" class="com.elasticpath.paymentgateways.cybersource.impl.CyberSourceTestSubscriberFactoryImpl"/>
+
+	<!-- Extension point for plugging in additional test components. -->
+	<!-- This must occur as the last import in the context to facilitate overriding existing beans. -->
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/ep-itest-plugin.xml" />
+
+</beans>

@@ -1,0 +1,1172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<productcategoryassociations>
+<product code="giftCertificate_Mobee">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Misc_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Mobile">
+        <category code="GiftCertificate">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="MobileCatalog">
+        <category code="GiftCertificate">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Ship_Single_Sku_Pre_Order">
+    <catalog code="Master_A">
+        <category code="Sellable_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Single_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Single_SKU_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Sellable_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Ship_Single_Sku_Back_Order">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Single_SKU_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Sellable_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="Single_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Sellable_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Ship_Single_Sku_Always-Avail">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Single_SKU_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Sellable_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="Sellable_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Single_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Ship_Single_Sku_InStock-NoInv">
+    <catalog code="Master_A">
+        <category code="Single_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Non_Sell_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Single_SKU_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Non_Sell_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Ship_Single_Sku_InStock-Inv">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Single_SKU_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Sellable_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="Sellable_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Single_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Ship_Single_Sku_Always-Avail_NoInv">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Single_SKU_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Sellable_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="Sellable_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Single_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Ship_Sku_Expired-Inv">
+    <catalog code="Master_A">
+        <category code="Non_Sell_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Single_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Non_Sell_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Single_SKU_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Ship_Sku_Expired-NoInv">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Single_SKU_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Non_Sell_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="Single_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Non_Sell_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="localized_SKU">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Special_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Special_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Ship_MultiSku-Inv">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Mulit_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="Mulit_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Dig_MultiSku-Price">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Mulit_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="Mulit_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Dig_MultiSku-Tax-SKU">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Mulit_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="Mulit_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Mix_MultiSku-SKU-Type">
+    <catalog code="Master_A">
+        <category code="Mulit_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Dig_Not_Sold_Sep">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Non_Sell_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="Mulit_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Non_Sell_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Bun_Not_Sold_Sep">
+    <catalog code="Master_A">
+        <category code="Sellable_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Sellable_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Dig_Not_Visible">
+    <catalog code="Master_A">
+        <category code="Non_Sell_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Non_Sell_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Ship_Not_Visible">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Non_Sell_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="Non_Sell_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Dig_Non-Discountable">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Special_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Special_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Dig_Multi-Category">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Mulit_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="Mulit_SKU_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+        <category code="Sellable_Products">
+            <default>false</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="Dig_Min_Qty_5">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Special_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Special_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="excluded_Product">
+    <catalog code="Master_B">
+        <category code="Special_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="configurable_Produc">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Special_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Special_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="product_inExcludedCategory">
+    <catalog code="Master_B">
+        <category code="excluded_Category">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="merchandising_Upsell">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="merchandising_CrossSell">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_CrossSell1">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_CrossSell2">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_CrossSell3">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_CrossSell4">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_CrossSell5">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_CrossSell6">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_UpSell1">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_UpSell2">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_UpSell3">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_Warrenty1">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_Accessory1">
+    <catalog code="Master_A">
+        <category code="Merchandized_Products2">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandized_Products2">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_Accessory2">
+    <catalog code="Master_A">
+        <category code="Merchandized_Products2">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandized_Products2">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_Accessory3">
+    <catalog code="Master_A">
+        <category code="Merchandized_Products2">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandized_Products2">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_Accessory4">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandized_Products2">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="Merchandized_Products2">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_Accessory5">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandized_Products2">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="Merchandized_Products2">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_Accessory6">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandized_Products2">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="Merchandized_Products2">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="usedMerchandising_Replacement1">
+    <catalog code="Master_A">
+        <category code="Merchandized_Products2">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandized_Products2">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="merchandising_Warranty">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="merchandising_Accessory">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="merchandising_Replacement">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="Merchandised_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="foundProduct_inExcludedCategory">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="Misc_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_B">
+        <category code="excluded_Category">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="cartPromo_timeEnabled">
+    <catalog code="Master_A">
+        <category code="promotedProducts">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="promotedProducts">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="cartPromo_timeDisabled">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="promotedProducts">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="promotedProducts">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="cartPromo_profileAttribute1">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="promotedProducts">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="promotedProducts">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="cartPromo_Segment">
+    <catalog code="Master_A">
+        <category code="promotedProducts">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="promotedProducts">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_Constituent1">
+    <catalog code="Master_A">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_Constituent2">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_Constituent3">
+    <catalog code="Master_A">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_Constituent6">
+    <catalog code="Master_A">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_Constituent7">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_Constituent8">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundleNested_AssignedFixed">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundleNested_CalculatedDynamic">
+    <catalog code="Master_A">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_AssignedFixed">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundleNested_AssignedDynamic">
+    <catalog code="Master_A">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundleNested_CalculatedFixed">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_CalculatedFixed">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_AssignedFixed_Nested">
+    <catalog code="Master_A">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_CalculatedFixed_Nested">
+    <catalog code="Master_A">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_Constituent4_noInv">
+    <catalog code="Master_A">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_Constituent5_multiSKU">
+    <catalog code="Master_A">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_AssignedFixed_noInv">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_CalculatedFixed_noInv">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_AssignedFixed_constituentSKU">
+    <catalog code="Master_A">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_CalculatedFixed_constituentSKU">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_Constituent9">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="bundle_Constituents">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_AssignedFixed_mixed">
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Master_A">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+
+<product code="bundle_CalculatedFixed_mixed">
+    <catalog code="Master_A">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+    <catalog code="Virtual_CatAB_SP">
+        <category code="bundled_Products">
+            <default>true</default>
+            <featuredorder>0</featuredorder>
+        </category>
+    </catalog>
+</product>
+</productcategoryassociations>

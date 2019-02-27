@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<context:annotation-config/>
+
+	<import resource="classpath:integration-core-context.xml"/>
+	<import resource="classpath:ep-test-application.xml"/>
+	<import resource="classpath*:spring/sync-tool-context.xml" />
+
+	<bean id="syncSourceDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="url" value="${sync.source.db.url}"/>
+		<property name="username" value="${sync.source.db.connection.username}"/>
+		<property name="password" value="${sync.source.db.connection.password}"/>
+		<property name="driverClassName" value="${sync.source.db.connection.driver_class}"/>
+	</bean>
+
+	<bean id="syncTargetDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="url" value="${sync.target.db.url}"/>
+		<property name="username" value="${sync.target.db.connection.username}"/>
+		<property name="password" value="${sync.target.db.connection.password}"/>
+		<property name="driverClassName" value="${sync.target.db.connection.driver_class}"/>
+	</bean>
+
+	<bean id="preEntityManagerInitializationList" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<ref bean="liquibaseCoreSchemaInitializerForTestApplication"/>
+				<ref bean="liquibaseCoreSchemaInitializerForSyncSourceDb" />
+				<ref bean="liquibaseCoreSchemaInitializerForSyncTargetDb" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="liquibaseCoreSchemaInitializerForSyncSourceDb" class="liquibase.integration.spring.SpringLiquibase" scope="prototype"
+		  lazy-init="true">
+		<property name="dataSource" ref="syncSourceDataSource" />
+		<property name="changeLog" value="classpath:liquibase/elasticpath-db-changelog.xml" />
+	</bean>
+
+	<bean id="liquibaseCoreSchemaInitializerForSyncTargetDb" class="liquibase.integration.spring.SpringLiquibase" scope="prototype"
+		  lazy-init="true">
+		<property name="dataSource" ref="syncTargetDataSource" />
+		<property name="changeLog" value="classpath:liquibase/elasticpath-db-changelog.xml" />
+	</bean>
+
+	<bean id="syncToolConfiguration" class="com.elasticpath.tools.sync.client.impl.SyncToolConfigurationImpl">
+		<property name="controllerType">
+			<bean class="com.elasticpath.tools.sync.client.SyncToolControllerType" factory-method="valueOf">
+				<constructor-arg value="EXPORT" />
+			</bean>
+		</property>
+		<property name="sourceConfig" ref="sourceConnectionConfiguration" />
+		<property name="targetConfig" ref="targetConnectionConfiguration" />
+	</bean>
+
+	<bean id="connectionConfigurationDao" class="com.elasticpath.tools.sync.configuration.dao.impl.ConnectionConfigurationDaoImpl" />
+
+	<bean id="sourceConnectionConfiguration" class="com.elasticpath.tools.sync.configuration.ConnectionConfiguration"
+		  factory-bean="connectionConfigurationDao" factory-method="load">
+		<constructor-arg value="classpath:sourceconfig.xml" />
+	</bean>
+
+	<bean id="targetConnectionConfiguration" class="com.elasticpath.tools.sync.configuration.ConnectionConfiguration"
+		  factory-bean="connectionConfigurationDao" factory-method="load">
+		<constructor-arg value="classpath:targetconfig.xml" />
+	</bean>
+
+	<bean id="customerEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher" />
+	</bean>
+
+	<bean id="orderEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher" />
+	</bean>
+
+	<!-- CACHING -->
+
+	<bean id="applicationName" class="java.lang.String">
+		<constructor-arg value="DataSyncSource"/>
+	</bean>
+
+	<alias name="defaultCacheManager" alias="epCoreEhcacheManager"/>
+	<alias name="defaultCacheManager" alias="epEhcacheManager"/>
+
+	<bean id="defaultCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+		  destroy-method="destroy">
+		<property name="cacheManagerName" value="#{applicationName}-CacheManager"/>
+		<property name="shared" value="false"/>
+		<property name="configLocation" value="#{ehCacheConfigurationLoader.resource}"/>
+	</bean>
+
+	<bean id="ehCacheConfigurationLoader" class="com.elasticpath.commons.util.EhcacheConfigurationLoader">
+		<property name="pathname" value="${ep.external.datasync.source.ehcache.xml.path:null}"/>
+	</bean>
+
+
+	<import resource="classpath:spring/core-caching/cache-rules.xml"/>
+	<import resource="classpath:spring/core-caching/cache-factory.xml"/>
+	<import resource="classpath:spring/core-caching/cache-core.xml"/>
+	<import resource="classpath:spring/core-caching/cache-catalog.xml"/>
+
+	<bean factory-bean="productLookupProxy" factory-method="bindImplementation">
+		<constructor-arg ref="cachingProductLookup"/>
+	</bean>
+
+	<bean factory-bean="ProductSkuLookupProxy" factory-method="bindImplementation">
+		<constructor-arg ref="cachingProductSkuLookup"/>
+	</bean>
+
+
+	<!-- Extension point for plugging in additional test components. -->
+	<!-- This must occur as the last import in the context to facilitate overriding existing beans. -->
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/ep-itest-plugin.xml"/>
+</beans>

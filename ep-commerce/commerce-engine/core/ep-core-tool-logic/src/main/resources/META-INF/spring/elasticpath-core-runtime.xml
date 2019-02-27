@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		">
+
+	<!-- No idea. -->
+	<bean id="servicePreInterceptors" class="java.util.ArrayList" />
+
+	<bean id="dataSource" class="com.elasticpath.epcoretool.DataSourceFactory" destroy-method="close"/>
+
+	<import resource="classpath:spring/service/service.xml" />
+	<import resource="classpath:spring/prototypes/prototypes.xml"/>
+	<import resource="classpath:spring/models/domainModel.xml" />
+	<import resource="classpath:spring/dataaccess/openjpa/openjpa.xml" />
+	<import resource="classpath:spring/dataaccess/dao.xml" />
+	<import resource="classpath:spring/commons/util-config.xml" />
+	<import resource="classpath:spring/commons/validators.xml" />
+	<import resource="classpath:spring/service/serviceSearch.xml" />
+
+    <bean id="entityManagerFactory" parent="abstractEntityManagerFactory">
+        <property name="jpaPropertyMap">
+            <map>
+                <entry key="openjpa.MetaDataRepository" value="Preload=false"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="elasticPath"
+		class="com.elasticpath.domain.impl.ElasticPathImpl"
+		factory-method="getInstance">
+		<property name="beanFactory" ref="coreBeanFactory" />
+	</bean>
+
+	<bean id="environmentInfoService" class="com.elasticpath.service.environment.impl.EmbeddedEnvironmentInfoService">
+		<property name="applicationRootPath" value="target"/>
+		<property name="configurationRootPath" value="target"/>
+	</bean>
+
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/plugin.xml"/>
+
+	<!-- Opt out of messaging. -->
+	<bean id="eventMessageFactory" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.factory.EventMessageFactory"/>
+	</bean>
+
+	<bean id="customerEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher" />
+	</bean>
+
+	<bean id="orderEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher"/>
+	</bean>
+
+    <context:property-placeholder ignore-resource-not-found="true" system-properties-mode="OVERRIDE"
+        location="
+                  classpath*:META-INF/elasticpath/conf/spring/plugin.properties,
+                  classpath:module.properties,
+                  file:/etc/ep/ep.properties,
+                  file:/ep/conf/ep.properties,
+                  file:${user.home}/ep/ep.properties,
+                  file:${user.home}/ep/conf/ep.properties,
+                  "/>
+
+</beans>

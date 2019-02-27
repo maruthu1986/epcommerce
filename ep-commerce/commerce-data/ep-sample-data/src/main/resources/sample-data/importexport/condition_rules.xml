@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<condition_rules>
+<rule>
+    <code>0754357c-6412-4df8-87db-2f351a0cdd15</code>
+    <conditions>
+        <and>
+            <condition>
+                <kind>Condition</kind>
+                <type>productInCartCondition</type>
+                <parameters>
+                    <parameter>
+                        <key>numItemsQuantifier</key>
+                        <value>AT_LEAST</value>
+                    </parameter>
+                    <parameter>
+                        <key>productCode</key>
+                        <value>Dig_Non-Discountable</value>
+                    </parameter>
+                    <parameter>
+                        <key>numItems</key>
+                        <value>1</value>
+                    </parameter>
+                </parameters>
+                <exceptions/>
+            </condition>
+        </and>
+    </conditions>
+    <actions>
+        <action>
+            <type>ShoppingCartPromotion</type>
+            <code>0754357c-6412-4df8-87db-2f351a0cdd15</code>
+        </action>
+    </actions>
+</rule>
+
+<rule>
+    <code>1e230b8b-b8aa-4773-86b0-9cb314477053</code>
+    <conditions>
+        <and>
+            <condition>
+                <kind>Condition</kind>
+                <type>limitedUseCouponCodeCondition</type>
+                <parameters/>
+                <exceptions/>
+            </condition>
+            <and>
+                <condition>
+                    <kind>Condition</kind>
+                    <type>productInCartCondition</type>
+                    <parameters>
+                        <parameter>
+                            <key>productCode</key>
+                            <value>Dig_Non-Discountable</value>
+                        </parameter>
+                        <parameter>
+                            <key>numItemsQuantifier</key>
+                            <value>AT_LEAST</value>
+                        </parameter>
+                        <parameter>
+                            <key>numItems</key>
+                            <value>1</value>
+                        </parameter>
+                    </parameters>
+                    <exceptions/>
+                </condition>
+            </and>
+        </and>
+    </conditions>
+    <actions>
+        <action>
+            <type>ShoppingCartPromotion</type>
+            <code>1e230b8b-b8aa-4773-86b0-9cb314477053</code>
+        </action>
+    </actions>
+</rule>
+
+<rule>
+    <code>449d6c50-cbec-4203-86d0-7f5886def9ba</code>
+    <conditions>
+        <and>
+            <condition>
+                <kind>Condition</kind>
+                <type>productInCartCondition</type>
+                <parameters>
+                    <parameter>
+                        <key>numItems</key>
+                        <value>1</value>
+                    </parameter>
+                    <parameter>
+                        <key>numItemsQuantifier</key>
+                        <value>AT_LEAST</value>
+                    </parameter>
+                    <parameter>
+                        <key>productCode</key>
+                        <value>cartPromo_timeEnabled</value>
+                    </parameter>
+                </parameters>
+                <exceptions/>
+            </condition>
+        </and>
+    </conditions>
+    <actions>
+        <action>
+            <type>ShoppingCartPromotion</type>
+            <code>449d6c50-cbec-4203-86d0-7f5886def9ba</code>
+        </action>
+    </actions>
+</rule>
+
+<rule>
+    <code>38aaf615-e499-4113-87f2-4130d703a416</code>
+    <conditions>
+        <and>
+            <condition>
+                <kind>Condition</kind>
+                <type>productInCartCondition</type>
+                <parameters>
+                    <parameter>
+                        <key>numItemsQuantifier</key>
+                        <value>AT_LEAST</value>
+                    </parameter>
+                    <parameter>
+                        <key>productCode</key>
+                        <value>cartPromo_timeDisabled</value>
+                    </parameter>
+                    <parameter>
+                        <key>numItems</key>
+                        <value>1</value>
+                    </parameter>
+                </parameters>
+                <exceptions/>
+            </condition>
+        </and>
+    </conditions>
+    <actions>
+        <action>
+            <type>ShoppingCartPromotion</type>
+            <code>38aaf615-e499-4113-87f2-4130d703a416</code>
+        </action>
+    </actions>
+</rule>
+
+<rule>
+    <code>6f12f328-aeca-4d56-b458-9a2eeb21494e</code>
+    <conditions>
+        <and>
+            <condition>
+                <kind>Condition</kind>
+                <type>productInCartCondition</type>
+                <parameters>
+                    <parameter>
+                        <key>numItems</key>
+                        <value>1</value>
+                    </parameter>
+                    <parameter>
+                        <key>productCode</key>
+                        <value>cartPromo_Segment</value>
+                    </parameter>
+                    <parameter>
+                        <key>numItemsQuantifier</key>
+                        <value>AT_LEAST</value>
+                    </parameter>
+                </parameters>
+                <exceptions/>
+            </condition>
+        </and>
+    </conditions>
+    <actions>
+        <action>
+            <type>ShoppingCartPromotion</type>
+            <code>6f12f328-aeca-4d56-b458-9a2eeb21494e</code>
+        </action>
+    </actions>
+</rule>
+
+<rule>
+    <code>eb59d412-2a66-4505-91aa-2755ae364525</code>
+    <conditions>
+        <and>
+            <condition>
+                <kind>Condition</kind>
+                <type>productInCartCondition</type>
+                <parameters>
+                    <parameter>
+                        <key>numItemsQuantifier</key>
+                        <value>AT_LEAST</value>
+                    </parameter>
+                    <parameter>
+                        <key>numItems</key>
+                        <value>1</value>
+                    </parameter>
+                    <parameter>
+                        <key>productCode</key>
+                        <value>cartPromo_Segment</value>
+                    </parameter>
+                </parameters>
+                <exceptions/>
+            </condition>
+        </and>
+    </conditions>
+    <actions>
+        <action>
+            <type>ShoppingCartPromotion</type>
+            <code>eb59d412-2a66-4505-91aa-2755ae364525</code>
+        </action>
+    </actions>
+</rule>
+
+<rule>
+    <code>a42dd2e4-7d4a-4674-ad06-2ca2c1d1215a</code>
+    <conditions>
+        <and>
+            <condition>
+                <kind>Condition</kind>
+                <type>productInCartCondition</type>
+                <parameters>
+                    <parameter>
+                        <key>numItemsQuantifier</key>
+                        <value>AT_LEAST</value>
+                    </parameter>
+                    <parameter>
+                        <key>productCode</key>
+                        <value>cartPromo_Segment</value>
+                    </parameter>
+                    <parameter>
+                        <key>numItems</key>
+                        <value>1</value>
+                    </parameter>
+                </parameters>
+                <exceptions/>
+            </condition>
+        </and>
+    </conditions>
+    <actions>
+        <action>
+            <type>ShoppingCartPromotion</type>
+            <code>a42dd2e4-7d4a-4674-ad06-2ca2c1d1215a</code>
+        </action>
+    </actions>
+</rule>
+
+<rule>
+    <code>b37e3326-330e-4ab1-908b-659a87c9dd2e</code>
+    <conditions>
+        <and>
+            <condition>
+                <kind>Condition</kind>
+                <type>productCondition</type>
+                <parameters>
+                    <parameter>
+                        <key>productCode</key>
+                        <value>Dig_Non-Discountable</value>
+                    </parameter>
+                </parameters>
+                <exceptions/>
+            </condition>
+        </and>
+    </conditions>
+    <actions>
+        <action>
+            <type>CatalogPromotion</type>
+            <code>b37e3326-330e-4ab1-908b-659a87c9dd2e</code>
+        </action>
+    </actions>
+</rule>
+</condition_rules>

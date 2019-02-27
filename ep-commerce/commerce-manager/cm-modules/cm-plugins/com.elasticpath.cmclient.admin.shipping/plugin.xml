@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="Extender" name="Extender"   schema="../com.elasticpath.cmclient.core/schema/extender.exsd"/>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="com.elasticpath.cmclient.admin.shipping.regions"
+            name="%regionsViewCategory.name"
+            parentCategory="com.elasticpath.cmclient.admin.category.main">
+      </category>
+      <view
+            name="%regionsView.name"
+            icon="icons/shipping-region_default_22.png"
+            class="com.elasticpath.cmclient.admin.shipping.views.ShippingRegionListView"
+            id="com.elasticpath.cmclient.admin.shipping.regions.views.RegionsList">
+      </view>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.admin.adminSections">
+      <adminSection
+            class="com.elasticpath.cmclient.admin.shipping.ShippingAdminSection"
+            id="com.elasticpath.cmclient.admin.shipping.ShippingAdminSection"
+            name="%adminSection.name">
+      </adminSection>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.core.authorizations">
+      <permissions>
+         <permission
+               activityId="com.elasticpath.cmclient.admin.authorization.activity"
+               key="ADMIN_SHIPPING_MANAGE"
+               name="%manageShippingRegions.name">
+         </permission>
+      </permissions>
+   </extension>
+
+</plugin>

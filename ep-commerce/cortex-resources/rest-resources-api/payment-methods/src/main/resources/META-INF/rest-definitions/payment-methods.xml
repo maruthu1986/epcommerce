@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>paymentmethods</name>
+		<description>
+			<![CDATA[
+The Payment Methods resource is responsible for the customer's paymentmethods. This resource lists all the paymentmethods
+defined for the customer payment tokens. Selecting a payment method for a purchase is set
+during the purchase's order phase.
+			]]>
+		</description>
+
+		<uri-part>
+			<name>paymentmethod-id</name>
+			<description><![CDATA[The payment method ID]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>paymentmethods</name>
+			<description><![CDATA[An order resource that identifies items to be purchased.]]></description>
+			<uri>{base.family}/{base.scope}</uri>
+			<list-of>paymentmethod</list-of>
+		</resource>
+
+		<resource>
+			<name>default-paymentmethod</name>
+			<description><![CDATA[The default payment method.]]></description>
+			<uri>{paymentmethods}/default</uri>
+			<alias>paymentmethod</alias>
+		</resource>
+
+		<resource>
+			<name>paymentmethod</name>
+			<description><![CDATA[The payment method.]]></description>
+			<uri>{paymentmethods}/{paymentmethod-id}</uri>
+			<entity>payment-token</entity>
+			<!-- Payment-tokens and payment-methods have a bidirectional dependency because payment-methods
+				emits payment-token entities. This problem will be addressed ,possibly by making payment-methods a linked resource
+				rather than a data list resource. Until then this resource entity declaration has to be commented out.
+
+				Temporarily resolving this by duplicating the payment-token entity in this resource.
+
+			<entity>paymenttokens.payment-token</entity>
+		-->
+		</resource>
+		<resource>
+			<name>paymentmethod-info</name>
+			<description><![CDATA[The payment method info for an order.]]></description>
+			<uri>{base.family}/info/{orders.order}</uri>
+			<entity>controls.info</entity>
+		</resource>
+
+		<resource>
+			<name>paymentmethod-for-order</name>
+			<description><![CDATA[The payment method for an order.]]></description>
+			<uri>{base.family}/{orders.order}</uri>
+			<entity>payment-token</entity>
+			<!-- as with payment-method, this resource also vends payment-token. -->
+		</resource>
+
+		<relationship>
+			<name>paymentmethods-for-profile</name>
+			<description><![CDATA[The customer's payment methods.]]></description>
+			<rel>paymentmethods</rel>
+			<rev>profile</rev>
+			<from>profiles.profile</from>
+			<to>paymentmethods</to>
+		</relationship>
+
+		<relationship>
+			<name>default-paymentmethod</name>
+			<description><![CDATA[The customer's default payment method.]]></description>
+			<rel>default</rel>
+			<rev>list</rev>
+			<from>paymentmethods</from>
+			<to>default-paymentmethod</to>
+		</relationship>
+
+		<relationship>
+			<name>paymentmethod-info-for-order</name>
+			<description><![CDATA[Read the payment method currently selected for the order.]]></description>
+			<rel>paymentmethodinfo</rel>
+			<rev>order</rev>
+			<from>orders.order</from>
+			<to>paymentmethod-info</to>
+		</relationship>
+
+		<relationship>
+			<name>paymentmethod-for-order</name>
+			<description><![CDATA[Read a payment method.]]></description>
+			<rel>paymentmethod</rel>
+			<from>paymentmethod-info</from>
+			<to>paymentmethod-for-order</to>
+		</relationship>
+
+		<entity>
+			<name>payment-method</name>
+			<description><![CDATA[Describes a payment method.]]></description>
+			<property>
+				<name>payment-method-id</name>
+				<description><![CDATA[The payment method identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+		</entity>
+
+
+		<!--
+		Temporarily copying payment-token entity from payment-tokens resource to resolve dependency issue.
+
+		-->
+		<entity>
+			<name>payment-token</name>
+			<description><![CDATA[The payment token entity.]]></description>
+			<is-a>payment-method</is-a>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[A description of the payment token to be used for display purposes.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>token</name>
+				<description><![CDATA[The payment token created by a payment tokenization service.]]></description>
+				<string/>
+			</property>
+		</entity>
+
+	</family>
+</definitions>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath</groupId>
+		<artifactId>commerce-parent</artifactId>
+		<version>703.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.elasticpath.cmclient</groupId>
+	<artifactId>cm-parent</artifactId>
+	<packaging>pom</packaging>
+	<name>CM Parent</name>
+	<version>703.0.0-SNAPSHOT</version>
+	<description>Builds the Pom-first maven modules, then invokes the manifest-first tycho modules. </description>
+
+	<properties>
+		<maven.invoker.plugin.version>3.0.1</maven.invoker.plugin.version>
+	</properties>
+
+	<modules>
+		<module>cm-libs</module>
+		<module>com.elasticpath.cmclient.docs</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-invoker-plugin</artifactId>
+				<version>${maven.invoker.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>build-cm-tycho-projects</id>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<phase>install</phase>
+						<configuration>
+							<pom>cm-modules/pom.xml</pom>
+							<goals>${session.goals}</goals>
+							<profiles>${session.profiles}</profiles>
+							<properties>${session.userProperties}</properties>
+							<showErrors>true</showErrors>
+							<streamLogs>true</streamLogs>
+							<noLog>true</noLog>
+						</configuration>
+					</execution>
+				</executions>
+				<inherited>false</inherited>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!--Used by IDEs to add tycho modules to project-->
+	<profiles>
+		<profile>
+			<id>with-tycho-modules</id>
+			<modules>
+				<module>cm-modules</module>
+			</modules>
+		</profile>
+	</profiles>
+
+</project>

@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>addresses</name>
+		<plan>
+			<name>addresses</name>
+			<description><![CDATA[Read an address from a list of addresses.]]></description>
+			<template>
+				<name>collections.list-element-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>profiles.profile</value>
+				</replace>
+				<replace>
+					<key>start-name</key>
+					<value>profile</value>
+				</replace>
+				<replace>
+					<key>list-resource</key>
+					<value>addresses</value>
+				</replace>
+				<replace>
+					<key>list-name</key>
+					<value>addresses</value>
+				</replace>
+				<replace>
+					<key>element-resource</key>
+					<value>address</value>
+				</replace>
+			</template>
+		</plan>
+
+		<plan>
+			<name>read-shipping-address</name>
+			<description><![CDATA[Read a shipping address from a list of shipping addresses.]]></description>
+			<step>
+				<description><![CDATA[Read list of shipping address selections.]]></description>
+				<start>addresses</start>
+				<follow-link>shippingaddresses</follow-link>
+				<link-back>addresses</link-back>
+				<result>shipping-addresses</result>
+			</step>
+			<step>
+				<description><![CDATA[Read a specific shipping address selection.]]></description>
+				<start>shipping-addresses</start>
+				<follow-link>element</follow-link>
+				<result>address</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-profile-from-shipping-addresses</name>
+			<description><![CDATA[Read the profile linked to the shipping address. The workflow starts with the shipping address and then links to the profile. ]]></description>
+			<step>
+				<description><![CDATA[The customer's profile.]]></description>
+				<start>shipping-addresses</start>
+				<follow-link>profile</follow-link>
+				<result>profiles.profile</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-default-shipping-address</name>
+			<description><![CDATA[Read the customer's default shipping addresses.]]></description>
+			<step>
+				<description><![CDATA[The default shipping addresses.]]></description>
+				<start>shipping-addresses</start>
+				<follow-link>default</follow-link>
+				<result>address</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-billing-address</name>
+			<description><![CDATA[Read billing addresses from the list of billing addresses.]]></description>
+			<step>
+				<description><![CDATA[Retrieve a list of the customer's billing addresses. Billing addresses are returned as a list of element links.]]></description>
+				<start>addresses</start>
+				<follow-link>billingaddresses</follow-link>
+				<link-back>addresses</link-back>
+				<result>billing-addresses</result>
+			</step>
+			<step>
+				<description><![CDATA[Read a specific billing address selection.]]></description>
+				<start>billing-addresses</start>
+				<follow-link>element</follow-link>
+				<result>address</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-profile-from-billing-addresses</name>
+			<description><![CDATA[Read the profile linked to the billing address. The workflow starts with the billing address and then links to the profile.]]></description>
+			<step>
+				<description><![CDATA[The customer's profile.]]></description>
+				<start>billing-addresses</start>
+				<follow-link>profile</follow-link>
+				<result>profiles.profile</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-default-billing-address</name>
+			<description><![CDATA[Read the customer's default billing addresses.]]></description>
+			<step>
+				<description><![CDATA[The default billing addresses.]]></description>
+				<start>billing-addresses</start>
+				<follow-link>default</follow-link>
+				<result>address</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>delete-address</name>
+			<description>
+				<![CDATA[
+Delete an address.
+
+If the address was selected to use in an order and the address is deleted, the order will show a NeedInfo link.
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Delete the address.]]></description>
+				<start>address</start>
+				<delete-self/>
+			</step>
+		</plan>
+
+		<plan>
+			<name>update-address</name>
+			<description><![CDATA[Update an address.]]></description>
+			<step>
+				<description><![CDATA[Update the address.]]></description>
+				<start>address</start>
+				<update-self/>
+			</step>
+		</plan>
+
+		<plan>
+			<name>add-address</name>
+			<description><![CDATA[Create an address.]]></description>
+			<template>
+				<name>controls.form-control-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>addresses</value>
+				</replace>
+				<replace>
+					<key>read-form-link</key>
+					<value>addressform</value>
+				</replace>
+				<replace>
+					<key>form-resource</key>
+					<value>address-form</value>
+				</replace>
+				<replace>
+					<key>submit-action-link</key>
+					<value>createaddressaction</value>
+				</replace>
+				<replace>
+					<key>submit-resource</key>
+					<value>create-address-action</value>
+				</replace>
+				<replace>
+					<key>submit-result</key>
+					<value>address</value>
+				</replace>
+			</template>
+		</plan>
+
+	</family>
+</definitions>

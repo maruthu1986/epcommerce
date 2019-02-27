@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>purchases</name>
+		<plan>
+			<name>read-purchase-line-item</name>
+			<description><![CDATA[Retrieve a purchase's line item, which includes details on the item that was purchased such as item name, quantity purchased, and cost.]]></description>
+			<template>
+				<name>collections.list-element-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>purchase</value>
+				</replace>
+				<replace>
+					<key>start-name</key>
+					<value>purchase</value>
+				</replace>
+				<replace>
+					<key>list-resource</key>
+					<value>purchase-line-items</value>
+				</replace>
+				<replace>
+					<key>list-name</key>
+					<value>lineitems</value>
+				</replace>
+				<replace>
+					<key>element-resource</key>
+					<value>purchase-line-item</value>
+				</replace>
+			</template>
+		</plan>
+
+		<plan>
+			<name>read-purchase-line-item-option</name>
+			<description><![CDATA[Read the option for the item purchased by the customer. ]]></description>
+			<template>
+				<name>collections.list-element-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>purchase-line-item</value>
+				</replace>
+				<replace>
+					<key>start-name</key>
+					<value>lineitem</value>
+				</replace>
+				<replace>
+					<key>list-resource</key>
+					<value>purchase-line-item-options</value>
+				</replace>
+				<replace>
+					<key>list-name</key>
+					<value>options</value>
+				</replace>
+				<replace>
+					<key>element-resource</key>
+					<value>purchase-line-item-option</value>
+				</replace>
+			</template>
+		</plan>
+
+		<plan>
+			<name>purchase-line-item-option-value</name>
+			<description><![CDATA[The purchase line item option value.]]></description>
+			<step>
+				<description><![CDATA[Read the purchase line item option value.]]></description>
+				<start>purchase-line-item-option</start>
+				<follow-link>value</follow-link>
+				<link-back>option</link-back>
+				<result>purchase-line-item-option-value</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>purchase-line-item-components</name>
+			<description><![CDATA[Read the component for the item purchased by the customer.]]></description>
+			<template>
+				<name>collections.list-element-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>purchase-line-item</value>
+				</replace>
+				<replace>
+					<key>start-name</key>
+					<value>lineitem</value>
+				</replace>
+				<replace>
+					<key>list-resource</key>
+					<value>purchase-line-item-components</value>
+				</replace>
+				<replace>
+					<key>list-name</key>
+					<value>components</value>
+				</replace>
+				<replace>
+					<key>element-resource</key>
+					<value>purchase-line-item</value>
+				</replace>
+			</template>
+		</plan>
+
+	</family>
+</definitions>

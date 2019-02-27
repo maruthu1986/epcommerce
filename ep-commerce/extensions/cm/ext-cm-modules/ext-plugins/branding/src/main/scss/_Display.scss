@@ -1,0 +1,21 @@
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Widget.html
+Display {
+	background-color: $widget_body_color;;
+    font: $default-font;
+
+	// rwt-shadow-color: #a7a6aa;
+	// rwt-highlight-color: #ffffff;
+	// rwt-darkshadow-color: #85878c;
+	// rwt-lightshadow-color: #dcdfe4;
+	// rwt-thinborder-color: #aca899;
+	// rwt-selectionmarker-color: #fec83c;
+	// rwt-infobackground-color: #ffffff;
+
+	// system message icon below the modal title
+	// rwt-error-image: url('themes/icons/Button-CheckIcon_selected.png');
+	// rwt-information-image: url('themes/icons/Button-CheckIcon_selected.png');
+	// rwt-question-image: url('themes/icons/Button-CheckIcon_selected.png');
+	// rwt-warning-image: url('themes/icons/Button-CheckIcon_selected.png');
+	// rwt-working-image: url('themes/icons/Button-CheckIcon_selected.png');
+	rwt-fontlist: $default-font;
+}

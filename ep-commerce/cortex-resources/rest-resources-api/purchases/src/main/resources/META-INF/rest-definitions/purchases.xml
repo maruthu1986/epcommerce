@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>purchases</name>
+		<description><![CDATA[
+####Entry Point: /purchases/{scope}
+
+A purchase is a receipt of an executed order. A Purchase lists the order's total cost, purchase date, purchase status
+(COMPLETE or FAILED), tax paid, paymentmeans, which lists the billing and shipping details as well as
+customer's [paymentmethods][paymentmethods], and line items, which are lists of the [items][items] the customer
+purchased.
+
+Each time customers make successful purchases, Cortex API records them in its database. Using the purchases resource,
+client developers can retrieve the customer's purchase history, which allows customers to inspect their previous purchases,
+check for correctness, and track the purchase's status. Cortex API records each successful purchase and the last failed
+purchase. Cortex API does not track each failed purchase, it only records the last failed purchase. Once the purchase
+completes, the failed purchase is removed from the record and a successful purchase is recorded.
+
+[paymentmethods]: #paymentmethods
+[items]: #items
+			]]>
+		</description>
+
+		<uri-part>
+			<name>purchase-id</name>
+			<description><![CDATA[The purchase ID]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>purchases</name>
+			<description><![CDATA[The list of all purchases of a customer.]]></description>
+			<uri>{base.family}/{base.scope}</uri>
+			<list-of>purchase</list-of>
+		</resource>
+
+		<resource>
+			<name>purchase</name>
+			<description><![CDATA[A customer's purchase.]]></description>
+			<uri>{purchases}/{purchase-id}</uri>
+			<entity>purchase</entity>
+		</resource>
+
+		<resource>
+			<name>purchase-billingaddress</name>
+			<description><![CDATA[A purchase's billing address.]]></description>
+			<uri>{purchase}/billingaddress</uri>
+			<entity>addresses.address</entity>
+		</resource>
+
+		<relationship>
+			<name>purchases-for-profile</name>
+			<description><![CDATA[Retrieve a list of purchases for the logged in customer.]]></description>
+			<rel>purchases</rel>
+			<from>profiles.profile</from>
+			<to>purchases</to>
+		</relationship>
+
+		<relationship>
+			<name>billing-address-for-purchase</name>
+			<description><![CDATA[The billing address associated with this purchase.]]></description>
+			<rel>billingaddress</rel>
+			<rev>purchase</rev>
+			<from>purchase</from>
+			<to>purchase-billingaddress</to>
+		</relationship>
+
+		<relationship>
+			<name>purchases-for-purchase</name>
+			<description><![CDATA[The billing address associated with this purchase.]]></description>
+			<rel>list</rel>
+			<from>purchase</from>
+			<to>purchases</to>
+		</relationship>
+
+		<entity>
+			<name>purchase</name>
+			<description><![CDATA[An order to be purchased.]]></description>
+			<property>
+				<name>order-id</name>
+				<description><![CDATA[The internal order identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>purchase-id</name>
+				<description><![CDATA[The internal cart identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>purchase-number</name>
+				<description>
+					<![CDATA[
+Purchase number associated with the purchase. This is the reference customers use
+if they need to communicate with the store's customer service representative.
+					]]>
+				</description>
+				<string/>
+			</property>
+			<property>
+				<name>status</name>
+				<description>
+					<![CDATA[
+Indicates the status of the purchase. The following are possible status values:
+
+* IN_PROGRESS - The purchase is being processed.
+* COMPLETED - The purchase is processed.
+* CANCELLED - The purchase is cancelled.
+				]]>
+				</description>
+				<string/>
+			</property>
+			<property>
+				<name>monetary-total</name>
+				<description><![CDATA[The total cost paid for the purchase, including taxes.]]></description>
+				<array>
+					<is-a>base.cost</is-a>
+				</array>
+			</property>
+			<property>
+				<name>taxes</name>
+				<description><![CDATA[The taxes for the purchase]]></description>
+				<array>
+					<is-a>base.named-cost</is-a>
+				</array>
+			</property>
+			<property>
+				<name>tax-total</name>
+				<description><![CDATA[The total amount of tax paid for the purchase.]]></description>
+				<is-a>base.cost</is-a>
+			</property>
+			<property>
+				<name>purchase-date</name>
+				<description><![CDATA[The date on which the purchase was made.]]></description>
+				<is-a>base.date</is-a>
+			</property>
+			<entity-type>purchases.purchase</entity-type>
+		</entity>
+
+	</family>
+</definitions>

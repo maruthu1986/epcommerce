@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		">
+	<!--
+		ShippingOptionService - The top level entry point to calculating unpriced available shipping options.
+								Responsible for converting between EP domain objects and Shipping DTOs (ShippableItemContainer etc) and then calling ShippingCalculationService.
+
+		Note: Priced available shipping options are automatically populated in the ShoppingCartPricingSnapshot so will be requested through PricingSnapshotService
+	-->
+
+	<bean id="coreShippingOptionService" class="com.elasticpath.service.shipping.impl.ShippingOptionServiceImpl">
+		<property name="shippingCalculationService" ref="shippingCalculationService"/>
+		<property name="shippingOptionResultBuilderSupplier" ref="shippingOptionResultBuilderSupplier"/>
+		<property name="shippableItemContainerTransformer" ref="unpricedShippableItemContainerTransformer"/>
+		<property name="shippingAddressTransformer" ref="shippingAddressTransformer"/>
+	</bean>
+
+	<bean id="shippingOptionService" parent="coreShippingOptionService"/>
+
+	<bean id="shippingAddressTransformer" class="com.elasticpath.service.shipping.transformers.impl.ShippingAddressTransformerImpl">
+		<property name="shippingAddressBuilderSupplier" ref="shippingAddressBuilderSupplier"/>
+	</bean>
+
+	<bean id="shippingOptionResultBuilder" scope="prototype"
+		  class="com.elasticpath.service.shipping.builder.impl.ShippingOptionResultBuilderImpl" />
+
+	<bean id="shippingOptionResultBuilderSupplier"
+		  class="com.elasticpath.commons.beanframework.spring.SupplierCreatingFactoryBean">
+		<property name="targetBeanName" value="shippingOptionResultBuilder"/>
+	</bean>
+
+	<bean id="shippingOptionResultExceptionLogPredicate"
+		  class="com.elasticpath.service.shipping.predicates.DefaultShippingOptionResultExceptionLogPredicateImpl"/>
+
+	<!--
+		ShippingCalculationService - Responsible for taking a unpriced or priced ShippableItemContainer and calling the
+									 matched ShippingCalculationPlugin to calculate the shipping options available.
+
+		Note: This service is provided by the shipping-calculation-connectivity-api module so is imported below.
+
+		Further note, we use classpath* here to optionally including the shipping calculation file for use in non-OSGi environments only.
+		For OSGi environments this file isn't resolved but shipping-calculation-connectivity-api-osgi-wiring.xml is used instead.
+	-->
+
+	<import resource="classpath*:shipping-calculation-connectivity-api.xml"/>
+
+	<!--
+		Unpriced ShippableItemContainer Transformer - Used by ShippingOptionService to transform from EP domain objects to a ShippableItemContainer to pass to ShippingCalculationService.
+
+		Note: For extensibility and to avoid sub-classing as was very problematic, all the transformers below use composition to extend/override the transformation
+		      by using the Visitor pattern and being injected with one or more Visitors that actually do the transformation.
+	-->
+
+	<bean id="unpricedShippableItemContainerTransformer" class="com.elasticpath.service.shipping.transformers.impl.ShippableItemContainerTransformerImpl">
+		<property name="shippableItemPredicate" ref="shippableItemPredicate" />
+		<property name="shippableItemTransformer" ref="unpricedShippableItemTransformer" />
+		<property name="baseTransformer" ref="baseUnpricedShippableItemContainerTransformer" />
+	</bean>
+
+	<bean id="baseUnpricedShippableItemContainerTransformer" class="com.elasticpath.service.shipping.transformers.impl.BaseShippableItemContainerTransformerImpl">
+		<property name="supplier" ref="unpricedShippableItemContainerBuilderSupplier" />
+		<property name="baseVisitors" ref="commonShippableItemContainerPopulatorVisitors" />
+		<property name="itemSpecificVisitors" ref="unpricedOnlyShippableItemContainerPopulatorVisitors" />
+	</bean>
+
+	<!-- We alias the standard visitors to inject by default, but extensions can explicitly define their own list with this name and merge in the standard list below as needed -->
+	<alias alias="commonShippableItemContainerPopulatorVisitors" name="standardCommonShippableItemContainerPopulatorVisitors" />
+
+	<!-- OOTB Visitors used both for unpriced and priced ShippableItems -->
+	<util:list id="standardCommonShippableItemContainerPopulatorVisitors" value-type="com.elasticpath.service.shipping.transformers.visitors.BaseShippableItemContainerPopulatorVisitor">
+		<ref bean="shippableItemContainerPopulatorVisitor" />
+		<ref bean="shippableItemContainerMetadataPopulatorVisitor" />
+	</util:list>
+
+	<bean id="shippableItemContainerPopulatorVisitor" class="com.elasticpath.service.shipping.transformers.visitors.impl.ShippableItemContainerPopulatorVisitorImpl">
+		<property name="shippingAddressTransformer" ref="shippingAddressTransformer" />
+	</bean>
+
+	<bean id="shippableItemContainerMetadataPopulatorVisitor" class="com.elasticpath.service.shipping.transformers.visitors.impl.ShippableItemContainerMetadataPopulatorVisitorImpl" />
+
+	<!-- We alias the standard visitors to inject by default, but extensions can explicitly define their own list with this name and merge in the standard list below as needed -->
+	<alias alias="unpricedOnlyShippableItemContainerPopulatorVisitors" name="standardUnpricedOnlyShippableItemContainerPopulatorVisitors" />
+
+	<!-- OOTB Visitors used *only* for unpriced ShippableItemContainers -->
+	<util:list id="standardUnpricedOnlyShippableItemContainerPopulatorVisitors" value-type="com.elasticpath.service.shipping.transformers.visitors.UnpricedShippableItemContainerPopulatorVisitor">
+		<ref bean="unpricedShippableItemContainerItemsPopulatorVisitor" />
+	</util:list>
+
+	<bean id="unpricedShippableItemContainerItemsPopulatorVisitor" class="com.elasticpath.service.shipping.transformers.visitors.impl.UnpricedShippableItemContainerItemsPopulatorVisitorImpl" />
+
+	<!--
+		PricedShippableItemContainer Transformer - Used by PricingSnapshotService to transform EP domain objects to a PricedShippableItemContainer to pass to ShippingCalculationService.
+
+		Like the unpriced equivalent above it uses visitors to do the actual transformation so extensions can replace/add visitors as needed.
+	-->
+
+	<bean id="pricedShippableItemContainerTransformer" class="com.elasticpath.service.shipping.transformers.impl.PricedShippableItemContainerTransformerImpl">
+		<property name="shippableItemPredicate" ref="shippableItemPredicate" />
+		<property name="shippableItemsTransformer" ref="pricedShippableItemsTransformer" />
+		<property name="baseTransformer" ref="basePricedShippableItemContainerTransformer" />
+	</bean>
+
+	<bean id="basePricedShippableItemContainerTransformer" class="com.elasticpath.service.shipping.transformers.impl.BaseShippableItemContainerTransformerImpl">
+		<property name="supplier" ref="pricedShippableItemContainerBuilderSupplier" />
+		<property name="baseVisitors" ref="commonShippableItemContainerPopulatorVisitors" />
+		<property name="itemSpecificVisitors" ref="pricedOnlyShippableItemContainerPopulatorVisitors" />
+	</bean>
+
+	<!-- We alias the standard visitors to inject by default, but extensions can explicitly define their own list with this name and merge in the standard list below as needed -->
+	<alias alias="pricedOnlyShippableItemContainerPopulatorVisitors" name="standardPricedOnlyShippableItemContainerPopulatorVisitors" />
+
+	<!-- OOTB Visitors used *only* for PricedShippableItemContainers -->
+	<util:list id="standardPricedOnlyShippableItemContainerPopulatorVisitors" value-type="com.elasticpath.service.shipping.transformers.visitors.PricedShippableItemContainerPopulatorVisitor">
+		<ref bean="pricedShippableItemContainerItemsPopulatorVisitor" />
+	</util:list>
+
+	<bean id="pricedShippableItemContainerItemsPopulatorVisitor" class="com.elasticpath.service.shipping.transformers.visitors.impl.PricedShippableItemContainerItemsPopulatorVisitorImpl" />
+
+	<bean id="pricedShippableItemContainerFromOrderShipmentTransformer" class="com.elasticpath.service.shipping.transformers.impl.PricedShippableItemContainerFromOrderShipmentTransformerImpl">
+		<property name="supplier" ref="pricedShippableItemContainerBuilderSupplier" />
+		<property name="shippingAddressTransformer" ref="shippingAddressTransformer" />
+		<property name="pricedShippableItemsTransformer" ref="pricedShippableItemsTransformer" />
+	</bean>
+
+	<bean id="pricedShippableItemsTransformer" class="com.elasticpath.service.shipping.transformers.impl.PricedShippableItemsTransformerImpl">
+		<property name="pricedShippableItemTransformer" ref="pricedShippableItemTransformer" />
+		<property name="discountApportioningCalculator" ref="discountApportioningCalculator" />
+	</bean>
+
+	<!--
+		ShippableItem Transformer - Used by the ShippableItemContainer transformer above to transform a ShoppingItem to an unpriced ShippableItem.
+	-->
+
+	<bean id="unpricedShippableItemTransformer" class="com.elasticpath.service.shipping.transformers.impl.ShippableItemTransformerImpl">
+		<property name="supplier" ref="unpricedShippableItemBuilderSupplier"/>
+		<property name="visitors" ref="unpricedShippableItemPopulatorVisitors" />
+	</bean>
+
+	<bean id="unpricedShippableItemPopulatorVisitors" class="com.elasticpath.commons.util.spring.ListMergerFactory">
+		<property name="sourceList" ref="commonShippableItemPopulatorVisitors"/>
+		<property name="mergeList" ref="unpricedOnlyShippableItemPopulatorVisitors"/>
+	</bean>
+
+	<!-- We alias the standard visitors to inject by default, but extensions can explicitly define their own list with this name and merge in the standard list below as needed -->
+	<alias alias="commonShippableItemPopulatorVisitors" name="standardCommonShippableItemPopulatorVisitors" />
+
+	<!-- OOTB Visitors used both for unpriced and priced ShippableItems -->
+	<util:list id="standardCommonShippableItemPopulatorVisitors" value-type="com.elasticpath.service.shipping.transformers.visitors.ShippableItemPopulatorVisitor">
+		<ref bean="shippableItemPopulatorVisitor" />
+	</util:list>
+
+	<!-- We alias the standard visitors to inject by default, but extensions can explicitly define their own list with this name and merge in the standard list below as needed -->
+	<alias alias="unpricedOnlyShippableItemPopulatorVisitors" name="standardUnpricedOnlyShippableItemPopulatorVisitors" />
+
+	<!-- OOTB Visitors used *only* for unpriced ShippableItems -->
+	<util:list id="standardUnpricedOnlyShippableItemPopulatorVisitors" value-type="com.elasticpath.service.shipping.transformers.visitors.ShippableItemPopulatorVisitor">
+	</util:list>
+
+	<bean id="shippableItemPopulatorVisitor" class="com.elasticpath.service.shipping.transformers.visitors.impl.ShippableItemPopulatorVisitorImpl">
+		<property name="productSkuLookup" ref="productSkuLookup" />
+	</bean>
+
+	<!--
+		PricedShippableItem Transformer - Used by the PricedShippableItemContainer transformer above to transform a ShoppingItem to a PricedShippableItem.
+	-->
+
+	<bean id="pricedShippableItemTransformer" class="com.elasticpath.service.shipping.transformers.impl.PricedShippableItemTransformerImpl">
+		<property name="supplier" ref="pricedShippableItemBuilderSupplier"/>
+		<property name="unpricedVisitors" ref="commonShippableItemPopulatorVisitors" />
+		<property name="pricedVisitors" ref="pricedShippableItemPopulatorVisitors" />
+	</bean>
+
+	<!-- We alias the standard visitors to inject by default, but extensions can explicitly define their own list with this name and merge in the standard list below as needed -->
+	<alias alias="pricedShippableItemPopulatorVisitors" name="standardPricedShippableItemPopulatorVisitors" />
+
+	<!-- OOTB Visitors used *only* for PricedShippableItems -->
+	<util:list id="standardPricedShippableItemPopulatorVisitors" value-type="com.elasticpath.service.shipping.transformers.visitors.PricedShippableItemPopulatorVisitor">
+		<ref bean="pricedShippableItemPopulatorVisitor" />
+	</util:list>
+
+	<bean id="pricedShippableItemPopulatorVisitor" class="com.elasticpath.service.shipping.transformers.visitors.impl.PricedShippableItemPopulatorVisitorImpl" />
+
+</beans>

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/persistence/orm"
+				 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd" version="2.0">
+
+	<named-query name="DATAPOINT_FIND_BY_GUID">
+		<query>
+			SELECT d
+			FROM DataPointImpl d
+			WHERE d.guid = ?1
+		</query>
+	</named-query>
+
+	<named-query name="DATAPOINT_FIND_BY_GUIDS">
+		<query>
+			SELECT d
+			FROM DataPointImpl d
+			WHERE d.guid IN (:list)
+		</query>
+	</named-query>
+
+	<named-query name="DATAPOINT_SELECT_ALL">
+		<query>
+			SELECT d
+			FROM DataPointImpl d
+		</query>
+	</named-query>
+
+	<named-query name="DATAPOINT_FIND_BY_NAME">
+		<query>
+			SELECT d
+			FROM DataPointImpl d
+			WHERE LOWER(d.name) = LOWER(?1)
+		</query>
+	</named-query>
+
+	<named-query name="DATAPOINT_FIND_BY_LOCATION_AND_KEY">
+		<query>
+			SELECT d
+			FROM DataPointImpl d
+			WHERE d.dataLocation = ?1
+			AND d.dataKey = ?2
+		</query>
+	</named-query>
+
+	<named-query name="DATAPOLICY_FIND_BY_GUID">
+		<query>
+			SELECT d
+			FROM DataPolicyImpl d
+			WHERE d.guid = ?1
+		</query>
+	</named-query>
+
+	<named-query name="DATAPOLICY_FIND_BY_GUIDS">
+		<query>
+			SELECT d
+			FROM DataPolicyImpl d
+			WHERE d.guid IN (:list)
+		</query>
+	</named-query>
+
+	<named-query name="DATAPOLICY_FIND_ACTIVE_BY_GUID">
+		<query>
+			SELECT d
+			FROM DataPolicyImpl d
+			WHERE d.guid = ?1
+			AND d.state = ?2
+			AND CURRENT_TIMESTAMP > d.startDate
+			AND (d.endDate IS NULL OR d.endDate > CURRENT_TIMESTAMP)
+		</query>
+	</named-query>
+
+	<named-query name="DATAPOLICY_FIND_ACTIVE">
+		<query>
+			SELECT DISTINCT d
+			FROM DataPolicyImpl d
+			WHERE d.state = ?1
+			AND CURRENT_TIMESTAMP > d.startDate
+			AND (d.endDate IS NULL OR d.endDate > CURRENT_TIMESTAMP)
+		</query>
+	</named-query>
+
+	<named-query name="DATAPOLICY_SELECT_ALL">
+		<query>
+			SELECT d
+			FROM DataPolicyImpl d
+		</query>
+	</named-query>
+
+	<named-query name="DATAPOLICY_FIND_BY_STATE">
+		<query>
+			SELECT d
+			FROM DataPolicyImpl d
+			WHERE d.state = ?1 or d.state = ?2
+		</query>
+	</named-query>
+
+	<named-query name="CUSTOMERCONSENT_FIND_BY_GUID">
+		<query>
+			SELECT c
+			FROM CustomerConsentImpl c
+			WHERE c.guid = ?1
+		</query>
+	</named-query>
+
+	<named-query name="CUSTOMERCONSENT_FIND_BY_GUIDS">
+		<query>
+			SELECT c
+			FROM CustomerConsentImpl c
+			WHERE c.guid IN (:list)
+		</query>
+	</named-query>
+
+	<named-query name="CUSTOMERCONSENT_FIND_BY_CUSTOMER_GUID">
+		<query>
+			SELECT c
+			FROM CustomerConsentImpl c
+			WHERE c.customerGuid = ?1
+		</query>
+	</named-query>
+
+	<named-query name="CUSTOMERCONSENT_UPDATE_CUSTOMER_GUID_BY_UIDS">
+		<query>
+			UPDATE CustomerConsentImpl c
+			SET c.customerGuid = ?1
+			WHERE c.uidPk IN (:list)
+		</query>
+	</named-query>
+
+	<named-query name="CUSTOMERCONSENT_SELECT_ALL">
+		<query>
+			SELECT c
+			FROM CustomerConsentImpl c
+		</query>
+	</named-query>
+
+	<named-query name="CUSTOMER_FIND_BY_USER_ID_AND_STORE_CODE">
+		<query>
+			SELECT c
+			FROM CustomerImpl c
+			WHERE c.storeCode = ?1
+			AND c.uidPk = ?2
+		</query>
+	</named-query>
+
+	<named-query name="CUSTOMER_CONSENT_FIND_BY_CUSTOMER_AND_DATA_POLICY_GUID_LATEST">
+		<query>
+			SELECT cc1
+			FROM CustomerConsentImpl cc1
+			WHERE cc1.customerGuid = ?1
+			AND cc1.dataPolicy.guid = ?2
+			AND cc1.consentDate=(SELECT max(cc2.consentDate)
+				FROM CustomerConsentImpl cc2 WHERE cc2.customerGuid = cc1.customerGuid AND cc2.dataPolicy = cc1.dataPolicy)
+			ORDER BY cc1.uidPk DESC
+		</query>
+	</named-query>
+
+	<named-query name="DATAPOINTS_FIND_WITH_REVOKED_CONSENTS_LATEST">
+		<query>
+			SELECT DISTINCT rc.customerGuid, rpt, rpol FROM CustomerConsentImpl rc
+			JOIN rc.dataPolicy rpol
+			JOIN rpol.dataPoints rpt
+			WHERE rc.action = com.elasticpath.domain.datapolicy.ConsentAction.REVOKED
+				AND rc.consentDate = (SELECT max(ic.consentDate)
+					FROM CustomerConsentImpl ic WHERE ic.customerGuid = rc.customerGuid AND ic.dataPolicy = rc.dataPolicy)
+				AND rpt.removable = true
+				AND rpt.uidPk NOT IN (
+					SELECT gpt.uidPk
+					FROM CustomerConsentImpl gcons
+					JOIN gcons.dataPolicy gpol
+					JOIN gpol.dataPoints gpt
+					WHERE gpt.removable = true
+						AND rc.customerGuid=gcons.customerGuid
+						AND gcons.action = com.elasticpath.domain.datapolicy.ConsentAction.GRANTED
+						AND gcons.consentDate = (SELECT max(ic.consentDate)
+							FROM CustomerConsentImpl ic WHERE ic.customerGuid = gcons.customerGuid AND ic.dataPolicy = gcons.dataPolicy))
+		</query>
+	</named-query>
+
+	<named-query name="DATAPOINTS_FIND_WITH_GRANTED_CONSENTS_LATEST">
+		<query>
+			SELECT DISTINCT rc.customerGuid, rpt, rpol FROM CustomerConsentImpl rc
+			JOIN rc.dataPolicy rpol
+			JOIN rpol.dataPoints rpt
+			WHERE rc.action = com.elasticpath.domain.datapolicy.ConsentAction.GRANTED
+				AND rc.consentDate = (SELECT max(ic.consentDate)
+					FROM CustomerConsentImpl ic WHERE ic.customerGuid = rc.customerGuid AND ic.dataPolicy = rc.dataPolicy)
+				AND rpt.removable = true
+		</query>
+	</named-query>
+
+	<named-query name="CUSTOMER_AND_DATA_POINT_BY_STORE_AND_USER_ID">
+		<query>
+			SELECT cust, dp
+			FROM  CustomerConsentImpl consent, CustomerImpl cust
+			JOIN consent.dataPolicy policy
+			JOIN policy.dataPoints dp
+			WHERE consent.customerGuid = cust.guid
+			AND cust.userId = ?1
+			AND cust.storeCode = ?2
+		</query>
+	</named-query>
+
+	<named-query name="FIND_DATA_POINTS_FOR_STORE_BY_CUSTOMER_AND_DATA_POLICY_GUIDS">
+		<query>
+			SELECT dp
+			FROM  CustomerConsentImpl consent, CustomerImpl cust
+			JOIN consent.dataPolicy policy
+			JOIN policy.dataPoints dp
+			WHERE consent.customerGuid = cust.guid
+			AND cust.guid = ?1
+			AND cust.storeCode = ?2
+			AND policy.guid = ?3
+		</query>
+	</named-query>
+
+	<named-query name="FIND_REMOVABLE_UNIQUE_POLICY_DATA_POINTS_FOR_CUSTOMER">
+		<query>
+			SELECT selectedDataPoint
+			FROM DataPolicyImpl selectedPolicy
+			JOIN selectedPolicy.dataPoints selectedDataPoint
+			WHERE selectedPolicy.guid = ?1
+			AND selectedDataPoint.removable = true
+			AND selectedDataPoint.uidPk NOT IN
+				(SELECT otherDataPoint.uidPk
+				FROM CustomerConsentImpl otherCustomerConsent
+				JOIN otherCustomerConsent.dataPolicy otherPolicy
+				JOIN otherPolicy.dataPoints otherDataPoint
+				WHERE otherCustomerConsent.action = com.elasticpath.domain.datapolicy.ConsentAction.GRANTED
+				AND otherCustomerConsent.customerGuid = ?2
+				AND otherDataPoint.removable = true
+				AND otherPolicy.guid &lt;&gt; ?1)
+		</query>
+	</named-query>
+
+	<named-query name="CUSTOMER_CONSENTS_FIND_LATEST_BY_CUSTOMER">
+		<query>
+			SELECT cc
+			FROM CustomerConsentImpl cc
+			WHERE cc.customerGuid = ?1
+			AND cc.action = ?2
+			AND cc.uidPk=(
+				SELECT max(cc2.uidPk)
+				FROM CustomerConsentImpl cc2 WHERE cc2.customerGuid = cc.customerGuid AND cc2.dataPolicy = cc.dataPolicy
+				AND cc2.consentDate=(
+					SELECT max(cc3.consentDate)
+					FROM CustomerConsentImpl cc3 WHERE cc3.customerGuid = cc2.customerGuid AND cc3.dataPolicy = cc2.dataPolicy))
+		</query>
+	</named-query>
+
+	<named-query name="CUSTOMER_CONSENTS_FIND_LATEST_ACTIVE_BY_CUSTOMER">
+		<query>
+			SELECT cc
+			FROM CustomerConsentImpl cc
+			WHERE cc.customerGuid = ?1
+			AND cc.uidPk=(
+				SELECT max(cc2.uidPk)
+				FROM CustomerConsentImpl cc2 WHERE cc2.customerGuid = cc.customerGuid AND cc2.dataPolicy = cc.dataPolicy
+				AND cc2.consentDate=(
+					SELECT max(cc3.consentDate)
+					FROM CustomerConsentImpl cc3 WHERE cc3.customerGuid = cc2.customerGuid AND cc3.dataPolicy = cc2.dataPolicy))
+			AND cc.dataPolicy.state = com.elasticpath.domain.datapolicy.DataPolicyState.ACTIVE
+		</query>
+	</named-query>
+
+	<named-query name="CUSTOMER_CONSENTS_FIND_LATEST_ACTIVE_OR_DISABLED_BY_CUSTOMER">
+		<query>
+			SELECT cc
+			FROM CustomerConsentImpl cc
+			WHERE cc.customerGuid = ?1
+			AND cc.uidPk=(
+				SELECT max(cc2.uidPk)
+				FROM CustomerConsentImpl cc2 WHERE cc2.customerGuid = cc.customerGuid AND cc2.dataPolicy = cc.dataPolicy
+				AND cc2.consentDate=(
+					SELECT max(cc3.consentDate)
+					FROM CustomerConsentImpl cc3 WHERE cc3.customerGuid = cc2.customerGuid AND cc3.dataPolicy = cc2.dataPolicy))
+			AND (cc.dataPolicy.state = com.elasticpath.domain.datapolicy.DataPolicyState.ACTIVE
+				OR cc.dataPolicy.state = com.elasticpath.domain.datapolicy.DataPolicyState.DISABLED)
+		</query>
+	</named-query>
+
+</entity-mappings>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint
+		xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+	<reference-list id="optionalPricedShippingCalculationPluginList"
+					filter="(type=priced)"
+					availability="optional"
+					interface="com.elasticpath.shipping.connectivity.spi.ShippingCalculationPlugin">
+		<description>
+			registers all external shipping calculation plugins with priced type in external bundles.
+		</description>
+	</reference-list>
+
+	<reference-list id="optionalUnpricedShippingCalculationPluginList"
+					filter="(type=unpriced)"
+					availability="optional"
+					interface="com.elasticpath.shipping.connectivity.spi.ShippingCalculationPlugin">
+		<description>
+			registers all external shipping calculation plugins with unpriced type in external bundles.
+		</description>
+	</reference-list>
+
+	<reference id="optionalUnpricedShippingCalculationPluginSelector"
+			   availability="optional"
+			   interface="com.elasticpath.shipping.connectivity.service.selector.UnpricedShippingCalculationPluginSelector"
+			   timeout="1">
+		<description>
+			refers to an optional implementation of unpriced shipping calculation plugin in external bundle.
+		</description>
+		<reference-listener ref="unpricedShippingCalculationPluginSelectorProxy"
+							bind-method="bindImplementation"
+							unbind-method="unbindImplementation"/>
+	</reference>
+
+	<reference id="optionalPricedShippingCalculationPluginSelector"
+			   availability="optional"
+			   interface="com.elasticpath.shipping.connectivity.service.selector.PricedShippingCalculationPluginSelector"
+			   timeout="1">
+		<description>
+			refers to an optional implementation of priced shipping calculation plugin in external bundle.
+		</description>
+		<reference-listener ref="pricedShippingCalculationPluginSelectorProxy"
+							bind-method="bindImplementation"
+							unbind-method="unbindImplementation"/>
+	</reference>
+
+	<reference id="optionalShippingCalculationService"
+			   availability="optional"
+			   interface="com.elasticpath.shipping.connectivity.service.ShippingCalculationService"
+			   filter="(caching=true)"
+			   timeout="1">
+		<description>
+			refers to an optional implementation of caching version of shipping calculation service in external bundle.
+		</description>
+		<reference-listener ref="shippingCalculationServiceProxy"
+							bind-method="bindImplementation"
+							unbind-method="unbindImplementation"/>
+	</reference>
+
+	<reference id="transactionManager" interface="org.springframework.transaction.PlatformTransactionManager"/>
+
+	<service ref="shippingCalculationResultBuilderSupplier"
+			 interface="java.util.function.Supplier">
+		<service-properties>
+			<entry key="id" value="shippingCalculationResultBuilderSupplier"/>
+		</service-properties>
+	</service>
+
+	<service ref="shippingOptionBuilderSupplier"
+			 interface="java.util.function.Supplier">
+		<service-properties>
+			<entry key="id" value="shippingOptionBuilderSupplier"/>
+		</service-properties>
+	</service>
+
+	<service ref="shippingAddressBuilderSupplier"
+			 interface="java.util.function.Supplier">
+		<service-properties>
+			<entry key="id" value="shippingAddressBuilderSupplier"/>
+		</service-properties>
+	</service>
+
+	<service ref="unpricedShippableItemBuilderSupplier"
+			 interface="java.util.function.Supplier">
+		<service-properties>
+			<entry key="id" value="unpricedShippableItemBuilderSupplier"/>
+		</service-properties>
+	</service>
+
+	<service ref="unpricedShippableItemContainerBuilderSupplier"
+			 interface="java.util.function.Supplier">
+		<service-properties>
+			<entry key="id" value="unpricedShippableItemContainerBuilderSupplier"/>
+		</service-properties>
+	</service>
+
+	<service ref="pricedShippableItemBuilderSupplier"
+			 interface="java.util.function.Supplier">
+		<service-properties>
+			<entry key="id" value="pricedShippableItemBuilderSupplier"/>
+		</service-properties>
+	</service>
+
+	<service ref="pricedShippableItemContainerBuilderSupplier"
+			 interface="java.util.function.Supplier">
+		<service-properties>
+			<entry key="id" value="pricedShippableItemContainerBuilderSupplier"/>
+		</service-properties>
+	</service>
+
+	<service ref="coreShippingCalculationService"
+			 interface="com.elasticpath.shipping.connectivity.service.ShippingCalculationService"
+			 ranking="100">
+		<description>
+			the core shipping calculation service is a non caching version implementation of shipping calculation service.
+			it would be wired in tis caching version module.
+		</description>
+		<service-properties>
+			<entry key="caching">
+				<value type="java.lang.Boolean">false</value>
+			</entry>
+			<entry key="id" value="coreShippingCalculationService"/>
+		</service-properties>
+	</service>
+
+	<service ref="shippingCalculationService"
+			 interface="com.elasticpath.shipping.connectivity.service.ShippingCalculationService"
+			 ranking="100">
+		<description>
+			this service the actual service exported for upstream usage.
+		</description>
+		<service-properties>
+			<entry key="id" value="shippingCalculationService"/>
+		</service-properties>
+	</service>
+
+</blueprint>

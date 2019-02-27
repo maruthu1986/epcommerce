@@ -1,0 +1,52 @@
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/CCombo.html
+CCombo,
+Combo {
+	@include form_field('&,&[BORDER]');
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/CCombo.html#CCombo-Button
+	&-Button {
+		&, &[FLAT] {
+			background-color: $widget_body_color;
+			background-image: none;
+			border: none;
+			cursor: pointer;
+			width: $field-icon-width;
+		}
+
+		// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/CCombo.html#CCombo-Button-Icon
+		&-Icon {
+			@include down_icon();
+		}
+	}
+
+
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/CCombo.html#CCombo-Field
+	&-Field {
+		&, &[FLAT] {
+			padding: $ccombo_field_padding;
+			// padding: 20px;
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/CCombo.html#CCombo-List
+	&-List {
+		@include dropdown_box();
+
+		// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/CCombo.html#CCombo-List-Item
+		&-Item {
+			// SELECTED COLOR DOESN'T SUPPORT RGBA
+			@include list_item(false, 5px 10px);
+			&:selected {
+				background-color: $primary-color4;
+			}
+		}
+	}
+
+
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/CCombo.html#CCombo-FocusIndicator
+	&-FocusIndicator {
+		
+	}
+}

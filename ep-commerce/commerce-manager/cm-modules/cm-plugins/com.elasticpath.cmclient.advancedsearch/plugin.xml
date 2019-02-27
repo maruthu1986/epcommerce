@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="Extender" name="Extender"   schema="../com.elasticpath.cmclient.core/schema/extender.exsd"/>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="com.elasticpath.cmclient.catalog.category.main"
+            class="com.elasticpath.cmclient.advancedsearch.views.CatalogAdvancedSearchView"
+            icon="icons/advanced-search_default_22.png"
+            id="com.elasticpath.advancedsearch.CatalogAdvancedSearchView"
+            name="%advancedSearchView.name">
+      </view>
+      <view
+            allowMultiple="true"
+            category="com.elasticpath.cmclient.catalog.category.main"
+            class="com.elasticpath.cmclient.advancedsearch.catalog.views.AdvancedSearchProductListView"
+            icon="icons/product_default_22.png"
+            id="com.elasticpath.cmclient.advancedsearch.catalog.views.AdvancedSearchProductListView"
+            name="%advancedSearchResultView.name">
+      </view>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.core.authorizations">
+      <permissions>
+         <permission
+               activityId="com.elasticpath.cmclient.advancedsearch.querymanagement"
+               key="CREATE_QUERIES"
+               name="%createQueriesPermission.name">
+         </permission>
+         <permission
+               activityId="com.elasticpath.cmclient.advancedsearch.querymanagement"
+               key="MANAGE_QUERIES"
+               name="%manageQueriesPermission.name">
+         </permission>
+      </permissions>
+      <activity
+            id="com.elasticpath.cmclient.advancedsearch.querymanagement"
+            name="%activityPermission.name"
+            perspectiveId="com.elasticpath.cmclient.catalog.catalogperspective">
+      </activity>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.catalog.catalogPerspectiveExtension">
+      <view
+            authorizationClass="com.elasticpath.cmclient.advancedsearch.AdvancedSearchViewAuthorization"
+            closeable="false"
+            moveable="false"
+            placeholder="com.elasticpath.cmclient.advancedsearch.catalog.views.AdvancedSearchProductListView:*"
+            viewId="com.elasticpath.advancedsearch.CatalogAdvancedSearchView">
+      </view>
+   </extension>
+
+</plugin>

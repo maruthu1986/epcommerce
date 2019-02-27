@@ -1,0 +1,81 @@
+// used in Grid, Table and Tree controls
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Grid.html
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Table.html
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Tree.html
+
+@mixin grid_style($padding: $table_cell_padding) {
+	background-color: $widget_body_color;
+	background-image: none;
+	color: $default-font-color;
+	font: $default-font;
+	border: none;
+
+	&[BORDER] {
+		border: 1px solid $table_border_color;
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Grid.html#Table-RowOverlay
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Table.html#Table-RowOverlay
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Tree.html#Tree-RowOverlay
+	&-RowOverlay {
+		@include list_item(true, $padding);
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Grid.html#TableColumn
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Table.html#TableColumn
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Tree.html#TreeColumn
+	// table head
+	&Column {
+		background-color: $widget_body_color;
+		background-image: none;
+		border-bottom: 2px solid $table_cell_border_color;
+		color: $gray-darker;
+		font: bold $default-font;
+		padding: $table_header_padding;
+
+		// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Grid.html#TableColumn-SortIndicator
+		// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Table.html#TableColumn-SortIndicator
+		// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Tree.html#TreeColumn-SortIndicator
+		&-SortIndicator {
+			// spacing: 0;
+			// background-color: $secondary-color;
+
+			&:down {
+				@include down_icon();
+			}
+			&:up {
+				@include up_icon();
+			}
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Table.html#Grid-Cell
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Table.html#Table-Cell
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Tree.html#Tree-Cell
+	&-Cell {
+		padding: $padding;
+		spacing: $icon-spacing-spacious;
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Table.html#Grid-GridLine
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Table.html#Table-GridLine
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Tree.html#Tree-GridLine
+	&-GridLine {
+		color: transparent;
+        &:vertical,
+        &:horizontal {
+    		color: transparent;
+        }
+		&:vertical:header {
+		    color: $table_cell_border_color;
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Table.html#Grid-Checkbox
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Table.html#Table-Checkbox
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Tree.html#Tree-Checkbox
+	&-Checkbox {
+        @include checkbox_icon(':checked');
+    }
+}
+

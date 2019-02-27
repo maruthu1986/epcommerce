@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>shipments</name>
+
+		<resource>
+			<name>purchase-shipment-shipping-address</name>
+			<description><![CDATA[The address a shipment was sent to.]]></description>
+			<uri>{shipment}/shippingaddress</uri>
+			<entity>addresses.address</entity>
+		</resource>
+
+		<relationship>
+			<name>destination-address-for-purchase</name>
+			<description><![CDATA[Follow a link from a shipment to the shipping address.]]></description>
+			<rel>destination</rel>
+			<rev>shipment</rev>
+			<from>shipment</from>
+			<to>purchase-shipment-shipping-address</to>
+		</relationship>
+
+	</family>
+</definitions>

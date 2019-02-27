@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.rest.integration.epcommerce</groupId>
+		<artifactId>epcommerce-rs-authentication-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ep-rs-authentication-spring-oauth2</artifactId>
+	<packaging>bundle</packaging>
+	<name>EP ∷ RelOS : RS Authentication - Spring OAuth2</name>
+	<description>Elastic Path REST - RelOS RS Authentication Spring OAuth2 Module</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath.rest</groupId>
+			<artifactId>ep-rest-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.relos.rs.authentication</groupId>
+			<artifactId>ep-rs-authentication-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.relos.rs.subject</groupId>
+			<artifactId>ep-rs-subject-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.relos.rs.authentication</groupId>
+			<artifactId>ep-rs-authentication-resource</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.relos.rs</groupId>
+			<artifactId>ep-rs-jaxrs-resource-provider</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+		</dependency>
+		<dependency>
+			<!-- runtime dep for spring-security-oauth2 -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<!-- runtime dep for spring-security-oauth2 -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<!-- runtime dep for spring-security-oauth2 -->
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<!-- runtime dep for spring-security-oauth2 -->
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.relos.rs</groupId>
+			<artifactId>ep-rs-bridge-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.relos.rs.events</groupId>
+			<artifactId>ep-rs-events-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>

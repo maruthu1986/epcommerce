@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+    logicalFilePath="com.elasticpath.extensions/db/ext-database/schema-customizations-changelog.xml">
+
+	<!-- Important:
+	- Table names cannot exceed 30 characters (Oracle limitation)
+	- Column names cannot exceed 30 characters (Oracle limitation)
+	- Index names cannot exceed 18 characters (DB2 limitation)
+
+	 Important:
+	- Using <preCondition> ? read: http://forum.liquibase.org/topic/unexpected-behaviour-of-preconditions-with-updatesql
+	- Using <preCondition> ? Consider adding onUpdateSql="TEST", but understand how it plays with updateSQL!
+	-->
+
+	<!--
+	<changeSet id="1" author="example@example.com">
+		<createTable tableName="TEXAMPLE">
+			<column name="uidpk" type="int">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="guid" type="varchar(64)"/>
+			<column name="firstname" type="varchar(255)"/>
+			<column name="lastname" type="varchar(255)"/>
+			<column name="username" type="varchar(255)">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="testid" type="int" />
+		</createTable>
+	</changeSet>
+	-->
+	<changeSet id="favorites_table" author="elasticpath">
+		<createTable tableName="TMFAVORITES">
+			<column name="UIDPK" type="BIGINT">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="GUID" type="varchar(100)">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="STORECODE" type="varchar(64)">
+				<constraints foreignKeyName="STORECODES" referencedTableName="TSTORE" referencedColumnNames="STORECODE"/>
+			</column>
+			<column name="SHOPPER_UID" type="BIGINT">
+				<constraints foreignKeyName="UIDPKS" nullable="false" referencedTableName="TSHOPPER" referencedColumnNames="UIDPK"/>
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet id="enhance_cart_items_schema_favorites" author="elasticpath">
+		<addColumn tableName="TCARTITEM">
+			<column name="FAVORITES_UID" type="BIGINT" />
+		</addColumn>
+
+		<update tableName="TCARTITEM">
+			<column name="FAVORITES_UID"/>
+		</update>
+
+		<addForeignKeyConstraint baseColumnNames="FAVORITES_UID" baseTableName="TCARTITEM" constraintName="TCARTITEM_FK_FAVORITES"
+								 referencedColumnNames="UIDPK" referencedTableName="TMFAVORITES" />
+
+		<createIndex tableName="TCARTITEM" indexName="TCARTITEM_IDX_FAVORITES">
+			<column name="FAVORITES_UID" />
+		</createIndex>
+
+	</changeSet>
+</databaseChangeLog>

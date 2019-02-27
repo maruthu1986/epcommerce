@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>carts</name>
+		<description><![CDATA[Items are added to the user's default cart by using a form.]]></description>
+
+		<resource>
+			<name>add-to-default-cart-form</name>
+			<description><![CDATA[Provides the form with which to add an item to the default cart.]]></description>
+			<!-- This really should be {default-cart}/lineitems/{items.item}/form but current impl does this pattern. -->
+			<uri>{base.family}/{items.item}/form</uri>
+			<form>
+				<entity>line-item</entity>
+				<action-rel>addtodefaultcartaction</action-rel>
+				<result>line-item</result>
+			</form>
+		</resource>
+
+		<advisor>
+			<name>add-to-cart-form</name>
+			<description>Add to cart pre-conditions check</description>
+			<blocks>add-to-default-cart-form</blocks>
+		</advisor>
+
+		<relationship>
+			<name>add-to-default-cart-form-for-item</name>
+			<description><![CDATA[The form to add an item to the default cart.]]></description>
+			<rel>addtocartform</rel>
+			<from>items.item</from>
+			<to>add-to-default-cart-form</to>
+		</relationship>
+
+	</family>
+</definitions>

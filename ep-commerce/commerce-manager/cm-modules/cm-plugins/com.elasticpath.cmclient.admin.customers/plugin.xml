@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension-point id="Extender" name="Extender"   schema="../com.elasticpath.cmclient.core/schema/extender.exsd"/>
+
+	<extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            class="com.elasticpath.cmclient.admin.customers.views.AttributeListView"
+            icon="icons/attribute_default_22.png"
+            id="com.elasticpath.cmclient.admin.customers.views.AttributeListView"
+            name="%profileAttributesView.name">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            class="com.elasticpath.cmclient.admin.customers.views.CustomerSegmentListView"
+            icon="icons/customer-segment_default_22.png"
+            id="com.elasticpath.cmclient.admin.customers.views.CustomerSegmentListView"
+            name="%customerSegmentView.name">
+      </view>
+   </extension>   
+   <extension
+         point="com.elasticpath.cmclient.admin.adminSections">
+      <adminSection
+            class="com.elasticpath.cmclient.admin.customers.CustomerAdminSection"
+            id="com.elasticpath.cmclient.admin.customers.CustomerAdminSection"
+            name="%adminSection.name">
+      </adminSection>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.core.authorizations">
+      <permissions>
+         <permission
+               activityId="com.elasticpath.cmclient.admin.authorization.activity"
+               key="ADMIN_CUSTOMER_PROFILES_MANAGE"
+               name="%manageCustomerProfiles.name">
+         </permission>
+         <permission
+               activityId="com.elasticpath.cmclient.admin.authorization.activity"
+               key="ADMIN_CUSTOMER_SEGMENTS_MANAGE"
+               name="%manageCustomerSegment.name">
+         </permission>         
+      </permissions>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+        <command
+      		name="Show Customer Profile Attributes View"
+      		id="com.elasticpath.cmclient.admin.customers.openProfileAttributesView"
+      		defaultHandler="org.eclipse.ui.handlers.ShowViewHandler">
+      		<commandParameter
+      			id="org.eclipse.ui.views.showView.viewId"
+      			name="View"
+      			values="com.elasticpath.cmclient.admin.customers.views.AttributeListView" />
+        <commandParameter
+              id="org.eclipse.ui.views.showView.makeFast"
+              name="Make fast"
+              optional="true">
+        </commandParameter>
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+        <command
+      		name="Show Customer Segment View"
+      		id="com.elasticpath.cmclient.admin.customers.openCustomerSegmentView"
+      		defaultHandler="org.eclipse.ui.handlers.ShowViewHandler">
+      		<commandParameter
+      			id="org.eclipse.ui.views.showView.viewId"
+      			name="View"
+      			values="com.elasticpath.cmclient.admin.customers.views.CustomerSegmentListView" />
+        <commandParameter
+              id="org.eclipse.ui.views.showView.makeFast"
+              name="Make fast"
+              optional="true">
+        </commandParameter>
+      </command>
+   </extension>   
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.elasticpath.cmclient.admin.customers.views.CustomerSegmentEditor"
+            icon="icons/customer-segment_default_22.png"
+            id="com.elasticpath.cmclient.admin.customers.views.CustomerSegmentEditor"
+            contributorClass="com.elasticpath.cmclient.core.editors.BaseCmClientEditorContributor"
+            name="%customerSegmentEditor.name">
+      </editor>
+   </extension>   
+
+</plugin>

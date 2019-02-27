@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<exportconfiguration>
+
+  <exporters>
+   <exporter type="CUSTOMER">
+     <option key="CARD_NUMBER_FILTER" value="EMPTY"/>
+   </exporter>
+   <exporter type="CUSTOMERPROFILE_ATTRIBUTE"/>
+
+  </exporters>
+  <packager type="NONE"/>
+  <delivery>
+    <method>FILE</method>
+    <target>exportedData</target>
+  </delivery>
+</exportconfiguration>

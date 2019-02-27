@@ -1,0 +1,2 @@
+This directory holds the configuration files required to run the application, and are meant for developer use.  The values in the files are starting defaults, and may be modified as necessary.
+The files should be placed under one of {user.home}/ep/cortex/system/config, /ep/cortex/system/config, or (deprecated) /etc/ep/cortex/system/config of your local machine.

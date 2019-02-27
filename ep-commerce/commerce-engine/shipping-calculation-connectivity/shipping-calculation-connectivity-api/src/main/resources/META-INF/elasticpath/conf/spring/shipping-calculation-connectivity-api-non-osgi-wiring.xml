@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <!-- import section of optional reference -->
+	<!-- default bean wiring, ready for overriding -->
+	<alias alias="shippingCalculationService" name="coreShippingCalculationService"/>
+	<alias alias="shippingCalculationServiceSupplier" name="coreShippingCalculationServiceSupplier"/>
+
+	<alias alias="unpricedShippingCalculationPluginSelector" name="coreStaticUnpricedShippingCalculationPluginSelector"/>
+	<alias alias="pricedShippingCalculationPluginSelector" name="coreStaticPricedShippingCalculationPluginSelector"/>
+
+	<alias alias="unpricedShippingCalculationPluginList" name="coreUnpricedShippingCalculationPluginList"/>
+	<alias alias="pricedShippingCalculationPluginList" name="corePricedShippingCalculationPluginList"/>
+
+	<!-- keep two versions due to support coexist of caching framework -->
+	<alias alias="nonCachingShippingCalculationService" name="coreShippingCalculationService"/>
+
+</beans>

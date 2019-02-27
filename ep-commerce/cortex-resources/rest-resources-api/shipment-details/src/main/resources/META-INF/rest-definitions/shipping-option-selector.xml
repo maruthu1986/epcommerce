@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>shipmentdetails</name>
+		<description>
+			<![CDATA[
+Uses a Selector to choose the shipping option for the order. The shipping option is how the order will be
+shipped, i.e. (FedEx, Canada Post, etc). The shipping options available for your shipment depend on which shipping regions
+and shipping options are configured for your store. Check with your store's administrator for more information on
+these options.
+				]]>
+		</description>
+
+		<resource>
+			<name>shipping-option-info-selector</name>
+			<description><![CDATA[Selector to choose shipping option.]]></description>
+			<uri>{shipping-option-info}/selector</uri>
+			<selector-for>shipping-option-info</selector-for>
+		</resource>
+
+		<resource>
+			<name>shipping-option-info-selector-choice</name>
+			<description><![CDATA[Selector choice for the shipping option selector.]]></description>
+			<uri>{shipping-option-info-selector}/{shipping-option}</uri>
+			<choices-for>shipping-option-info-selector</choices-for>
+		</resource>
+
+		<relationship>
+			<name>shipping-option-info-selector-to-shipping-option-info</name>
+			<description><![CDATA[Retrieve shipping option info.]]></description>
+			<rel>shippingoptioninfo</rel>
+			<rev>selector</rev>
+			<from>shipping-option-info-selector</from>
+			<to>shipping-option-info</to>
+		</relationship>
+
+	</family>
+</definitions>

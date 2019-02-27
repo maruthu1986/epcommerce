@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="commerce-persistence-unit">
+
+		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+
+		<class>com.elasticpath.persistence.openjpa.sampledata.Detail</class>
+		<class>com.elasticpath.persistence.openjpa.sampledata.Master</class>
+
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<validation-mode>NONE</validation-mode>
+
+		<!-- !!!! DOCjpaPropertiesXML -->
+		<properties>
+			<property name="openjpa.ConnectionFactoryName" value="java:comp/env/jdbc/epjndi"/>
+			<property name="openjpa.Log" value="slf4j"/>
+			<property name="openjpa.ConnectionFactoryProperties" value="PrettyPrint=true, PrettyPrintLineLength=120"/>
+			<property name="openjpa.jdbc.EagerFetchMode" value="parallel"/>
+			<property name="openjpa.jdbc.SubclassFetchMode" value="parallel"/>
+			<property name="openjpa.DetachState" value="loaded(DetachedStateField=true,AccessUnloaded=false)"/>
+			<property name="openjpa.Multithreaded" value="true"/>
+			<property name="openjpa.AutoDetach" value="close, commit, nontx-read"/>
+			<property name="openjpa.jdbc.DBDictionary" value="SupportsSubselect=true, SupportsCorrelatedSubselect=false"/>
+			<property name="openjpa.jdbc.FinderCache" value="false"/>
+			<property name="openjpa.jdbc.TransactionIsolation" value="read-committed"/>
+
+			<!-- OpenJPA 2.x compatibility against spec -->
+			<property name="openjpa.Compatibility" value="convertPositionalParametersToNamed=true"/>
+
+			<!-- Pre-Load Metadata -->
+			<property name="openjpa.MetaDataRepository" value="Preload=true"/>
+
+			<!-- Uncomment the section below to enable data caching, comment them out to disable -->
+			<!--
+			<property name="openjpa.DataCache" value="true(cacheSize=25000,softReferenceSize=0)"/>
+			<property name="openjpa.RemoteCommitProvider" value="sjvm"/>
+			<property name="openjpa.DataCacheTimeout" value="1000"/>
+			<property name="openjpa.QueryCompilationCache" value="true(cacheSize=2500,softReferenceSize=0)"/>
+
+			<property name="openjpa.QueryCache" value="true(cacheSize=10000,softReferenceSize=0)"/>
+			<property name="openjpa.jdbc.QuerySQLCache" value="false"/>
+			-->
+
+			<!--  Don't use this in production!!!  -->
+			<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema"/>
+
+		</properties>
+		<!-- !!!! DOCjpaPropertiesXML -->
+
+	</persistence-unit>
+
+</persistence>

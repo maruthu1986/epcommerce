@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>emails</name>
+		<description>
+			<![CDATA[
+Add an email to a logged in customer.
+
+Out of the box, customers can have only one email, which is their user name. If you create a new email for a registered customer, this changes the customer's user name.
+			]]>
+		</description>
+		<resource>
+			<name>add-email-form</name>
+			<description><![CDATA[The form to add an email address to a customer account.]]></description>
+			<uri>{emails}/form</uri>
+			<form>
+				<entity>email</entity>
+				<action-rel>createemailaction</action-rel>
+				<result>email</result>
+			</form>
+		</resource>
+
+		<relationship>
+			<name>emails-to-add-email-form</name>
+			<description><![CDATA[A form to add an email address to the current user.]]></description>
+			<rel>emailform</rel>
+			<from>emails</from>
+			<to>add-email-form</to>
+		</relationship>
+
+	</family>
+</definitions>

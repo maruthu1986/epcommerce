@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customer_groups>
+<!-- See ep-shared-demo-data for additional definitions -->
+
+<customer_group guid="c675becd-d23d-4770-b55a-3b7721156ed3" name="ITEST_SEGMENT" description="ITEST_SEGMENT">
+    <enabled>true</enabled>
+    <customer_roles>
+        <customer_role authority="ROLE_CUSTOMER"/>
+    </customer_roles>
+</customer_group>
+</customer_groups>

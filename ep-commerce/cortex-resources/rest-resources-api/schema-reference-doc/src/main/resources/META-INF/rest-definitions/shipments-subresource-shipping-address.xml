@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>shipments</name>
+		<plan>
+			<name>read-shipping-address-for-shipment</name>
+			<description><![CDATA[Retrieve the shipment address associated with a shipment.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from a shipment to the shipping address.]]></description>
+				<start>shipment</start>
+				<follow-link>destination</follow-link>
+				<result>purchase-shipment-shipping-address</result>
+			</step>
+		</plan>
+
+	</family>
+
+</definitions>

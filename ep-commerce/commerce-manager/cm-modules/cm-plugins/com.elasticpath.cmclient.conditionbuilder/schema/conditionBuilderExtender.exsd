@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="com.elasticpath.cmclient.conditionbuilder" xmlns="http://www.w3.org/2001/XMLSchema">
+   <annotation>
+      <appInfo>
+         <meta.schema plugin="com.elasticpath.cmclient.conditionbuilder" id="ConditionBuilderExtender" name="ConditionBuilderExtender"/>
+      </appInfo>
+      <documentation>
+         Definition for CM Extension points. Defines Condition Builder Extension points.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="0" maxOccurs="unbounded">
+            <element ref="ConditionRowCompositeCreatorFactory"/>
+            <element ref="ConditionModelAdapterFactory"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="ConditionRowCompositeCreatorFactory">
+      <complexType>
+         <attribute name="className" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Name of the factory class extension plugins use to create ConditionRowComposites.
+                  Implements com.elasticpath.cmclient.conditionbuilder.extenders.ConditionRowCompositeCreatorFactory.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java"  basedOn=":com.elasticpath.cmclient.conditionbuilder.extenders.ConditionRowCompositeCreatorFactory" />
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="ConditionModelAdapterFactory">
+      <complexType>
+         <attribute name="className" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Name of the factory class extension plugins use to create ConditionModelAdapters.
+                  Implements com.elasticpath.cmclient.conditionbuilder.extenders.ConditionModelAdapterFactory.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java"  basedOn=":com.elasticpath.cmclient.conditionbuilder.extenders.ConditionModelAdapterFactory" />
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+</schema>

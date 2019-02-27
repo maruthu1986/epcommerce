@@ -1,0 +1,6 @@
+#**
+* Macro for emails to retrieve messages from a msgSource object
+* IMPORTANT - MUST NOT have leading spaces or a line break before the #end
+*#
+#macro(emailMessage $code)
+$msgSource.getMessage($code, null, $code, $locale)#end

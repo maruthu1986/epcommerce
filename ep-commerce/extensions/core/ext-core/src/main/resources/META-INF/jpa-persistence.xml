@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             version="2.0"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="commerce-persistence-unit">
+        <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+
+        <!-- Add new mapping files (*-orm.xml) here. You can exclude OOTB files by adding them to persistenceMappingExcludedFiles in spring -->
+        <mapping-file>META-INF/favorites-orm.xml</mapping-file>
+        <mapping-file>META-INF/example-orm.xml</mapping-file>
+
+        <!-- Add entities here. You can remove OOTB entries by adding the classes to persistenceMappingExcludedClasses in spring -->
+        <class>com.elasticpath.extensions.domain.favorites.impl.FavoriteListImpl</class>
+        <class>com.elasticpath.extensions.domain.impl.ExampleImpl</class>
+
+        <!-- All persistent classes should be listed above and enhanced at runtime.
+             The following directive supresses runtime enhancement classpath scanning which does not work in an OSGi environment. -->
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+        <validation-mode>NONE</validation-mode>
+
+        <!-- These properties need to be here to ensure enhancement occurs correctly. All other properties
+             should be added in spring as map entries of persistencePropertyOverrides.
+         -->
+        <properties>
+            <property name="openjpa.Log" value="slf4j"/>
+            <property name="openjpa.DetachState" value="loaded(DetachedStateField=true,AccessUnloaded=false)"/>
+        </properties>
+
+    </persistence-unit>
+</persistence>

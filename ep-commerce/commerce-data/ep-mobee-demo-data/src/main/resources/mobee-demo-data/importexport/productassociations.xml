@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<productassociations>
+	<productassociation catalog="MobileCatalog">
+		<type>CrossSell</type>
+		<enabledate>2008-07-03T00:00:00-07:00</enabledate>
+		<sourceproductcode>singleAssociationSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductOne</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>CrossSell</type>
+		<enabledate>2008-07-03T00:00:00-07:00</enabledate>
+		<sourceproductcode>singleAssociationSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductOne</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+
+	<productassociation catalog="MobileCatalog">
+		<type>CrossSell</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductOne</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>3</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>CrossSell</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductOne</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>3</ordering>
+	</productassociation>
+	<productassociation catalog="MobileCatalog">
+		<type>CrossSell</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductTwo</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>CrossSell</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductTwo</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+
+	<productassociation catalog="MobileCatalog">
+		<type>UpSell</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductOne</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>3</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>UpSell</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductOne</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>3</ordering>
+	</productassociation>
+	<productassociation catalog="MobileCatalog">
+		<type>UpSell</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductTwo</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>UpSell</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductTwo</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+
+	<productassociation catalog="MobileCatalog">
+		<type>Warranty</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductOne</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>3</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>Warranty</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductOne</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>3</ordering>
+	</productassociation>
+	<productassociation catalog="MobileCatalog">
+		<type>Warranty</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductTwo</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>Warranty</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductTwo</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+
+	<productassociation catalog="MobileCatalog">
+		<type>Accessory</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductOne</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>3</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>Accessory</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductOne</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>3</ordering>
+	</productassociation>
+	<productassociation catalog="MobileCatalog">
+		<type>Accessory</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductTwo</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>Accessory</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductTwo</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+
+	<productassociation catalog="MobileCatalog">
+		<type>Replacement</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductOne</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>3</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>Replacement</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductOne</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>3</ordering>
+	</productassociation>
+	<productassociation catalog="MobileCatalog">
+		<type>Replacement</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductTwo</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>Replacement</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>multipleAssociationsSourceProduct</sourceproductcode>
+		<targetproductcode>associatedProductTwo</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+	<productassociation catalog="MobileCatalog">
+		<type>CrossSell</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>SourceProductWithCrossSellsAssocToNonStoreVisibleTargetProduct</sourceproductcode>
+		<targetproductcode>ProductThatIsNotStoreVisible</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>CrossSell</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>SourceProductWithCrossSellsAssocToNonStoreVisibleTargetProduct</sourceproductcode>
+		<targetproductcode>ProductThatIsNotStoreVisible</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+	
+	<productassociation catalog="MobileCatalog">
+		<type>CrossSell</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>GuardiansOfTheGalaxy</sourceproductcode>
+		<targetproductcode>tt5656565</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>3</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>CrossSell</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>GuardiansOfTheGalaxy</sourceproductcode>
+		<targetproductcode>tt5656565</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>3</ordering>
+	</productassociation>
+	<productassociation catalog="MobileCatalog">
+		<type>CrossSell</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>GuardiansOfTheGalaxy</sourceproductcode>
+		<targetproductcode>tt966001av</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>CrossSell</type>
+		<enabledate>2008-10-08T00:00:00-07:00</enabledate>
+		<sourceproductcode>GuardiansOfTheGalaxy</sourceproductcode>
+		<targetproductcode>tt966001av</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+	
+	<productassociation catalog="MobileCatalog">
+		<type>UpSell</type>
+		<enabledate>2008-07-03T00:00:00-07:00</enabledate>
+		<sourceproductcode>GuardiansOfTheGalaxy</sourceproductcode>
+		<targetproductcode>portable_tv</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>
+	<productassociation catalog="Mobile">
+		<type>UpSell</type>
+		<enabledate>2008-07-03T00:00:00-07:00</enabledate>
+		<sourceproductcode>GuardiansOfTheGalaxy</sourceproductcode>
+		<targetproductcode>portable_tv</targetproductcode>
+		<defaultquantity>1</defaultquantity>
+		<sourceproductdependent>false</sourceproductdependent>
+		<ordering>2</ordering>
+	</productassociation>	
+</productassociations>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:settings="http://www.elasticpath.com/schema/settings"
+		xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.elasticpath.com/schema/settings http://www.elasticpath.com/schema/settings/settings.xsd
+		">
+	<bean id="utilityTemplate" abstract="true" class="com.elasticpath.commons.util.impl.UtilityImpl">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="defaultDateFormatPatternProvider">
+			<settings:setting path="COMMERCE/SYSTEM/localeDateFormat" />
+		</property>
+	</bean>
+
+	<bean id="utility" parent="utilityTemplate" scope="singleton"/>
+
+	<bean id="urlUtility" class="com.elasticpath.commons.util.impl.UrlUtilityImpl" scope="singleton">
+		<property name="characterEncoding" value="UTF-8"/>
+	</bean>
+
+	<bean id="passwordGenerator" class="com.elasticpath.commons.util.impl.PasswordGeneratorImpl" scope="singleton">
+	</bean>
+
+	<bean id="indexUtility" class="com.elasticpath.service.search.solr.IndexUtilityImpl" scope="singleton">
+		<property name="solrAttributeTypeExt">
+			<map>
+				<entry key="dateValue" value="_sdt"/>
+				<entry key="dateTimeValue" value="_sdt"/>
+				<entry key="shortTextValue" value="_st"/>
+				<entry key="longTextValue" value="_st"/>
+				<entry key="booleanValue" value="_b"/>
+				<entry key="decimalValue" value="_sf"/>
+				<entry key="integerValue" value="_si"/>
+			</map>
+		</property>
+		<property name="categoryLookup" ref="categoryLookup"/>
+	</bean>
+
+	<bean id="orderEventHelperTemplate" abstract="true"
+		class="com.elasticpath.domain.event.impl.OrderEventHelperImpl">
+		<property name="beanFactory" ref="coreBeanFactory" />
+		<property name="moneyFormatter" ref="moneyFormatter" />
+		<property name="timeService" ref="timeService" />
+		<property name="pricingSnapshotService" ref="pricingSnapshotService"/>
+		<property name="formatterMap">
+			<map key-type="com.elasticpath.plugin.payment.PaymentType">
+				<entry key="GIFT_CERTIFICATE" value-ref="orderEventGiftCertificateDetailsFormatter" />
+				<entry key="PAYMENT_TOKEN" value-ref="orderEventPaymentTokenDetailsFormatter" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="orderEventGiftCertificateDetailsFormatter" class="com.elasticpath.domain.event.impl.OrderEventGiftCertificateDetailsFormatter"/>
+	<bean id="orderEventPaymentTokenDetailsFormatter" class="com.elasticpath.domain.event.impl.OrderEventPaymentTokenDetailsFormatter"/>
+
+	<bean id="orderEventHelper" parent="orderEventHelperTemplate"/>
+
+	<bean id="eventOriginatorHelper" class="com.elasticpath.domain.event.impl.EventOriginatorHelperImpl"/>
+
+	<bean id="abstractPasswordPolicy" class="com.elasticpath.commons.security.impl.AbstractPasswordPolicyImpl"
+		  abstract="true">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="passwordGenerator" ref="passwordGenerator"/>
+		<property name="minimumPasswordLengthProvider">
+			<settings:setting path="COMMERCE/APPSPECIFIC/RCP/minimumPasswordLength"/>
+		</property>
+	</bean>
+
+	<bean id="cmPasswordPolicyTemplate" class="com.elasticpath.commons.security.impl.CmPasswordPolicyImpl"
+		  parent="abstractPasswordPolicy" abstract="true">
+		<property name="passwordEncoder" ref="cmPasswordEncoder"/>
+		<property name="minimumPasswordHistoryLengthDaysProvider">
+			<settings:setting path="COMMERCE/APPSPECIFIC/RCP/passwordHistoryLength"/>
+		</property>
+	</bean>
+
+	<bean id="cmPasswordPolicy" parent="cmPasswordPolicyTemplate"/>
+
+	<bean id="maximumAgePasswordPolicyTemplate" class="com.elasticpath.commons.security.impl.MaximumAgePasswordPolicyImpl"
+		  parent="abstractPasswordPolicy" abstract="true">
+		<property name="maximumPasswordAgeDaysProvider">
+			<settings:setting path="COMMERCE/APPSPECIFIC/RCP/maximumPasswordAge"/>
+		</property>
+	</bean>
+
+	<bean id="maximumAgePasswordPolicy" parent="maximumAgePasswordPolicyTemplate"/>
+
+	<bean id="retryAttemptPasswordPolicyTemplate" class="com.elasticpath.commons.security.impl.RetryAttemptPasswordPolicyImpl"
+		  parent="abstractPasswordPolicy" abstract="true">
+		<property name="maximumFailedLoginAttemptsProvider">
+			<settings:setting path="COMMERCE/APPSPECIFIC/RCP/accountLockoutThreshold"/>
+		</property>
+	</bean>
+
+	<bean id="retryAttemptPasswordPolicy" parent="retryAttemptPasswordPolicyTemplate"/>
+
+	<bean id="accountPasswordPolicyTemplate" class="com.elasticpath.commons.security.impl.AccountPasswordPolicyImpl"
+		  parent="abstractPasswordPolicy" abstract="true"/>
+
+	<bean id="accountPasswordPolicy" parent="accountPasswordPolicyTemplate"/>
+</beans>

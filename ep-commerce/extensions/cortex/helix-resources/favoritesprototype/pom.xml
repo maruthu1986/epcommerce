@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>helix-resources-parent</artifactId>
+        <groupId>com.elasticpath.extensions.rest.resource</groupId>
+        <version>0.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>favoritesprototype</artifactId>
+    <groupId>com.elasticpath.extensions.rest.resource</groupId>
+    <packaging>bundle</packaging>
+    <name>EP ∷ Helix - Favorites Resource Prototype</name>
+
+    <dependencies>
+
+        <!-- Api dependency -->
+        <dependency>
+            <groupId>com.elasticpath.extensions.rest.definitions</groupId>
+            <artifactId>ep-resource-favorites-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.elasticpath.rest.definitions</groupId>
+            <artifactId>ep-resource-items-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.elasticpath.rest.definitions</groupId>
+            <artifactId>ep-resource-profiles-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.elasticpath.rest.definitions</groupId>
+            <artifactId>ep-resource-carts-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.elasticpath.rest</groupId>
+            <artifactId>ep-rs-annotated-dispatch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.elasticpath.extensions.rest.repositories</groupId>
+            <artifactId>ext-cortex-repositories</artifactId>
+        </dependency>
+
+        <!-- Helix dependencies -->
+        <dependency>
+            <groupId>com.elasticpath.rest.helix</groupId>
+            <artifactId>helix-data-injectors</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.elasticpath.rest.helix</groupId>
+            <artifactId>helix-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.reactivex.rxjava2</groupId>
+            <artifactId>rxjava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ops4j</groupId>
+            <artifactId>peaberry</artifactId>
+        </dependency>
+
+        <!-- test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Require-Capability>osgi.service;
+                            filter:="(objectClass=com.elasticpath.rest.helix.client.extender.BootstrapExtender)"; effective:=active,
+                        </Require-Capability>
+                    </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.elasticpath.rest.helix</groupId>
+                <artifactId>helix-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-pmd-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>felix-deploy</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.sling</groupId>
+                        <artifactId>maven-sling-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

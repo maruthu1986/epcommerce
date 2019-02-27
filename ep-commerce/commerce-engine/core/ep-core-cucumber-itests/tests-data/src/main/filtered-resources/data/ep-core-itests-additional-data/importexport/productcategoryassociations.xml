@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<productcategoryassociations>
+
+    <product code="nba">
+        <catalog code="Mobile">
+            <category code="mobileservices">
+                <default>true</default>
+                <featuredorder>0</featuredorder>
+            </category>
+        </catalog>
+        <catalog code="MobileCatalog">
+            <category code="mobileservices">
+                <default>true</default>
+                <featuredorder>0</featuredorder>
+            </category>
+        </catalog>
+    </product>
+
+    <product code="spotify">
+        <catalog code="Mobile">
+            <category code="mobileservices">
+                <default>true</default>
+                <featuredorder>0</featuredorder>
+            </category>
+        </catalog>
+        <catalog code="MobileCatalog">
+            <category code="mobileservices">
+                <default>true</default>
+                <featuredorder>0</featuredorder>
+            </category>
+        </catalog>
+    </product>
+
+    <product code="facebook">
+        <catalog code="Mobile">
+            <category code="mobileservices">
+                <default>true</default>
+                <featuredorder>0</featuredorder>
+            </category>
+        </catalog>
+        <catalog code="MobileCatalog">
+            <category code="mobileservices">
+                <default>true</default>
+                <featuredorder>0</featuredorder>
+            </category>
+        </catalog>
+    </product>
+
+    <product code="mobileservices">
+        <catalog code="Mobile">
+            <category code="mobilepackages">
+                <default>true</default>
+                <featuredorder>0</featuredorder>
+            </category>
+        </catalog>
+        <catalog code="MobileCatalog">
+            <category code="mobilepackages">
+                <default>true</default>
+                <featuredorder>0</featuredorder>
+            </category>
+        </catalog>
+    </product>
+
+    <product code="mobilefreebies">
+        <catalog code="Mobile">
+            <category code="mobilepackages">
+                <default>true</default>
+                <featuredorder>0</featuredorder>
+            </category>
+        </catalog>
+        <catalog code="MobileCatalog">
+            <category code="mobilepackages">
+                <default>true</default>
+                <featuredorder>0</featuredorder>
+            </category>
+        </catalog>
+    </product>
+
+    <product code="galaxys2withphoneplan">
+        <catalog code="Mobile">
+            <category code="mobilepackages">
+                <default>true</default>
+                <featuredorder>0</featuredorder>
+            </category>
+        </catalog>
+        <catalog code="MobileCatalog">
+            <category code="mobilepackages">
+                <default>true</default>
+                <featuredorder>0</featuredorder>
+            </category>
+        </catalog>
+    </product>
+
+</productcategoryassociations>

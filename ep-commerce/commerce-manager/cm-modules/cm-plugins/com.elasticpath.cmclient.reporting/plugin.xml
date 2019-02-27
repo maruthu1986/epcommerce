@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="reports" name="com.elasticpath.cmclient.reporting.report" schema="schema/reports.exsd"/>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="%reportingCategory.name"
+            id="com.elasticpath.cmclient.reporting.category.main">
+      </category>
+      <view
+            category="com.elasticpath.cmclient.reporting.category.main"
+            class="com.elasticpath.cmclient.reporting.views.ReportingNavigationView"
+            icon="icons/report_default_22.png"
+            id="com.elasticpath.cmclient.reporting.views.ReportingNavigationView"
+            name="%reportingView.name">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.elasticpath.cmclient.reporting.perspectives.ReportingPerspectiveFactory"
+            id="com.elasticpath.cmclient.reporting.perspectives.ReportingPerspective"
+            icon="icons/report_default_22.png"
+            name="%reportingPerspective.name">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            class="com.elasticpath.cmclient.reporting.views.ReportingView"
+            icon="icons/report_default_22.png"
+            id="com.elasticpath.cmclient.reporting.views.ReportingView"
+            name="report">
+      </view>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="toolbar:com.elasticpath.cmclient.core.toolbars.activities?after=perspectiveMenu.warehouseItem">
+         <command
+               commandId="com.elasticpath.cmclient.reporting.command.openPerspective"
+               icon="icons/report_default_34.png"
+               id="perspectiveMenu.reportingItem"
+               label="%reportingMenu.name"
+               tooltip="%reportingMenu.name">
+            <visibleWhen
+                    checkEnabled="true">
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=save">
+         <toolbar
+                 id="com.elasticpath.cmclient.reporting">
+         </toolbar>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="com.elasticpath.cmclient.reporting.command.openPerspective"
+            name="Open Reporting Perspective">
+      </command>
+      <!-- Open Perspective Handler is declared in ApplicationWorkbenchAdvisor.postStartup() -->
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="com.elasticpath.cmclient.reporting.command.openPerspective"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+8">
+      </key>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.core.authorizations">
+      <activity
+            id="com.elasticpath.cmclient.reporting.authorizations.activity"
+            name="%reportingPermissionName"
+            perspectiveId="com.elasticpath.cmclient.reporting.perspectives.ReportingPerspective">
+      </activity>
+   </extension>
+   <extension
+         point="com.elasticpath.cmclient.core.bindings">
+      <perspectiveOpenCommand
+            openCommandId="com.elasticpath.cmclient.reporting.command.openPerspective"
+            perspectiveId="com.elasticpath.cmclient.reporting.perspectives.ReportingPerspective">
+      </perspectiveOpenCommand>
+   </extension>
+</plugin>

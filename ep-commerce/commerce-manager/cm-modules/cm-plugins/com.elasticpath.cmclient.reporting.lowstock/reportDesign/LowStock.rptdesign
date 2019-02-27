@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.14" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 1.0.1 Build &lt;20051130-1157></property>
+    <property name="units">in</property>
+    <text-property name="title">Low Stock</text-property>
+    <property name="comments">Copyright (c) 2006 &lt;&lt;Your Company Name here>></property>
+    <parameters>
+        <scalar-parameter name="warehouse" id="196">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <text-property name="promptText">warehouse</text-property>
+            <property name="controlType">text-box</property>
+            <property name="defaultValue">""</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="skuCode" id="197">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <text-property name="promptText">skuCode</text-property>
+            <property name="isRequired">false</property>
+            <property name="controlType">text-box</property>
+            <property name="defaultValue">""</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="brand" id="198">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <text-property name="promptText">brand</text-property>
+            <property name="isRequired">false</property>
+            <property name="controlType">text-box</property>
+            <property name="defaultValue">""</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="EPScriptedDataSource" id="4"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="lowStock Dataset" id="269">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">Brand</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">SKU Code</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">Product Name</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">Quantity On Hand</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">Available Quantity</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">Quantity Allocated</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">Reserved Quantity</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">Re-Order Minimum</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">Re-Order Quantity</property>
+                    <property name="dataType">any</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">Expected Re-Stock Date</property>
+                    <property name="dataType">any</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">Brand</property>
+                    <property name="displayName">Brand</property>
+                </structure>
+                <structure>
+                    <property name="columnName">SKU Code</property>
+                    <property name="displayName">SKU Code</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Product Name</property>
+                    <property name="displayName">Product Name</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Quantity On Hand</property>
+                    <property name="displayName">Quantity On Hand</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Available Quantity</property>
+                    <property name="displayName">Available Quantity</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Quantity Allocated</property>
+                    <property name="displayName">Quantity Allocated</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Reserved Quantity</property>
+                    <property name="displayName">Reserved Quantity</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Re-Order Minimum</property>
+                    <property name="displayName">Re-Order Minimum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Re-Order Quantity</property>
+                    <property name="displayName">Re-Order Quantity</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Expected Re-Stock Date</property>
+                    <property name="displayName">Expected Re-Stock Date</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">Brand</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">SKU Code</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">Product Name</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">Quantity On Hand</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">Available Quantity</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">Quantity Allocated</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">Reserved Quantity</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">Re-Order Minimum</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">Re-Order Quantity</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">Expected Re-Stock Date</property>
+                        <property name="dataType">any</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">EPScriptedDataSource</property>
+            <method name="open"><![CDATA[productReportService = new Packages.com.elasticpath.cmclient.reporting.lowstock.services.impl.InventoryLowStockReportServiceImpl;
+java.lang.System.out.println(productReportService);
+
+stock = productReportService.lowStockReport();
+java.lang.System.out.println(stock);
+
+totalRows = stock.size();
+
+currentRow = 0;]]></method>
+            <method name="fetch"><![CDATA[if (currentRow >= totalRows) {
+    return false;
+}
+row["currentRowNum"] = currentRow;
+
+var product = stock.get(currentRow);
+
+currentRow++;
+row["Brand"] = product[0];
+row["SKU Code"] = product[1];
+row["Product Name"] = product[2];
+row["Quantity On Hand"] = product[3];
+row["Available Quantity"] = product[4];
+row["Quantity Allocated"] = product[5];
+row["Reserved Quantity"] = product[6];
+row["Re-Order Minimum"] = product[7];
+row["Re-Order Quantity"] = product[8];
+row["Expected Re-Stock Date"] = product[9];
+
+return true;]]></method>
+            <method name="close"><![CDATA[productReportService = null;
+stock = null;
+
+totalRows = null;
+currentRow = null;]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="border" id="200">
+            <property name="backgroundColor">#FFFFFF</property>
+            <property name="color">#000000</property>
+            <property name="borderBottomColor">#4F81BD</property>
+            <property name="borderLeftColor">#4F81BD</property>
+            <property name="borderRightColor">#4F81BD</property>
+            <property name="borderTopColor">#4F81BD</property>
+        </style>
+        <style name="headerRow" id="201">
+            <property name="backgroundColor">#4F81BD</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontWeight">bold</property>
+            <property name="color">#FFFFFF</property>
+        </style>
+        <style name="columnRow" id="202">
+            <property name="backgroundColor">#DBE5F1</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+            <property name="fontWeight">bold</property>
+        </style>
+        <style name="dataRow" id="203">
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">custom</property>
+            <property name="height">11.5in</property>
+            <property name="width">20in</property>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="6">
+            <property name="style">border</property>
+            <property name="marginTop">0pt</property>
+            <property name="width">100%</property>
+            <column id="7"/>
+            <row id="8">
+                <cell id="9">
+                    <text id="13">
+                        <property name="style">headerRow</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="color">#FFFFFF</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[Low Stock Report for Warehouse - <VALUE-OF>params["warehouse"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="10">
+                <cell id="11">
+                    <table id="125">
+                        <property name="marginTop">0pt</property>
+                        <property name="masterPage">Simple MasterPage</property>
+                        <property name="pageBreakAfter">auto</property>
+                        <property name="pageBreakBefore">auto</property>
+                        <property name="height">0.9270833333in</property>
+                        <property name="width">17.0208333333in</property>
+                        <property name="dataSet">lowStock Dataset</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">Brand</property>
+                                <expression name="expression">dataSetRow["Brand"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">SKU Code</property>
+                                <expression name="expression">dataSetRow["SKU Code"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Product Name</property>
+                                <expression name="expression">dataSetRow["Product Name"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Quantity On Hand</property>
+                                <expression name="expression">dataSetRow["Quantity On Hand"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Available Quantity</property>
+                                <expression name="expression">dataSetRow["Available Quantity"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Quantity Allocated</property>
+                                <expression name="expression">dataSetRow["Quantity Allocated"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Reserved Quantity</property>
+                                <expression name="expression">dataSetRow["Reserved Quantity"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Re-Order Minimum</property>
+                                <expression name="expression">dataSetRow["Re-Order Minimum"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Re-Order Quantity</property>
+                                <expression name="expression">dataSetRow["Re-Order Quantity"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Expected Re-Stock Date</property>
+                                <expression name="expression">dataSetRow["Expected Re-Stock Date"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                        </list-property>
+                        <column id="162">
+                            <property name="width">0.8229166667in</property>
+                        </column>
+                        <column id="163">
+                            <property name="width">1.34375in</property>
+                        </column>
+                        <column id="164">
+                            <property name="width">4.4791666667in</property>
+                        </column>
+                        <column id="165">
+                            <property name="width">1.1875in</property>
+                        </column>
+                        <column id="166">
+                            <property name="width">1.2604166667in</property>
+                        </column>
+                        <column id="167">
+                            <property name="width">1.1666666667in</property>
+                        </column>
+                        <column id="169">
+                            <property name="width">1.2083333333in</property>
+                        </column>
+                        <column id="170">
+                            <property name="width">1.40625in</property>
+                        </column>
+                        <column id="171">
+                            <property name="width">1.2708333333in</property>
+                        </column>
+                        <column id="172">
+                            <property name="width">1.8125in</property>
+                        </column>
+                        <header>
+                            <row id="126">
+                                <property name="style">columnRow</property>
+                                <property name="backgroundColor">#DBE5F1</property>
+                                <cell id="127">
+                                    <label id="173">
+                                        <text-property name="text">Brand</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="128">
+                                    <label id="175">
+                                        <text-property name="text">SKU Code</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="129">
+                                    <label id="177">
+                                        <text-property name="text">Product Name / SKU Options</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="130">
+                                    <label id="179">
+                                        <text-property name="text">Quantity On Hand</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="131">
+                                    <label id="181">
+                                        <text-property name="text">Available Quantity</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="132">
+                                    <label id="183">
+                                        <text-property name="text">Quantity Allocated</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="134">
+                                    <label id="187">
+                                        <text-property name="text">Reserved Quantity</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="135">
+                                    <label id="189">
+                                        <text-property name="text">Re-Order Minimum</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="136">
+                                    <label id="191">
+                                        <text-property name="text">Re-Order Quantity</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="137">
+                                    <label id="194">
+                                        <text-property name="text">Expected Re-Stock Date</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="138">
+                                <property name="style">dataRow</property>
+                                <list-property name="highlightRules">
+                                    <structure>
+                                        <property name="operator">ne</property>
+                                        <property name="backgroundColor">#DBE5F1</property>
+                                        <expression name="testExpr">row["__rownum"] % 2</expression>
+                                        <expression name="value1">0</expression>
+                                    </structure>
+                                </list-property>
+                                <cell id="139">
+                                    <data id="270">
+                                        <property name="resultSetColumn">Brand</property>
+                                    </data>
+                                </cell>
+                                <cell id="140">
+                                    <data id="271">
+                                        <property name="resultSetColumn">SKU Code</property>
+                                    </data>
+                                </cell>
+                                <cell id="141">
+                                    <data id="272">
+                                        <property name="resultSetColumn">Product Name</property>
+                                    </data>
+                                </cell>
+                                <cell id="142">
+                                    <data id="273">
+                                        <property name="resultSetColumn">Quantity On Hand</property>
+                                    </data>
+                                </cell>
+                                <cell id="143">
+                                    <data id="274">
+                                        <property name="resultSetColumn">Available Quantity</property>
+                                    </data>
+                                </cell>
+                                <cell id="144">
+                                    <data id="275">
+                                        <property name="resultSetColumn">Quantity Allocated</property>
+                                    </data>
+                                </cell>
+                                <cell id="146">
+                                    <data id="277">
+                                        <property name="resultSetColumn">Reserved Quantity</property>
+                                    </data>
+                                </cell>
+                                <cell id="147">
+                                    <data id="278">
+                                        <property name="resultSetColumn">Re-Order Minimum</property>
+                                    </data>
+                                </cell>
+                                <cell id="148">
+                                    <data id="279">
+                                        <property name="resultSetColumn">Re-Order Quantity</property>
+                                    </data>
+                                </cell>
+                                <cell id="149">
+                                    <data id="280">
+                                        <property name="resultSetColumn">Expected Re-Stock Date</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="150">
+                                <cell id="151"/>
+                                <cell id="152"/>
+                                <cell id="153"/>
+                                <cell id="154"/>
+                                <cell id="155"/>
+                                <cell id="156"/>
+                                <cell id="158"/>
+                                <cell id="159"/>
+                                <cell id="160"/>
+                                <cell id="161"/>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>

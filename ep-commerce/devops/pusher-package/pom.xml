@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>devops-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>pusher-package</artifactId>
+	<name>DevOps Pusher Package</name>
+	<packaging>pom</packaging>
+
+	<properties>
+		<application.package.version>${project.version}</application.package.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<!-- Get the deployment package -->
+					<execution>
+						<id>get-deployment-package</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.elasticpath.extensions</groupId>
+									<artifactId>ext-deployment-package</artifactId>
+									<version>${application.package.version}</version>
+									<type>zip</type>
+									<outputDirectory>${project.build.directory}</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<!-- Extract the data assembly embedded in the deployment package -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>unpack-data-assembly</id>
+						<phase>process-resources</phase>
+						<configuration>
+							<target>
+								<unzip dest="${project.build.directory}/temp/deployment-package">
+									<fileset dir="${project.build.directory}">
+										<include name="ext-deployment-package-*.zip"/>
+									</fileset>
+								</unzip>
+								<unzip dest="${project.build.directory}/temp/data-assembly">
+									<fileset dir="${project.build.directory}/temp/deployment-package/database">
+										<include name="ext-data*.jar"/>
+									</fileset>
+								</unzip>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Package the pusher package as a ZIP -->
+			 <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>${maven-assembly-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>package-pusher</id>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptor>assembly.xml</descriptor>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

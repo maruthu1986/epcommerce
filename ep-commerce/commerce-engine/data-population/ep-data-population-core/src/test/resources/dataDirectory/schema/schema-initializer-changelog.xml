@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd"
+		logicalFilePath="com.thelab.ep/db/ext-database/schema-initializer-changelog.xml">
+
+	<!-- ChangeSets before the "elasticpath-db-changelog.xml" will be run prior to any database changes. -->
+	<!-- This can be ideal for tasks such as disabling replication. -->
+
+	<!--<include file="liquibase/elasticpath-db-changelog.xml"/>-->
+
+	<!--
+		Now include any schema customizations made to the EP database that exist at the start of this project.
+		These will only be applied when creating a brand new EP database and not when updating an existing EP database
+		(since it should already contain those customizations from a previous phase).
+		Any other schema customizations made during this project that needs to be applied to existing EP databases should be made under the ext-data project, and not here.
+		Those customizations will then be applied during the update-db phase the changes in the included file below will not.
+	-->
+	<include file="schema-customizations-changelog.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

@@ -1,0 +1,82 @@
+$menu_padding: 4px 10px; 
+$menu_bar_padding: 12px 20px;
+
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Menu.html
+Menu {
+  // top dropdown menu box
+  @include dropdown_box();
+  padding: 0;
+  animation: none;
+
+  // http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Menu.html#MenuItem
+  &Item {
+    background-color: $widget_body_color;
+    background-image: none;
+    color: $default-font-color;
+    font: $default-font;
+    padding: $menu_padding; 
+
+    &[SEPARATOR] {
+      background-color: $default-bg; // doesn't work
+      border-top: 1px solid $default-bg; // doesn't work
+      padding: $menu_padding;
+    }
+
+
+    // only for top menu root
+    &:onMenuBar {
+      // background-color: $gray-fair;
+      font: $default-font;
+      padding: $menu_bar_padding; // from mockup     
+    }
+
+    &, &:onMenuBar {
+      &:disabled {
+        color: $gray-light;
+        &:hover {
+          background-color: $widget_body_color;
+          color: $gray-light;
+        }
+      }
+
+      &:hover {
+        color: $gray-dark;
+        background-color: $default-bg;
+        background-image: none;
+      }
+
+      &:pressed {
+        color: $primary-color; // NOT GETTING THIS COLOR!!
+        background-color: $widget_body_color;
+        background-image: none;
+        text-shadow: none;
+      }
+    }
+
+    // Because there's no "spacing" option, the icons need to have embedded spacing
+    // http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Menu.html#MenuItem-CheckIcon
+    &-CheckIcon {
+        // @include checkbox_icon_checked(':disabled');
+      background-image: url('themes/icons/MenuItem-CheckIcon_selected.png');
+      &:disabled {
+          background-image: url('themes/icons/MenuItem-CheckIcon_disabled.png');
+      }
+    }
+
+    // It is by design that check boxes are used here. Radio buttons look really strange on drop-down menus.
+    // http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Menu.html#MenuItem-RadioIcon
+    &-RadioIcon {
+        // @include radio_icon_checked(':disabled');
+      background-image: url('themes/icons/MenuItem-CheckIcon_selected.png');
+       &:disabled {
+           background-image: url('themes/icons/MenuItem-CheckIcon_disabled.png');
+       }
+    }
+
+    // http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Menu.html#MenuItem-CascadeIcon
+    &-CascadeIcon {
+      @include down_icon(':disabled');
+    }
+  }
+
+}

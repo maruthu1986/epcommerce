@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="com.elasticpath.cmclient.core" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="com.elasticpath.cmclient.core" id="Extender" name="Extender"/>
+      </appInfo>
+      <documentation>
+      Definition for CM Extension points. Defines Table, Section, and Page extension points.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="0" maxOccurs="unbounded">
+            <element ref="Page"/>
+            <element ref="Section"/>
+            <element ref="TableColumn"/>
+            <element ref="Dialog"/>
+         </sequence>
+      </complexType>
+   </element>
+
+   <element name="Page">
+      <complexType>
+         <attribute name="className" type="string" use="required">
+            <annotation>
+               <documentation>
+                Name of Page extension class.
+                  Implements com.elasticpath.cmclient.core.helpers.extenders.EpPageCreator
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":com.elasticpath.cmclient.core.helpers.extenders.EpPageCreator"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="editorName" type="string" use="required">
+            <annotation>
+               <documentation>
+               Class Name of editor to attach the extension Page to.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="position" type="string">
+            <annotation>
+               <documentation>
+                  Relative ordering of new pages, after existing pages.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="TableColumn">
+      <complexType>
+         <attribute name="className" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Name of TableColumn extension class.
+                  Implements com.elasticpath.cmclient.core.helpers.extenders.EPTableColumnCreator
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":com.elasticpath.cmclient.core.helpers.extenders.EPTableColumnCreator"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="table" type="string" use="required">
+            <annotation>
+               <documentation>
+               The Class name of the table to attach the new columns to.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="Section">
+      <complexType>
+         <attribute name="className" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Name of the Section extension class.
+                  Implements com.elasticpath.cmclient.core.helpers.extenders.EpSectionCreator
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":com.elasticpath.cmclient.core.helpers.extenders.EpSectionCreator"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="pageId" type="string" use="required">
+            <annotation>
+               <documentation>
+               The Class name of the page to attach the new Sections to.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="position" type="string">
+            <annotation>
+               <documentation>
+                  Relative ordering of new Sections, after existing Sections.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="Dialog">
+      <complexType>
+         <attribute name="className" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Name of DialogExtension extension class.
+                  Implements com.elasticpath.cmclient.core.helpers.extenders.DialogExtension
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":com.elasticpath.cmclient.core.helpers.extenders.DialogExtension"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="dialogName" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The Class name of the table to attach the new columns to.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+</schema>

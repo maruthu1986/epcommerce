@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+  logicalFilePath="ext-data/data/@new-data-dir/liquibase-changelog.xml">
+
+	<!-- Run any pre-importexport changesets. -->
+	<include file="pre-importexport/liquibase-changelog.xml" relativeToChangelogFile="true" />
+
+	<!-- Then run the importexport changeset, qualify the changeset id using a property to allow it to be run multiple times if the qualifier changes, or just once if not -->
+	<changeSet id="ext-importexport-@new-data-dir${importexport.@new-data-dir.qualifier}" author="com.elasticpath.extensions">
+		<customChange class="com.elasticpath.datapopulation.importexport.ImportExportChange">
+			<param name="dataSet" value="@new-data-dir" />
+		</customChange>
+	</changeSet>
+
+	<!-- Finally run any post-importexport changesets -->
+	<include file="post-importexport/liquibase-changelog.xml" relativeToChangelogFile="true" />
+
+</databaseChangeLog>

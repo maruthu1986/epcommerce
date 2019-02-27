@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xmlns:camel="http://camel.apache.org/schema/spring"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+				http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		">
+
+	<context:annotation-config />
+
+	<camel:camelContext id="ep-order-messaging" xmlns="http://camel.apache.org/schema/spring"
+						threadNamePattern="Camel (#camelId#) thread ##counter#">
+		<routeBuilder ref="orderEventBuilder" />
+		<endpoint id="orderEventInternalEndpoint" uri="direct:ep.orders" />
+	</camel:camelContext>
+
+	<bean name="ep-order-messaging:beanPostProcessor" class="com.elasticpath.messaging.impl.FastCamelBeanPostProcessor">
+		<property name="annotatedClassList" ref="camelAnnotatedClassList"/>
+		<property name="camelId" value="ep-order-messaging"/>
+	</bean>
+
+	<!-- This explicitly creates a Camel Proxy (http://camel.apache.org/using-camelproxy.html). -->
+	<!-- This works around a known defect; see https://issues.apache.org/jira/browse/CAMEL-5956. -->
+	<!-- Once that defect is resolved, this bean can be substituted by an XML declaration as per the documentation. -->
+	<bean id="orderEventMessagePublisher" class="org.apache.camel.component.bean.PojoProxyHelper" factory-method="createProxy">
+		<constructor-arg ref="orderEventInternalEndpoint" />
+		<constructor-arg>
+			<util:list>
+				<value>com.elasticpath.messaging.EventMessagePublisher</value>
+			</util:list>
+		</constructor-arg>
+	</bean>
+
+	<!-- This is marked abstract; child beans should supply a value for the 'camelContextId' field.
+
+	If this is not set, the endpoints are shared between Camel contexts, which is rarely the desired result.
+
+	Consider a case where one Camel context is responsible for publishing to an endpoint, and another (perhaps multiple) context(s)
+	consume from the same endpoint.  In this scenario, the publishing context would 'own' the endpoint, and would inherit the consumers' routes.
+	The routes will appear to function correctly, but will make testing very difficult (NotifyBuilders that inspect the endpoint will fail to
+	work, since they are bound to a particular context), and will result in confusing logging wherever the Camel context name is included in the log
+	message.
+	-->
+	<bean id="orderEventExternalEndpoint" class="com.elasticpath.messaging.camel.SettingValueBackedCamelEndpointFactoryBean" abstract="true">
+		<property name="path" value="COMMERCE/SYSTEM/MESSAGING/ORDERS/channelUri" />
+		<property name="settingsReader" ref="settingsReader"/>
+	</bean>
+
+	<!-- Concrete bean to facilitate testing.  Used in orderEventBuilder; should not be used in other routes. -->
+	<bean id="epOrderMessagingOrderEventExternalEndpoint" parent="orderEventExternalEndpoint">
+		<property name="camelContextId" value="ep-order-messaging"/>
+	</bean>
+
+	<bean id="orderEventBuilder" class="com.elasticpath.messaging.camel.EventRouteBuilder">
+		<property name="incomingEndpoint" ref="orderEventInternalEndpoint" />
+		<property name="outgoingEndpoint" ref="epOrderMessagingOrderEventExternalEndpoint"/>
+		<property name="eventMessageDataFormat" ref="eventMessageDataFormat"/>
+	</bean>
+
+	<bean id="orderEventTypeProvider" class="com.elasticpath.messaging.spi.impl.EventTypeProviderImpl">
+		<property name="eventTypeClass" value="com.elasticpath.core.messaging.order.OrderEventType"/>
+		<property name="eventTypeLookup">
+				<bean class="com.elasticpath.core.messaging.order.OrderEventType$OrderEventTypeLookup"/>
+		</property>
+	</bean>
+
+	<bean id="orderCreatedEventTypePredicate" class="com.elasticpath.messaging.predicate.impl.CompatibleEventTypePredicate">
+		<property name="compatibleEventTypes">
+			<util:list>
+				<util:constant static-field="com.elasticpath.core.messaging.order.OrderEventType.ORDER_CREATED"/>
+				<util:constant static-field="com.elasticpath.core.messaging.order.OrderEventType.RESEND_ORDER_CONFIRMATION" />
+			</util:list>
+		</property>
+	</bean>
+
+	<bean id="orderShipmentCreatedEventTypePredicate" class="com.elasticpath.messaging.predicate.impl.CompatibleEventTypePredicate">
+		<property name="compatibleEventTypes">
+			<util:list>
+				<util:constant static-field="com.elasticpath.core.messaging.order.OrderEventType.ORDER_SHIPMENT_CREATED"/>
+			</util:list>
+		</property>
+	</bean>
+
+	<bean id="orderShipmentShippedEventTypePredicate" class="com.elasticpath.messaging.predicate.impl.CompatibleEventTypePredicate">
+		<property name="compatibleEventTypes">
+			<util:list>
+				<util:constant static-field="com.elasticpath.core.messaging.order.OrderEventType.ORDER_SHIPMENT_SHIPPED" />
+			</util:list>
+		</property>
+	</bean>
+
+	<bean id="orderShipmentReleaseFailedEventTypePredicate" class="com.elasticpath.messaging.predicate.impl.CompatibleEventTypePredicate">
+		<property name="compatibleEventTypes">
+			<util:list>
+				<util:constant static-field="com.elasticpath.core.messaging.order.OrderEventType.ORDER_SHIPMENT_RELEASE_FAILED" />
+			</util:list>
+		</property>
+	</bean>
+
+	<bean id="returnExchangeCreatedEventTypePredicate" class="com.elasticpath.messaging.predicate.impl.CompatibleEventTypePredicate">
+		<property name="compatibleEventTypes">
+			<util:list id="returnExchangeCreatedEmailCompatibleEventTypes">
+				<util:constant static-field="com.elasticpath.core.messaging.order.OrderEventType.RETURN_CREATED"/>
+				<util:constant static-field="com.elasticpath.core.messaging.order.OrderEventType.EXCHANGE_CREATED"/>
+				<util:constant static-field="com.elasticpath.core.messaging.order.OrderEventType.RESEND_RETURN_EXCHANGE_NOTIFICATION"/>
+			</util:list>
+		</property>
+	</bean>
+</beans>

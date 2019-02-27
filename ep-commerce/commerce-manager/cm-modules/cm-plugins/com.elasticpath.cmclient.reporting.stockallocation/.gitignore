@@ -1,0 +1,13 @@
+.checkstyle
+.classpath
+.djunitplugin
+.pmd
+.pmdruleset
+.ruleset
+bin
+build-modified.xml
+build.xml
+com.elasticpath.cmclient.reporting.stockallocation.jar
+javaCompiler.com.elasticpath.cmclient.reporting.stockallocation.jar.args
+jcoverage.ser
+temp.folder

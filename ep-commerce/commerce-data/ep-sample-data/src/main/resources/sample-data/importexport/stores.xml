@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<stores>
+<store code="store-MasterB" enabled="true">
+    <globalization timeZone="Europe/London" country="US" sub_country="CA" content_encoding="UTF-8" default_locale="en" default_currency="USD"/>
+    <url>http://store-MasterB.elasticpath.com:8080/storefront</url>
+    <name>store-MasterB</name>
+    <state>200</state>
+    <type>B2B</type>
+    <description>store uses master Catalog B, USA - CA, </description>
+    <catalog>Master_B</catalog>
+    <display_out_of_stock>false</display_out_of_stock>
+    <email_sender_name>email_Name</email_sender_name>
+    <email_sender_address>sender_email@abc.com</email_sender_address>
+    <store_admin_email>admin_email@abc.com</store_admin_email>
+    <credit_card_cvv2_enabled>true</credit_card_cvv2_enabled>
+    <store_full_credit_cards>false</store_full_credit_cards>
+    <locales>
+        <locale>en</locale>
+    </locales>
+    <currencies>
+        <currency>USD</currency>
+        <currency>EUR</currency>
+    </currencies>
+    <warehouses>
+        <warehouse>Generic_Warehouse_A</warehouse>
+    </warehouses>
+    <tax_codes>
+        <guid>cab4204c-4b4c-40df-831e-3279edaf6afd</guid>
+        <guid>5e0e3b7f-9f87-4c5b-a9fe-011882f778d3</guid>
+        <guid>3dc5e93f-4f12-4db8-8c6a-59793b2222f9</guid>
+    </tax_codes>
+    <tax_jurisdictions>
+        <jurisdiction>USTaxJurisdiction</jurisdiction>
+        <jurisdiction>GBTaxJurisdiction</jurisdiction>
+    </tax_jurisdictions>
+    <payment_gateways>
+        <gateway>DemoTokenPaymentProcessor</gateway>
+    </payment_gateways>
+    <credit_card_types>
+        <type>American Express</type>
+        <type>Visa</type>
+        <type>MasterCard</type>
+    </credit_card_types>
+</store>
+
+<store code="store-VirtualAB" enabled="true">
+    <globalization timeZone="Europe/London" country="US" sub_country="CA" content_encoding="UTF-8" default_locale="es_MX" default_currency="USD"/>
+    <url>http://store-VirtualAB.elasticpath.com:8080/storefront</url>
+    <name>store-VirtualAB</name>
+    <state>200</state>
+    <type>B2B</type>
+    <description></description>
+    <catalog>Virtual_CatAB_SP</catalog>
+    <display_out_of_stock>false</display_out_of_stock>
+    <email_sender_name>email_Name</email_sender_name>
+    <email_sender_address>store_email@abc.com</email_sender_address>
+    <store_admin_email>admin_email@abc.com</store_admin_email>
+    <credit_card_cvv2_enabled>true</credit_card_cvv2_enabled>
+    <store_full_credit_cards>false</store_full_credit_cards>
+    <locales>
+        <locale>es</locale>
+        <locale>es_MX</locale>
+        <locale>fr</locale>
+        <locale>en</locale>
+    </locales>
+    <currencies>
+        <currency>USD</currency>
+        <currency>EUR</currency>
+    </currencies>
+    <warehouses>
+        <warehouse>Generic_Warehouse_B</warehouse>
+    </warehouses>
+    <tax_codes>
+        <guid>cab4204c-4b4c-40df-831e-3279edaf6afd</guid>
+        <guid>5e0e3b7f-9f87-4c5b-a9fe-011882f778d3</guid>
+        <guid>3dc5e93f-4f12-4db8-8c6a-59793b2222f9</guid>
+    </tax_codes>
+    <tax_jurisdictions>
+        <jurisdiction>CATaxJurisdiction</jurisdiction>
+        <jurisdiction>USTaxJurisdiction</jurisdiction>
+    </tax_jurisdictions>
+    <payment_gateways>
+        <gateway>DemoTokenPaymentProcessor</gateway>
+        <gateway>GiftCertificate</gateway>
+    </payment_gateways>
+    <credit_card_types>
+        <type>American Express</type>
+        <type>Visa</type>
+        <type>MasterCard</type>
+    </credit_card_types>
+</store>
+</stores>

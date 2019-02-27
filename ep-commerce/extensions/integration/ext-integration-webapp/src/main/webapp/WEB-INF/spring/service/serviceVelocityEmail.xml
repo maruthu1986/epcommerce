@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:settings="http://www.elasticpath.com/schema/settings"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.elasticpath.com/schema/settings http://www.elasticpath.com/schema/settings/settings.xsd
+	">
+
+	<bean id="storeMessageSource" class="com.elasticpath.commons.util.impl.StoreThemeMessageSource">
+		<property name="storeConfig" ref="threadLocalStorage"/>
+		<property name="storeMessageSource" ref="storeMessageSourceDelegate"/>
+		<!-- True if you want missing messages to show up as just the key used to look for them. e.g. user.firstname.
+		 False will allow exception to be thrown, and stop template render. -->
+		<property name="useCodeAsDefaultMessage">
+			<value>true</value>
+		</property>
+		<property name="storeThemeProvider">
+			<settings:setting path="COMMERCE/STORE/theme"/>
+		</property>
+	</bean>
+
+	<bean id="threadLocalStorage" class="com.elasticpath.service.catalogview.impl.ThreadLocalStorageImpl">
+		<property name="storeService" ref="storeService"/>
+		<property name="settingsService" ref="settingsService"/>
+		<!-- <property name="settingsService" ref="cachedSettingsReader"/> -->
+		<property name="storeCache">
+			<bean class="com.elasticpath.cache.SimpleTimeoutCache">
+				<property name="cache" ref="threadlocalStoreCache"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="storeMessageSourceDelegate" parent="storeMessageSourceTemplate"/>
+
+	<bean id="messageSourceCache" class="com.elasticpath.commons.util.impl.MessageSourceCacheImpl" init-method="init">
+		<property name="assetRepository" ref="assetRepository"/>
+		<property name="defaultLanguage" value="en"/>
+	</bean>
+
+	<bean id="globalMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>org.springframework.security/messages</value>
+			</list>
+		</property>
+		<!-- Set cacheSeconds to -1 in Production Environment -->
+		<property name="cacheSeconds"><value>${ep.velocity.cache.seconds}</value></property>
+		<property name="defaultEncoding"><value>UTF-8</value></property>
+	</bean>
+
+	<bean id="storeResourceManagerTemplate" class="com.elasticpath.commons.util.impl.StoreResourceManagerImpl"
+		  factory-method="getInstance" destroy-method="destroy" abstract="true">
+		<property name="storeConfig" ref="threadLocalStorage" />
+		<property name="assetRepository" ref="assetRepository" />
+		<property name="storeThemeProvider">
+			<settings:setting path="COMMERCE/STORE/theme"/>
+		</property>
+	</bean>
+
+	<bean id="storeResourceManager" parent="storeResourceManagerTemplate"/>
+
+</beans>

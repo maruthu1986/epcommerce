@@ -1,0 +1,19 @@
+Cool {
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/CoolBar.html
+	&Bar {
+		background-image: none;
+	}
+
+	&Item {
+		// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/CoolBar.html#CoolItem-Handle
+		&-Handle {
+			// top icon menu tall separator
+			// border: 1px solid $danger-color;
+			border: none;
+			border-right: 1px solid $widget_border_color;
+			// border-right: 1px solid $gray-lighter;
+			width: 2px;
+		}
+	}
+
+}

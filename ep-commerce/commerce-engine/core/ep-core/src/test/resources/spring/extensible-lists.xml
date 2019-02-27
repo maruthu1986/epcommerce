@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:stub="http://www.dinstone.com/schema/stub"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+
+	<bean id="testListParent" class="com.elasticpath.commons.beanframework.config.ExtensibleListFactoryBean" abstract="true">
+		<property name="targetListClass">
+			<value>java.util.ArrayList</value>
+		</property>
+		<property name="sourceList">
+			<list merge="true">
+				<value type="java.lang.String">red</value>
+				<value type="java.lang.String">black</value>
+				<value type="java.lang.String">green</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="testListChild1" parent="testListParent"/>
+
+	<bean id="testListChild2" parent="testListParent">
+		<property name="removeList">
+			<list merge="true">
+				<value type="java.lang.String">red</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="testListChild3" parent="testListChild2">
+		<property name="sourceList">
+			<list merge="true">
+				<value type="java.lang.String">orange</value>
+				<value type="java.lang.String">blue</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="testListChild4" parent="testListParent">
+		<property name="removeList">
+			<list merge="true">
+				<value type="java.lang.String">red</value>
+				<value type="java.lang.String">black</value>
+			</list>
+		</property>
+		<property name="sourceList">
+			<list merge="true">
+				<value type="java.lang.String">orange</value>
+				<value type="java.lang.String">blue</value>
+			</list>
+		</property>
+	</bean>
+
+
+</beans>

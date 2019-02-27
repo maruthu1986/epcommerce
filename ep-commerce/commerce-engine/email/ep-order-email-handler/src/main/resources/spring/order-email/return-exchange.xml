@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<bean id="returnExchangeEmailProducerTemplate"
+		class="com.elasticpath.email.handler.order.producer.impl.ReturnExchangeEmailProducer"
+		abstract="true">
+		<property name="emailComposer" ref="emailComposer" />
+		<property name="returnAndExchangeService" ref="returnAndExchangeService" />
+		<property name="returnExchangeEmailPropertyHelper" ref="returnExchangeEmailPropertyHelper" />
+	</bean>
+
+	<bean id="returnExchangeEmailProducer" parent="returnExchangeEmailProducerTemplate" />
+
+	<bean id="returnExchangeEmailHandlingRouteBuilderTemplate" parent="abstractEventMessageTriggeredEmailRouteBuilder"
+		  abstract="true">
+		<property name="routeId" value="returnExchangeEmailHandler"/>
+		<property name="incomingEndpoint">
+			<bean parent="orderEventExternalEndpoint">
+				<property name="camelContextId" value="ep-order-email-handler" />
+				<property name="context" value="returnExchangeEmailHandler"/>
+			</bean>
+		</property>
+		<property name="outgoingEndpoint">
+			<bean parent="emailSendingEndpoint">
+				<property name="camelContextId" value="ep-order-email-handler" />
+			</bean>
+		</property>
+		<property name="eventMessagePredicateFilter" ref="returnExchangeCreatedEventTypePredicate" />
+		<property name="emailProducer" ref="returnExchangeEmailProducer" />
+	</bean>
+
+	<bean id="returnExchangeEmailHandlingRouteBuilder" parent="returnExchangeEmailHandlingRouteBuilderTemplate"/>
+
+</beans>

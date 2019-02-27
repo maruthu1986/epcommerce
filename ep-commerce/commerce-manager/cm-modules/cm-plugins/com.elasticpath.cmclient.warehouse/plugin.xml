@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension-point id="Extender" name="Extender"   schema="../com.elasticpath.cmclient.core/schema/extender.exsd"/>
+	<extension-point id="StatePolicyExtender" name="StatePolicyExtender"   schema="../com.elasticpath.cmclient.core/schema/statePolicyExtender.exsd"/>
+
+   <extension point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.elasticpath.cmclient.warehouse.perspective.WarehousePerspectiveFactory"
+	    	icon="icons/return_default_22.png"
+            id="com.elasticpath.cmclient.warehouse.perspective"
+            name="%warehousePerspective.name">
+      </perspective>
+   </extension>
+
+   <extension point="org.eclipse.ui.views">
+      <category
+            name="%viewsCategory.name"
+            id="com.elasticpath.cmclient.warehouse.views.category">
+      </category>
+      <view
+	   category="com.elasticpath.cmclient.warehouse.views.category"
+	   class="com.elasticpath.cmclient.warehouse.views.orderreturn.OrderReturnSearchResultsView"
+	   icon="icons/return_default_22.png"
+	   id="com.elasticpath.cmclient.warehouse.views.orderreturn.OrderReturnSearchResultsView"
+	   name="%orderReturnSearchResultsView.name">
+      </view>
+      <view
+	   allowMultiple="true"
+	   category="com.elasticpath.cmclient.warehouse.views.category"
+	   class="com.elasticpath.cmclient.warehouse.views.SearchView"
+	   icon="icons/search_default_22.png"
+	   id="com.elasticpath.cmclient.warehouse.views.SearchView"
+	   name="%searchView.name">
+      </view>
+   </extension>
+   
+   <extension point="org.eclipse.ui.editors">
+	   <editor
+		  name="%orderReturnEditor.name"
+		  icon="icons/order_default_22.png"
+		  class="com.elasticpath.cmclient.warehouse.editors.orderreturn.OrderReturnEditor"
+		  id="com.elasticpath.cmclient.warehouse.editors.orderreturn.OrderReturnEditor"
+		  contributorClass="com.elasticpath.cmclient.core.editors.BaseCmClientEditorContributor">
+	   </editor>      
+	   <editor
+		  name="%inventoryEditor.name"
+		  icon="icons/inventory_default_22.png"
+		  class="com.elasticpath.cmclient.warehouse.editors.inventory.InventoryEditor"
+		  id="com.elasticpath.cmclient.warehouse.editors.inventory.InventoryEditor"
+		  contributorClass="com.elasticpath.cmclient.core.editors.BaseCmClientEditorContributor">
+	   </editor>         
+   </extension>   
+   
+   <extension point="com.elasticpath.cmclient.core.authorizations">
+	   <permissions>
+		   <permission
+			      activityId="com.elasticpath.cmclient.warehouse.authorizations.activity"
+			      key="WAREHOUSE_ORDER_RETURN_EDIT"
+			      name="%editReturnsAndExchangesPermission.name"/>
+		   <permission
+			      activityId="com.elasticpath.cmclient.warehouse.authorizations.activity"
+			      key="WAREHOUSE_ORDER_SHIPMENT_COMPLETE"
+			      name="%completeShipmentsPermission.name"/>
+		   <permission
+			      activityId="com.elasticpath.cmclient.warehouse.authorizations.activity"
+			      key="WAREHOUSE_FORCE_ORDER_SHIPMENT_COMPLETE"
+			      name="%forceShipmentCompletionPermission.name"/>
+		   <permission
+			      activityId="com.elasticpath.cmclient.warehouse.authorizations.activity"
+			      key="WAREHOUSE_MANAGE_INVENTORY"
+			      name="%manageInventoryPermission.name"/>               
+		   <permission
+			      activityId="com.elasticpath.cmclient.warehouse.authorizations.activity"
+			      key="WAREHOUSE_RECEIVE_INVENTORY"
+			      name="%receiveInventoryPermission.name"/>         
+	   </permissions>
+	   <activity
+		    id="com.elasticpath.cmclient.warehouse.authorizations.activity"
+		    name="%shippingReceivingActivity.name"
+		    perspectiveId="com.elasticpath.cmclient.warehouse.perspective">
+	   </activity>
+   </extension>   
+
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="com.elasticpath.cmclient.warehouse.perspective">
+         <actionSet
+               id="com.elasticpath.cmclient.warehouse.workbenchActionSet">
+         </actionSet>
+      </perspectiveExtension>
+   </extension>
+   
+   <extension point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="com.elasticpath.cmclient.warehouse.workbenchActionSet"
+            label="%Warehouse.name">
+      	<menu
+            id="com.elasticpath.cmclient.warehouse.workbenchMenu"
+            label="%Warehouse.name">
+      	</menu>
+		  <action
+				  class="com.elasticpath.cmclient.warehouse.actions.WarehousePullDownDelegate"
+				  definitionId="com.elasticpath.cmclient.fulfillment.commands.switchWarehouse"
+				  icon="icons/warehouse-select_default_34.png"
+				  id="com.elasticpath.cmclient.fulfillment.openSwitchWarehouse"
+				  label="%SwitchWarehouseAction.name"
+				  style="pulldown"
+				  toolbarPath="com.elasticpath.cmclient.core.toolbars.actions/com.elasticpath.cmclient.warehouse.toolbarMenus.CompleteShipment"
+				  tooltip="%SwitchWarehouseAction.name">
+     	</action>
+      </actionSet>
+   </extension>
+
+   <extension
+          point="org.eclipse.ui.menus">
+	   <menuContribution
+			   locationURI="toolbar:com.elasticpath.cmclient.core.toolbars.activities?after=perspectiveMenu.fulfillmentItem">
+			   <command
+					   commandId="com.elasticpath.cmclient.warehouse.command.openPerspective"
+					   icon="icons/warehouse_default_34.png"
+					   id="perspectiveMenu.warehouseItem"
+					   label="%warehouseMenu.name"
+					   tooltip="%warehouseMenu.name">
+				   <visibleWhen
+						   checkEnabled="true">
+				   </visibleWhen>
+			   </command>
+	   </menuContribution>
+
+       <menuContribution
+			   locationURI="toolbar:org.eclipse.ui.main.toolbar?after=save">
+	       <toolbar
+				   id="com.elasticpath.cmclient.core.toolbars.actions">
+		       <command
+			       commandId="com.elasticpath.cmclient.warehouse.command.CompleteShipment"
+			       icon="icons/shipping-complete_default_34.png"
+			       id="com.elasticpath.cmclient.warehouse.toolbarMenus.CompleteShipment"
+			       label="%CompleteShipmentAction.name"
+			       tooltip="%CompleteShipmentAction.name">
+			       <visibleWhen>
+				       <with
+					    variable="activeContexts">
+					       <iterate
+						       operator="or">
+						       <equals
+							      value="com.elasticpath.cmclient.warehouse.workbenchActionSet">
+						       </equals>
+					       </iterate>
+				       </with>
+			       </visibleWhen>
+		       </command>
+	       </toolbar>
+       </menuContribution>
+   </extension>
+
+   <extension
+	     point="org.eclipse.ui.commands">
+	   <category
+		    description="Complete Shipment"
+		    id="com.elasticpath.cmclient.warehouse.commandComplete"
+		    name="%CompleteShipmentAction.name">
+	   </category>
+	   <command
+		   description="%CompleteShipmentAction.name"
+		   id="com.elasticpath.cmclient.warehouse.command.CompleteShipment"
+		   name="%CompleteShipmentAction.name">
+	   </command>
+	   <command
+             id="com.elasticpath.cmclient.warehouse.command.openPerspective"
+             name="%OpenWarehousePersepctive.name">
+	   </command>
+    	   <!-- Open Perspective Handler is declared in ApplicationWorkbenchAdvisor.postStartup() -->
+   </extension>
+
+    <extension
+          point="org.eclipse.ui.handlers">
+       <handler
+             commandId="com.elasticpath.cmclient.warehouse.command.CompleteShipment">
+          <class
+                class="com.elasticpath.cmclient.warehouse.actions.handlers.CompleteShipmentActionHandler">
+          </class>
+       </handler>
+    </extension>
+
+   <extension
+	     point="org.eclipse.ui.bindings">
+	   <key
+          commandId="com.elasticpath.cmclient.warehouse.command.openPerspective"
+          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+          sequence="M3+5">
+	   </key>
+
+    </extension>
+   <extension
+         point="com.elasticpath.cmclient.core.bindings">
+      <perspectiveOpenCommand
+            openCommandId="com.elasticpath.cmclient.warehouse.command.openPerspective"
+            perspectiveId="com.elasticpath.cmclient.warehouse.perspective">
+      </perspectiveOpenCommand>
+   </extension>
+
+  
+</plugin>

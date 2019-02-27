@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<bean id="shippingServiceLevelService" parent="txProxyTemplate">
+		<property name="target" ref="shippingServiceLevelServiceTarget"/>
+	</bean>
+
+	<bean id="shippingServiceLevelServiceTargetTemplate" abstract="true"
+		  class="com.elasticpath.service.shipping.impl.ShippingServiceLevelServiceImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="elasticPath" ref="elasticPath"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="allShippingCostCalculationMethods">
+			<list>
+				<value>fixedPriceMethod</value>
+				<value>orderTotalPercentageMethod</value>
+				<value>fixedBaseAndOrderTotalPercentageMethod</value>
+				<value>costPerUnitWeightMethod</value>
+				<value>fixedBaseAndCostPerUnitWeightMethod</value>
+			</list>
+		</property>
+		<property name="ruleParameterService" ref="ruleParameterService"/>
+		<property name="geography" ref="geography"/>
+	</bean>
+
+	<bean id="shippingServiceLevelServiceTarget" parent="shippingServiceLevelServiceTargetTemplate"/>
+
+	<bean id="shippingRegionService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.shipping.impl.ShippingRegionServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="shippingOptionTransformer"
+		  class="com.elasticpath.service.shipping.impl.ShippingOptionTransformerImpl">
+		<property name="shippingOptionBuilderSupplier" ref="shippingOptionBuilderSupplier"/>
+	</bean>
+
+</beans>

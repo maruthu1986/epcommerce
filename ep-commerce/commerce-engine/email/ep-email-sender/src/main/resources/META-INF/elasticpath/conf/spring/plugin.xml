@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:camel="http://camel.apache.org/schema/spring"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+				http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+		">
+
+	<camel:camelContext id="ep-email-sender" xmlns="http://camel.apache.org/schema/spring" threadNamePattern="Camel (#camelId#) thread ##counter#">
+		<routeBuilder ref="emailSendingRouteBuilder"/>
+	</camel:camelContext>
+
+	<bean name="ep-email-sender:beanPostProcessor" class="com.elasticpath.messaging.impl.FastCamelBeanPostProcessor">
+		<property name="annotatedClassList" ref="camelAnnotatedClassList"/>
+		<property name="camelId" value="ep-email-sender"/>
+	</bean>
+
+	<bean id="emailSendingDeadLetterEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri">
+			<bean parent="settingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/EMAIL/deadLetterChannelUri"/>
+			</bean>
+		</property>
+		<property name="camelContextId" value="ep-email-sender"/>
+	</bean>
+
+	<bean id="emailSendingErrorHandler" class="org.apache.camel.spring.spi.TransactionErrorHandlerBuilder">
+		<property name="redeliveryPolicy" ref="emailSendingRedeliveryPolicy"/>
+	</bean>
+
+	<bean id="emailSendingRedeliveryPolicyTemplate" class="org.apache.camel.processor.RedeliveryPolicy">
+		<property name="redeliveryDelay" value="${ep.email.sending.redelivery.delay:1000}"/>
+		<property name="maximumRedeliveries" value="${ep.email.sending.redelivery.attempts:5}"/>
+		<property name="asyncDelayedRedelivery" value="${ep.email.sending.redelivery.asynchronous:false}"/>
+		<property name="retryAttemptedLogLevel">
+			<util:constant static-field="org.apache.camel.LoggingLevel.WARN"/>
+		</property>
+	</bean>
+
+	<bean id="emailSendingRedeliveryPolicy" parent="emailSendingRedeliveryPolicyTemplate"/>
+
+	<!-- Concrete bean to facilitate testing.  Used in emailSendingRouteBuilder; should not be used in other routes. -->
+	<bean id="epEmailSenderEmailSendingEndpoint" parent="emailSendingEndpoint">
+		<property name="camelContextId" value="ep-email-sender"/>
+	</bean>
+
+	<bean id="emailSendingRouteBuilderTemplate" class="com.elasticpath.email.sender.EmailSendingRouteBuilder" abstract="true">
+		<property name="incomingEndpoint" ref="epEmailSenderEmailSendingEndpoint"/>
+		<property name="emailDataFormat" ref="emailDataFormat"/>
+		<property name="redeliveryPolicyRef" value="emailSendingRedeliveryPolicy"/>
+		<property name="errorHandlerBuilder" ref="emailSendingErrorHandler"/>
+		<property name="deadLetterEndpoint" ref="emailSendingDeadLetterEndpoint"/>
+		<property name="attachmentProcessor" ref="emailAttachmentProcessor"/>
+		<property name="smtpScheme">
+			<bean parent="settingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/EMAIL/smtpScheme"/>
+			</bean>
+		</property>
+		<property name="mailHost">
+			<bean parent="settingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/EMAIL/mailHost"/>
+			</bean>
+		</property>
+		<property name="mailPort">
+			<bean parent="settingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/EMAIL/mailPort"/>
+			</bean>
+		</property>
+		<property name="mailUsername">
+			<bean parent="settingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/EMAIL/emailAuthenticationUsername"/>
+			</bean>
+		</property>
+		<property name="mailPassword">
+			<bean parent="settingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/EMAIL/emailAuthenticationPassword"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="emailSendingRouteBuilder" parent="emailSendingRouteBuilderTemplate"/>
+
+	<bean id="emailAttachmentProcessor" class="com.elasticpath.email.sender.EmailAttachmentProcessor"/>
+
+</beans>

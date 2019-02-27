@@ -1,0 +1,9 @@
+<price_lists>
+	<price_list>
+		<guid>newpricelist</guid>
+		<description>Empty price list for sync smoke test</description>
+		<currency_code>USD</currency_code>
+		<name>New Price List</name>
+		<hidden>false</hidden>
+	</price_list>
+</price_lists>

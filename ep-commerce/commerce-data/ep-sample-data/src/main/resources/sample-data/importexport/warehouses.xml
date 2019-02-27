@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<warehouses>
+<warehouse code="Generic_Warehouse_A">
+    <name>Generic Warehouse A</name>
+    <pick_delay>0</pick_delay>
+    <street1>123 Main</street1>
+    <street2></street2>
+    <city>Seattle</city>
+    <sub_country>WA</sub_country>
+    <zip_postal_code>98200</zip_postal_code>
+    <country>US</country>
+</warehouse>
+
+<warehouse code="Generic_Warehouse_B">
+    <name>Generic Warehouse B</name>
+    <pick_delay>0</pick_delay>
+    <street1>988 Main</street1>
+    <street2></street2>
+    <city>New York</city>
+    <sub_country>NY</sub_country>
+    <zip_postal_code>12000</zip_postal_code>
+    <country>US</country>
+</warehouse>
+</warehouses>

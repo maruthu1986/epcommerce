@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<!-- MoveToWishlistFormLinkHandler -->
+		<name>wishlists</name>
+		<resource>
+			<name>move-to-wishlist-form</name>
+			<description>Form for moving a cart line item to a wishlist</description>
+			<uri>{wishlists}/{carts.line-item}/form</uri>
+			<form>
+				<entity>move-to-wishlist-form</entity>
+				<action-rel>movetowishlistaction</action-rel>
+				<result>wishlist-line-item</result>
+			</form>
+		</resource>
+
+		<entity>
+			<name>move-to-wishlist-form</name>
+			<description>Form for adding an item to a wishlist</description>
+		</entity>
+
+		<relationship>
+			<name>wishlist-move-to-wishlist-form</name>
+			<description>Link for a form used to move cart line item a wishlist</description>
+			<rel>movetowishlistform</rel>
+			<from>carts.line-item</from>
+			<to>move-to-wishlist-form</to>
+		</relationship>
+
+	</family>
+</definitions>

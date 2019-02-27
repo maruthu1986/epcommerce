@@ -1,0 +1,2771 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xmlns:settings="http://www.elasticpath.com/schema/settings"
+		xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+				http://www.elasticpath.com/schema/settings http://www.elasticpath.com/schema/settings/settings.xsd
+		">
+	<import resource="../caching/cache-manager.xml" />
+	<import resource="shipping-service.xml"/>
+	<import resource="classpath:tax-calculation-connectivity-api.xml"/>
+	<import resource="classpath:spring/models/domainSpecifications.xml"/>
+	<import resource="classpath:spring/commons/structuredErrorMessage.xml"/>
+	<import resource="classpath:spring/service/validation-strategies.xml"/>
+	<import resource="datapolicy.xml" />
+
+	<bean id="applicationName" class="java.lang.String">
+		<constructor-arg value="CoreOSGiBundle"/>
+	</bean>
+
+	<bean id="versionLogger" class="com.elasticpath.commons.util.impl.VersionLogger" init-method="init"/>
+
+	<!-- Password encoding. Use SHA-256 as the default. -->
+    <bean id="sha1PasswordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"/>
+    <bean id="sha256PasswordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+    	<constructor-arg value="256"/>
+    </bean>
+	<alias alias="passwordEncoder" name="sha256PasswordEncoder"/>
+
+	<!-- CM Users for now will remain with SHA-1 -->
+	<alias alias="cmPasswordEncoder" name="sha1PasswordEncoder"/>
+
+	<bean id="txProxyTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="import*">PROPAGATION_REQUIRED</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="set*">PROPAGATION_REQUIRED</prop>
+				<!-- !!!! DOCtransactionAttributes -->
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<!-- !!!! DOCtransactionAttributes -->
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="process*">PROPAGATION_REQUIRED</prop>
+				<prop key="exist*">PROPAGATION_REQUIRED</prop>
+				<prop key="adjust*">PROPAGATION_REQUIRED</prop>
+				<!-- May be moved into a different child wrapper to be more specific to the services that require it. -->
+				<!-- Special calls -->
+				<prop key="auditableReset*">PROPAGATION_REQUIRES_NEW</prop>
+				<prop key="auditableProcess*">PROPAGATION_REQUIRED</prop>
+				<prop key="cancelOrder">PROPAGATION_NEVER</prop>
+				<prop key="cancelOrderShipment">PROPAGATION_NEVER</prop>
+				<prop key="createAndSaveShopper">PROPAGATION_REQUIRED</prop>
+				<prop key="disconnectCartFromShopperAndCustomerSession">PROPAGATION_REQUIRED</prop>
+				<prop key="checkout">PROPAGATION_NEVER</prop>
+				<prop key="completeShipment">PROPAGATION_NEVER</prop>
+				<prop key="createOffer">PROPAGATION_REQUIRED</prop>
+				<prop key="findOrCreateShopper">PROPAGATION_REQUIRED</prop>
+				<prop key="getCartByCustomerSession">PROPAGATION_NEVER</prop>
+				<prop key="handleShopperChangeAndUpdate">PROPAGATION_NOT_SUPPORTED</prop>
+				<prop key="holdOrder">PROPAGATION_REQUIRED</prop>
+				<prop key="removeDependantsFromShopper">PROPAGATION_REQUIRES_NEW</prop>
+				<prop key="releaseHoldOnOrder">PROPAGATION_REQUIRED</prop>
+				<prop key="releaseOrder">PROPAGATION_REQUIRED</prop>
+				<prop key="removeDependantsFromShopper">PROPAGATION_REQUIRES_NEW</prop>
+				<prop key="saveSearchTermsMemento">PROPAGATION_REQUIRES_NEW</prop>
+				<prop key="writeOrderLock">PROPAGATION_REQUIRES_NEW</prop>
+				<prop key="releaseOrderLock">PROPAGATION_REQUIRED</prop>
+				<prop key="forceReleaseOrderLock">PROPAGATION_REQUIRES_NEW</prop>
+				<prop key="findOrderByOrderNumber">PROPAGATION_REQUIRED</prop>
+				<!-- Special calls -->
+
+				<prop key="*">PROPAGATION_SUPPORTS,readOnly</prop>
+			</props>
+		</property>
+
+		<property name="preInterceptors" ref="servicePreInterceptors"/>
+	</bean>
+
+	<bean id="txRequiredProxyTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+
+		<property name="preInterceptors" ref="servicePreInterceptors"/>
+	</bean>
+
+	<bean id="txRequiresNewProxyTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_REQUIRES_NEW,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRES_NEW</prop>
+			</props>
+		</property>
+
+		<property name="preInterceptors" ref="servicePreInterceptors"/>
+	</bean>
+
+	<bean id="cartOrderTxProxyTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="transactionManager"/>
+		<property name="transactionAttributes">
+			<props>
+				<!--  Defaults  -->
+				<prop key="import*">PROPAGATION_REQUIRED</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="set*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="process*">PROPAGATION_REQUIRED</prop>
+				<prop key="exist*">PROPAGATION_REQUIRED</prop>
+				<prop key="adjust*">PROPAGATION_REQUIRED</prop>
+
+				<!--  Custom Tx Attributes  -->
+				<prop key="findByGuid">PROPAGATION_REQUIRED</prop>  <!-- Yes, findByGuid() can update -->
+				<prop key="createOrderIfPossible">PROPAGATION_REQUIRED</prop>
+
+				<!-- Lowest Common Denominator -->
+				<prop key="*">PROPAGATION_SUPPORTS,readOnly</prop>
+			</props>
+		</property>
+
+		<property name="preInterceptors" ref="servicePreInterceptors"/>
+	</bean>
+
+	<bean id="customerService" parent="txProxyTemplate">
+		<property name="target">
+			<bean parent="customerServiceTarget"/>
+		</property>
+	</bean>
+
+	<bean id="customerServiceTargetTemplate" class="com.elasticpath.service.customer.impl.CustomerServiceImpl"
+		  abstract="true">
+		<property name="persistenceEngine" ref="persistenceEngine" />
+		<property name="elasticPath" ref="elasticPath" />
+		<property name="customerGroupService" ref="customerGroupService" />
+		<property name="shopperCleanupService" ref="shopperCleanupService" />
+		<property name="userIdentityService" ref="epUserIdentityService" />
+		<property name="timeService" ref="timeService" />
+		<property name="storeService" ref="storeService" />
+		<property name="fetchPlanHelper" ref="fetchPlanHelper" />
+		<property name="indexNotificationService" ref="indexNotificationService" />
+		<property name="customerAddressDao" ref="customerAddressDao" />
+		<property name="settingsReader" ref="settingsReader" />
+		<property name="eventMessageFactory" ref="eventMessageFactory" />
+		<property name="eventMessagePublisher" ref="customerEventMessagePublisher" />
+		<property name="validator" ref="validator" />
+		<property name="constraintViolationTransformer" ref="constraintViolationTransformer" />
+		<property name="userIdModeProvider">
+			<settings:setting path="COMMERCE/SYSTEM/userIdMode" />
+		</property>
+	</bean>
+
+	<bean id="customerServiceTarget" parent="customerServiceTargetTemplate"
+		abstract="true"/>
+
+    <bean id="customerRegistrationService" class="com.elasticpath.service.customer.impl.CustomerRegistrationServiceImpl">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="eventMessageFactory" ref="eventMessageFactory"/>
+		<property name="eventMessagePublisher" ref="customerEventMessagePublisher"/>
+        <property name="customerService" ref="customerService" />
+        <property name="userIdentityService" ref="epUserIdentityService" />
+        <property name="validator" ref="validator" />
+		<property name="constraintViolationTransformer" ref="constraintViolationTransformer" />
+    </bean>
+
+	<bean id="epUserIdentityService" class="com.elasticpath.service.auth.impl.EpUserIdentityService"/>
+
+	<bean id="customerSessionService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.customer.impl.CustomerSessionServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="shopperService" ref="shopperService"/>
+				<property name="customerSessionUpdateHandlers" ref="shopperUpdateHandlers"/>
+				<property name="timeService" ref="timeService"/>
+			</bean>
+		</property>
+	</bean>
+
+
+    <bean id="customerSessionCleanupService"  parent="txProxyTemplate">
+        <property name="target">
+            <bean class="com.elasticpath.service.customer.impl.CustomerSessionCleanupServiceImpl">
+                <property name="persistenceEngine" ref="persistenceEngine" />
+            </bean>
+        </property>
+    </bean>
+
+	<bean id="customerGroupService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.customer.impl.CustomerGroupServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="customerPostLoadStrategy" class="com.elasticpath.service.customer.impl.CustomerPostLoadStrategy">
+		<property name="attributeService" ref="attributeService"/>
+		<property name="customerService" ref="customerService"/>
+	</bean>
+
+	<bean id="customerProfileAttributes"
+		  factory-bean="attributeService" factory-method="getCustomerProfileAttributesMap"
+		  scope="prototype"/>
+
+	<bean id="customerUserIdMode"
+		  factory-bean="customerService" factory-method="getUserIdMode"
+		  scope="prototype"/>
+
+	<bean id="catalogPromoQueryComposerHelper" class="com.elasticpath.service.search.impl.CatalogPromoQueryComposerHelperImpl">
+		<property name="elasticPath" ref="elasticPath"/>
+		<property name="categoryService" ref="categoryService"/>
+	</bean>
+
+	<bean id="ruleServiceLocal" class="com.elasticpath.service.rules.impl.RuleServiceImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="elasticPath" ref="elasticPath"/>
+		<property name="ruleSetService" ref="ruleSetService"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="fetchPlanHelper" ref="fetchPlanHelper"/>
+		<property name="indexNotificationService" ref="indexNotificationService"/>
+		<property name="processingHook">
+			<bean class="com.elasticpath.service.search.impl.CatalogPromotionSolrHook">
+				<property name="catalogPromoQueryComposerHelper" ref="catalogPromoQueryComposerHelper"/>
+				<property name="indexNotificationService" ref="indexNotificationService"/>
+				<property name="conditionEvaluatorService" ref="conditionEvaluationService"/>
+			</bean>
+		</property>
+		<property name="allConditions">
+			<list>
+				<value>anySkuInCartCondition</value>
+				<value>cartContainsItemsOfCategoryCondition</value>
+				<value>productInCartCondition</value>
+				<value>skuInCartCondition</value>
+				<value>cartSubtotalCondition</value>
+				<value>cartCurrencyCondition</value>
+				<value>limitedUsagePromotionCondition</value>
+				<value>productCategoryCondition</value>
+				<value>brandCondition</value>
+				<value>productCondition</value>
+				<value>limitedUseCouponCodeCondition</value>
+			</list>
+		</property>
+		<property name="allActions">
+			<list>
+				<value>cartAnySkuPercentDiscountAction</value>
+				<value>cartAnySkuAmountDiscountAction</value>
+				<value>cartCategoryPercentDiscountAction</value>
+				<value>cartCategoryAmountDiscountAction</value>
+				<value>cartProductPercentDiscountAction</value>
+				<value>cartProductAmountDiscountAction</value>
+				<value>cartSkuPercentDiscountAction</value>
+				<value>cartSkuAmountDiscountAction</value>
+				<value>cartNFreeSkusAction</value>
+				<value>cartNthProductPercentDiscountAction</value>
+				<value>cartSubtotalPercentDiscountAction</value>
+				<value>cartSubtotalAmountDiscountAction</value>
+				<value>shippingPercentDiscountAction</value>
+				<value>shippingAmountDiscountAction</value>
+				<value>catalogCurrencyPercentDiscountAction</value>
+				<value>catalogCurrencyAmountDiscountAction</value>
+				<value>couponAssignmentAction</value>
+			</list>
+		</property>
+		<property name="allExceptions">
+			<list>
+				<value>categoryException</value>
+				<value>productException</value>
+				<value>skuException</value>
+			</list>
+		</property>
+		<property name="couponConfigService" ref="couponConfigService"/>
+		<property name="reportingRuleService" ref="reportingRuleService"/>
+	</bean>
+
+	<bean id="reportingRuleService" class="com.elasticpath.service.rules.impl.ReportingRuleServiceImpl">
+		<property name="couponConfigService" ref="couponConfigService"/>
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="ruleService" ref="ruleServiceLocal"/>
+	</bean>
+
+	<bean id="ruleServiceProxy" class="com.elasticpath.commons.beanframework.SwitchableProxyBinder">
+		<property name="fallbackImplementation" ref="nonCachingRuleService"/>
+	</bean>
+
+	<bean id="ruleService" class="com.elasticpath.commons.beanframework.SwitchableProxyFactoryBean">
+			<property name="proxyInterface" value="com.elasticpath.service.rules.RuleService"/>
+			<property name="proxy" ref="ruleServiceProxy"/>
+	</bean>
+
+	<bean id="nonCachingRuleService" parent="txProxyTemplate">
+		<property name="target" ref="ruleServiceLocal" />
+	</bean>
+
+	<bean id="ruleElementService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.rules.impl.RuleElementServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="propertyService" class="com.elasticpath.service.misc.impl.PropertyServiceImpl">
+		<property name="propertiesDao" ref="propertiesDao"/>
+	</bean>
+
+	<bean id="fetchPlanHelper" class="com.elasticpath.service.misc.impl.OpenJPAFetchPlanHelperImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="productServiceParentTemplate" abstract="true">
+		<property name="categoryLookup" ref="categoryLookup" />
+		<property name="categoryService" ref="categoryService" />
+		<property name="productDao" ref="productDao"/>
+		<property name="baseAmountDao" ref="baseAmountDao"/>
+		<property name="productBundleDao" ref="productBundleDao"/>
+		<property name="bundleValidator" ref="bundleValidator" />
+		<property name="productLookup" ref="productLookup" />
+		<property name="productSkuService" ref="productSkuService" />
+		<property name="indexNotificationService" ref="indexNotificationService"/>
+		<property name="queryService" ref="productQueryService"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="beanFactory" ref="coreBeanFactory" />
+	</bean>
+
+	<bean id="productServiceTargetTemplate" abstract="true" parent="productServiceParentTemplate"
+		class="com.elasticpath.service.catalog.impl.ProductServiceImpl">
+		<property name="productBundleService" ref="productBundleService"/>
+	</bean>
+
+	<bean id="productServiceTarget" parent="productServiceTargetTemplate"/>
+
+	<bean id="bundleValidator" class="com.elasticpath.service.catalog.impl.BundleValidatorImpl">
+		<property name="paymentScheduleHelper" ref="paymentScheduleHelper"/>
+		<property name="productLookup" ref="productLookup"/>
+	</bean>
+
+	<bean id="productService" parent="txProxyTemplate">
+		<property name="target" ref="productServiceTarget"/>
+	</bean>
+
+	<bean id="nonCachingProductLookupTargetTemplate" abstract="true"
+		  class="com.elasticpath.service.catalog.impl.ProductLookupImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="queryService" ref="productQueryService"/>
+		<property name="fetchPlanHelper" ref="fetchPlanHelper"/>
+		<property name="productLoadTuner" ref="PRODUCT_LOAD_TUNER_LOOKUP"/>
+	</bean>
+
+	<bean id="nonCachingProductLookup" parent="txProxyTemplate">
+		<property name="target">
+			<bean parent="nonCachingProductLookupTargetTemplate"/>
+		</property>
+	</bean>
+
+	<bean id="productLookupProxy" class="com.elasticpath.commons.beanframework.SwitchableProxyBinder">
+		<property name="fallbackImplementation" ref="nonCachingProductLookup"/>
+	</bean>
+
+	<bean id="productLookup" class="com.elasticpath.commons.beanframework.SwitchableProxyFactoryBean">
+		<property name="proxyInterface" value="com.elasticpath.service.catalog.ProductLookup"/>
+		<property name="proxy" ref="productLookupProxy"/>
+	</bean>
+
+	<bean id="giftCertificateService" parent="txProxyTemplate">
+		<property name="target">
+			<bean parent="giftCertificateServiceTarget"/>
+		</property>
+	</bean>
+
+	<bean id="giftCertificateServiceTargetTemplate" class="com.elasticpath.service.catalog.impl.GiftCertificateServiceImpl"
+			abstract="true">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="elasticPath" ref="elasticPath"/>
+		<property name="utility" ref="utility"/>
+		<property name="giftCertificateTransactionService" ref="giftCertificateTransactionService"/>
+		<property name="eventMessageFactory" ref="eventMessageFactory"/>
+		<property name="eventMessagePublisher" ref="giftCertificateEventMessagePublisher"/>
+	</bean>
+
+	<bean id="giftCertificateServiceTarget" parent="giftCertificateServiceTargetTemplate" abstract="true"/>
+
+	<bean id="giftCertificateTransactionService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.payment.impl.GiftCertificateTransactionServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="giftCertificateCodeGenerator" ref="giftCertificateCodeGenerator"/>
+				<property name="timeService" ref="timeService"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="productSkuService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.catalog.impl.ProductSkuServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="beanFactory" ref="coreBeanFactory"/>
+				<property name="fetchPlanHelper" ref="fetchPlanHelper"/>
+				<property name="productSkuLoadTunerAll" ref="PRODUCT_SKU_LOAD_TUNER_ALL"/>
+				<property name="productSkuLoadTunerMinimal" ref="PRODUCT_SKU_LOAD_TUNER_MINIMAL"/>
+				<property name="productLoadTunerAll" ref="PRODUCT_LOAD_TUNER_ALL"/>
+				<property name="categoryLoadTuner" ref="CATEGORY_LOAD_TUNER_MASTER_AND_PARENT"/>
+				<property name="categoryService" ref="categoryService"/>
+				<property name="baseAmountDao" ref="baseAmountDao"/>
+				<property name="productBundleDao" ref="productBundleDao"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="nonCachingProductSkuLookupTargetTemplate" abstract="true"
+		  class="com.elasticpath.service.catalog.impl.ProductSkuLookupImpl">
+		<property name="productDao" ref="productDao"/>
+		<property name="productLookup" ref="nonCachingProductLookup"/>
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="nonCachingProductSkuLookup" parent="txProxyTemplate">
+		<property name="target">
+			<bean parent="nonCachingProductSkuLookupTargetTemplate"/>
+		</property>
+	</bean>
+
+	<bean id="ProductSkuLookupProxy" class="com.elasticpath.commons.beanframework.SwitchableProxyBinder">
+		<property name="fallbackImplementation" ref="nonCachingProductSkuLookup"/>
+	</bean>
+
+	<bean id="productSkuLookup" class="com.elasticpath.commons.beanframework.SwitchableProxyFactoryBean">
+		<property name="proxyInterface" value="com.elasticpath.service.catalog.ProductSkuLookup"/>
+		<property name="proxy" ref="ProductSkuLookupProxy"/>
+	</bean>
+
+	<bean name="multiSkuProductConfigurationService" class="com.elasticpath.service.catalog.impl.MultiSkuProductConfigurationServiceImpl">
+		<property name="multiSkuProductConfigurationFactory" ref="multiSkuProductConfigurationFactory" />
+	</bean>
+
+	<bean name="multiSkuProductConfigurationFactory"
+		class="com.elasticpath.domain.catalog.impl.MultiSkuProductConfigurationFactory" />
+
+	<!-- !!!! DOCproductXmlServiceServiceXML -->
+	<bean id="productXmlService" class="com.elasticpath.service.catalog.impl.ProductXmlServiceImpl">
+		<property name="productLookup" ref="productLookup"/>
+		<property name="categoryLookup" ref="categoryLookup"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+	<!-- !!!! DOCproductXmlServiceServiceXML -->
+
+	<bean id="ruleSetService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.rules.impl.RuleSetServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="timeService" ref="timeService"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="ruleParameterService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.rules.impl.RuleParameterServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="cmUserServiceTargetTemplate" class="com.elasticpath.service.cmuser.impl.CmUserServiceImpl"
+			abstract="true">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="elasticPath" ref="elasticPath"/>
+		<property name="fetchPlanHelper" ref="fetchPlanHelper"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="minimumPasswordHistoryLengthDaysProvider">
+			<settings:setting path="COMMERCE/APPSPECIFIC/RCP/passwordHistoryLength"/>
+		</property>
+		<property name="indexNotificationService" ref="indexNotificationService"/>
+		<property name="eventMessageFactory" ref="eventMessageFactory"/>
+		<property name="eventMessagePublisher" ref="cmUserEventMessagePublisher"/>
+	</bean>
+
+	<bean id="cmUserServiceTarget" parent="cmUserServiceTargetTemplate" abstract="true"/>
+
+	<bean id="cmUserService" parent="txProxyTemplate">
+		<property name="target">
+			<bean parent="cmUserServiceTarget"/>
+		</property>
+	</bean>
+
+	<bean id="cmUserEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher" />
+	</bean>
+
+	<bean id="userRoleService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.cmuser.impl.UserRoleServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="reportService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.reporting.impl.ReportServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="shoppingItemService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.shoppingcart.impl.ShoppingItemServiceImpl">
+				<property name="dao" ref="shoppingItemDao"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="shoppingCartService" parent="txProxyTemplate">
+		<property name="target" ref="shoppingCartServiceTarget"/>
+	</bean>
+
+	<bean id="shoppingCartServiceTargetTemplate" abstract="true"
+				class="com.elasticpath.service.shoppingcart.impl.ShoppingCartServiceImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="elasticPath" ref="elasticPath"/>
+		<property name="fetchPlanHelper" ref="fetchPlanHelper"/>
+		<property name="productSkuLoadTuner" ref="PRODUCT_SKU_LOAD_TUNER_ALL"/>
+		<property name="productLoadTuner" ref="PRODUCT_LOAD_TUNER_ALL"/>
+		<property name="categoryLoadTuner" ref="CATEGORY_LOAD_TUNER_MASTER_AND_PARENT"/>
+		<property name="shoppingItemLoadTuner" ref="SHOPPING_ITEM_LOAD_TUNER_DEFAULT"/>
+		<property name="shopperService" ref="shopperService"/>
+		<property name="storeService" ref="storeService"/>
+		<property name="timeService" ref="timeService" />
+	</bean>
+
+	<bean id="shoppingCartServiceTarget" parent="shoppingCartServiceTargetTemplate"/>
+
+	<alias alias="shoppingCartRefresher" name="cartDirector"/>
+
+	<bean id="productInventoryManagementService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.catalog.impl.ProductInventoryManagementServiceImpl">
+				<property name="warehouseService" ref="warehouseService"/>
+				<property name="productSkuLookup" ref="productSkuLookup"/>
+				<property name="productSkuService" ref="productSkuService"/>
+				<property name="inventoryCalculator" ref="inventoryCalculator"/>
+				<property name="indexNotificationService" ref="indexNotificationService"/>
+				<property name="inventoryFacade" ref="inventoryFacade"/>
+				<property name="beanFactory" ref="coreBeanFactory"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="inventoryCalculator" class="com.elasticpath.domain.catalog.impl.InventoryCalculatorImpl">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="orderSkuFactory" class="com.elasticpath.service.shoppingcart.impl.OrderSkuFactoryImpl">
+		<property name="bundleApportioner" ref="bundleApportioningCalculator"/>
+		<property name="discountApportioner" ref="apportioningCalculator"/>
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="taxCodeRetriever" ref="taxCodeRetriever"/>
+		<property name="timeService" ref="timeService"/>
+	</bean>
+
+	<bean id="apportioningCalculator" class="com.elasticpath.service.tax.impl.ApportioningCalculatorImpl">
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+	</bean>
+
+	<bean id="bundleApportioningCalculator" class="com.elasticpath.service.shoppingcart.impl.BundleApportioningCalculatorImpl">
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+	</bean>
+
+	<bean id="discountApportioningCalculator" class="com.elasticpath.service.tax.impl.DiscountApportioningCalculatorImpl">
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+	</bean>
+
+	<bean id="appliedRuleVisitor" class="com.elasticpath.domain.rules.impl.ChecksumAndLogVisitor" />
+
+	<bean id="giftCertificateFactory" class="com.elasticpath.service.shoppingcart.impl.GiftCertificateFactoryImpl">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="giftCertificateService" ref="giftCertificateService"/>
+		<property name="giftCertificateCodeGenerator" ref="giftCertificateCodeGenerator"/>
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+	</bean>
+
+	<bean id="giftCertificateCodeGenerator" class="com.elasticpath.commons.util.GiftCertificateCodeGeneratorImpl"/>
+
+	<bean id="orderService" parent="txProxyTemplate">
+		<property name="target" ref="orderServiceTarget"/>
+	</bean>
+
+	<bean id="orderServiceTargetTemplate" abstract="true"
+				class="com.elasticpath.service.order.impl.OrderServiceImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="elasticPath" ref="elasticPath"/>
+		<property name="fetchPlanHelper" ref="fetchPlanHelper"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="allocationService" ref="allocationService"/>
+		<property name="paymentService" ref="paymentService"/>
+		<property name="defaultLoadTuner" >
+			<bean class="com.elasticpath.persistence.support.impl.FetchGroupLoadTunerImpl">
+				<property name="fetchGroups" >
+					<list><value>default</value><value>orderDefault</value></list>
+				</property>
+			</bean>
+		</property>
+		<property name="ruleService" ref="ruleService"/>
+		<property name="storeService" ref="storeService"/>
+		<property name="taxOperationService" ref="taxOperationService" />
+		<property name="eventMessageFactory" ref="eventMessageFactory" />
+		<property name="eventMessagePublisher" ref="orderEventMessagePublisher" />
+	</bean>
+
+	<bean id="orderServiceTarget" parent="orderServiceTargetTemplate"/>
+
+	<bean id="orderLockService" parent="txProxyTemplate">
+		<property name="target" ref="orderLockServiceTarget"/>
+	</bean>
+
+	<bean id="orderLockServiceTargetTemplate" class="com.elasticpath.service.order.impl.OrderLockServiceImpl" abstract="true">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="elasticPath" ref="elasticPath"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="orderService" ref="orderService"/>
+	</bean>
+
+	<bean id="orderLockServiceTarget" parent="orderLockServiceTargetTemplate"/>
+
+
+	<bean id="brandService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.catalog.impl.BrandServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="productService" ref="productService"/>
+				<property name="catalogService" ref="catalogService"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="taxJurisdictionService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.tax.impl.TaxJurisdictionServiceImpl">
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="attributeService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.attribute.impl.AttributeServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="distinctAttributeValueCriterion" ref="distinctAttributeValueCriterion"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="categoryTypeService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.catalog.impl.CategoryTypeServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="fetchPlanHelper" ref="fetchPlanHelper"/>
+				<property name="categoryTypeLoadTunerAll" ref="CATEGORY_TYPE_LOAD_TUNER_ALL"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="skuOptionService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.catalog.impl.SkuOptionServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="productDao" ref="productDao"/>
+			</bean>
+		</property>
+	</bean>
+
+
+	<bean id="taxCodeService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.tax.impl.TaxCodeServiceImpl">
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="productTypeService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.catalog.impl.ProductTypeServiceImpl">
+				<property name="productTypeDao" ref="productTypeDao"/>
+				<property name="elasticPath" ref="elasticPath"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="fileService"
+		class="com.elasticpath.service.misc.impl.FileServiceImpl"
+		scope="singleton" parent="epDomain">
+		<property name="assetRepository" ref="assetRepository"/>
+	</bean>
+
+	<bean id="productAssociationService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.catalog.impl.ProductAssociationServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="fetchPlanHelper" ref="fetchPlanHelper"/>
+				<property name="productAssociationLoadTuner" ref="productAssociationLoadTuner"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="topSellerService" parent="txProxyTemplate">
+		<property name="target">
+			<bean parent="topSellerServiceTarget"/>
+		</property>
+	</bean>
+
+	<bean id="topSellerServiceTargetTemplate" abstract="true" class="com.elasticpath.service.catalog.impl.TopSellerServiceImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="categoryService" ref="categoryService"/>
+		<property name="productService" ref="productService"/>
+		<property name="orderService" ref="orderService"/>
+		<property name="propertiesDao" ref="propertiesDao"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="maxTopSellerCountProvider">
+			<settings:setting path="COMMERCE/SYSTEM/CATALOG/catalogTopSellerCount"/>
+		</property>
+	</bean>
+
+	<bean id="topSellerServiceTarget" parent="topSellerServiceTargetTemplate"
+		abstract="true"/>
+
+	<!--  Lucene Index related services -->
+	<bean id="analyzer" class="com.elasticpath.service.search.solr.AnalyzerImpl"/>
+
+	<bean id="queryAnalyzer" class="com.elasticpath.service.search.solr.QueryAnalyzerImpl"/>
+
+	<bean id="solrIndexSearchResult" class="com.elasticpath.service.search.solr.query.SolrIndexSearchResult" scope="prototype">
+		<property name="indexSearcher" ref="solrIndexSearcher"/>
+	</bean>
+
+
+	<bean id="indexSearchService"
+			class="com.elasticpath.service.search.solr.query.SolrIndexSearchServiceImpl">
+		<property name="spellIndexSearcher" ref="spellIndexSearcher"/>
+		<property name="beanFactory" ref="coreBeanFactory" />
+	</bean>
+
+	<bean id="timeService" class="com.elasticpath.service.misc.impl.CachedSyncingServerTimeServiceImpl">
+		<property name="wrappedTimeService" ref="databaseTimeService"/>
+		<!-- Default time between sync is 30 minutes -->
+		<property name="cacheTimeout" value="1800000" />
+	</bean>
+
+	<bean id="databaseTimeService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.misc.impl.DatabaseServerTimeServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="taxAddressAdapter" class="com.elasticpath.service.tax.adapter.TaxAddressAdapter" />
+
+	<bean id="taxCalculationService" parent="txProxyTemplate">
+		<property name="target" ref="taxCalculationServiceTarget"/>
+	</bean>
+
+	<bean id="taxCalculationServiceTargetTemplate" abstract="true"
+			class="com.elasticpath.service.tax.impl.TaxCalculationServiceImpl">
+		<property name="discountCalculator" ref="discountApportioningCalculator" />
+		<property name="taxJurisdictionService" ref="taxJurisdictionService" />
+		<property name="storeService" ref="storeService"/>
+		<property name="taxableItemContainerAdapter" ref="taxableItemContainerAdapter" />
+		<property name="taxManager" ref="taxManager" />
+		<property name="beanFactory" ref="coreBeanFactory" />
+	</bean>
+
+	<bean id="taxCalculationServiceTarget" parent="taxCalculationServiceTargetTemplate"/>
+
+	<bean id="taxOperationService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.tax.impl.TaxOperationServiceImpl">
+				<property name="taxCalculationService" ref="taxCalculationService" />
+				<property name="taxManager" ref="taxManager" />
+				<property name="taxDocumentService" ref="taxDocumentService"/>
+				<property name="addressAdapter" ref="taxAddressAdapter" />
+				<property name="beanFactory" ref="coreBeanFactory" />
+				<property name="orderSkuToPricingSnapshotFunction" ref="orderSkuToPricingSnapshotFunction" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="returnTaxOperationService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.tax.impl.ReturnTaxOperationServiceImpl">
+				<property name="productSkuLookup" ref="productSkuLookup" />
+				<property name="taxCalculationService" ref="taxCalculationService" />
+				<property name="taxManager" ref="taxManager" />
+				<property name="taxDocumentService" ref="taxDocumentService"/>
+				<property name="addressAdapter" ref="taxAddressAdapter" />
+				<property name="beanFactory" ref="coreBeanFactory" />
+				<property name="pricingSnapshotService" ref="pricingSnapshotService"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="cachingTaxManager" class="com.elasticpath.service.tax.impl.CachingTaxManagerImpl">
+		<property name="cache" ref="taxDocumentCache" />
+		<property name="delegateTaxManager" ref="nonCachingTaxManager" />
+	</bean>
+
+	<bean id="taxDocumentCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheName" value="taxDocumentCache" />
+		<property name="cacheManager" ref="epCoreEhcacheManager"/>
+		<property name="timeToLive" value="300" />
+		<property name="timeToIdle" value="300" />
+		<property name="overflowToDisk" value="false" />
+		<property name="statisticsEnabled" value="true" />
+	</bean>
+
+	<bean parent="cachingTaxManager" id="taxManager" />
+
+	<bean id="taxDocumentArchiver" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.tax.impl.TaxDocumentArchiverImpl">
+				<property name="taxDocumentService" ref="taxDocumentService"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="taxDocumentService" parent="txProxyTemplate">
+	 	<property name="target">
+			<bean class="com.elasticpath.service.tax.impl.TaxDocumentServiceImpl">
+				<property name="taxJournalDao" ref="taxJournalDao"/>
+				<property name="taxDocumentAdapter" ref="taxDocumentAdapter"/>
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="taxDocumentAdapter" class="com.elasticpath.service.tax.impl.TaxDocumentAdapter">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="taxableItemContainerAdapter" class="com.elasticpath.service.tax.impl.TaxableItemContainerAdapter">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="productSkuLookup" ref="productSkuLookup" />
+		<property name="taxCodeRetriever" ref="taxCodeRetriever"/>
+	</bean>
+
+	<bean id="elasticPathTaxCalculator" class="com.elasticpath.service.tax.calculator.impl.ElasticPathTaxCalculator">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="taxCodeRetriever" ref="taxCodeRetriever"/>
+	</bean>
+
+	<bean id="taxRateDescriptorResolver" class="com.elasticpath.service.tax.resolver.impl.OverridingTaxRateDescriptorResolver" scope="prototype">
+		<property name="delegate">
+			<bean class="com.elasticpath.service.tax.resolver.impl.TaxRateDescriptorResolverImpl">
+				<property name="beanFactory" ref="coreBeanFactory"/>
+				<property name="taxJurisdictionService" ref="taxJurisdictionService"/>
+			</bean>
+		</property>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="taxDocumentService" ref="taxDocumentService"/>
+	</bean>
+
+	<bean id="taxDocumentResolver" class="com.elasticpath.service.tax.resolver.impl.TaxDocumentResolverImpl">
+		<property name="taxDocumentService" ref="taxDocumentService" />
+	</bean>
+
+	<bean id="elasticPathTaxProvider" class="com.elasticpath.service.tax.impl.ElasticPathTaxProviderPluginImpl">
+		<property name="taxCalculator" ref="elasticPathTaxCalculator"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="warehouseService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.store.impl.WarehouseServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="nonCachingStoreServiceTarget" class="com.elasticpath.service.store.impl.StoreServiceImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="elasticPath" ref="elasticPath"/>
+		<property name="fetchPlanHelper" ref="fetchPlanHelper"/>
+		<property name="indexNotificationService" ref="indexNotificationService"/>
+	</bean>
+
+	<bean id="nonCachingStoreService" parent="txProxyTemplate">
+		<property name="target" ref="nonCachingStoreServiceTarget"/>
+	</bean>
+
+	<bean id="storeServiceProxy" class="com.elasticpath.commons.beanframework.SwitchableProxyBinder">
+		<property name="fallbackImplementation" ref="nonCachingStoreService"/>
+	</bean>
+
+	<bean id="storeService" class="com.elasticpath.commons.beanframework.SwitchableProxyFactoryBean">
+		<property name="proxyInterface" value="com.elasticpath.service.store.StoreService"/>
+		<property name="proxy" ref="storeServiceProxy"/>
+	</bean>
+
+	<bean id="storeAssociationService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.store.impl.StoreAssociationServiceImpl">
+				<property name="storeService" ref="storeService"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="paymentGatewayService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.payment.impl.PaymentGatewayServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="paymentGatewayFactory" ref="paymentGatewayFactory"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="catalogService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.catalog.impl.CatalogServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="fetchPlanHelper" ref="fetchPlanHelper"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="synonymGroupService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.search.impl.SynonymGroupServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="paymentService" parent="txProxyTemplate">
+		<property name="target" ref="paymentServiceTarget"/>
+	</bean>
+
+	<bean id="paymentServiceTargetTemplate" abstract="true"
+		  class="com.elasticpath.service.payment.impl.PaymentServiceImpl">
+		<property name="paymentHandlerFactory" ref="paymentHandlerFactory"/>
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+		<property name="paymentGatewayService" ref="paymentGatewayService"/>
+		<property name="storeService" ref="storeService"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="paymentServiceTarget" parent="paymentServiceTargetTemplate"/>
+
+	<bean id="indexNotificationService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.search.impl.IndexNotificationServiceImpl">
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="queryComposerFactory" ref="queryComposerFactory"/>
+				<property name="searchConfigFactory" ref="searchConfigFactory"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="allocationService" parent="txProxyTemplate">
+		<property name="target" ref="allocationServiceTarget"/>
+	</bean>
+
+	<bean id="allocationServiceTargetTemplate" abstract="true"
+		  class="com.elasticpath.service.order.impl.AllocationServiceImpl">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="productInventoryManagementService" ref="productInventoryManagementService"/>
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+		<property name="storeService" ref="storeService"/>
+			</bean>
+
+	<bean id="allocationServiceTarget" parent="allocationServiceTargetTemplate"/>
+
+	<bean id="orderAllocationProcessor" parent="txProxyTemplate" scope="singleton">
+		<property name="target">
+			<bean class="com.elasticpath.service.order.impl.OrderAllocationProcessorImpl">
+				<property name="productInventoryManagementService" ref="productInventoryManagementService"/>
+				<property name="warehouseService" ref="warehouseService"/>
+				<property name="orderService" ref="orderService"/>
+				<property name="allocationService" ref="allocationService"/>
+				<property name="productSkuLookup" ref="productSkuLookup"/>
+				<property name="productSkuService" ref="productSkuService"/>
+				<property name="beanFactory" ref="coreBeanFactory"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="coreSeoUrlBuilder" class="com.elasticpath.domain.catalogview.impl.SeoUrlBuilderImpl" scope="prototype">
+		<property name="utility" ref="utility"/>
+		<property name="urlUtility" ref="urlUtility"/>
+		<property name="categoryLookup" ref="categoryLookup"/>
+	</bean>
+
+	<bean id="promotionRuleDelegate" class="com.elasticpath.service.rules.impl.PromotionRuleDelegateImpl">
+		<property name="productService" ref="productService"/>
+		<property name="ruleService" ref="ruleService"/>
+		<property name="couponUsageService" ref="couponUsageService" />
+		<property name="couponConfigService" ref="couponConfigService" />
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="productSkuLookup" ref="productSkuLookup" />
+		<property name="shippingOptionService" ref="shippingOptionService" />
+	</bean>
+
+	<bean id="promotionRuleExceptions" class="com.elasticpath.service.rules.impl.PromotionRuleExceptionsImpl" scope="prototype">
+		<property name="productService" ref="productService"/>
+	</bean>
+
+	<bean id="priceLookupService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.pricing.impl.PriceLookupServiceImpl">
+	  			<property name="beanFactory" ref="coreBeanFactory"/>
+	  			<property name="priceAdjustmentService" ref="priceAdjustmentService" />
+	  			<property name="baseAmountFinder" ref="baseAmountFinder" />
+	  			<property name="pricedEntityFactory" ref="pricedEntityFactory" />
+	  			<property name="baseAmountDataSource" ref="baseAmountService" />
+	  		</bean>
+	  	</property>
+	</bean>
+
+	<bean id="pricedEntityFactory" class="com.elasticpath.service.pricing.impl.PricedEntityFactoryImpl" >
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="baseAmountFinder" ref="baseAmountFinder" />
+		<property name="pricePopulator" ref="pricePopulator" />
+		<property name="paymentScheduleHelper" ref="paymentScheduleHelper" />
+		<property name="bundleIdentifier" ref="bundleIdentifier" />
+		<property name="defaultDataSource" ref="baseAmountService"/>
+	</bean>
+
+	<bean id="bundleIdentifier" class="com.elasticpath.service.catalog.impl.BundleIdentifierImpl" />
+
+	<bean id="pricePopulator" class="com.elasticpath.service.pricing.impl.PricePopulatorImpl" >
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="baseAmountFinderProxy" class="com.elasticpath.commons.beanframework.SwitchableProxyBinder">
+		<property name="fallbackImplementation" ref="nonCachingBaseAmountFinder"/>
+	</bean>
+
+	<bean id="nonCachingBaseAmountFinder" class="com.elasticpath.service.pricing.impl.BaseAmountFinderImpl" />
+
+	<bean id="baseAmountFinder" class="com.elasticpath.commons.beanframework.SwitchableProxyFactoryBean">
+		<property name="proxyInterface" value="com.elasticpath.service.pricing.BaseAmountFinder"/>
+		<property name="proxy" ref="baseAmountFinderProxy"/>
+	</bean>
+
+	<bean  id="nonTransactionalPriceLookupFacade" class="com.elasticpath.common.pricing.service.impl.PriceLookupFacadeImpl">
+		<property name="priceLookupService" ref="priceLookupService" />
+		<property name="priceListLookupService" ref="priceListLookupService" />
+		<property name="priceListDescriptorService" ref="priceListDescriptorService" />
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="bundleShoppingItemPriceBuilderFactory" ref="bundleShoppingItemPriceBuilderFactory"/>
+    	<property name="listenerList" ref="pricingEventListeners" />
+    	<property name="promotedPriceLookupService" ref="promotedPriceLookupService" />
+    	<property name="shoppingItemAssembler" ref="shoppingItemAssembler" />
+	</bean>
+
+	<bean id="promotedPriceLookupService" class="com.elasticpath.common.pricing.service.impl.PromotedPriceLookupServiceImpl">
+		<property name="priceLookupService" ref="priceLookupService" />
+		<property name="epRuleEngine" ref="epRuleEngine" />
+		<property name="pricedEntityFactory" ref="pricedEntityFactory" />
+		<property name="bundleIdentifier" ref="bundleIdentifier" />
+		<property name="beanFactory" ref="coreBeanFactory" />
+	</bean>
+
+
+  <util:list id="corePricingEventListeners">
+  </util:list>
+
+  <alias name="corePricingEventListeners" alias="pricingEventListeners" />
+
+	<bean  id="bundleShoppingItemPriceBuilderFactory" class="com.elasticpath.common.pricing.service.impl.BundleShoppingItemPriceBuilderFactoryImpl" >
+		<property name="bundleIdentifier" ref="bundleIdentifier" />
+		<property name="productSkuLookup" ref="productSkuLookup" />
+	</bean>
+
+	<bean id="priceLookupFacadeImpl" parent="txProxyTemplate">
+		<property name="target">
+			<bean parent="nonTransactionalPriceLookupFacade" />
+		</property>
+	</bean>
+
+    <!-- Blueprint does not support exporting alias beans. So if you change the alias, please change core-blueprint.xml as well -->
+	<alias name="priceLookupFacadeImpl" alias="priceLookupFacade" />
+
+	<bean id="priceListDescriptorService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.pricing.impl.PriceListDescriptorServiceImpl">
+	  			<property name="priceListDescriptorDao" ref="priceListDescriptorDao"/>
+	  			<property name="baseAmountDao" ref="baseAmountDao" />
+	  		</bean>
+	  	</property>
+	</bean>
+
+	<bean id="priceUpdatedNotificationService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.pricing.impl.PriceUpdatedNotificationServiceImpl">
+				<property name="indexNotificationService" ref="indexNotificationService"/>
+				<property name="productService" ref="productService"/>
+				<property name="productSkuService" ref="productSkuService"/>
+				<property name="priceListAssignmentDao" ref="priceListAssignmentDao"/>
+				<property name="beanFactory" ref="coreBeanFactory"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="baseAmountFactory" class="com.elasticpath.service.pricing.impl.BaseAmountFactoryImpl">
+		<property name="validator" ref="baseAmountValidator"/>
+	</bean>
+
+	<bean id="baseAmountService" parent="txProxyTemplate">
+		<property name="target" ref="baseAmountServiceTarget"/>
+	</bean>
+
+	<bean id="baseAmountServiceTargetTemplate" abstract="true"
+		  class="com.elasticpath.service.pricing.impl.BaseAmountServiceImpl">
+		<property name="baseAmountDao" ref="baseAmountDao"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="priceUpdatedNotificationService" ref="priceUpdatedNotificationService" />
+		<property name="validator" ref="baseAmountValidator"/>
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="baseAmountServiceTarget" parent="baseAmountServiceTargetTemplate"/>
+
+	<bean id="priceAdjustmentServiceProxy" class="com.elasticpath.commons.beanframework.SwitchableProxyBinder">
+		<property name="fallbackImplementation" ref="nonCachingPriceAdjustmentService"/>
+	</bean>
+
+	<bean id="nonCachingPriceAdjustmentService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.pricing.impl.PriceAdjustmentServiceImpl">
+	  			<property name="priceAdjustmentDao" ref="priceAdjustmentDao"/>
+	  		</bean>
+	  	</property>
+	</bean>
+
+
+	<bean id="priceAdjustmentService" class="com.elasticpath.commons.beanframework.SwitchableProxyFactoryBean">
+		<property name="proxyInterface" value="com.elasticpath.service.pricing.PriceAdjustmentService"/>
+		<property name="proxy" ref="priceAdjustmentServiceProxy"/>
+	</bean>
+
+	<bean id="sessionPriceListLifecycle" class="com.elasticpath.service.pricing.impl.SessionPriceListLifecycleImpl">
+		<property name="priceListLookupService" ref="priceListLookupService"/>
+	</bean>
+
+	<bean id="priceListLookupService" class="com.elasticpath.common.pricing.service.impl.PriceListLookupServiceImpl">
+		<property name="plStackLookupStrategy" ref="plaStackLookupStrategy"/>
+	</bean>
+
+	<bean id="plaStackLookupStrategy" class="com.elasticpath.common.pricing.service.impl.PLAStackLookupStrategy">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="priceListAssignmentService" ref="priceListAssignmentService"/>
+		<property name="conditionEvaluatorService" ref="conditionEvaluationService"/>
+	</bean>
+
+	<bean id="priceListStackInvalidator" class="com.elasticpath.domain.customer.impl.TagSetInvalidationDeterminerImpl" init-method="initTagGuids">
+		<property name="tagDictionaryDao" ref="tagDictionaryDao" />
+		<property name="tagDictionaries">
+			<list>
+				<value>TIME</value>
+				<value>STORES</value>
+				<value>PLA_SHOPPER</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="promoInvalidator" class="com.elasticpath.domain.customer.impl.TagSetInvalidationDeterminerImpl" init-method="initTagGuids">
+		<property name="tagDictionaryDao" ref="tagDictionaryDao" />
+		<property name="tagDictionaries">
+			<list>
+				<value>PROMOTIONS_SHOPPER</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="priceListServiceImpl" class="com.elasticpath.common.pricing.service.impl.PriceListServiceImpl">
+		<property name="baseAmountService" ref="baseAmountService"/>
+		<property name="priceListDescriptorService" ref="priceListDescriptorService"/>
+		<property name="baseAmountDtoAssembler" ref="baseAmountDtoAssembler"/>
+		<property name="priceListDescriptorDtoAssembler" ref="priceListDescriptorDtoAssembler"/>
+		<property name="baseAmountUpdateStrategy" ref="baseAmountUpdateAllOrNothing"/>
+		<property name="priceListAssignmentService" ref="priceListAssignmentService"/>
+		<property name="productService" ref="productService" />
+		<property name="beanFactory" ref="coreBeanFactory" />
+	</bean>
+
+	<alias name="priceListServiceImpl" alias="priceListService" />
+
+	<bean id="priceListHelperService" class="com.elasticpath.common.pricing.service.impl.PriceListHelperServiceImpl">
+		<property name="priceListService" ref="priceListService"/>
+		<property name="priceListLookupService" ref="priceListLookupService" />
+		<property name="beanFactory" ref="coreBeanFactory" />
+	</bean>
+
+	<bean id="priceListAssignmentHelperService" class="com.elasticpath.common.pricing.service.impl.PriceListAssignmentHelperServiceImpl">
+		<property name="priceListAssignmentService" ref="priceListAssignmentService"/>
+		<property name="priceListAssignmentsDtoAssembler" ref="priceListAssignmentsDtoAssembler"/>
+		<property name="catalogService" ref="catalogService"/>
+	</bean>
+
+	<bean id="baseAmountUpdateAllOrNothing" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.common.pricing.service.impl.BaseAmountUpdateStrategyImpl">
+				<property name="baseAmountService" ref="baseAmountService"/>
+				<property name="baseAmountDtoAssembler" ref="baseAmountDtoAssembler"/>
+				<property name="beanFactory" ref="coreBeanFactory" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="baseAmountValidator" class="com.elasticpath.service.pricing.impl.BaseAmountValidatorImpl">
+		<property name="errorInvalidGuid" value="validator.baseAmount.invalidGuid"/>
+		<property name="errorInvalidObjectGuid" value="validator.baseAmount.invalidObjectGuid"/>
+		<property name="errorInvalidObjectType" value="validator.baseAmount.invalidObjectType"/>
+		<property name="errorInvalidPriceListDescriptor" value="validator.baseAmount.invalidPriceListDescriptorGuid"/>
+		<property name="errorInvalidQuantity" value="validator.baseAmount.invalidQuantity"/>
+		<property name="errorInvalidListPrice" value="validator.baseAmount.invalidListPrice"/>
+		<property name="errorInvalidSalePrice" value="validator.baseAmount.invalidSalePrice"/>
+		<property name="errorSalePriceIsMoreThenListPrice" value="validator.baseAmount.salePriceIsMoreThanListPrice"/>
+	</bean>
+
+	<bean id="filteredNavigationConfigurationParser"
+		class="com.elasticpath.service.catalogview.filterednavigation.impl.FilteredNavigationConfigurationXmlParserImpl">
+		<property name="filteredNavigationConfigurationXmlElementParserFactory" ref="filteredNavigationConfigurationXmlElementParserFactory"/>
+	</bean>
+
+	<bean id="filteredNavigationConfigurationXmlElementParserFactory"
+		class="com.elasticpath.service.catalogview.filterednavigation.impl.FilteredNavigationConfigurationXmlElementParserFactoryImpl">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="abstractFilterXmlElementParserImpl"
+		class="com.elasticpath.service.catalogview.filterednavigation.impl.AbstractFilterXmlElementParserImpl" abstract="true">
+		<property name="filterFactory" ref="filterFactory"/>
+	</bean>
+
+	<bean id="attributeFilterParser"
+		class="com.elasticpath.service.catalogview.filterednavigation.impl.AttributeValueFilterXmlElementParserImpl"
+		parent="abstractFilterXmlElementParserImpl">
+	</bean>
+
+	<bean id="attributeRangeFilterParser"
+		class="com.elasticpath.service.catalogview.filterednavigation.impl.AttributeRangeFilterXmlElementParserImpl"
+		parent="abstractFilterXmlElementParserImpl">
+	</bean>
+
+	<bean id="attributeKeywordFilterParser"
+		class="com.elasticpath.service.catalogview.filterednavigation.impl.AttributeKeywordFilterXmlElementParserImpl"
+		parent="abstractFilterXmlElementParserImpl">
+	</bean>
+
+	<bean id="priceFilterParser"
+		class="com.elasticpath.service.catalogview.filterednavigation.impl.PriceFilterXmlElementParserImpl"
+		parent="abstractFilterXmlElementParserImpl">
+	</bean>
+
+	<bean id="brandFilterParser"
+		class="com.elasticpath.service.catalogview.filterednavigation.impl.BrandFilterXmlElementParserImpl"
+		parent="abstractFilterXmlElementParserImpl">
+	</bean>
+
+    <bean id="advancedFilteredNavigationConfigurationParser"
+		class="com.elasticpath.service.catalogview.filterednavigation.impl.FilteredNavigationConfigurationXmlParserImpl">
+		<property name="filteredNavigationConfigurationXmlElementParserFactory" ref="filteredNavigationConfigurationXmlElementParserFactory"/>
+	</bean>
+
+	<bean id="abstractFilteredNavigationConfigurationLoader"
+		  class="com.elasticpath.service.catalogview.filterednavigation.impl.FilteredNavigationConfigurationLoaderImpl"
+		  abstract="true">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="parser" ref="filteredNavigationConfigurationParser"/>
+		<property name="separatorInTokenProvider">
+			<settings:setting path="COMMERCE/SYSTEM/FILTEREDNAVIGATION/separatorInToken"/>
+		</property>
+	</bean>
+
+	<bean id="filteredNavigationConfigurationLoaderTemplate" parent="abstractFilteredNavigationConfigurationLoader"
+		  abstract="true">
+		<property name="configurationProvider">
+			<settings:setting path="COMMERCE/STORE/FILTEREDNAVIGATION/filteredNavigationConfiguration"/>
+		</property>
+	</bean>
+
+	<bean id="filteredNavigationConfigurationLoader" parent="filteredNavigationConfigurationLoaderTemplate"/>
+
+	<bean id="advancedSearchConfigurationLoaderTemplate" parent="abstractFilteredNavigationConfigurationLoader"
+		  abstract="true">
+		<property name="configurationProvider">
+			<settings:setting path="COMMERCE/STORE/ADVANCEDSEARCH/advancedSearchConfiguration"/>
+		</property>
+	</bean>
+
+	<bean id="advancedSearchConfigurationLoader" parent="advancedSearchConfigurationLoaderTemplate"/>
+
+	<bean id="currencyService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.misc.impl.CurrencyServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="elasticPath" ref="elasticPath"/>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- application initialization which occurs before the persistence engine is instantiated.
+-->
+	<!-- The default is an empty one which does nothing but each application can have its own defined
+-->
+	<bean id="applicationInitialization" class="com.elasticpath.service.misc.impl.EmptyApplicationInitialization" init-method="init"/>
+
+	<bean id="commandService" class="com.elasticpath.service.command.impl.CommandServiceImpl" />
+
+	<bean id="indexBuildStatus" class="com.elasticpath.domain.search.impl.IndexBuildStatusImpl" scope="prototype"/>
+
+	<bean id="indexBuildStatusService" class="com.elasticpath.service.search.impl.IndexBuildStatusServiceImpl">
+		<property name="buildStatusDao" ref="indexBuildStatusDao"/>
+	</bean>
+
+	<!-- CONTENT SPACE DEFINITIONS -->
+	<!--  The bean definition for a content wrapper loader, that will load content wrappers from xml files  -->
+	<bean id="contentWrapperLoader" class="com.elasticpath.domain.contentspace.impl.ContentWrapperLoaderImpl">
+		<property name="assetRepository" ref="assetRepository"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+
+	<!-- Common Dto Assemblers -->
+
+
+	<bean id="priceListAssignmentsDtoAssembler" class="com.elasticpath.common.dto.assembler.pricing.PriceListAssignmentsDtoAssembler">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="catalogService" ref="catalogService"/>
+		<property name="priceListDescriptorService" ref="priceListDescriptorService"/>
+		<property name="conditionDSLBuilder" ref="tagConditionDSLBuilder"/>
+	</bean>
+
+	<bean id="priceListDescriptorDtoAssembler" class="com.elasticpath.common.dto.assembler.pricing.PriceListDescriptorDtoAssembler">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="baseAmountDtoAssembler" class="com.elasticpath.common.dto.assembler.pricing.BaseAmountDtoAssembler">
+		<property name="baseAmountFactory" ref="baseAmountFactory"/>
+	</bean>
+
+	<bean id="baseAmountDtoAssemblerForCsvImport"
+		class="com.elasticpath.common.dto.assembler.pricing.BaseAmountDtoAssemblerForCsvImport"
+		parent="baseAmountDtoAssembler" >
+	</bean>
+
+	<!-- The bean definition for a content wrapper repository, currently it will contain two content wrappers for testing -->
+	<bean id="contentWrapperRepositoryTemplate" class="com.elasticpath.domain.contentspace.impl.ContentWrapperRepositoryImpl" abstract="true">
+		<property name="contentWrapperLoader" ref="contentWrapperLoader"/>
+		<property name="loadIntervalProvider">
+			<settings:setting path="COMMERCE/SYSTEM/CONTENTWRAPPERS/reloadInterval" />
+        </property>
+	</bean>
+
+	<bean id="contentWrapperRepository" parent="contentWrapperRepositoryTemplate"/>
+
+	<bean id="groovyEhcacheEventListener" class="com.elasticpath.commons.listeners.GroovyEhcacheEventListener"/>
+
+	<bean id="futureTaskGroovyScriptEngine" class="com.elasticpath.service.contentspace.impl.FutureTaskGroovyScriptEngineImpl">
+		<property name="groovyScriptTimeoutCache">
+			<bean class="com.elasticpath.cache.SimpleTimeoutCache">
+				<property name="cache" ref="groovyScriptCache"/>
+				<property name="cacheEventListener" ref="groovyEhcacheEventListener"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="scriptEngineFactory" class="com.elasticpath.service.contentspace.ScriptEngineFactory">
+		<property name="values">
+			<map>
+				<entry key="groovy" value-ref="futureTaskGroovyScriptEngine"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="parameterValueResolver" class="com.elasticpath.service.contentspace.impl.ParameterValueResolverImpl">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="scriptEngineFactory" ref="scriptEngineFactory"/>
+	</bean>
+
+	<!-- The render mediator, which uses a renderer, parameterValueResolver and a contentWrappeRepository in order to operate
+-->
+	<bean id="renderMediator" class="com.elasticpath.service.contentspace.impl.RenderMediatorImpl">
+		<property name="renderer" ref="velocityRenderer"/>
+		<property name="contentWrapperRepository" ref="contentWrapperRepository"/>
+		<property name="dynamicContentRuntimeService" ref="dynamicContentRuntimeService"/>
+		<property name="parameterValueResolver" ref="parameterValueResolver"/>
+	</bean>
+
+	<alias name="sellingContextService" alias="sellingContextRetrievalStrategy"/>
+
+	<bean id="dynamicContentRuntimeService" class="com.elasticpath.service.contentspace.impl.DynamicContentRuntimeServiceImpl">
+		<property name="dynamicContentDeliveryService" ref="dynamicContentDeliveryService"/>
+		<property name="sellingContextRetrievalStrategy" ref="sellingContextRetrievalStrategy"/>
+		<property name="actionResolutionAlgorithm" ref="actionResolutionAlgorithm"/>
+		<property name="conditionEvaluatorService" ref="conditionEvaluationService"/>
+		<property name="contentSpaceDynamicContentDeliveryCache">
+			<bean class="com.elasticpath.cache.SimpleTimeoutCache">
+				<property name="cache" ref="dynamicContentDeliveryCache"/>
+			</bean>
+		</property>
+	</bean>
+
+
+	<bean id="actionResolutionAlgorithm" class="com.elasticpath.service.targetedselling.impl.DynamicContentByDeliveryPriorityImpl"/>
+
+
+	<bean id="dynamicContentService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.contentspace.impl.DynamicContentServiceImpl">
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="contentWrapperRepository" ref="contentWrapperRepository"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="contentspaceService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.contentspace.impl.ContentSpaceServiceImpl">
+                <property name="contentSpaceQueryService" ref="contentSpaceQueryService"/>
+				<property name="elasticPath" ref="elasticPath"/>
+                <property name="persistenceEngine" ref="persistenceEngine"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="dynamicContentDeliveryService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.targetedselling.impl.DynamicContentDeliveryServiceImpl">
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="sellingContextService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.sellingcontext.impl.SellingContextServiceImpl">
+				<property name="elasticPath" ref="elasticPath"/>
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+			</bean>
+		</property>
+	</bean>
+
+
+	<!-- initializes the velocity renderer with the properties
+	so that they could be used in the following instances of the renderer. -->
+	<bean id="velocityRendererTemplate" class="com.elasticpath.service.contentspace.impl.VelocityRendererImpl" abstract="true">
+		<property name="velocityProperties">
+			<map>
+				<entry key="resource.loader" value="file"/>
+				<entry key="file.resource.loader.instance">
+					<bean class="com.elasticpath.commons.util.impl.ContextAwareFileResourceLoader">
+						<property name="assetRepository" ref="assetRepository"/>
+					</bean>
+				</entry>
+				<!-- entry key="velocimacro.library"><value>VM_global_library.vm, contentSpaceLibrary.vm</value></entry-->
+				<entry key="runtime.log.logsystem.log4j.logger" value="org.apache.velocity.runtime.log.Log4JLogChute"/>
+				<entry key="template.encoding" value="UTF-8"/>
+				<entry key="input.encoding" value="UTF-8"/>
+				<entry key="output.encoding" value="UTF-8"/>
+			</map>
+		</property>
+		<property name="contentWrappersLocationProvider">
+			<settings:setting path="COMMERCE/SYSTEM/ASSETS/contentWrappersLocation"/>
+		</property>
+	</bean>
+
+	<bean id="velocityRenderer" parent="velocityRendererTemplate"/>
+
+	<bean id="changeSetService" parent="txProxyTemplate">
+		<property name="target">
+			<bean parent="changeSetServiceTarget"/>
+		</property>
+	</bean>
+
+	<bean id="changeSetServiceTargetTemplate" class="com.elasticpath.service.changeset.impl.ChangeSetServiceImpl" abstract="true">
+		<property name="changeSetMemberDao" ref="changeSetMemberDao"/>
+		<property name="changeSetPolicy" ref="changeSetPolicy"/>
+		<property name="changeSetDao" ref="changeSetDao"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="changeSetEnabledProvider">
+			<settings:setting path="COMMERCE/SYSTEM/CHANGESETS/enable"/>
+		</property>
+	</bean>
+
+	<bean id="changeSetServiceTarget" parent="changeSetServiceTargetTemplate"
+		  abstract="true"/>
+
+	<bean id="changeSetHelper" class="com.elasticpath.service.changeset.helper.impl.ChangeSetHelperImpl">
+		<property name="elasticPath" ref="elasticPath"/>
+	</bean>
+	<!-- !!!! DOCChangeSetPolicy -->
+	<bean id="changeSetPolicy" parent="abstractChangeSetPolicy"/>
+
+	<bean id="abstractChangeSetPolicy" abstract="true" class="com.elasticpath.service.changeset.impl.ChangeSetPolicyImpl">
+		<property name="changeSetDao" ref="changeSetDao"/>
+		<property name="businessObjectResolver" ref="businessObjectResolver"/>
+		<property name="businessObjectGroupDao" ref="businessObjectGroupDao"/>
+		<property name="metadataResolvers">
+			<list>
+				<ref bean="promotionMetadataResolver"/>
+				<ref bean="productMetadataResolver"/>
+				<ref bean="productSkuMetadataResolver"/>
+				<ref bean="categoryMetadataResolver"/>
+				<ref bean="dynamicContentMetadataResolver"/>
+				<ref bean="dynamicContentDeliveryMetadataResolver"/>
+				<ref bean="priceListDescriptorMetadataResolver"/>
+				<ref bean="priceListAssignmentMetadataResolver"/>
+				<ref bean="categoryTypeMetadataResolver"/>
+				<ref bean="savedConditionMetadataResolver"/>
+				<ref bean="baseAmountMetadataResolver"/>
+				<ref bean="catalogMetadataResolver"/>
+				<ref bean="attributeMetadataResolver"/>
+				<ref bean="skuOptionMetadataResolver"/>
+				<ref bean="skuOptionValueMetadataResolver"/>
+				<ref bean="productTypeMetadataResolver"/>
+				<ref bean="brandMetadataResolver"/>
+				<ref bean="cartItemModifierGroupMetadataResolver"/>
+			</list>
+		</property>
+		<property name="changeSetDependentResolvers">
+			<list>
+                <ref bean="baseAmountChangeSetDependencyResolver"/>
+                <ref bean="productChangeSetDependencyResolver"/>
+				<ref bean="productBundleChangeSetDependencyResolver"/>
+				<ref bean="categoryChangeSetDependencyResolver"/>
+				<ref bean="skuChangeSetDependencyResolver"/>
+				<ref bean="promotionChangeSetDependencyResolver"/>
+				<ref bean="catalogCategoryTypeChangeSetResolver"/>
+				<ref bean="productTypeChangeSetDependencyResolver"/>
+			</list>
+		</property>
+	</bean>
+	<!-- !!!! DOCChangeSetPolicy -->
+
+    <bean id="baseAmountChangeSetDependencyResolver" class="com.elasticpath.service.changeset.impl.BaseAmountChangeSetDependencyResolverImpl">
+        <property name="baseAmountService" ref="baseAmountService" />
+        <property name="priceListService" ref="priceListService" />
+    </bean>
+	 <bean id="catalogCategoryTypeChangeSetResolver" class="com.elasticpath.service.changeset.impl.CatalogCategoryTypeChangeSetResolverImpl">
+        <property name="categoryTypeService" ref="categoryTypeService" />
+    </bean>
+	 <bean id="productTypeChangeSetDependencyResolver" class="com.elasticpath.service.changeset.impl.ProductTypeChangeSetDependencyResolver">
+        <property name="productTypeService" ref="productTypeService" />
+    </bean>
+	<bean id="promotionChangeSetDependencyResolver" class="com.elasticpath.service.changeset.impl.PromotionChangeSetDependencyResolverImpl">
+		<property name="ruleService" ref="ruleServiceLocal" />
+		<property name="productLookup" ref="productLookup" />
+		<property name="categoryService" ref="categoryService" />
+		<property name="productSkuLookup" ref="productSkuLookup" />
+		<property name="brandService"	ref="brandService" />
+	</bean>
+
+    <bean id="productChangeSetDependencyResolver" class="com.elasticpath.service.changeset.impl.ProductChangeSetDependencyResolverImpl">
+        <property name="productAssociationService" ref="productAssociationService" />
+        <property name="productLookup" ref="productLookup" />
+        <property name="loadTuner" >
+            <bean class="com.elasticpath.persistence.support.impl.FetchGroupLoadTunerImpl">
+                <property name="fetchGroups" >
+                    <list>
+                        <value>productHashMinimal</value>
+                        <value>productAssociationMinimal</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+	<bean id="promotionMetadataResolver" class="com.elasticpath.service.changeset.impl.PromotionMetadataResolver">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="productMetadataResolver" class="com.elasticpath.service.changeset.impl.ProductMetadataResolver">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="productSkuMetadataResolver" class="com.elasticpath.service.changeset.impl.ProductSkuMetadataResolver">
+		<property name="skuLookup" ref="productSkuLookup"/>
+	</bean>
+
+	<bean id="categoryMetadataResolver" class="com.elasticpath.service.changeset.impl.CategoryMetadataResolver">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="dynamicContentMetadataResolver" class="com.elasticpath.service.changeset.impl.DynamicContentMetadataResolver">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="dynamicContentDeliveryMetadataResolver" class="com.elasticpath.service.changeset.impl.DynamicContentDeliveryMetadataResolver">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="priceListDescriptorMetadataResolver" class="com.elasticpath.service.changeset.impl.PriceListDescriptorMetadataResolver">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="categoryTypeMetadataResolver" class="com.elasticpath.service.changeset.impl.CategoryTypeMetadataResolver">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="productTypeMetadataResolver" class="com.elasticpath.service.changeset.impl.ProductTypeMetadataResolver">
+		<property name="productTypeDao" ref="productTypeDao"/>
+	</bean>
+
+	<bean id="brandMetadataResolver" class="com.elasticpath.service.changeset.impl.BrandMetadataResolver">
+		<property name="brandService" ref="brandService"/>
+	</bean>
+
+	<bean id="priceListAssignmentMetadataResolver" class="com.elasticpath.service.changeset.impl.PriceListAssignmentMetadataResolver">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="savedConditionMetadataResolver" class="com.elasticpath.service.changeset.impl.SavedConditionMetadataResolver">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="catalogMetadataResolver" class="com.elasticpath.service.changeset.impl.CatalogMetadataResolver">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+    <bean id="attributeMetadataResolver" class="com.elasticpath.service.changeset.impl.AttributeMetadataResolver">
+        <property name="persistenceEngine" ref="persistenceEngine"/>
+    </bean>
+
+    <bean id="skuOptionMetadataResolver" class="com.elasticpath.service.changeset.impl.SkuOptionMetadataResolver">
+        <property name="skuOptionService" ref="skuOptionService"/>
+    </bean>
+
+    <bean id="skuOptionValueMetadataResolver" class="com.elasticpath.service.changeset.impl.SkuOptionValueMetadataResolver">
+        <property name="skuOptionService" ref="skuOptionService"/>
+    </bean>
+
+	<bean id="baseAmountMetadataResolver" class="com.elasticpath.service.changeset.impl.BaseAmountMetadataResolver">
+		<property name="baseAmountService" ref="baseAmountService"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="partResolvers">
+			<list>
+				<ref bean="productMetadataResolver"/>
+				<ref bean="productSkuMetadataResolver"/>
+				<ref bean="priceListDescriptorMetadataResolver"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="cartItemModifierGroupMetadataResolver" class="com.elasticpath.service.changeset.impl.CartItemModifierGroupMetadataResolverImpl" />
+
+	<bean id="productBundleChangeSetDependencyResolver" class="com.elasticpath.service.changeset.impl.ProductBundleChangeSetDependencyResolverImpl">
+		<property name="productLookup" ref="productLookup" />
+	</bean>
+
+	<bean id="categoryChangeSetDependencyResolver" class="com.elasticpath.service.changeset.impl.CategoryChangeSetDependencyResolverImpl" >
+		<property name="categoryLookup" ref="categoryLookup" />
+	</bean>
+
+	<bean id="skuChangeSetDependencyResolver" class="com.elasticpath.service.changeset.impl.SkuChangeSetDependencyResolverImpl" >
+		<property name="productSkuLookup" ref="productSkuLookup" />
+	</bean>
+
+	<import resource="classpath:spring/commons/serviceChangeset.xml"/>
+
+	<!-- tagging framework start -->
+
+	<bean id="conditionEvaluationService" class="com.elasticpath.tags.service.impl.GroovyConditionEvaluatorServiceImpl">
+		<property name="conditionProcessingService" ref="conditionProcessingService"/>
+		<property name="excludedFromCacheTags" ref="tagsExcludedFromConditionCache"/>
+		<property name="evaluationCache">
+			<bean class="com.elasticpath.cache.SimpleTimeoutCache">
+				<property name="cache" ref="groovyEvaluationCache"/>
+			</bean>
+		</property>
+	</bean>
+
+	<!--
+		This list contains tags that we DON'T want used as part of the cache key.
+		It is necessary due to Cortex updating some time-based tags with every request.
+		NOTE: This can affect evaluation of things like promotions and price lists that have
+		time-based conditions using these tags. Set the cache TTL to be an acceptable margin
+		of error around that time.
+	-->
+	<util:list id="tagsExcludedFromConditionCache" value-type="java.lang.String">
+		<value>SHOPPING_START_TIME</value>
+	</util:list>
+
+	<bean id="conditionProcessingService" class="com.elasticpath.tags.service.impl.GroovyConditionProcessingServiceImpl">
+		<property name="scriptCache">
+			<bean class="com.elasticpath.cache.SimpleTimeoutCache">
+				<property name="cache" ref="groovyConditionCache"/>
+				<property name="cacheEventListener" ref="groovyEhcacheEventListener"/>
+			</bean>
+		</property>
+	</bean>
+
+
+	<bean id="tagConditionDSLBuilder" class="com.elasticpath.tags.service.impl.GroovyConditionDSLBuilderImpl">
+		<property name="tagDefinitionReader" ref="tagDefinitionReader"/>
+		<property name="validationFacade" ref="conditionValidationFacade"/>
+	</bean>
+
+	<bean id="tagDictionaryService"  parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.tags.service.impl.TagDictionaryServiceImpl">
+				<property name="tagDictionaryDao" ref="tagDictionaryDao" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="tagGroupService"  parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.tags.service.impl.TagGroupServiceImpl">
+				<property name="tagGroupDao" ref="tagGroupDao" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="tagDefinitionService"  parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.tags.service.impl.TagDefinitionServiceImpl">
+				<property name="tagDefinitionDao" ref="tagDefinitionDao" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="nonCachedTagDefinitionReader" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.tags.service.impl.TagDefinitionReaderImpl">
+				<property name="tagDefinitionDao" ref="tagDefinitionDao" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="cachedTagDefinitionReader" class="com.elasticpath.tags.service.impl.CachedTagDefinitionReaderImpl">
+		<property name="tagDefinitionReader" ref="nonCachedTagDefinitionReader" />
+		<property name="tagDefinitionNameToTagDefinitionGuidCache">
+			<bean class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+				<property name="name" value="tagDefinitionGuidCache" />
+				<property name="cacheManager" ref="epCoreEhcacheManager"/>
+				<property name="timeToLive" value="600"/>
+				<property name="timeToIdle" value="600"/>
+			</bean>
+		</property>
+		<property name="tagDefinitionGuidToTagDefinitionCache">
+			<bean class="com.elasticpath.commons.beanframework.EhCacheDefaultConfigurationFactoryBean">
+				<property name="name" value="tagDefinitionCache" />
+				<property name="cacheManager" ref="epCoreEhcacheManager"/>
+				<property name="timeToLive" value="600"/>
+				<property name="timeToIdle" value="600"/>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- Remember: <alias name="FromBean" alias="ToBean"/> -->
+	<alias name="nonCachedTagDefinitionReader" alias="tagDefinitionReader"/>
+
+	<bean id="tagConditionService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.tags.service.impl.TagConditionServiceImpl">
+				<property name="tagConditionDao" ref="tagConditionDao" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="tagConditionBuilder" class="com.elasticpath.tags.service.impl.ConditionBuilderImpl">
+		<property name="tagDefinitionReader" ref="tagDefinitionReader" />
+	</bean>
+
+	<bean id="tagOperatorService" class="com.elasticpath.tags.service.impl.TagOperatorServiceImpl">
+		<property name="tagOperatorDao" ref="tagOperatorDao" />
+	</bean>
+
+        <bean id="conditionValidationFacade" class="com.elasticpath.tags.service.impl.ConditionValidationFacadeImpl">
+		<property name="validationService" ref="declarativeValidationService" />
+	</bean>
+
+	<util:map id="tagValueTypeConverterMap">
+		<entry key="java.math.BigDecimal" value-ref="stringToBigDecimalConverter"/>
+		<entry key="java.lang.Integer" value-ref="stringToIntegerConverter"/>
+		<entry key="java.lang.Float" value-ref="stringToFloatConverter"/>
+		<entry key="java.lang.Long" value-ref="stringToLongConverter"/>
+		<entry key="java.lang.Boolean" value-ref="stringToBooleanConverter"/>
+		<entry key="java.lang.String" value-ref="stringToStringConverter"/>
+	</util:map>
+
+	<bean id="tagTypeValueConverter" class="com.elasticpath.tags.service.impl.TagTypeValueConverterImpl">
+		<property name="typeConverterMap" ref="tagValueTypeConverterMap" />
+	</bean>
+
+	<bean id="tagFactory" class="com.elasticpath.tags.service.impl.TagFactoryImpl" >
+		<property name="tagTypeValueConverter" ref="tagTypeValueConverter" />
+		<property name="tagDefinitionReader" ref="tagDefinitionReader" />
+	</bean>
+
+	<!-- tagging framework end -->
+
+	<!-- validation framework start -->
+
+	<bean id="springExpressionValidationEngine" class="com.elasticpath.validation.service.impl.SpringExpressionValidationEngineImpl">
+	</bean>
+
+	<bean id="declarativeValidationService" class="com.elasticpath.validation.service.impl.DeclarativeValidationServiceImpl">
+		<property name="validationEngine" ref="springExpressionValidationEngine" />
+	</bean>
+
+	<!-- validation framework end -->
+
+
+	<!-- bundling start -->
+
+	<bean id="bundleConstituentFactory" class="com.elasticpath.service.catalog.impl.BundleConstituentFactoryImpl">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="productBundleServiceTargetTemplate" abstract="true" parent="productServiceParentTemplate"
+		  class="com.elasticpath.service.catalog.impl.ProductBundleServiceImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="productBundleServiceTarget" parent="productBundleServiceTargetTemplate" />
+
+	<bean id="productBundleService" parent="txProxyTemplate">
+		<property name="target" ref="productBundleServiceTarget"/>
+	</bean>
+
+	<bean id="priceListAssignmentServiceProxy" class="com.elasticpath.commons.beanframework.SwitchableProxyBinder">
+		<property name="fallbackImplementation" ref="nonCachingPriceListAssignmentService"/>
+	</bean>
+
+	<bean id="nonCachingPriceListAssignmentService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.pricing.impl.PriceListAssignmentServiceImpl">
+				<property name="priceListAssignmentDao" ref="priceListAssignmentDao" />
+				<property name="priceUpdatedNotificationService" ref="priceUpdatedNotificationService" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="priceListAssignmentService" class="com.elasticpath.commons.beanframework.SwitchableProxyFactoryBean">
+		<property name="proxyInterface" value="com.elasticpath.service.pricing.PriceListAssignmentService"/>
+		<property name="proxy" ref="priceListAssignmentServiceProxy"/>
+	</bean>
+
+	<!-- bundling end -->
+
+	<bean id="epRuleEngine" class="com.elasticpath.service.rules.impl.DBReadingRuleEngineImpl">
+		<property name="ruleService" ref="ruleService"/>
+		<property name="dataStrategy" ref="ruleEngineDataStrategy"/>
+		<property name="promotionRuleDelegate" ref="promotionRuleDelegate"/>
+		<property name="conditionEvaluatorService" ref="conditionEvaluationService"/>
+		<property name="beanFactory" ref="coreBeanFactory" />
+		<property name="cachedCatalogRuleBaseState">
+			<bean class="com.elasticpath.cache.SimpleTimeoutCache">
+				<property name="cache" ref="catalogRuleBaseCache"/>
+			</bean>
+		</property>
+		<property name="statefulSessionConfiguration">
+			<bean class="com.elasticpath.cache.SimpleTimeoutCache">
+				<property name="cache" ref="ruleSessionConfigurationCache"/>
+			</bean>
+		</property>
+	</bean>
+
+	<alias name="dbRuleEngineDataStrategy" alias="ruleEngineDataStrategy"/>
+
+	<bean id="dbRuleEngineDataStrategy" class="com.elasticpath.service.rules.impl.DBRetrievedRuleEngineDataStrategyImpl">
+		<property name="ruleService" ref="ruleService"/>
+	</bean>
+
+	<alias name="productAssociationService" alias="productAssociationRetrieveStrategy"/>
+
+	<bean id="storeProductService" parent="txProxyTemplate">
+		<property name="target" ref="storeProductServiceTarget"/>
+	</bean>
+
+	<bean id="storeProductServiceTargetTemplate" abstract="true" class="com.elasticpath.service.catalogview.impl.StoreProductServiceImpl">
+		<property name="productService" ref="productService"/>
+		<property name="productAssociationRetrieveStrategy" ref="productAssociationRetrieveStrategy"/>
+		<property name="productInventoryShoppingService" ref="productInventoryShoppingService"/>
+		<property name="shoppingItemDtoFactory" ref="shoppingItemDtoFactory"/>
+		<property name="productLookup" ref="productLookup"/>
+		<property name="bundleIdentifier" ref="bundleIdentifier"/>
+		<property name="availabilityStrategies">
+			<list>
+				<ref bean="flagBasedAvailabilityStrategy"/>
+				<ref bean="criteriaMapAvailabilityStrategy"/>
+				<ref bean="whenInStockAvailabilityStrategy"/>
+			</list>
+		</property>
+		<property name="productAvailabilityService" ref="productAvailabilityService" />
+	</bean>
+
+	<bean id="storeProductServiceTarget" parent="storeProductServiceTargetTemplate" />
+
+	<bean id="productAvailabilityServiceTemplate" abstract="true"
+		  class="com.elasticpath.service.catalogview.impl.ProductAvailabilityServiceImpl">
+		<property name="timeService" ref="timeService"/>
+	</bean>
+
+	<bean id="productAvailabilityService" parent="productAvailabilityServiceTemplate" />
+
+	<bean id="productInventoryShoppingService" class="com.elasticpath.sellingchannel.inventory.impl.ProductInventoryShoppingServiceImpl">
+        <property name="productInventoryManagementService" ref="productInventoryManagementService" />
+	</bean>
+
+	<bean id="shoppingItemFactory" class="com.elasticpath.sellingchannel.impl.ShoppingItemFactoryImpl">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="shoppingItemDtoFactory" class="com.elasticpath.common.dto.sellingchannel.impl.ShoppingItemDtoFactoryImpl">
+		<property name="bundleIdentifier" ref="bundleIdentifier"/>
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+	</bean>
+
+	<bean id="paginatorFactory" class="com.elasticpath.commons.pagination.impl.PaginatorFactoryImpl">
+   		<property name="paginators">
+			<map key-type="java.lang.Class" value-type="java.lang.String">
+				<entry key="com.elasticpath.domain.changeset.ChangeSetMember" value="changeSetMemberPaginator"/>
+				<entry key="com.elasticpath.domain.catalog.ProductSku" value="productSkuPaginator"/>
+				<entry key="com.elasticpath.common.dto.CouponUsageModelDto" value="couponUsageModelDtoPaginator"/>
+				<entry key="com.elasticpath.common.dto.CouponModelDto" value="couponModelDtoPaginator"/>
+			</map>
+		</property>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+   </bean>
+
+	<bean id="changeSetMemberPaginator" class="com.elasticpath.service.changeset.impl.ChangeSetMemberPaginator" scope="prototype">
+		<property name="changeSetService" ref="changeSetService"/>
+	</bean>
+	<bean id="productSkuPaginator" class="com.elasticpath.service.catalog.impl.ProductSkuPaginator" scope="prototype">
+		<property name="productSkuService" ref="productSkuService"/>
+	</bean>
+
+	<bean id="couponModelDtoPaginator" class="com.elasticpath.common.dto.CouponModelDtoPaginator" scope="prototype">
+		<!--  must have dependencies manually injected -->
+	</bean>
+
+	<bean id="couponUsageModelDtoPaginator" class="com.elasticpath.common.dto.CouponUsageModelDtoPaginator" scope="prototype">
+		<!--  must have dependencies manually injected -->
+	</bean>
+
+	<bean id="productLoadTunerForSFAddToCart"
+			class="com.elasticpath.domain.catalog.impl.StoreProductLoadTunerImpl"
+			scope="prototype" parent="epDomain">
+		<property name="loadingDefaultCategory" value="false"/>
+		<property name="loadingSkus" value="true"/>
+		<property name="loadingProductType" value="true"/>
+		<property name="loadingAttributeValue" value="false"/>
+		<property name="loadingCategories" value="false"/>
+		<property name="loadingProductAssociations" value="false"/>
+		<property name="loadingDefaultSku" value="true"/>
+		<property name="productTypeLoadTuner">
+			<bean class="com.elasticpath.domain.catalog.impl.ProductTypeLoadTunerImpl" scope="prototype" parent="epDomain">
+				<property name="loadingSkuOptions" value="true"/>
+			</bean>
+		</property>
+		<property name="productSkuLoadTuner">
+			<bean class="com.elasticpath.domain.catalog.impl.ProductSkuLoadTunerImpl" scope="prototype" parent="epDomain">
+				<property name="loadingAttributeValue" value="false"/>
+				<property name="loadingOptionValue" value="true"/>
+				<property name="loadingProduct" value="false"/>
+				<property name="loadingDigitalAsset" value="false"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="shoppingItemAssembler" class="com.elasticpath.sellingchannel.director.impl.ShoppingItemAssemblerImpl">
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+		<property name="productLookup" ref="productLookup"/>
+		<property name="shoppingItemFactory" ref="shoppingItemFactory" />
+		<property name="shoppingItemDtoFactory" ref="shoppingItemDtoFactory" />
+	</bean>
+
+	<bean id="orderDirector" class="com.elasticpath.sellingchannel.director.impl.OrderDirectorImpl" >
+		<property name="orderItemAssembler" ref="orderItemAssembler" />
+	</bean>
+
+	<bean id="orderItemAssemblerTemplate" abstract="true"
+		  class="com.elasticpath.sellingchannel.director.impl.OrderItemAssemblerImpl" >
+        <property name="bundleIdentifier" ref="bundleIdentifier" />
+        <property name="productInventoryManagementService" ref="productInventoryManagementService" />
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+		<property name="storeService" ref="storeService" />
+		<property name="pricingSnapshotService" ref="pricingSnapshotService"/>
+	</bean>
+
+	<bean id="orderItemAssembler" parent="orderItemAssemblerTemplate" />
+
+	<bean id="orderItemDtoListMapper" class="com.elasticpath.sellingchannel.presentation.impl.OrderItemDtoListMapperImpl" >
+		<property name="orderItemPresentationBeanMapper" ref="orderItemPresentationBeanMapper" />
+	</bean>
+
+	<bean id="orderItemPresentationBeanMapper" class="com.elasticpath.sellingchannel.presentation.impl.OrderItemPresentationBeanMapperImpl"/>
+
+	<bean id="orderPresentationHelper" class="com.elasticpath.sellingchannel.presentation.impl.OrderPresentationHelperImpl">
+		<property name="orderDirector" ref="orderDirector" />
+		<property name="orderItemDtoListMapper" ref="orderItemDtoListMapper" />
+		<property name="orderSkuToPricingSnapshotFunction" ref="orderSkuToPricingSnapshotFunction"/>
+	</bean>
+
+	<bean id="couponCodeGenerator" class="com.elasticpath.service.rules.impl.SequentialCouponCodeGeneratorImpl">
+		<property name="couponDao" ref="couponDao"/>
+	</bean>
+
+	<bean id="couponService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.rules.impl.CouponServiceImpl">
+	  			<property name="couponDao" ref="couponDao"/>
+	  			<property name="couponUsageDao" ref="couponUsageDao" />
+	  			<property name="couponCodeGenerator" ref="couponCodeGenerator" />
+				<property name="beanFactory" ref="coreBeanFactory"/>
+	  		</bean>
+	  	</property>
+	</bean>
+
+	<bean id="couponUsageService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.rules.impl.CouponUsageServiceImpl">
+	  			<property name="couponUsageDao" ref="couponUsageDao"/>
+	  			<property name="ruleService" ref="ruleService" />
+	  			<property name="couponService" ref="couponService" />
+	  			<property name="couponConfigService" ref="couponConfigService" />
+	  			<property name="timeService" ref="timeService" />
+	  			<property name="beanFactory" ref="coreBeanFactory" />
+	  		</bean>
+	  	</property>
+	</bean>
+
+	<bean id="couponConfigService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.rules.impl.CouponConfigServiceImpl">
+				<property name="couponConfigDao" ref="couponConfigDao" />
+				<property name="couponUsageDao" ref="couponUsageDao" />
+				<property name="couponDao" ref="couponDao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!--
+		This instance should be injected into any persistence listener that may need additional metadata,
+		such as change set guid, import/export stage, cm user, etc.
+	 -->
+	<bean id="persistenceListenerMetadataMap" class="com.elasticpath.commons.ThreadLocalMap" scope="singleton" />
+
+	<bean id="advancedSearchConfigurationProvider" class="com.elasticpath.domain.catalogview.search.impl.AdvancedSearchConfigurationProviderImpl">
+		<property name="filterFactory" ref="advancedSearchFilterFactory"/>
+		<property name="attributeService" ref="attributeService"/>
+		<property name="brandService" ref="brandService"/>
+	</bean>
+
+	<bean id="categoryService" parent="txProxyTemplate">
+		<property name="target" ref="categoryServiceTarget"/>
+	</bean>
+
+	<bean id="categoryServiceTargetTemplate" abstract="true" class="com.elasticpath.service.catalog.impl.CategoryServiceImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="fetchPlanHelper" ref="fetchPlanHelper"/>
+		<property name="categoryLookup" ref="nonCachingCategoryLookup"/>
+		<property name="catalogService" ref="catalogService"/>
+		<property name="categoryLoadTunerAll" ref="CATEGORY_LOAD_TUNER_ALL"/>
+		<property name="categoryLoadTunerDefault" ref="CATEGORY_LOAD_TUNER_DEFAULT"/>
+		<property name="categoryLoadTunerMinimal" ref="CATEGORY_LOAD_TUNER_MINIMAL"/>
+		<property name="categoryGuidUtil" ref="categoryGuidUtil"/>
+		<property name="productDao" ref="productDao"/>
+	</bean>
+
+	<bean id="categoryServiceTarget" parent="categoryServiceTargetTemplate"/>
+
+	<bean id="nonCachingCategoryLookup" parent="txProxyTemplate">
+		<property name="target" ref="nonCachingCategoryLookupTarget"/>
+	</bean>
+
+	<bean id="nonCachingCategoryLookupTargetTemplate" abstract="true" class="com.elasticpath.service.catalog.impl.CategoryLookupImpl">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="fetchPlanHelper" ref="fetchPlanHelper"/>
+	</bean>
+
+	<bean id="nonCachingCategoryLookupTarget" parent="nonCachingCategoryLookupTargetTemplate"/>
+
+	<bean id="categoryLookupProxy" class="com.elasticpath.commons.beanframework.SwitchableProxyBinder">
+		<property name="fallbackImplementation" ref="nonCachingCategoryLookup"/>
+	</bean>
+
+	<bean id="categoryLookup" class="com.elasticpath.commons.beanframework.SwitchableProxyFactoryBean">
+		<property name="proxyInterface" value="com.elasticpath.service.catalog.CategoryLookup"/>
+		<property name="proxy" ref="categoryLookupProxy"/>
+	</bean>
+
+	<bean id="assetRepositoryTemplate" class="com.elasticpath.commons.util.impl.AssetRepositoryImpl"
+		  abstract="true">
+		<property name="environmentInfoService" ref="environmentInfoService"/>
+		<property name="assetsPathProvider">
+			<settings:setting path="COMMERCE/SYSTEM/ASSETS/assetLocation"/>
+		</property>
+		<property name="cmAssetsSubfolderProvider">
+			<settings:setting path="COMMERCE/SYSTEM/ASSETS/cmAssetsSubfolder"/>
+		</property>
+		<property name="contentWrappersSubfolderProvider">
+			<settings:setting path="COMMERCE/SYSTEM/ASSETS/contentWrappersLocation"/>
+		</property>
+		<property name="importAssetSubfolderProvider">
+			<settings:setting path="COMMERCE/SYSTEM/ASSETS/importAssetsSubfolder"/>
+		</property>
+		<property name="themeAssetsSubfolderProvider">
+			<settings:setting path="COMMERCE/SYSTEM/ASSETS/themesSubfolder"/>
+		</property>
+	</bean>
+
+	<bean id="assetRepository" parent="assetRepositoryTemplate"/>
+
+	<bean id="shoppingCartMergerForShopperUpdates" class="com.elasticpath.service.shopper.impl.ShoppingCartMergerForShopperUpdates"
+    		lazy-init="false">
+    	<constructor-arg ref="shoppingCartService" />
+    	<constructor-arg ref="shoppingCartMerger" />
+	</bean>
+
+  	<bean id="wishListMergerForShopperUpdates" class="com.elasticpath.service.shopper.impl.WishListMergerForShopperUpdates"
+    		lazy-init="false">
+		<constructor-arg ref="wishListService" />
+	</bean>
+
+  	<bean id="cartOrderCouponsMergerForShopperUpdates" class="com.elasticpath.service.shopper.impl.CartOrderCouponsMergerForShopperUpdates"
+    		lazy-init="false">
+		<constructor-arg ref="cartOrderService" />
+	</bean>
+
+	<bean id="customerConsentMergerForShopperUpdates" class="com.elasticpath.service.shopper.impl.CustomerConsentMergerForShopperUpdates">
+		<constructor-arg ref="customerConsentService" />
+	</bean>
+
+    <bean id="promotionCodeInvalidatorForShopperUpdates"
+        class="com.elasticpath.service.shopper.impl.PromotionCodeInvalidatorForShopperUpdates" lazy-init="false">
+        <constructor-arg ref="couponService" />
+    </bean>
+
+    <bean id="shoppingCartCustomerSessionUpdater" class="com.elasticpath.service.shopper.impl.ShoppingCartCustomerSessionUpdater"/>
+
+	 <util:list id="coreShopperUpdateHandlers" value-type="com.elasticpath.service.customer.CustomerSessionShopperUpdateHandler">
+	 	<ref bean="shoppingCartMergerForShopperUpdates"/>
+		<ref bean="wishListMergerForShopperUpdates"/>
+		<ref bean="shoppingCartCustomerSessionUpdater"/>
+		<ref bean="promotionCodeInvalidatorForShopperUpdates"/>
+		<ref bean="cartOrderCouponsMergerForShopperUpdates"/>
+		<ref bean="customerConsentMergerForShopperUpdates"/>
+	</util:list>
+
+	<alias name="coreShopperUpdateHandlers" alias="shopperUpdateHandlers" />
+
+	<bean id="wishListService" parent="txProxyTemplate">
+		<property name="target">
+			<bean parent="wishListTarget"/>
+		</property>
+	</bean>
+
+	<bean id="wishListTargetTemplate" class="com.elasticpath.service.shoppingcart.impl.WishListServiceImpl"
+			abstract="true">
+		<property name="priceLookupFacade" ref="priceLookupFacade" />
+		<property name="productSkuLookup" ref="productSkuLookup" />
+		<property name="cartDirector" ref="cartDirector" />
+		<property name="wishListDao" ref="wishListDao"/>
+		<property name="beanFactory" ref="coreBeanFactory" />
+		<property name="storeService" ref="storeService" />
+		<property name="eventMessageFactory" ref="eventMessageFactory"/>
+		<property name="eventMessagePublisher" ref="customerEventMessagePublisher"/>
+		<property name="cartItemModifierService" ref="cartItemModifierService"/>
+	</bean>
+
+	<bean id="wishListTarget" parent="wishListTargetTemplate" abstract="true"/>
+
+	<bean id="shopperService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.shopper.impl.ShopperServiceImpl">
+				<constructor-arg ref="coreBeanFactory" />
+				<constructor-arg ref="shopperDao" />
+				<constructor-arg ref="storeService" />
+			</bean>
+		</property>
+	</bean>
+
+    <bean id="shopperCleanupService" parent="txProxyTemplate">
+        <property name="target" >
+            <bean class="com.elasticpath.service.shopper.impl.ShopperCleanupServiceImpl" >
+              <property name="shopperDao" ref="shopperDao"/>
+              <property name="customerSessionCleanupService" ref="customerSessionCleanupService" />
+              <property name="wishListService" ref="wishListService"/>
+              <property name="shoppingCartService" ref="shoppingCartService"/>
+              <property name="beanFactory" ref="coreBeanFactory" />
+              </bean>
+        </property>
+    </bean>
+
+    <bean id="anonymousCustomerCleanupService" parent="txProxyTemplate">
+        <property name="target" >
+            <bean class="com.elasticpath.service.customer.impl.AnonymousCustomerCleanupServiceImpl" >
+              <property name="shopperCleanupService" ref="shopperCleanupService" />
+              <property name="persistenceEngine" ref="persistenceEngine"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="cartDirectorTemplate" class="com.elasticpath.sellingchannel.director.impl.CartDirectorImpl">
+		<property name="priceLookupFacade" ref="priceLookupFacade" />
+		<property name="shoppingItemAssembler" ref="shoppingItemAssembler" />
+		<property name="shoppingItemDtoFactory" ref="shoppingItemDtoFactory" />
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+		<property name="timeService" ref="timeService" />
+		<property name="productAssociationService" ref="productAssociationService" />
+		<property name="validationService" ref="addOrUpdateShoppingItemDtoToCartValidationService"/>
+	</bean>
+
+	<bean id="cartDirector" parent="cartDirectorTemplate"/>
+
+	<bean id="cartDirectorServiceTargetTemplate" abstract="true"
+		  class="com.elasticpath.sellingchannel.director.impl.CartDirectorServiceImpl">
+		<property name="cartDirector" ref="cartDirector"/>
+		<property name="shoppingCartService" ref="shoppingCartService"/>
+		<property name="wishListService" ref="wishListService"/>
+		<property name="pricingSnapshotService" ref="pricingSnapshotService"/>
+	</bean>
+
+	<bean id="cartDirectorService" parent="txRequiredProxyTemplate">  <!-- All methods are TRANSACTION_REQUIRED -->
+		<property name="target" >
+			<bean parent="cartDirectorServiceTargetTemplate" />
+		</property>
+	</bean>
+
+	<bean id="shoppingCartMerger" class="com.elasticpath.service.shoppingcart.impl.ShoppingCartMergerImpl" >
+		<property name="shoppingItemAssembler" ref="shoppingItemAssembler"/>
+		<property name="cartDirector" ref="cartDirector" />
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+	</bean>
+
+	<bean id="paymentScheduleHelper" class="com.elasticpath.service.pricing.impl.PaymentScheduleHelperImpl">
+		<property name="skuOptionService" ref="skuOptionService"/>
+		<property name="beanFactory" ref="coreBeanFactory" />
+	</bean>
+
+	<bean id="shoppingItemRecurringPriceAssembler" class="com.elasticpath.sellingchannel.impl.ShoppingItemRecurringPriceAssemblerImpl" >
+		<property name="beanFactory" ref="coreBeanFactory" />
+		<property name="paymentScheduleHelper" ref="paymentScheduleHelper" />
+	</bean>
+
+	<bean id="taxJurisdictionDtoAssembler" class="com.elasticpath.common.dto.tax.TaxJurisdictionDtoAssembler">
+	  <property name="beanFactory" ref="coreBeanFactory"/>
+	  <property name="taxCodeService" ref="taxCodeService"/>
+	</bean>
+
+	<bean id="taxCodeDtoAssembler" class="com.elasticpath.common.dto.tax.TaxCodeDtoAssembler">
+	  <property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="paymentGatewayDtoAssembler" class="com.elasticpath.common.dto.paymentgateway.PaymentGatewayDtoAssembler">
+		<property name="paymentGatewayFactory" ref="paymentGatewayFactory"/>
+	</bean>
+
+	<bean id="warehouseDtoAssembler" class="com.elasticpath.common.dto.warehouse.WarehouseDtoAssembler">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="customerDtoAssembler" class="com.elasticpath.common.dto.customer.CustomerDtoAssembler">
+		<property name="beanFactory" ref="coreBeanFactory" />
+		<property name="customerGroupService" ref="customerGroupService"/>
+		<property name="paymentTokenDTOTransformer" ref="paymentTokenDTOTransformer"/>
+	</bean>
+
+	<bean id="customerGroupDtoAssembler" class="com.elasticpath.common.dto.customer.CustomerGroupDtoAssembler">
+		<property name="beanFactory" ref="coreBeanFactory" />
+	</bean>
+
+	<bean id="storeDtoAssembler" class="com.elasticpath.common.dto.store.StoreDtoAssembler">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="catalogService" ref="catalogService"/>
+		<property name="paymentGatewayService" ref="paymentGatewayService"/>
+		<property name="taxCodeService" ref="taxCodeService"/>
+		<property name="taxJurisdictionService" ref="taxJurisdictionService"/>
+		<property name="warehouseService" ref="warehouseService"/>
+		<property name="storeService" ref="storeService"/>
+	</bean>
+
+	<bean id="storeAssociationDtoAssembler" class="com.elasticpath.common.dto.store.StoreAssociationDtoAssembler">
+		<property name="beanFactory" ref="coreBeanFactory" />
+		<property name="storeService" ref="storeService" />
+		<property name="storeAssociationService" ref="storeAssociationService" />
+	</bean>
+
+	<bean id="cmUserDtoAssembler" class="com.elasticpath.common.dto.cmuser.CmUserDtoAssembler">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="userRoleService" ref="userRoleService"/>
+		<property name="storeService" ref="storeService"/>
+		<property name="warehouseService" ref="warehouseService"/>
+		<property name="catalogService" ref="catalogService"/>
+	</bean>
+
+	<bean id="userRoleDtoAssembler" class="com.elasticpath.common.dto.cmuser.UserRoleDtoAssembler">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="giftCertificateDtoAssembler" class="com.elasticpath.common.dto.assembler.giftcertificate.GiftCertificateDtoAssembler">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="storeService" ref="storeService"/>
+		<property name="customerService" ref="customerService"/>
+	</bean>
+
+	<bean id="giftCertificateTransactionDtoAssembler" class="com.elasticpath.common.dto.assembler.giftcertificate.GiftCertificateTransactionDtoAssembler">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="giftCertificateService" ref="giftCertificateService"/>
+	</bean>
+
+	<util:map id="inventoryStrategies" map-class="java.util.HashMap">
+        <entry key="allocatedjournaling" value-ref="journalingInventoryStrategy"/>
+	</util:map>
+
+	<bean id="inventoryFacadeTemplate" class="com.elasticpath.inventory.impl.InventoryFacadeImpl" init-method="init" abstract="true">
+        <property name="strategies" ref="inventoryStrategies"/>
+		<property name="inventoryStrategyIdProvider">
+			<settings:setting path="COMMERCE/SYSTEM/INVENTORY/inventoryStrategy"/>
+		</property>
+	</bean>
+
+	<bean id="inventoryFacade" parent="inventoryFacadeTemplate"/>
+
+    <bean id="journalingInventoryStrategy" class="com.elasticpath.inventory.strategy.impl.JournalingInventoryStrategy">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+        <property name="inventoryJournalDao" ref="inventoryJournalDao"/>
+        <property name="inventoryJournalLockDao" ref="inventoryJournalLockDao"/>
+        <property name="inventoryDao" ref="inventoryDao"/>
+        <property name="inventoryLogSupport" ref="inventoryLogSupport"/>
+        <property name="productSkuService" ref="productSkuService"/>
+    </bean>
+
+	<bean id="inventoryJournalRollupService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.inventory.strategy.impl.InventoryJournalRollupServiceImpl">
+				<property name="inventoryJournalDao" ref="inventoryJournalDao"/>
+				<property name="inventoryJournalLockDao" ref="inventoryJournalLockDao"/>
+				<property name="inventoryLogSupport" ref="inventoryLogSupport"/>
+				<property name="beanFactory" ref="coreBeanFactory"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="inventoryLogSupport" class="com.elasticpath.inventory.log.impl.InventoryLogSupport">
+		<property name="formatter">
+			<bean class="com.elasticpath.inventory.log.impl.InventoryLogFormatter"/>
+		</property>
+	</bean>
+
+	<bean id="cartOrderPopulationStrategy"
+		class="com.elasticpath.service.cartorder.impl.CartOrderPopulationOnCustomerProfileStrategyImpl">
+         <property name="prototypeBeanFactory" ref="coreBeanFactory" />
+         <property name="cartOrderShippingService" ref="cartOrderShippingService" />
+		 <property name="cartOrderCouponAutoApplier" ref="couponAutoApplierAdapter" />
+	</bean>
+
+    <bean id="cartOrderService" parent="cartOrderTxProxyTemplate">  <!-- NOTE that this service has a custom transaction template! -->
+        <property name="target">
+            <bean class="com.elasticpath.service.cartorder.impl.CartOrderServiceImpl">
+                <property name="cartOrderDao" ref="cartOrderDao" />
+                <property name="customerAddressDao" ref="customerAddressDao" />
+                <property name="persistenceEngine" ref="persistenceEngine" />
+                <property name="shoppingCartService" ref="shoppingCartService" />
+                <property name="cartOrderPopulationStrategy" ref="cartOrderPopulationStrategy" />
+                <property name="cartOrderShippingInformationSanitizer" ref="clearingCartOrderShippingInformationSanitizer" />
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="cartOrderShippingService" parent="txProxyTemplate">
+        <property name="target">
+            <bean class="com.elasticpath.service.cartorder.impl.CartOrderShippingServiceImpl">
+                <property name="customerAddressDao" ref="customerAddressDao" />
+                <property name="shippingOptionService" ref="shippingOptionService" />
+                <property name="cartOrderShippingInformationSanitizer" ref="clearingCartOrderShippingInformationSanitizer" />
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="cartOrderCouponService" parent="txProxyTemplate">
+        <property name="target">
+            <bean class="com.elasticpath.service.cartorder.impl.CartOrderCouponServiceImpl" />
+        </property>
+    </bean>
+
+    <bean id="oAuth2AccessTokenService" parent="txProxyTemplate">
+        <property name="target">
+            <bean class="com.elasticpath.service.auth.impl.OAuth2AccessTokenServiceImpl">
+                <property name="beanFactory" ref="coreBeanFactory" />
+                <property name="fetchPlanHelper" ref="fetchPlanHelper" />
+                <property name="persistenceEngine" ref="persistenceEngine" />
+            </bean>
+        </property>
+    </bean>
+
+	<!--  note that this bean is also defined in serviceConnect.xml -->
+	<bean id="importService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.dataimport.impl.ImportServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+				<property name="catalogService" ref="catalogService"/>
+				<property name="warehouseService" ref="warehouseService"/>
+				<property name="storeService" ref="nonCachingStoreService"/>
+				<property name="importNotificationDao" ref="importNotificationDao"/>
+				<property name="importJobStatusHandler" ref="importJobStatusHandler"/>
+				<property name="timeService" ref="timeService"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="importJobStatusHandler" class="com.elasticpath.service.dataimport.impl.ImportJobStatusHandlerImpl">
+		<property name="importNotificationDao" ref="importNotificationDao" />
+		<property name="importJobStatusDao" ref="importJobStatusDao" />
+		<property name="timeService" ref="timeService" />
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+    <bean id="shoppingCartCleanupService" parent="txProxyTemplate">
+        <property name="target" >
+            <bean class="com.elasticpath.service.shoppingcart.impl.ShoppingCartCleanupServiceImpl" >
+                <property name="persistenceEngine" ref="persistenceEngine" />
+                <property name="cartOrderService" ref="cartOrderService" />
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="moneyFormatter" class="com.elasticpath.money.StandardMoneyFormatter" >
+		<property name="maxDisplayFractionDigits" value="2"/>
+		<property name="minDisplayFractionDigits" value="2"/>
+	</bean>
+
+   <bean id="itemConfigurationFactory" class="com.elasticpath.service.catalog.impl.DefaultItemConfigurationFactoryImpl">
+    	<property name="bundleIdentifier" ref="bundleIdentifier" />
+    	<property name="defaultSkuStrategy">
+			<bean class="com.elasticpath.service.catalog.impl.DefaultSkuStrategyImpl"/>
+    	</property>
+    </bean>
+
+    <bean id="itemConfigurationValidator" class="com.elasticpath.service.catalog.impl.ItemConfigurationValidatorImpl">
+    	<property name="productSkuLookup" ref="productSkuLookup" />
+		<property name="productSkuService" ref="productSkuService" />
+    	<property name="bundleIdentifier" ref="bundleIdentifier" />
+    	<property name="productCharacteristicsService" ref="productCharacteristicsService"/>
+    </bean>
+
+    <bean id="itemConfigurationObjectMapper" class="com.elasticpath.service.catalog.impl.ItemConfigurationObjectMapperFactory"
+    	factory-method="getObjectMapper" />
+
+    <bean id="nonCachingProductCharacteristicsService" class="com.elasticpath.service.catalog.impl.ProductCharacteristicsServiceImpl">
+    	<property name="productBundleService" ref="productBundleService"/>
+		<property name="productLookup" ref="productLookup"/>
+    	<property name="productTypeService" ref="productTypeService"/>
+    </bean>
+
+	<bean id="productCharacteristicsServiceProxy" class="com.elasticpath.commons.beanframework.SwitchableProxyBinder">
+		<property name="fallbackImplementation" ref="nonCachingProductCharacteristicsService"/>
+	</bean>
+
+	<bean id="productCharacteristicsService" class="com.elasticpath.commons.beanframework.SwitchableProxyFactoryBean">
+		<property name="proxyInterface" value="com.elasticpath.service.catalog.ProductCharacteristicsService"/>
+		<property name="proxy" ref="productCharacteristicsServiceProxy"/>
+	</bean>
+
+	<bean id="productCategoryServiceTarget" class="com.elasticpath.service.catalog.impl.ProductCategoryServiceImpl">
+		<property name="persistenceEngine" ref="persistenceEngine" />
+		<property name="categoryGuidUtil" ref="categoryGuidUtil"/>
+		<property name="categoryService" ref="categoryService" />
+	</bean>
+
+	<bean id="productCategoryService" parent="txProxyTemplate">
+		<property name="target" ref="productCategoryServiceTarget"/>
+	</bean>
+
+    <bean id="searchTermsObjectMapper" class="com.elasticpath.service.search.query.impl.SearchTermsObjectMapperFactory"
+    	factory-method="getObjectMapper" scope="singleton" />
+
+    <bean id="searchTermsService" class="com.elasticpath.service.search.query.impl.SearchTermsServiceImpl">
+    	<property name="prototypeBeanFactory" ref="coreBeanFactory" />
+    	<property name="searchTermsMementoDao" ref="searchTermsMementoDao" />
+    	<property name="objectMapper" ref="searchTermsObjectMapper" />
+		<property name="searchTermsActivityStrategy" ref="searchTermsActivityStrategy" />
+    </bean>
+
+    <bean id="productQueryService" parent="txProxyTemplate">
+    	<property name="target">
+    		<bean class="com.elasticpath.service.catalog.impl.ProductQueryService">
+		    	<property name="persistenceEngine" ref="persistenceEngine"/>
+		    	<property name="beanFactory" ref="coreBeanFactory"/>
+		    	<property name="fetchPlanHelper" ref="fetchPlanHelper"/>
+    		</bean>
+    	</property>
+    </bean>
+
+	<bean id="loggingSearchTermsActivityStrategy" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.search.query.impl.LoggingSearchTermsActivityStrategy">
+				<property name="beanFactory" ref="coreBeanFactory" />
+				<property name="timeService" ref="timeService" />
+				<property name="searchTermsActivityDao" ref="searchTermsActivityDao" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="noopSearchTermsActivityStrategy" class="com.elasticpath.service.search.query.impl.NoopSearchTermsActivityStrategy" />
+	<alias name="noopSearchTermsActivityStrategy" alias="searchTermsActivityStrategy"/>
+
+	<bean id="contentSpaceQueryService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.targetedselling.impl.ContentSpaceQueryService">
+				<property name="persistenceEngine" ref="persistenceEngine" />
+				<property name="beanFactory" ref="coreBeanFactory" />
+				<property name="fetchPlanHelper" ref="fetchPlanHelper" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="parameterValueQueryService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.contentspace.impl.ParameterValueQueryService">
+				<property name="persistenceEngine" ref="persistenceEngine" />
+				<property name="beanFactory" ref="coreBeanFactory" />
+				<property name="fetchPlanHelper" ref="fetchPlanHelper" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="constraintViolationsSummariser" class="com.elasticpath.validation.service.impl.SimpleConstraintViolationsSummariser" />
+	<bean id="customerConstraintViolationsSummariser" class="com.elasticpath.validation.service.impl.CustomerConstraintViolationsSummariser"
+		parent="constraintViolationsSummariser" />
+
+	<bean id="validatorUtils" class="com.elasticpath.validation.service.impl.ValidatorUtilsImpl">
+		<property name="validator" ref="validator"/>
+	</bean>
+
+	<bean id="saltFactory" class="com.elasticpath.service.security.impl.HexStringSaltFactoryImpl">
+		<property name="numberOfBytes" value="32"/>
+	</bean>
+
+	<bean id="customerSaltSource" class="com.elasticpath.service.security.impl.CustomerSaltSourceImpl"/>
+
+	<bean id="clearingCartOrderShippingInformationSanitizer" class="com.elasticpath.service.cartorder.impl.ClearingCartOrderShippingInformationSanitizer">
+		<property name="customerAddressDao" ref="customerAddressDao" />
+		<property name="shippingOptionService" ref="shippingOptionService" />
+		<property name="shoppingCartService" ref="shoppingCartService" />
+		<property name="storeService" ref="storeService" />
+		<property name="beanFactory" ref="coreBeanFactory" />
+	</bean>
+
+	<bean id="criteriaMapAvailabilityStrategy" class="com.elasticpath.service.catalogview.impl.CriteriaMapAvailabilityStrategyImpl">
+		<property name="criteriaMap">
+			<map key-type="com.elasticpath.domain.catalog.AvailabilityCriteria" value-type="com.elasticpath.domain.catalog.Availability">
+				<entry key="AVAILABLE_FOR_PRE_ORDER" value="AVAILABLE_FOR_PRE_ORDER"/>
+				<entry key="AVAILABLE_FOR_BACK_ORDER" value="AVAILABLE_FOR_BACK_ORDER"/>
+				<entry key="ALWAYS_AVAILABLE" value="AVAILABLE"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="whenInStockAvailabilityStrategy" class="com.elasticpath.service.catalogview.impl.WhenInStockAvailabilityStrategyImpl"/>
+
+	<bean id="flagBasedAvailabilityStrategy" class="com.elasticpath.service.catalogview.impl.FlagBasedAvailabilityStrategyImpl"/>
+
+	<bean id="paymentHandlerFactory" class="com.elasticpath.domain.payment.impl.PaymentHandlerFactoryImpl"/>
+
+	<bean id="abstractPaymentGatewayFactory" class="com.elasticpath.domain.payment.impl.PaymentGatewayFactoryImpl" abstract="true">
+		<property name="certificatePathPrefixProvider">
+			<settings:setting path="COMMERCE/SYSTEM/PAYMENTGATEWAY/certificatesDirectory"/>
+		</property>
+		<property name="giftCertificateTransactionService" ref="giftCertificateTransactionService"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="gatewayClasses">
+			<set value-type="java.lang.Class">
+				<value>com.elasticpath.service.payment.gateway.impl.NullPaymentGatewayPluginImpl</value>
+				<value>com.elasticpath.service.payment.gateway.impl.NullExternalAuthPaymentGatewayPluginImpl</value>
+				<value>com.elasticpath.service.payment.gateway.impl.ExchangePaymentGatewayPluginImpl</value>
+				<value>com.elasticpath.service.payment.gateway.impl.GiftCertificatePaymentGatewayPluginImpl</value>
+				<value>com.elasticpath.paymentgateways.testdouble.PaymentGatewayPluginTestDouble</value>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="paymentGatewayFactory" parent="abstractPaymentGatewayFactory"/>
+
+	<bean id="paymentGatewayTransactionService" class="com.elasticpath.plugin.payment.transaction.service.impl.PaymentGatewayTransactionServiceImpl"/>
+
+    <bean id="paymentMethodTransformerFactory" class="com.elasticpath.service.payment.gateway.impl.PaymentMethodTransformerFactoryImpl">
+		<constructor-arg ref="paymentMethodTransformers" />
+	</bean>
+
+	<util:map id="paymentMethodTransformers" key-type="java.lang.Class">
+		<entry key="com.elasticpath.domain.customer.impl.PaymentTokenImpl" value-ref ="paymentTokenTransformer" />
+	</util:map>
+
+	<bean id="paymentTokenTransformer" class="com.elasticpath.service.payment.gateway.impl.PaymentTokenTransformer">
+			<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="giftCertificateEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher" />
+	</bean>
+
+	<bean id="dataImportEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher" />
+	</bean>
+
+	<bean id="paymentTokenDTOBuilder" class="com.elasticpath.common.dto.customer.builder.PaymentTokenDTOBuilder"/>
+	<bean id="paymentTokenDTOTransformer" class="com.elasticpath.common.dto.customer.transformer.PaymentTokenDTOTransformer">
+			<property name="paymentTokenDTOBuilder" ref="paymentTokenDTOBuilder"/>
+	</bean>
+
+	<bean id="environmentInfoService" class="com.elasticpath.service.environment.impl.EmbeddedEnvironmentInfoService">
+		<property name="applicationRootPath" value="."/>
+		<property name="configurationRootPath" value="."/>
+	</bean>
+
+	<bean id="couponAutoApplierService" class="com.elasticpath.service.rules.impl.CouponAutoApplierServiceImpl">
+		<property name="validCouponUseSpecification" ref="validCouponUseSpecification" />
+		<property name="couponService" ref="couponService" />
+		<property name="couponUsageService" ref="couponUsageService" />
+	</bean>
+
+	<bean id="couponAutoApplierAdapter"
+		class="com.elasticpath.service.rules.impl.CouponAutoApplierAdapter">
+		<property name="couponAutoApplierService" ref="couponAutoApplierService" />
+	</bean>
+
+	<bean id="taxCodeRetriever" class="com.elasticpath.service.tax.impl.TaxCodeRetrieverImpl" />
+
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<bean class="com.elasticpath.service.payment.converter.AddressToDto">
+					<property name="beanFactory" ref="coreBeanFactory"/>
+				</bean>
+				<bean class="com.elasticpath.service.payment.converter.DtoToOrderPayment">
+					<property name="beanFactory" ref="coreBeanFactory"/>
+				</bean>
+				<bean class="com.elasticpath.service.payment.converter.DtoToPayerAuthenticationEnrollmentResult">
+					<property name="beanFactory" ref="coreBeanFactory"/>
+				</bean>
+				<bean class="com.elasticpath.service.payment.converter.DtoToPayerAuthValidationValue">
+					<property name="beanFactory" ref="coreBeanFactory"/>
+				</bean>
+				<bean class="com.elasticpath.service.payment.converter.OrderPaymentToAuthorizationRequest">
+					<property name="beanFactory" ref="coreBeanFactory"/>
+				</bean>
+				<bean class="com.elasticpath.service.payment.converter.OrderPaymentToCaptureRequest">
+					<property name="beanFactory" ref="coreBeanFactory"/>
+				</bean>
+				<bean class="com.elasticpath.service.payment.converter.OrderPaymentToDto">
+					<property name="beanFactory" ref="coreBeanFactory"/>
+				</bean>
+				<bean class="com.elasticpath.service.payment.converter.OrderPaymentToMoneyDto">
+					<property name="beanFactory" ref="coreBeanFactory"/>
+				</bean>
+				<bean class="com.elasticpath.service.payment.converter.OrderPaymentToPaymentMethod">
+					<property name="beanFactory" ref="coreBeanFactory"/>
+				</bean>
+				<bean class="com.elasticpath.service.payment.converter.OrderShipmentToDto">
+					<property name="beanFactory" ref="coreBeanFactory"/>
+				</bean>
+				<bean class="com.elasticpath.service.payment.converter.OrderSkuToDto">
+					<property name="beanFactory" ref="coreBeanFactory"/>
+				</bean>
+				<bean class="com.elasticpath.service.payment.converter.PayerAuthValidationValueToDto">
+					<property name="beanFactory" ref="coreBeanFactory"/>
+				</bean>
+				<bean class="com.elasticpath.service.payment.converter.ShoppingCartToDto">
+					<property name="beanFactory" ref="coreBeanFactory"/>
+				</bean>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="pricingSnapshotServiceTemplate" class="com.elasticpath.service.shoppingcart.impl.PricingSnapshotServiceImpl" abstract="true">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="cartDirector" ref="cartDirector"/>
+		<property name="ruleEngine" ref="epRuleEngine"/>
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+		<property name="shippingCalculationService" ref="shippingCalculationService"/>
+		<property name="pricedShippableItemContainerTransformer" ref="pricedShippableItemContainerTransformer"/>
+		<property name="shippingOptionResultExceptionLogPredicate" ref="shippingOptionResultExceptionLogPredicate" />
+	</bean>
+
+	<bean id="pricingSnapshotService" parent="pricingSnapshotServiceTemplate"/>
+
+	<bean id="taxSnapshotServiceTemplate" class="com.elasticpath.service.shoppingcart.impl.TaxSnapshotServiceImpl" abstract="true">
+		<property name="discountApportioningCalculator" ref="discountApportioningCalculator"/>
+		<property name="taxCalculationService" ref="taxCalculationService"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+		<property name="taxAddressAdapter" ref="taxAddressAdapter"/>
+	</bean>
+
+    <bean id="taxSnapshotService" parent="taxSnapshotServiceTemplate"/>
+
+	<bean id="shoppingItemSubtotalCalculatorTemplate" class="com.elasticpath.service.shoppingcart.impl.ShoppingItemSubtotalCalculatorImpl"
+		  abstract="true" />
+
+	<bean id="shoppingItemSubtotalCalculator" parent="shoppingItemSubtotalCalculatorTemplate"/>
+
+	<bean id="orderSkuSubtotalCalculatorTemplate" class="com.elasticpath.service.shoppingcart.impl.OrderSkuSubtotalCalculatorImpl"
+		  abstract="true">
+		<property name="orderSkuToPricingSnapshotFunction" ref="orderSkuToPricingSnapshotFunction"/>
+	</bean>
+
+	<bean id="orderSkuSubtotalCalculator" parent="orderSkuSubtotalCalculatorTemplate"/>
+
+	<bean id="shippableItemPredicate" class="com.elasticpath.service.shoppingcart.ShippableItemPredicate">
+		<constructor-arg ref="productSkuLookup"/>
+	</bean>
+
+	<bean id="orderSkuToPricingSnapshotFunction" class="com.elasticpath.service.shoppingcart.OrderSkuToPricingSnapshotFunction">
+		<constructor-arg ref="pricingSnapshotService" />
+	</bean>
+
+	<bean id="cartItemModifierService" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.cartitemmodifier.impl.CartItemModifierServiceImpl">
+				<property name="persistenceEngine" ref="persistenceEngine"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="cartItemModifierFieldValidationService" class="com.elasticpath.validation.service.impl.CartItemModifierFieldValidationServiceImpl">
+		<property name="constraintViolationTransformer" ref="constraintViolationTransformer"/>
+	</bean>
+
+	<bean id="storeMessageSourceTemplate" class="com.elasticpath.commons.util.impl.StoreMessageSourceImpl"
+		abstract="true">
+		<property name="messageSourceCache" ref="messageSourceCache"/>
+		<property name="globalMessageSource" ref="globalMessageSource"/>
+		<property name="assetRepository" ref="assetRepository"/>
+		<property name="storeThemeCodeProvider">
+			<settings:setting path="COMMERCE/STORE/theme"/>
+		</property>
+	</bean>
+
+</beans>

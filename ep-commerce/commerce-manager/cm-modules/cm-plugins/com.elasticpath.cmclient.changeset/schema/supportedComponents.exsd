@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="com.elasticpath.cmclient.changeset" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="com.elasticpath.cmclient.changeset" id="supportedComponents" name="Change Set Supported Editors, Dialogs"/>
+      </appInfo>
+      <documentation>
+         The supported editors extension point is used by changesets to determine which editors/dialogs/&apos;other UI components&apos; are to be handled by the change set plugin.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="dialog" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="editor" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="wizard" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="editor">
+      <complexType>
+         <attribute name="editorId" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Defines the supported editor ID. It must be the same as the ID used to register the editor using the org.eclipse.ui.editors extension point.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="objectType" type="string" use="required">
+            <annotation>
+               <documentation>
+                  A reference to the object type of the domain model object the editor deals with. The object types are defined in service.xml using the BusinessObjectResolver bean.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="dialog">
+      <complexType>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="com.elasticpath.cmclient.core.ui.dialog.AbstractEpDialog:com.elasticpath.cmclient.core.ObjectGuidReceiver"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="objectType" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="wizard">
+      <complexType>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="com.elasticpath.cmclient.core.wizard.AbstractEpWizard:com.elasticpath.cmclient.core.ObjectGuidReceiver"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="objectType" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         [Enter the first release in which this extension point appears.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         &lt;extension point=&quot;com.elasticpath.cmclient.changeset.supportedEditors&quot;&gt;
+   &lt;supportedEditor
+         editorId=&quot;com.elasticpath.cmclient.catalog.editors.product.ProductEditor&quot;
+         objectType=&quot;Product&quot;&gt;
+   &lt;/supportedEditor&gt;
+&lt;/extension&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiinfo"/>
+      </appInfo>
+      <documentation>
+         No API is provided.
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         The current implementation adds an additional page to the supported editors and decorates their editor title image with a respective icon when they are added to a change set.
+      </documentation>
+   </annotation>
+
+
+</schema>

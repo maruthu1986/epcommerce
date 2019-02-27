@@ -1,0 +1,19 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.elasticpath</groupId>
+		<artifactId>parent</artifactId>
+		<version>703.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>shipping-calculation-connectivity</artifactId>
+	<packaging>pom</packaging>
+	<name>Shipping Calculation Connectivity Projects</name>
+
+	<modules>
+		<module>shipping-calculation-connectivity-api</module>
+		<module>shipping-calculation-connectivity-caching</module>
+	</modules>
+
+</project>

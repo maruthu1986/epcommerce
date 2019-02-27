@@ -1,0 +1,10 @@
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/FileUpload.html
+FileUpload {
+	border: none;
+	padding: $widget_field_padding;
+	cursor: pointer;
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/FileUpload.html#FileUpload-FocusIndicator
+	&-FocusIndicator {
+
+	}
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<bean id="shippingRegion"
+		  scope="prototype"
+		  class="com.elasticpath.domain.shipping.impl.ShippingRegionImpl"/>
+	<bean id="shippingServiceLevel"
+		  scope="prototype"
+		  class="com.elasticpath.domain.shipping.impl.ShippingServiceLevelImpl"/>
+	<bean id="fixedPriceMethod"
+		  scope="prototype"
+		  class="com.elasticpath.domain.shipping.impl.FixedPriceMethodImpl"/>
+	<bean id="orderTotalPercentageMethod"
+		  scope="prototype"
+		  class="com.elasticpath.domain.shipping.impl.OrderTotalPercentageMethodImpl"/>
+	<bean id="fixedBaseAndOrderTotalPercentageMethod"
+		  scope="prototype"
+		  class="com.elasticpath.domain.shipping.impl.FixedBaseAndOrderTotalPercentageMethodImpl"/>
+	<bean id="costPerUnitWeightMethod"
+		  scope="prototype"
+		  class="com.elasticpath.domain.shipping.impl.CostPerUnitWeightMethodImpl"/>
+	<bean id="fixedBaseAndCostPerUnitWeightMethod"
+		  scope="prototype"
+		  class="com.elasticpath.domain.shipping.impl.FixedBaseAndCostPerUnitWeightMethodImpl"/>
+	<bean id="shippingCostCalculationParameter"
+		  scope="prototype"
+		  class="com.elasticpath.domain.shipping.impl.ShippingCostCalculationParameterImpl"/>
+	<bean id="region"
+		  scope="prototype"
+		  class="com.elasticpath.domain.shipping.impl.RegionImpl"/>
+	<bean id="regionCodeComparator"
+		  scope="prototype"
+		  class="com.elasticpath.domain.misc.impl.RegionCodeComparatorImpl"/>
+	<bean id="shippingServiceLevelLocalizedPropertyValue"
+		  scope="prototype"
+		  class="com.elasticpath.domain.misc.impl.ShippingServiceLevelLocalizedPropertyValueImpl"/>
+
+</beans>

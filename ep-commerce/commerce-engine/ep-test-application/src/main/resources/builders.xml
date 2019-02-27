@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="productSkuBuilder" class="com.elasticpath.domain.builder.ProductSkuBuilder" scope="prototype"/>
+
+	<bean id="customerBuilder" class="com.elasticpath.domain.builder.customer.CustomerBuilder" scope="prototype"/>
+
+	<bean id="customerGroupBuilder" class="com.elasticpath.domain.builder.customer.CustomerGroupBuilder"/>
+
+	<bean id="paymentGatewayBuilder" class="com.elasticpath.domain.builder.payment.gateway.PaymentGatewayBuilder" scope="prototype"/>
+	
+	<bean id="customerAddressBuilder" class="com.elasticpath.domain.builder.customer.CustomerAddressBuilder" scope="prototype"/>
+
+	<bean id="wishListBuilder" class="com.elasticpath.domain.builder.WishListBuilder" scope="prototype"/>
+
+	<bean id="cmUserBuilder" class="com.elasticpath.domain.builder.CmUserBuilder" scope="prototype"/>
+
+	<bean id="dataPolicyBuilder" class="com.elasticpath.domain.builder.datapolicy.DataPolicyBuilder" scope="prototype"/>
+
+	<bean id="customerConsentBuilder" class="com.elasticpath.domain.builder.datapolicy.CustomerConsentBuilder" scope="prototype"/>
+
+	<bean id="shoppingContextBuilder" class="com.elasticpath.domain.builder.shopper.ShoppingContextBuilder" scope="prototype">
+		<constructor-arg ref="coreBeanFactory"/>
+	</bean>
+
+</beans>

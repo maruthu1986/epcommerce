@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>shipments</name>
+
+		<!-- Shipment line item plans -->
+		<plan>
+			<name>read-shipment-line-items</name>
+			<description><![CDATA[Retrieve the shipment line items associated with a shipment.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from a shipment to a list of line items.]]></description>
+				<start>shipment</start>
+				<follow-link>lineitems</follow-link>
+				<result>shipment-line-items</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-shipment-line-item</name>
+			<description><![CDATA[Read a shipment line item.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from a list of line items to line item.]]></description>
+				<start>shipment-line-items</start>
+				<follow-link>element</follow-link>
+				<result>shipment-line-item</result>
+			</step>
+		</plan>
+
+		<!-- Shipment line item option plans. -->
+		<plan>
+			<name>read-shipment-line-item-options</name>
+			<description><![CDATA[Retrieve the options associated with a shipment line item.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from a shipment line item to a list of options.]]></description>
+				<start>shipment-line-item</start>
+				<follow-link>options</follow-link>
+				<result>shipment-line-item-options</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-shipment-line-item-option</name>
+			<description><![CDATA[Read a shipment line item option.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from a list of line item options to line item option.]]></description>
+				<start>shipment-line-item-options</start>
+				<follow-link>element</follow-link>
+				<result>shipment-line-item-option</result>
+			</step>
+		</plan>
+
+		<!-- Shipment line item option value plans -->
+		<plan>
+			<name>read-shipment-line-item-option-value</name>
+			<description><![CDATA[Retrieve the option value associated with a shipment line item.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from shipment line item option to value.]]></description>
+				<start>shipment-line-item-option</start>
+				<follow-link>value</follow-link>
+				<result>shipment-line-item-option-value</result>
+			</step>
+		</plan>
+
+	</family>
+
+</definitions>

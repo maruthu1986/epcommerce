@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration packagingData="false">
+
+	<jmxConfigurator/>
+
+	<insertFromJNDI env-entry-name="java:comp/env/appName" as="appName"/>
+	<define name="appName" class="com.elasticpath.rest.relos.logback.NonOverridingProperty" propertyName="appName" propertyValue="EP-Cortex">
+		<name>appName</name>
+		<value>[EP-Cortex]</value>
+	</define>
+	<contextName>${appName}</contextName>
+
+	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<if condition='isDefined("ep.logback.console.threshold")'>
+			<then>
+				<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+					<level>INFO</level>
+				</filter>
+			</then>
+		</if>
+		<encoder>
+			<pattern>%cyan(${CONTEXT_NAME}:) %-6relative [%10.10thread] %highlight(%-5level) %green(%40.40class) - %message%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>\${user.home}/ep/logs/ep-cortex.log</file>
+		<encoder>
+			<!-- Log4J's TCCLayout pattern -->
+			<pattern>%date{ISO8601} [%thread] %level %class - %message%n</pattern>
+			<outputPatternAsHeader>true</outputPatternAsHeader>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>\${user.home}/ep/logs/ep-cortex.%i.log</fileNamePattern>
+			<maxIndex>10</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<logger name="org.apache" level="INFO"/>
+	<logger name="openjpa" level="ERROR"/>
+	<logger name="org.apache.felix" level="WARN"/>
+	<logger name="org.springframework" level="WARN"/>
+	<logger name="org.glassfish.jersey.servlet.WebComponent" level="ERROR"/>
+	<!-- to debug blueprint startup failures, change the level of gemini to DEBUG -->
+	<logger name="org.eclipse.gemini" level="INFO"/>
+	<logger name="com.elasticpath" level="${ep.log.level}"/>
+	<logger name="com.elasticpath.search" level="WARN"/>
+	<logger name="com.elasticpath.extensions" level="${ep.log.level}"/>
+
+	<root level="WARN">
+		<!-- Separate tag for each appender. -->
+		<!-- <appender-ref ref="FILE"/> -->
+		<!-- <appender-ref ref="CONSOLE"/> -->
+		${ep.log.to.logback}
+
+	</root>
+</configuration>

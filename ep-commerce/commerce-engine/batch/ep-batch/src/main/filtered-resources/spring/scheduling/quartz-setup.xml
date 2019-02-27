@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2017 Elastic Path Software Inc. All rights reserved.
+  -->
+
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"
+>
+
+    <bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers" ref="allBatchTriggers"/>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.scheduler.jmx.export">true</prop>
+                <prop key="org.quartz.scheduler.jmx.objectName">quartz:type=QuartzScheduler,name=BatchJmxScheduler,instanceId=NONE_CLUSTER</prop>
+            </props>
+        </property>
+    </bean>
+
+	<util:list id="disabled"/>
+
+	<util:list id="schedulingTriggers">
+		<ref bean="cleanupExpiredOAuth2TokensTrigger" />
+		<ref bean="cleanupOrderLocksTrigger"/>
+		<ref bean="importJobCleanupTrigger"/>
+		<ref bean="staleImportJobTrigger"/>
+		<ref bean="cleanupSessionsTrigger"/>
+		<ref bean="inventoryJournalRollupTrigger"/>
+		<ref bean="cleanupAbandonedCartsTrigger"/>
+		<ref bean="cleanupInactiveCartsTrigger"/>
+		<ref bean="cleanupFailedOrdersTrigger"/>
+		<ref bean="cleanupAnonymousCustomersTrigger"/>
+		<ref bean="expiredDataPointValuesJobProcessorTrigger"/>
+		<ref bean="dataPointRevokedConsentsJobProcessorTrigger"/>
+	</util:list>
+
+	<util:list id="topSellerSchedulingTriggers">
+		<ref bean="topSellerTrigger"/>
+	</util:list>
+	<bean id="topSellerSchedulingTriggersMerger" class="com.elasticpath.commons.util.spring.ListMergerFactory">
+		<property name="sourceList" ref="schedulingTriggers"/>
+		<property name="mergeList" ref="${ep.cm.triggers.topseller}"/>
+	</bean>
+
+	<util:list id="productRecommendationScheduling">
+		<ref bean="demoProductRecommendationTrigger"/>
+	</util:list>
+	<bean id="productRecommendationSchedulingMerger" class="com.elasticpath.commons.util.spring.ListMergerFactory">
+		<property name="sourceList" ref="topSellerSchedulingTriggersMerger"/>
+		<property name="mergeList" ref="${ep.cm.triggers.productrecommendation}"/>
+	</bean>
+
+	<util:list id="releaseShipmentSchedulingTriggers">
+		<ref bean="releaseShipmentTrigger"/>
+	</util:list>
+	<bean id="releaseShipmentSchedulingTriggersMerger" class="com.elasticpath.commons.util.spring.ListMergerFactory">
+		<property name="sourceList" ref="productRecommendationSchedulingMerger"/>
+		<property name="mergeList" ref="${ep.cm.triggers.auto.shipmentrelease}"/>
+	</bean>
+
+	<util:list id="searchTermsAggregatorTriggers">
+		<ref bean="searchTermsAggregatorTrigger"/>
+	</util:list>
+	<bean id="searchTermsAggregatorTriggerMerger" class="com.elasticpath.commons.util.spring.ListMergerFactory">
+		<property name="sourceList" ref="releaseShipmentSchedulingTriggersMerger"/>
+		<property name="mergeList" ref="${ep.cm.triggers.searchterms.aggregator}"/>
+	</bean>
+
+	<alias alias="allBatchTriggers" name="searchTermsAggregatorTriggerMerger"/>
+</beans>

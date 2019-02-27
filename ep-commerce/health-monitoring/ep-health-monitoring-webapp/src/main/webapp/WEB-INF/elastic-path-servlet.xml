@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		">
+
+	<!-- Activates the @Autowire annotations on registered beans -->
+	<context:annotation-config/>
+
+	<!--
+	This element will substitute ${} placeholders found in the listed property files.
+	If the placeholder is not found after searching locations, or JVM system properties, it will remain in the ${} form,
+	(with no substitution performed) and as a result could cause spurious results at run-time.
+	-->
+	<context:property-placeholder ignore-resource-not-found="true" system-properties-mode="OVERRIDE"
+								  location="
+			classpath*:META-INF/elasticpath/conf/spring/plugin.properties,
+			classpath:module.properties,
+			file:/etc/ep/health-monitoring.properties,
+			file:${user.home}/ep/health-monitoring.properties,
+			file:${user.home}/ep/conf/health-monitoring.properties
+		"/>
+
+	<import resource="spring/monitoring/ep-monitoring.xml"/>
+</beans>

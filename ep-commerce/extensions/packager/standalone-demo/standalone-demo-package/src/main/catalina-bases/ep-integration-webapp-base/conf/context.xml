@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Context>
+	<Resource name="jdbc/epjndi"
+		auth="Container"
+		scope="Shareable"
+		type="javax.sql.DataSource"
+		maxActive="100"
+		maxIdle="30"
+		maxWait="10000"
+		removeAbandoned="true"
+		username="sa"
+		password="sa"
+		driverClassName="org.h2.Driver"
+		url="jdbc:h2:file:database/DEMODB;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE;MVCC=TRUE"
+	/>
+
+	<Resource auth="Container"
+		name="jms/JMSConnectionFactory"
+		type="org.apache.activemq.pool.PooledConnectionFactory"
+		maxConnections="25"
+		maximumActiveSessionPerConnection="25"
+		idleTimeout="10000"
+		description="JMS Connection Factory"
+		factory="org.apache.activemq.jndi.JNDIReferenceFactory"
+		brokerURL="tcp://localhost:61616?daemon=true&amp;soTimeout=10000&amp;connectionTimeout=10000"
+	/>
+</Context>
+

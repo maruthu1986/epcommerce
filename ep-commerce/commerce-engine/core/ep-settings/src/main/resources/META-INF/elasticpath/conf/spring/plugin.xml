@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		">
+
+	<context:annotation-config />
+
+	<bean id="settingFactoryBean" abstract="true" class="com.elasticpath.settings.beanframework.SettingFactoryBean" />
+
+	<util:map id="settingValueProviderTypeConverterMap" key-type="java.lang.String" value-type="com.elasticpath.converter.StringToTypeConverter">
+		<entry key="BigDecimal" value-ref="stringToBigDecimalConverter"/>
+		<entry key="Boolean" value-ref="stringToBooleanConverter"/>
+		<entry key="Integer" value-ref="stringToIntegerConverter"/>
+		<entry key="Collection" value-ref="stringToCollectionConverter"/>
+		<entry key="Map" value-ref="stringToMapConverter"/>
+		<entry key="String" value-ref="stringToStringConverter" />
+		<entry key="url" value-ref="stringToStringConverter" />
+		<entry key="xml" value-ref="stringToStringConverter" />
+	</util:map>
+
+	<bean id="settingValueTypeConverter" class="com.elasticpath.settings.provider.converter.impl.SettingValueTypeConverterImpl">
+		<property name="stringToTypeConverterMap" ref="settingValueProviderTypeConverterMap"/>
+	</bean>
+
+	<bean id="settingValueFactory" class="com.elasticpath.settings.impl.SettingValueFactoryWithDefinitionImpl"/>
+
+	<bean id="settingsDao" parent="txProxyTemplate">
+		<property name="target" ref="settingsDaoTarget"/>
+	</bean>
+
+	<bean id="settingsDaoTargetTemplate" class="com.elasticpath.settings.dao.impl.SettingsDaoImpl"
+			abstract="true">
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+	</bean>
+
+	<bean id="settingsDaoTarget" parent="settingsDaoTargetTemplate"/>
+
+	<bean id="settingsService" parent="txProxyTemplate">
+		<property name="target" ref="settingsServiceTarget"/>
+	</bean>
+
+	<bean id="settingsServiceTargetTemplate" class="com.elasticpath.settings.impl.SettingsServiceImpl"
+			abstract="true">
+		<property name="settingsDao" ref="settingsDao"/>
+		<property name="settingValueFactory" ref="settingValueFactory"/>
+	</bean>
+
+	<bean id="settingsServiceTarget" parent="settingsServiceTargetTemplate"/>
+
+	<!--  Default binding. Can be overridden by including a similar line in an xml file read after this one. -->
+	<bean parent="settingsService" id="settingsReader" />
+
+</beans>

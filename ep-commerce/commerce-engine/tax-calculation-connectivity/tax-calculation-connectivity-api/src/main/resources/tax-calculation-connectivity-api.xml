@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+	<bean parent="elasticPathTaxProvider" id="defaultTaxProvider"/>
+	
+	<bean id="regionTaxProviderSelectionStrategy"
+		class="com.elasticpath.plugin.tax.selection.impl.RegionTaxProviderSelectionStrategy">
+		<property name="providersByRegion" ref="taxProvidersByRegion" />
+		<property name="defaultTaxProvider" ref="defaultTaxProvider" />
+	</bean>
+
+	<bean id="storeTaxProviderSelectionStrategy"
+		class="com.elasticpath.plugin.tax.selection.impl.StoreTaxProviderSelectionStrategy">
+		<property name="providersByStore" ref="taxProvidersByStore" />
+		<property name="defaultTaxProvider" ref="defaultTaxProvider" />
+	</bean>
+	
+	<!-- Need to define alias bean for taxProviderSelectionStrategy -->
+	<bean parent="regionTaxProviderSelectionStrategy" id="taxProviderSelectionStrategy" />
+
+	<!-- Tax providers map by region is empty by default. To register values 
+		override the bean with your own map of region(s) to provider(s) -->
+	<util:map id="taxProvidersByRegion" />
+
+	<!-- Tax providers map by sotre code is empty by default. To register values 
+		override the bean with your own map of store(s) to provider(s) -->
+	<util:map id="taxProvidersByStore" />
+
+	<bean id="nonCachingTaxManager" class="com.elasticpath.plugin.tax.manager.impl.TaxManagerImpl">
+		<property name="taxDocumentArchiver" ref="taxDocumentArchiver" />
+		<property name="taxProviderSelector" ref="taxProviderSelector" />
+	</bean>
+
+	<!-- Tax providers selector is defined with properties by default. Need to define alias bean for taxProviderSelecitonStrategy -->
+	<bean id="taxProviderSelector" class="com.elasticpath.plugin.tax.selection.impl.TaxProviderSelectorImpl">
+		<property name="taxProviderSelectionStrategy" ref="taxProviderSelectionStrategy" />
+		<property name="returnTaxProvider" ref="returnTaxProvider" />
+	</bean>
+	
+	<!-- Return Tax provider is defined with properties by default. Need to define alias bean for taxProviderSelecitonStrategy -->
+	<bean id="returnTaxProvider" class="com.elasticpath.plugin.tax.provider.impl.ReturnTaxProviderPlugin">
+		<property name="taxDocumentResolver" ref="taxDocumentResolver" />
+		<property name="mapTaxProviderSelector" ref="nameTaxProviderSelector" />
+	</bean>
+	
+	<bean id="nameTaxProviderSelector" class="com.elasticpath.plugin.tax.selection.impl.MapTaxProviderSelector">
+		<property name="providerMap" ref="taxProviderNameMap" />
+		<property name="defaultTaxProvider" ref="defaultTaxProvider" />
+	</bean>
+	
+	<!-- Tax providers map by name is empty by default. To register values 
+	override the bean with your own map of name(s) to provider(s) -->
+	<util:map id="taxProviderNameMap" />
+				 
+	<bean id="compositeTaxProviderSelectionStrategy" class="com.elasticpath.plugin.tax.selection.impl.CompositeTaxProviderSelectionStrategy">
+		<property name="providersByTaxCode" ref="providersByTaxCode" />
+		<property name="defaultTaxProvider" ref="defaultTaxProvider" />
+	</bean>
+
+	<!-- Tax providers map by tax code is empty by default. To register values 
+		override the bean with your own map of tax code(s) to provider(s) -->
+	<util:map id="providersByTaxCode" />
+
+	<bean id="compositeTaxProvider" class="com.elasticpath.plugin.tax.provider.impl.CompositeTaxProviderPlugin">
+		<property name="compositeTaxProviderSelectionStrategy" ref="compositeTaxProviderSelectionStrategy" />
+		<property name="mapTaxProviderSelector" ref="nameTaxProviderSelector" />
+	</bean>
+	
+	<bean id="mutableTaxedItemContainer" class="com.elasticpath.plugin.tax.domain.impl.MutableTaxedItemContainer" scope="prototype" />
+	<bean id="mutableTaxedItem" class="com.elasticpath.plugin.tax.domain.impl.MutableTaxedItem" scope="prototype" />
+	<bean id="mutableTaxableItemContainer" class="com.elasticpath.plugin.tax.domain.impl.MutableTaxableItemContainer" scope="prototype" />
+	<bean id="taxableItem" class="com.elasticpath.plugin.tax.domain.impl.TaxableItemImpl" scope="prototype" />
+	<bean id="mutableTaxAddress" class="com.elasticpath.plugin.tax.domain.impl.MutableTaxAddress" scope="prototype" />
+	<bean id="mutableTaxRateDescriptorResult" class="com.elasticpath.plugin.tax.rate.dto.MutableTaxRateDescriptorResult" scope="prototype" />
+	<bean id="mutableTaxRateDescriptor" class="com.elasticpath.plugin.tax.rate.dto.MutableTaxRateDescriptor" scope="prototype" />
+	<bean id="taxInclusiveRateApplier" class="com.elasticpath.plugin.tax.rate.impl.TaxInclusiveRateApplier" scope="prototype" />
+	<bean id="taxExclusiveRateApplier" class="com.elasticpath.plugin.tax.rate.impl.TaxExclusiveRateApplier" scope="prototype" />
+	<bean id="mutableTaxRecord" class="com.elasticpath.plugin.tax.domain.impl.MutableTaxRecord" scope="prototype" />
+	<bean id="mutableTaxDocument" class="com.elasticpath.plugin.tax.domain.impl.MutableTaxDocument" scope="prototype" />
+
+</beans>

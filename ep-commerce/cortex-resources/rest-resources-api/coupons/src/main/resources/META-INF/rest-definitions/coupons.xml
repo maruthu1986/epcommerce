@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>coupons</name>
+		<description>
+			<![CDATA[
+A coupon is a code, consisting of letters or numbers that a shopper can apply to an order. When a coupon is
+applied to an order, it can trigger a promotion which inturn discounts or adds additional incentives to the order.
+			]]>
+		</description>
+
+		<uri-part>
+			<name>coupon-id</name>
+			<description><![CDATA[The coupon ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>couponinfo</name>
+			<description><![CDATA[The coupon info associated with an order.]]></description>
+			<uri>/{base.family}/{orders.order}/info</uri>
+			<entity>controls.info</entity>
+		</resource>
+
+		<relationship>
+			<name>coupon-from-couponinfo</name>
+			<description><![CDATA[Read coupon from couponinfo.]]></description>
+			<rel>coupon</rel>
+			<from>couponinfo</from>
+			<to>order-coupon</to>
+		</relationship>
+
+		<resource>
+			<name>order-coupon</name>
+			<description><![CDATA[The coupon applied to an order.]]></description>
+			<uri>/{base.family}/{orders.order}/{coupon-id}</uri>
+			<entity>coupon</entity>
+		</resource>
+
+		<relationship>
+			<name>coupons-applied-to-order</name>
+			<description><![CDATA[Read coupons applied to the order.]]></description>
+			<rel>couponinfo</rel>
+			<rev>order</rev>
+			<from>orders.order</from>
+			<to>couponinfo</to>
+		</relationship>
+
+		<resource>
+			<name>purchase-coupon-list</name>
+			<description><![CDATA[The coupons applied to a purchase.]]></description>
+			<uri>/{base.family}/{purchases.purchase}</uri>
+			<list-of>purchase-coupon</list-of>
+		</resource>
+
+		<resource>
+			<name>purchase-coupon</name>
+			<description><![CDATA[A coupon applied to a purchase.]]></description>
+			<uri>/{purchase-coupon-list}/{coupon-id}</uri>
+			<entity>coupon</entity>
+		</resource>
+
+		<relationship>
+			<name>coupons-applied-to-purchase</name>
+			<description><![CDATA[Read coupons applied to the purchase.]]></description>
+			<rel>coupons</rel>
+			<from>purchases.purchase</from>
+			<to>purchase-coupon-list</to>
+		</relationship>
+
+		<entity>
+			<name>coupon</name>
+			<description><![CDATA[A coupon representation]]></description>
+			<property>
+				<name>coupon-id</name>
+				<description><![CDATA[The coupon identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>parent-id</name>
+				<description><![CDATA[The parent id of the coupon.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>parent-type</name>
+				<description><![CDATA[The parent type of the coupon.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>code</name>
+				<description><![CDATA[The coupon code.]]></description>
+				<string/>
+			</property>
+			<entity-type>coupons.coupon</entity-type>
+		</entity>
+
+	</family>
+
+</definitions>

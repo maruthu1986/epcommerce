@@ -1,0 +1,150 @@
+// used in Tool, CCombo, updown_buttons()
+@mixin down_icon($selector: ':hover') {
+	// &, &:hover {
+	// 	background-image: url('themes/icons/CCombo-Button-Icon.png');
+	// }
+	background-image: url('themes/icons/Spinner-DownButton-Icon.png');
+	&#{$selector} {
+		background-image: url('themes/icons/Spinner-DownButton-Icon_hover.png');
+	}
+}
+
+// used in Table, updown_buttons()
+@mixin up_icon($selector: ':hover') {
+	background-image: url('themes/icons/Spinner-UpButton-Icon.png');
+	&#{$selector} {
+		background-image: url('themes/icons/Spinner-UpButton-Icon_hover.png');
+	}
+}
+
+@mixin dropdown_box() {
+	background-color: $widget_body_color;
+	background-image: none;
+	border: 1px solid $gray-light;
+	border-radius: 0;
+	font: $default-font;
+	color: $default-font-color;
+	box-shadow: $dropdown_shadow;
+	opacity: 1;
+}
+
+
+
+// used in DateTime, Spinner
+@mixin updown_buttons_default() {
+	&, &:disabled {
+		background-color: transparent;
+		background-image: none;
+		width: $field-icon-width; // global
+		border: none;
+		border-left: 0;
+		border-radius: 0;
+	}
+}
+
+@mixin updown_buttons() {
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Spinner.html#Spinner-UpButton
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html#DateTime-UpButton
+	&-UpButton {
+		@include updown_buttons_default();
+
+		// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Spinner.html#Spinner-UpButton-Icon
+		// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html#DateTime-UpButton-Icon
+		&-Icon {
+			@include up_icon();
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Spinner.html#Spinner-DownButton
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html#DateTime-DownButton
+	&-DownButton {
+		@include updown_buttons_default();
+
+		// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/Spinner.html#Spinner-DownButton-Icon
+		// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html#DateTime-DownButton-Icon
+		&-Icon {
+			@include down_icon();
+		}
+	}
+}
+
+// used in CCombo, Spinner, and Text
+@mixin form_field($selector: '&,&[BORDER]') {
+	#{$selector} {
+		border: 1px solid $gray-light;
+		border-radius: 0;
+		box-shadow: none;
+		font: $default-font;
+		color: $default-font-color;
+		// padding: $text_input_padding;
+		&:focused {
+			border: 1px solid $primary-color;
+			box-shadow: none;
+		}
+
+		&:disabled,
+		&:read-only {
+			background-color: $gray-lighter;
+			// color: $gray; >> color DOESN'T WORK IN SOME PLACES!!
+			box-shadow: none;
+		}
+	}
+}
+
+// used for Button, Table, Menu
+@mixin checkbox_icon_checked($selector: ':hover') {
+    background-image: url('themes/icons/Button-CheckIcon_selected.png');
+    &#{$selector} {
+        background-image: url('themes/icons/Button-CheckIcon_selected.png');
+    }
+}
+@mixin checkbox_icon($selector: ':selected') {
+    background-image: url('themes/icons/Button-CheckIcon.png');
+    &:hover,
+    &:disabled {
+        background-image: url('themes/icons/Button-CheckIcon_hover.png');
+    }
+    // :checked for Table
+    &#{$selector} {
+        @include checkbox_icon_checked();
+    }
+}
+
+// used for Button, Menu
+@mixin radio_icon_checked($selector: ':hover') {
+    background-image: url('themes/icons/Button-RadioIcon_selected.png');
+    &#{$selector} {
+        background-image: url('themes/icons/Button-RadioIcon_selected.png');
+    }
+}
+@mixin radio_icon($selector: ':selected') {
+    background-image: url('themes/icons/Button-RadioIcon.png');
+    &:hover,
+    &:disabled {
+        background-image: url('themes/icons/Button-RadioIcon_hover.png');
+    }
+    &#{$selector} {
+        @include radio_icon_checked();
+    }
+}
+
+// used for Table, List, CCombo
+@mixin list_item($unfocus: false, $padding: $table_cell_padding) {
+	background-color: transparent;
+	background-image: none;
+	padding: $padding;
+	font: $default-font;
+	text-shadow: none;
+
+	&:hover {
+		background-color: $table_cell_border_color;
+	}
+	&:selected {
+		@include primary-rgba(background-color, 0.2);
+		@if $unfocus {
+			&:unfocused {
+				@include primary-rgba(background-color, 0.1);
+			}
+		}
+	}
+}

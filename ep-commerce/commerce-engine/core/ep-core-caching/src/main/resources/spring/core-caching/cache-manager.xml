@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<bean id="applicationName" class="java.lang.String">
+		<constructor-arg value="CoreOSGiBundle"/>
+	</bean>
+
+	<bean id="epEhcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<!-- The CacheManager is created in openjpa-osgi-wrapper. There can be only one cache manager in the system.
+			 To make this happen, shared property must be set to true.
+			 To avoid confusion looking at the JMX console, the applicationName must also be the same.-->
+		<property name="cacheManagerName" value="#{applicationName}-CacheManager"/>
+		<property name="shared" value="true"/>
+	</bean>
+</beans>

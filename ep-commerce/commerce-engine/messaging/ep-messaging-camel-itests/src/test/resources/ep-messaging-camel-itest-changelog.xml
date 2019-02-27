@@ -1,0 +1,61 @@
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+	<changeSet id="insert-setting-definitions-for-itests" author="ep-messaging-camel-itests">
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" value="2000" />
+			<column name="PATH" value="COMMERCE/ITEST/MESSAGING/messageChannelUri" />
+			<column name="DEFAULT_VALUE" value="direct:ep.messaging.itest" />
+			<column name="VALUE_TYPE" value="String" />
+			<column name="DESCRIPTION" value="Sample Message Channel Endpoint URI for use within Messaging integration tests" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="1"/>
+			<column name="SETTING_DEFINITION_UID" value="2000"/>
+			<column name="CONTEXT" value="CONTEXT1"/>
+			<column name="CONTEXT_VALUE" value="direct:ep.messaging.itest.context1"/>
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="2"/>
+			<column name="SETTING_DEFINITION_UID" value="2000"/>
+			<column name="CONTEXT" value="CONTEXT2"/>
+			<column name="CONTEXT_VALUE" value="direct:ep.messaging.itest.context2"/>
+		</insert>
+		<rollback>
+			delete from TSETTINGDEFINITION where UIDPK = 2000
+			delete from TSETTINGVALUE where UIDPK in (1, 2)
+		</rollback>
+	</changeSet>
+
+	<changeSet id="insert-setting-definitions-for-virtual-topic-itests" author="ep-messaging-camel-itests">
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" value="2001" />
+			<column name="PATH" value="COMMERCE/ITEST/MESSAGING/virtualTopicDestinationUri" />
+			<column name="DEFAULT_VALUE" value="jms:topic:VirtualTopic.Foo" />
+			<column name="VALUE_TYPE" value="String" />
+			<column name="DESCRIPTION" value="Sample Message Channel Endpoint URI for use within Virtual Topic integration tests" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="3"/>
+			<column name="SETTING_DEFINITION_UID" value="2001"/>
+			<column name="CONTEXT" value="ConsumerOne"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.A.VirtualTopic.Foo"/>
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="4"/>
+			<column name="SETTING_DEFINITION_UID" value="2001"/>
+			<column name="CONTEXT" value="ConsumerTwo"/>
+			<column name="CONTEXT_VALUE" value="jms:queue:Consumer.B.VirtualTopic.Foo"/>
+		</insert>
+		<rollback>
+			delete from TSETTINGDEFINITION where UIDPK = 2001
+			delete from TSETTINGVALUE where UIDPK in (3, 4)
+		</rollback>
+	</changeSet>
+
+</databaseChangeLog>

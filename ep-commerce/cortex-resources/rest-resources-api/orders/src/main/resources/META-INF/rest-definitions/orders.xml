@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>orders</name>
+		<description>
+			<![CDATA[
+An order is a list of intentions Cortex API will undertake to complete a purchase. For example, an order lists the
+billing and shipping address to use for the purchase, shipping options (Canada Post, FedEx, etc), paymentmethods to use
+for the purchase, the cart containing the items to purchase, and the taxes to pay for the purchase. Once the order is
+POSTed to a [purchase][purchases], Cortex API executes the purchase based on the intentions in the order.
+
+Just like the [cart][carts], an order is always available, persisted between sessions, and is updated automatically. For example, if a
+customer removes an item from their cart, the order is updated to remove the item. Once the order is POSTed to a purchase, the order is cleared and a new order is created for the customer.
+
+The order contains *NeedInfo* links if the billing address, shipping address, shipping option or the payment methods haven't been selected.
+
+[purchases]: #purchases
+[carts]: #carts
+			]]>
+		</description>
+
+		<uri-part>
+			<name>order-id</name>
+			<description><![CDATA[The order ID]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>order</name>
+			<description><![CDATA[An order resource that identifies items to be purchased.]]></description>
+			<uri>{base.family}/{base.scope}/{order-id}</uri>
+			<entity>order</entity>
+		</resource>
+
+		<resource>
+			<name>email-info</name>
+			<description><![CDATA[the customer's email that is being used for the order.]]></description>
+			<uri>{order}/emailinfo</uri>
+			<entity>controls.info</entity>
+		</resource>
+
+		<relationship>
+			<name>email-info-for-order</name>
+			<description><![CDATA[Read order email needinfo from order.]]></description>
+			<rel>emailinfo</rel>
+			<rev>order</rev>
+			<from>order</from>
+			<to>email-info</to>
+		</relationship>
+
+		<relationship>
+			<name>email-form-for-emailinfo</name>
+			<description><![CDATA[Form for creating email.]]></description>
+			<rel>emailform</rel>
+			<from>email-info</from>
+			<to>emails.add-email-form</to>
+		</relationship>
+
+		<relationship>
+			<name>email-for-emailinfo</name>
+			<description><![CDATA[Read email address for the order.]]></description>
+			<rel>email</rel>
+			<from>email-info</from>
+			<to>emails.email</to>
+		</relationship>
+
+		<relationship>
+			<name>cart-to-order</name>
+			<description><![CDATA[Read order from cart.]]></description>
+			<rel>order</rel>
+			<rev>cart</rev>
+			<from>carts.cart</from>
+			<to>order</to>
+		</relationship>
+
+		<entity>
+			<name>order</name>
+			<description><![CDATA[An order to be purchased]]></description>
+			<property>
+				<name>order-id</name>
+				<description><![CDATA[The internal order identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>cart-id</name>
+				<description><![CDATA[The internal cart identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<entity-type>orders.order</entity-type>
+		</entity>
+
+	</family>
+</definitions>

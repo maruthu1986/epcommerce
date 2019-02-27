@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>standalone-demo-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>standalone-demo-h2-database</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Standalone Demo H2 Database</name>
+	<description>A H2 compatable database built from the data the standalone-demo-data artifact.</description>
+
+	<properties>
+		<epdb.jdbc.driver>org.h2.Driver</epdb.jdbc.driver>
+		<data.population.cli.directory>${project.build.directory}/ext-data-population-cli-${project.version}</data.population.cli.directory>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath.extensions</groupId>
+			<artifactId>standalone-demo-data</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.extensions</groupId>
+			<artifactId>ext-data</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/filtered-resources</directory>
+				<targetPath>${project.build.outputDirectory}</targetPath>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-data</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeArtifactIds>ext-data, standalone-demo-data</includeArtifactIds>
+							<type>jar</type>
+							<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<includes>**/**</includes>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-data-population-cli</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.elasticpath.extensions</groupId>
+									<artifactId>ext-data-population-cli</artifactId>
+									<classifier>package</classifier>
+									<type>zip</type>
+									<version>${project.version}</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+					<execution>
+						<id>install-h2-driver-into-data-population-cli</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>com.h2database</groupId>
+									<artifactId>h2</artifactId>
+									<version>${com.h2database.version}</version>
+									<outputDirectory>${data.population.cli.directory}/lib</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${maven-resources-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>filter</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>resources</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<escapeWindowsPaths>false</escapeWindowsPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>maven-replacer-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>replace-slashes-in-db-url-for-windows</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<file>target/classes/environments/standalone-demo/database.properties</file>
+					<token>\\</token>
+					<value>/</value>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- We need to run data population as an external process. If run as a maven plugin
+					 the database is not closed before it is zipped -->
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>data-population</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<condition property="shell.executable" value="cmd" else="/bin/bash">
+									<os family="windows" />
+								</condition>
+								<condition property="shell.argument" value="/c" else="-v">
+									<os family="windows" />
+								</condition>
+								<condition property="shell.script"
+										   value="${data.population.cli.directory}/data-population.bat"
+										   else="${data.population.cli.directory}/data-population.sh">
+									<os family="windows" />
+								</condition>
+								<exec executable="${shell.executable}" dir="${data.population.cli.directory}" failonerror="true">
+									<arg value="${shell.argument}" />
+									<arg value="${shell.script}" />
+									<arg value="--dataDirectory" />
+									<arg value="${project.build.outputDirectory}" />
+									<arg value="--configDirectory" />
+									<arg value="${project.build.outputDirectory}/environments/standalone-demo" />
+									<arg value="update-db" />
+								</exec>
+							</target>
+						</configuration>
+					</execution>
+					<execution>
+						<id>wait-for-h2</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<waitfor>
+									<not>
+										<available file="${project.build.directory}/DEMODB.lock.db"/>
+										</not>
+									</waitfor>
+								</target>
+							</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-database-zip</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<appendAssemblyId>false</appendAssemblyId>
+					<descriptors>
+						<descriptor>src/main/assembly/demo-h2-database-zip.xml
+						</descriptor>
+					</descriptors>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

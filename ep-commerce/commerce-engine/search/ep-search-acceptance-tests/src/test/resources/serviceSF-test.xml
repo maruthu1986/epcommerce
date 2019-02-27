@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:settings="http://www.elasticpath.com/schema/settings"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.elasticpath.com/schema/settings http://www.elasticpath.com/schema/settings/settings.xsd
+	">
+
+	<bean id="threadLocalStorage"
+		class="com.elasticpath.service.catalogview.impl.ThreadLocalStorageImpl">
+		<property name="storeService" ref="nonCachingStoreService" />
+		<property name="settingsService" ref="settingsService" />
+		<property name="storeCache">
+			<bean class="com.elasticpath.cache.SimpleTimeoutCache">
+				<property name="cache" ref="threadlocalStoreCache"/>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="storeSeoUrlBuilderFactory" class="com.elasticpath.domain.catalogview.impl.StoreSeoUrlBuilderFactoryImpl" scope="singleton">
+	    <property name="storeConfig" ref="threadLocalStorage"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="seoUrlBuilderProxy" class="com.elasticpath.domain.catalogview.impl.SeoUrlBuilderProxy">
+		<property name="storeSeoUrlBuilderFactory" ref="storeSeoUrlBuilderFactory"/>
+	</bean>
+
+	<bean id="paginationService" class="com.elasticpath.service.catalogview.impl.PaginationServiceImpl">
+		<property name="numberOfItemsPerPageSettingProvider">
+			<settings:setting path="COMMERCE/STORE/CATALOG/catalogViewPagination"/>
+		</property>
+	</bean>
+
+	<bean id="abstractSearchService" class="com.elasticpath.service.catalogview.impl.AbstractSearchServiceImpl"
+			abstract="true">
+		<property name="timeService" ref="timeService" />
+		<property name="categoryLookup" ref="categoryLookup" />
+		<property name="topSellerService" ref="topSellerService" />
+		<property name="indexSearchService" ref="indexSearchService" />
+		<property name="indexUtility" ref="indexUtility" />
+		<property name="seoUrlBuilder" ref="seoUrlBuilderProxy" />
+		<property name="storeConfig" ref="threadLocalStorage" />
+		<property name="settingsService" ref="cachedSettingsReader" />
+		<property name="storeProductService" ref="storeProductService" />
+		<property name="searchCriteriaFactory" ref="searchCriteriaFactory" />
+		<property name="paginationService" ref="paginationService" />
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="attributeFilterEnabledSettingValueProvider">
+			<settings:setting path="COMMERCE/STORE/FILTEREDNAVIGATION/attributeFilterEnabled"/>
+		</property>
+		<property name="featuredProductCountSettingValueProvider">
+			<settings:setting path="COMMERCE/STORE/CATALOG/featuredProductCountToDisplay"/>
+		</property>
+	</bean>
+
+	<bean id="searchCriteriaFactory" class="com.elasticpath.service.catalogview.impl.SearchCriteriaFactoryImpl">
+		<property name="synonymGroupService" ref="synonymGroupService"/>
+		<property name="storeConfig" ref="threadLocalStorage"/>
+		<property name="catalogService" ref="catalogService"/>
+		<property name="categoryService" ref="categoryService" />
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+	
+	
+	<bean id="advancedSearchService" 
+		class="com.elasticpath.service.catalogview.impl.AdvancedSearchServiceImpl" parent="abstractSearchService" />
+
+</beans>

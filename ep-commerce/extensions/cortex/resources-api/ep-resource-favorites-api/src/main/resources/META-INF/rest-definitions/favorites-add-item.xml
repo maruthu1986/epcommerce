@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>favorites</name>
+
+		<resource>
+			<name>add-item-to-favorite-form</name>
+			<description>Form for adding an item to the default favorite</description>
+			<uri>{base.family}/{items.item}/form</uri>
+			<form>
+				<entity>add-item-to-favorite-form</entity>
+				<action-rel>addtodefaultfavoriteaction</action-rel>
+				<result>favorite-line-item</result>
+			</form>
+		</resource>
+
+		<entity>
+			<name>add-item-to-favorite-form</name>
+			<description>Form for adding an item to a favorite</description>
+		</entity>
+
+		<relationship>
+			<name>item-to-favorite-form</name>
+			<description>Link from items.item to a form used to add that item to a favorite</description>
+			<rel>addtofavoriteform</rel>
+			<from>items.item</from>
+			<to>add-item-to-favorite-form</to>
+		</relationship>
+
+	</family>
+</definitions>

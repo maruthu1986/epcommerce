@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>sample</name>
+		<description>Family for sample resource.</description>
+
+		<uri-part>
+			<name>sample-id</name>
+			<description>Identifier for sample.</description>
+			<string/>
+		</uri-part>
+
+		<entity>
+			<name>sample</name>
+			<description>An sample entity.</description>
+
+			<property>
+				<name>message</name>
+				<description>A message.</description>
+				<string/>
+			</property>
+			<entity-type>sample.sample</entity-type>
+		</entity>
+
+		<resource>
+			<name>sample</name>
+			<description>An sample resource.</description>
+			<uri>/{base.family}/{base.scope}/{sample-id}</uri>
+			<entity>sample</entity>
+		</resource>
+
+		<relationship>
+			<name>sample</name>
+			<description>Link to sample resource from root.</description>
+			<rel>sample</rel>
+			<from>base.root</from>
+			<to>sample</to>
+		</relationship>
+		
+	</family>
+</definitions>

@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="statePolicy" name="State Policy" schema="schema/statePolicy.exsd"/>
+   <extension-point id="PromotionExtender" name="PromotionExtender"   schema="../com.elasticpath.cmclient.core/schema/promotionExtender.exsd"/>
+   <extension-point id="Extender" name="Extender"   schema="../com.elasticpath.cmclient.core/schema/extender.exsd"/>
+   <extension-point id="StatePolicyExtender" name="StatePolicyExtender"   schema="../com.elasticpath.cmclient.core/schema/statePolicyExtender.exsd"/>
+
+   <!-- Store Perspective -->	
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            icon="icons/promotion_default_22.png"
+            class="com.elasticpath.cmclient.store.perspective.StorePerspectiveFactory"
+            id="com.elasticpath.cmclient.store.storeperspective"
+            name="%storePerspective.name">
+      </perspective>
+   </extension>
+
+   <extension
+           point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+              targetID="com.elasticpath.cmclient.store.storeperspective">
+         <actionSet
+                 id="com.elasticpath.cmclient.store.workbenchActionSet">
+         </actionSet>
+      </perspectiveExtension>
+   </extension>
+   <extension
+           point="org.eclipse.ui.actionSets">
+      <actionSet
+              id="com.elasticpath.cmclient.store.workbenchActionSet"
+              label="Store">
+      </actionSet>
+   </extension>
+   
+   <!-- Store Editors -->
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="%catalogPromotionsEditor.name"
+            icon="icons/promotion-cart_default_22.png"
+            class="com.elasticpath.cmclient.store.promotions.editors.ShoppingCartPromotionsEditor"
+            id="com.elasticpath.cmclient.store.promotions.editors.PromotionsEditor.ShoppingCart"
+            contributorClass="com.elasticpath.cmclient.core.editors.BaseCmClientEditorContributor">
+      </editor>
+      <editor
+            class="com.elasticpath.cmclient.store.promotions.editors.CatalogPromotionsEditor"
+            icon="icons/promotion-catalog_default_22.png"
+            id="com.elasticpath.cmclient.store.promotions.editors.PromotionsEditor.Catalog"
+            contributorClass="com.elasticpath.cmclient.core.editors.BaseCmClientEditorContributor"
+            name="%storePromotionsEditor.name">
+      </editor>
+      <editor
+            class="com.elasticpath.cmclient.store.settings.editors.SettingsEditor"
+            icon="icons/system-configuration_default_22.png"
+            id="com.elasticpath.cmclient.store.settings.editors.SettingsEditor"
+            contributorClass="com.elasticpath.cmclient.core.editors.BaseCmClientEditorContributor"
+            name="%storeEditor.name">
+      </editor>
+      <editor
+            class="com.elasticpath.cmclient.store.targetedselling.conditionalexpression.editors.ConditionEditor"
+            icon="icons/condition.png"
+            id="com.elasticpath.cmclient.store.targetedselling.conditionalexpression.editors.ConditionEditor"
+            contributorClass="com.elasticpath.cmclient.core.editors.BaseCmClientEditorContributor"
+            name="%conditionsEditor.name">
+      </editor>
+   </extension>
+
+   <!-- Store Views -->
+   <extension
+         point="org.eclipse.ui.views">
+         
+   <!-- Promotions Category -->
+      <category
+            name="%viewsCategory.name"
+            id="com.elasticpath.cmclient.store.views.category">
+      </category>
+      
+   <!-- Promotions Search View -->
+      <view
+            category="com.elasticpath.cmclient.store.views.category"
+            class="com.elasticpath.cmclient.store.views.SearchView"
+            icon="icons/search_default_22.png"
+            id="com.elasticpath.cmclient.store.views.SearchView"
+            name="%searchView.name">
+      </view>
+      
+   <!-- Promotions Search Results View -->
+      <view
+            category="com.elasticpath.cmclient.store.promotions.views.category"
+            class="com.elasticpath.cmclient.store.promotions.views.PromotionsSearchResultsView"
+            icon="icons/promotion_default_22.png"
+            id="com.elasticpath.cmclient.store.promotions.views.PromotionsSearchResultsView"
+            name="%promotionsSearchResultsView.name">
+      </view>
+
+   <!-- Shipping Search Results View -->      
+      <view
+            category="com.elasticpath.cmclient.store.views.category"
+            class="com.elasticpath.cmclient.store.shipping.views.ShippingLevelsSearchResultsView"
+            icon="icons/shipping_default_22.png"
+            id="com.elasticpath.cmclient.store.shipping.views.ShippingLevelsSearchResultsView"
+            name="%shippingSearchResultsView.name">
+      </view>      
+
+   <!-- Dynamic Content Search Results View -->      
+      <view
+            category="com.elasticpath.cmclient.store.views.targetedselling"
+            class="com.elasticpath.cmclient.store.targetedselling.dynamiccontent.views.DynamicContentSearchResultsView"
+            icon="icons/dynamic_content.png"
+            id="com.elasticpath.cmclient.store.targetedselling.dynamiccontent.views.DynamicContentSearchResultsView"
+            name="%dynamicContentSearchResultsView.name">
+      </view>      
+   <!-- Dynamic Content Delivery Search Results View -->
+      <view
+            category="com.elasticpath.cmclient.store.views.targetedselling"
+            class="com.elasticpath.cmclient.store.targetedselling.delivery.views.DynamicContentDeliverySearchResultsView"
+            icon="icons/dynamic_content_delivery.png"
+            id="com.elasticpath.cmclient.store.targetedselling.delivery.views.DynamicContentDeliverySearchResultsView"
+            name="%dcaSearchResultsView.name">            
+      </view>
+      <view
+            category="com.elasticpath.cmclient.store.targetedselling.conditionalexpression"
+            class="com.elasticpath.cmclient.store.targetedselling.conditionalexpression.views.ConditionalExpressionSearchResultsView"
+            icon="icons/condition.png"
+            id="com.elasticpath.cmclient.store.targetedselling.conditionalexpression.views.ConditionalExpressionSearchResultsView"
+            name="%conditionalExpressionSearchResultsView.name">
+      </view>
+            
+   
+   </extension>
+   
+   <extension
+         point="com.elasticpath.cmclient.core.authorizations">
+      <permissions>
+         <permission
+               activityId="com.elasticpath.cmclient.store.authorizations.activity"
+               key="PROMOTION_MANAGE"
+               name="%managePromotionsPermission.name">
+         </permission>
+         <permission
+               activityId="com.elasticpath.cmclient.store.authorizations.activity"
+               key="COUPONS_MANAGE"
+               name="%manageCouponsPermission.name">
+         </permission>
+         <permission
+               activityId="com.elasticpath.cmclient.store.authorizations.activity"
+               key="MANAGE_STORE_SETTINGS"
+               name="%manageStoreSettings.name">
+         </permission>
+         <permission
+               activityId="com.elasticpath.cmclient.store.authorizations.activity"
+               key="SHIPPING_SERVICE_LEVELS_MANAGE"
+               name="%manageShippingServiceLevelsPermission.name">
+         </permission>
+         <permission
+               activityId="com.elasticpath.cmclient.store.authorizations.activity"
+               key="DYNAMIC_CONTENT_MANAGE"
+               name="%manageDynamicContentPermission.name">
+         </permission>
+          <permission
+               activityId="com.elasticpath.cmclient.store.authorizations.activity"
+               key="CONDITIONAL_EXPRESSION_MANAGE"
+               name="%manageNamedConditionPermission.name">
+       	  </permission>
+          <permission
+                activityId="com.elasticpath.cmclient.store.authorizations.activity"
+                key="DYNAMIC_CONTENT_DELIVERY_MANAGE"
+                name="%manageDynamicContentDeliveryPermission.name">
+          </permission>
+      </permissions>
+      
+      <activity
+            id="com.elasticpath.cmclient.store.authorizations.activity"
+            name="%activityPermission.name"
+            perspectiveId="com.elasticpath.cmclient.store.storeperspective">
+      </activity>
+      <!-- Open Perspective Handler is declared in ApplicationWorkbenchAdvisor.postStartup() -->
+   </extension>
+   <extension
+           point="org.eclipse.ui.menus">
+      <menuContribution
+              locationURI="toolbar:com.elasticpath.cmclient.core.toolbars.activities?after=perspectiveMenu.pricelistmanagerItem">
+            <command
+                    commandId="com.elasticpath.cmclient.store.command.openPerspective"
+                    icon="icons/promotion_default_34.png"
+                    id="perspectiveMenu.storeItem"
+                    tooltip="%storeMenu.name">
+               <visibleWhen
+                       checkEnabled="true">
+               </visibleWhen>
+            </command>
+      </menuContribution>
+       <menuContribution
+               locationURI="toolbar:org.eclipse.ui.main.toolbar?after=save">
+          <toolbar
+                  id="com.elasticpath.cmclient.core.toolbars.actions">
+             <command
+                   commandId="com.elasticpath.cmclient.store.commands.storePromotions.createCatalogPromo"
+                   icon="icons/promotion-catalog-create_default_34.png"
+                   id="com.elasticpath.cmclient.store.toolbarMenus.storePromotions.createCatalogPromo"
+                   label="%toolbars.storePromotions.createCatalogPromo.label"
+                   mnemonic="g"
+                   tooltip="%toolbars.storePromotions.createCatalogPromo.tooltip">
+                <visibleWhen>
+                   <with
+                         variable="activeContexts">
+                      <iterate
+                            operator="or">
+                         <equals
+                               value="com.elasticpath.cmclient.store.actionSets.emptyActionSet">
+                         </equals>
+                      </iterate>
+                   </with>
+                </visibleWhen>
+             </command>
+             <command
+                   commandId="com.elasticpath.cmclient.store.commands.storePromotions.createStorePromo"
+                   icon="icons/promotion-cart-create_default_34.png"
+                   id="com.elasticpath.cmclient.store.toolbarMenus.storePromotions.createStorePromo"
+                   label="%toolbars.storePromotions.createStorePromo.label"
+                   mnemonic="t"
+                   tooltip="%toolbars.storePromotions.createStorePromo.tooltip">
+                 <visibleWhen>
+                   <with
+                         variable="activeContexts">
+                      <iterate
+                            operator="or">
+                         <equals
+                               value="com.elasticpath.cmclient.store.actionSets.emptyActionSet">
+                         </equals>
+                      </iterate>
+                   </with>
+                </visibleWhen>
+             </command>
+          </toolbar>
+       </menuContribution>
+    </extension>
+    <extension
+          point="org.eclipse.ui.commands">
+       <command
+             id="com.elasticpath.cmclient.store.command.openPerspective"
+             name="Open Store Perspective">
+       </command>
+       <category
+             description="%categories.storePromotions.description"
+             id="com.elasticpath.cmclient.store.categories.storePromotions"
+             name="%categories.storePromotions.name">
+       </category>
+       <command
+             categoryId="com.elasticpath.cmclient.store.categories.storePromotions"
+             defaultHandler="com.elasticpath.cmclient.store.promotions.handlers.CreateCatalogPromoHandler"
+             description="%commands.storePromotions.createCatalogPromo.description"
+             id="com.elasticpath.cmclient.store.commands.storePromotions.createCatalogPromo"
+             name="%commands.storePromotions.createCatalogPromo.name">
+       </command>
+       <command
+             categoryId="com.elasticpath.cmclient.store.categories.storePromotions"
+             defaultHandler="com.elasticpath.cmclient.store.promotions.handlers.CreateStorePromoHandler"
+             description="%commands.storePromotions.createStorePromo.description"
+             id="com.elasticpath.cmclient.store.commands.storePromotions.createStorePromo"
+             name="%commands.storePromotions.createStorePromo.name">
+       </command>
+
+    </extension>
+    <extension
+          point="org.eclipse.ui.bindings">
+       <key
+             commandId="com.elasticpath.cmclient.store.command.openPerspective"
+             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+             sequence="M3+3">
+       </key>
+                  
+    </extension>
+    
+    <!-- This should not be used for actions. -->
+    <extension
+          point="org.eclipse.ui.actionSets">
+       <actionSet
+             id="com.elasticpath.cmclient.store.actionSets.emptyActionSet"
+             label="Empty">
+       </actionSet>
+    </extension>
+    <extension
+          point="com.elasticpath.cmclient.core.bindings">
+       <perspectiveOpenCommand
+             openCommandId="com.elasticpath.cmclient.store.command.openPerspective"
+             perspectiveId="com.elasticpath.cmclient.store.storeperspective">
+       </perspectiveOpenCommand>
+    </extension>
+
+    <extension
+          point="com.elasticpath.cmclient.store.statePolicy">
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.CatalogPromotionAuthorizationStatePolicy"
+             targetId="catalogPromotionEditor">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.ShoppingCartPromotionAuthorizationStatePolicy"
+             targetId="shoppingCartPromotionEditor">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.CreateCatalogPromoHandlerStatePolicy"
+             targetId="createCatalogPromoHandler">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.CreateStorePromoHandlerStatePolicy"
+             targetId="createStorePromoHandler">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.ConditionBuilderEditorAuthorizationStatePolicy"
+             targetId="conditionBuilderEditor">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.DynamicContentViewSelectionStatePolicy"
+             targetId="editDynamicContentAction">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.DynamicContentViewSelectionStatePolicy"
+             targetId="deleteDynamicContentAction">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.DynamicContentWizardAuthorisationStatePolicy"
+             targetId="newDynamicContentWizard">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.DynamicContentWizardAuthorisationStatePolicy"
+             targetId="createDynamicContentHandler">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.DynamicContentWizardAuthorisationStatePolicy"
+             targetId="dynamicContentWizard">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.ConditionalExpressionViewSelectionStatePolicy"
+             targetId="deleteConditionalExpression">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.ConditionalExpressionViewSelectionStatePolicy"
+             targetId="editConditionalExpression">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.CreateConditionalExpressionStatePolicy"
+             targetId="createConditionalExpression">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.CreateConditionalExpressionStatePolicy"
+             targetId="createConditionalExpressionHandler">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.DcdWizardAuthorizationStatePolicy"
+             targetId="dcdWizard">
+	   </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.DcdWizardAuthorizationStatePolicy"
+             targetId="createDcdHandler">
+	   </statePolicyContribution>
+	   <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.DcdWizardStatePolicy"
+             targetId="dcdWizard">
+	   </statePolicyContribution>
+	   <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.DcdWizardAuthorizationStatePolicy"
+             targetId="dcdWizardNewEntity">
+	   </statePolicyContribution>             
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.DcdWizardStatePolicy"
+             targetId="dcdWizardNewEntity">                                       
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.CreateDcdActionAuthorizationStatePolicy"
+             targetId="createDcdAction">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.DcdViewSelectionStatePolicy"
+             targetId="editDcdAction">
+       </statePolicyContribution>
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.DcdViewSelectionStatePolicy"
+             targetId="deleteDcdAction">
+       </statePolicyContribution> 
+       <statePolicyContribution
+             priority="10"
+             statePolicy="com.elasticpath.cmclient.store.policy.ShoppingCartPromotionAuthorizationStatePolicy"
+             targetId="newShoppingCartPromotionWizard">
+       </statePolicyContribution>
+    </extension>
+
+    <extension point="com.elasticpath.cmclient.changeset.supportedComponents">
+       <editor
+             editorId="com.elasticpath.cmclient.store.promotions.editors.PromotionsEditor.Catalog"
+             objectType="Promotion">
+       </editor>
+       <editor
+             editorId="com.elasticpath.cmclient.store.promotions.editors.PromotionsEditor.ShoppingCart"
+             objectType="Promotion">
+       </editor>
+       <wizard
+             class="com.elasticpath.cmclient.store.targetedselling.dynamiccontent.wizard.NewDynamicContentWizard"
+             objectType="Dynamic Content">
+       </wizard>
+       <editor
+             editorId="com.elasticpath.cmclient.store.targetedselling.conditionalexpression.editors.ConditionEditor"
+             objectType="Saved Condition">
+       </editor>
+       <wizard
+             class="com.elasticpath.cmclient.store.targetedselling.delivery.wizard.DynamicContentDeliveryWizard"
+             objectType="Dynamic Content Delivery">
+       </wizard>
+    </extension>
+    
+</plugin>

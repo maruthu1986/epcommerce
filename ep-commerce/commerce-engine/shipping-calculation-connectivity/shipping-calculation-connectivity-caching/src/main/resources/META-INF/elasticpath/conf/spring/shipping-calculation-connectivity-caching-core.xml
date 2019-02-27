@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<bean id="shippingCalculationCacheKeyBuilder"
+		  scope="prototype"
+		  class="com.elasticpath.shipping.connectivity.service.cache.impl.ShippingCalculationResultCacheKeyBuilderImpl"/>
+
+
+	<bean id="shippingCalculationConnectivityCachingApplicationName" class="java.lang.String">
+		<constructor-arg value="ShippingCalculationConnectivityCachingOSGiBundle"/>
+	</bean>
+
+	<bean id="coreCachingShippingCalculationService"
+		  class="com.elasticpath.shipping.connectivity.service.cache.impl.CachingShippingCalculationServiceImpl">
+		<property name="cache" ref="shippingCalculationResultCacheAdapter"/>
+		<property name="cacheKeyBuilderSupplier" ref="shippingCalculationCacheKeyBuilderSupplier"/>
+		<property name="shippingCalculationService" ref="nonCachingShippingCalculationService"/>
+	</bean>
+
+	<!-- caching setting -->
+	<bean id="shippingCalculationResultCacheAdapter" class="com.elasticpath.cache.impl.EhcacheCacheAdapter">
+		<constructor-arg ref="shippingCalculationResultCache"/>
+	</bean>
+
+	<bean id="shippingCalculationResultCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheName" value="shippingCalculationResultCache"/>
+		<property name="cacheManager" ref="shippingEhcacheManager"/>
+		<property name="timeToLive">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/SHIPPING_RESULT/timeToLive"/>
+			</bean>
+		</property>
+		<property name="timeToIdle">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/SHIPPING_RESULT/timeToIdle"/>
+			</bean>
+		</property>
+		<property name="maxElementsInMemory">
+			<bean class="com.elasticpath.settings.beanframework.SettingFactoryBean">
+				<property name="path" value="COMMERCE/SYSTEM/CACHING/SHIPPING_RESULT/maxElementsInMemory"/>
+			</bean>
+		</property>
+		<property name="overflowToDisk" value="false"/>
+		<property name="statisticsEnabled" value="true"/>
+	</bean>
+
+	<bean id="shippingCalculationCacheKeyBuilderSupplier" class="com.elasticpath.commons.beanframework.spring.SupplierCreatingFactoryBean">
+		<property name="targetBeanName" value="shippingCalculationCacheKeyBuilder"/>
+	</bean>
+
+	<bean id="shippingEhcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="cacheManagerName" value="#{shippingCalculationConnectivityCachingApplicationName}-CacheManager"/>
+		<property name="shared" value="true"/>
+	</bean>
+
+
+</beans>

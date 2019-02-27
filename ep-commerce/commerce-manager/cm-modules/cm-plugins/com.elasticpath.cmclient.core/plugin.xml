@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+	<extension-point id="authorizations" name="com.elasticpath.cmclient.core" schema="schema/authorizations.exsd"/>
+ <extension-point id="bindings" name="Bindings" schema="schema/bindings.exsd"/>
+ <extension-point id="TestExtension" />
+ <extension-point id="ModelExtender" name="ModelExtender" schema="schema/modelExtender.exsd"/>
+ 
+   <extension
+           point="org.eclipse.rap.ui.entrypoint">
+      <entrypoint
+              applicationId="com.elasticpath.cmclient.core.application"
+              id="com.elasticpath.cmclient.core.entrypoint1"
+              brandingId="branding"
+              path="/">
+      </entrypoint>
+   </extension>
+
+   <extension
+         id="com.elasticpath.cmclient.core.application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="com.elasticpath.cmclient.core.ApplicationStarter">
+         </run>
+      </application>
+   </extension>
+
+    <extension id="com.elasticpath.cmclient.redirect.filter"
+               point="org.eclipse.equinox.http.registry.filters">
+
+        <filter alias="/*"
+                class="com.elasticpath.cmclient.core.handlers.RedirectFilter"
+                load-on-startup="true">
+        </filter>
+        <filter alias="/*"
+                class="com.elasticpath.cmclient.core.handlers.ExceptionProcessingFilter"
+                load-on-startup="true">
+        </filter>
+    </extension>
+
+    <extension id="com.elasticpath.cmclient.x.frame.filter"
+               point="org.eclipse.equinox.http.registry.filters">
+
+        <filter alias="/*"
+                class="com.elasticpath.cmclient.core.security.XFrameOptionsHeaderFilter"
+                load-on-startup="true">
+            <init-param
+                    name="x-frame-options-value"
+                    value="SAMEORIGIN">
+            </init-param>
+        </filter>
+    </extension>
+
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension targetID="*">
+	      <hiddenMenuItem id="org.eclipse.ui.run"></hiddenMenuItem>
+      </perspectiveExtension>
+   </extension>
+
+    <extension point="org.eclipse.ui.perspectives">
+        <perspective
+                class="com.elasticpath.cmclient.core.presentation.EmptyPerspective"
+                id="com.elasticpath.cmclient.empty.perspective"
+                name="Dummy Perspective">
+        </perspective>
+    </extension>
+
+    <!--This extension point is used to override WorkbenchWindow-->
+    <extension
+            point="org.eclipse.ui.internalTweaklets">
+        <tweaklet
+                definition="org.eclipse.ui.internal.tweaklets.WorkbenchImplementation"
+                id="id1"
+                implementation="com.elasticpath.cmclient.core.presentation.EpWorkbenchImplementation"
+                name="EP Workbench Window">
+        </tweaklet>
+    </extension>
+
+   <extension
+         point="org.eclipse.ui.menus">
+
+       <!--ACTIVITIES-->
+       <menuContribution
+               locationURI="toolbar:org.eclipse.ui.main.toolbar?before=save">
+           <toolbar
+                   id="com.elasticpath.cmclient.core.toolbars.activities">
+           </toolbar>
+       </menuContribution>
+       <!--USER LABEL-->
+       <menuContribution
+               locationURI="toolbar:com.elasticpath.cmclient.core.toolbars.right">
+           <toolbar
+                   id="com.elasticpath.cmclient.core.user">
+               <control
+                       id="userLabel"
+                       class="com.elasticpath.cmclient.core.ui.util.TrimContribution">
+               </control>
+               <command
+                       commandId="userMenu"
+                       icon="icons/empty_default_1x16.png"
+                       id="userMenu"
+                       mnemonic="u"
+                       style="pulldown"
+                       >
+               </command>
+           </toolbar>
+       </menuContribution>
+       <!--USER DROPDOWN MENU-->
+       <menuContribution
+               locationURI="menu:userMenu">
+           <command
+                   commandId="com.elasticpath.cmclient.core.commands.ChangePagination"
+                   id="com.elasticpath.cmclient.core.topMenus.ChangePagination"
+                   label="%changePagination.menuLabel">
+           </command>
+           locationURI="menu:userMenu">
+           <command
+                   commandId="com.elasticpath.cmclient.core.commands.ChangeTimezone"
+                   id="com.elasticpath.cmclient.core.topMenus.ChangeTimezone"
+                   label="%changeTimezone.label">
+           </command>
+           <command
+                   commandId="com.elasticpath.cmclient.core.commands.ChangePassword"
+                   id="com.elasticpath.cmclient.core.topMenus.ChangePassword"
+                   label="%changePassword.menuLabel">
+           </command>
+           <separator name="com.elasticpath.cmclient.core.toolbar" visible="true"/>
+           <command
+                   commandId="com.elasticpath.cmclient.core.commands.Docs"
+                   id="com.elasticpath.cmclient.core.topMenus.Docs"
+                   label="%docsCommand.menuLabel">
+           </command>
+           <separator name="com.elasticpath.cmclient.core.toolbar" visible="true"/>
+           <command
+                   commandId="logout"
+                   id="logout"
+                   label="Logout">
+           </command>
+       </menuContribution>
+
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+       <command
+               id="userMenu"
+               name="%userMenu.commandName">
+       </command>
+       <command
+               id="logout"
+               name="%logout.commandName">
+       </command>
+       <category
+            description="Global preferences that affect the entire system"
+            id="com.elasticpath.cmclient.core.categories.preferences"
+            name="Preferences">
+      </category>
+      <command
+            categoryId="com.elasticpath.cmclient.core.categories.preferences"
+            description="%changePagination.commandDescription"
+            id="com.elasticpath.cmclient.core.commands.ChangePagination"
+            name="%changePagination.commandName">
+      </command>
+       <command
+               categoryId="com.elasticpath.cmclient.core.categories.preferences"
+               description="%changeTimezone.label"
+               id="com.elasticpath.cmclient.core.commands.ChangeTimezone"
+               name="%changeTimezone.label">
+       </command>
+      <command
+            categoryId="com.elasticpath.cmclient.core.categories.preferences"
+            description="%changePassword.commandDescription"
+            id="com.elasticpath.cmclient.core.commands.ChangePassword"
+            name="%changePassword.commandName">
+      </command>
+       <command
+               categoryId="com.elasticpath.cmclient.core.categories.preferences"
+               description="%changePassword.commandDescription"
+               id="com.elasticpath.cmclient.core.commands.Docs"
+               name="%docs.commandName">
+       </command>
+      <command
+            id="com.elasticpath.cmclient.core.editor.refresh"
+            name="%reloadEditor.commandName">
+      </command>
+      
+   </extension>
+   <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="com.elasticpath.cmclient.core.commands.ChangePassword"
+            icon="icons/password-change_default_22.png">
+      </image>
+      <image
+            commandId="com.elasticpath.cmclient.core.commands.ChangePagination"
+            icon="icons/pagination-change_default_22.png">
+      </image>
+       <image
+               commandId="com.elasticpath.cmclient.core.commands.ChangeTimezone"
+               icon="icons/timezone-change_default_22.png">
+       </image>
+       <image
+               commandId="com.elasticpath.cmclient.core.commands.Docs"
+               icon="icons/help_default_22.png">
+       </image>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+       <key
+               commandId="org.eclipse.ui.file.refresh"
+               schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+               sequence="M1+R">
+       </key>
+      <!-- The following keys that don't have commands disable existing Eclipse keybindings -->
+      <key
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+F7">
+      </key>
+      <key
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M2+F7">
+      </key>
+      <key
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+F8">
+      </key>
+      <key
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M2+F8">
+      </key>
+      <key
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+M2+D Q">
+      </key>
+      <key
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+M2+D E">
+      </key>
+      <key
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+M2+D P">
+      </key>
+      <key
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+M2+D T">
+      </key>
+      <key
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+M2+D A">
+      </key>
+      <key
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+M2+D J">
+      </key>
+      <key
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+M2+D O">
+      </key>
+   </extension>
+   <extension point="org.eclipse.ui.handlers">
+      <handler
+            class="com.elasticpath.cmclient.core.handlers.ChangePasswordHandler"
+            commandId="com.elasticpath.cmclient.core.commands.ChangePassword">
+      </handler>
+       <handler
+               class="com.elasticpath.cmclient.core.handlers.DocsHandler"
+               commandId="com.elasticpath.cmclient.core.commands.Docs">
+       </handler>
+       <handler
+               class="com.elasticpath.cmclient.core.handlers.UserDropDownMenuHandler"
+               commandId="userMenu">
+       </handler>
+       <handler
+               class="com.elasticpath.cmclient.core.handlers.LogoutHandler"
+               commandId="logout">
+       </handler>
+
+       <handler
+            class="com.elasticpath.cmclient.core.handlers.ChangePaginationHandler"
+            commandId="com.elasticpath.cmclient.core.commands.ChangePagination">
+      </handler>
+
+       <handler
+               class="com.elasticpath.cmclient.core.handlers.ChangeTimezoneHandler"
+               commandId="com.elasticpath.cmclient.core.commands.ChangeTimezone">
+       </handler>
+   </extension>
+
+    <extension
+          point="org.eclipse.ui.activities">
+       <activity
+             id="com.elasticpath.cmclient.store.activity.remove"
+             name="activity.remove">
+       </activity>
+       <activityPatternBinding
+             activityId="com.elasticpath.cmclient.store.activity.remove"
+             pattern="org.eclipse.search.*">
+       </activityPatternBinding>
+       <activityPatternBinding
+             activityId="com.elasticpath.cmclient.store.activity.remove"
+             pattern="org.eclipse.ui.edit.text.*">
+       </activityPatternBinding>
+       <activityPatternBinding
+             activityId="com.elasticpath.cmclient.store.activity.remove"
+             pattern="org.eclipse.ui.navigate.*">
+       </activityPatternBinding>
+       <activityPatternBinding
+             activityId="com.elasticpath.cmclient.store.activity.remove"
+             pattern="org.eclipse.ui.externaltools.*">
+       </activityPatternBinding>
+     </extension>
+
+</plugin>

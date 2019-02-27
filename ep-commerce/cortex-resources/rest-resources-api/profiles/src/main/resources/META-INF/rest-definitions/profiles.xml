@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>profiles</name>
+		<description><![CDATA[
+####Entry Point: /profiles/{scope}/default
+
+The profiles resource provides access to the currently logged in customer and his/her details. Using the resource you can retrieve and update
+a customer's first name, last name, username, [addresses][address]. You can also retrieve the customer's [purchases][purchases] and [paymentmethods][paymentmethods] through this resource.
+
+[address]: #address
+[purchases]: #purchases
+[paymentmethods]: #paymentmethods
+			]]>
+		</description>
+
+		<uri-part>
+			<name>profile-id</name>
+			<description><![CDATA[The profile ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>default-profile</name>
+			<description><![CDATA[The default profile for the customer.]]></description>
+			<uri>{base.family}/{base.scope}/default</uri>
+			<alias>profile</alias>
+		</resource>
+
+		<resource>
+			<name>profile</name>
+			<description><![CDATA[The profile for the customer.]]></description>
+			<uri>{base.family}/{base.scope}/{profile-id}</uri>
+			<entity>profile</entity>
+		</resource>
+
+		<relationship>
+			<name>default-profile-from-root</name>
+			<description><![CDATA[Link from root resource to default profile.]]></description>
+			<rel>defaultprofile</rel>
+			<from>base.root</from>
+			<to>default-profile</to>
+		</relationship>
+
+		<entity>
+			<name>profile</name>
+			<description><![CDATA[The profile of the logged in customer.]]></description>
+			<property>
+				<name>given-name</name>
+				<description><![CDATA[Customer's first name.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>family-name</name>
+				<description><![CDATA[Customer's last name.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>profile-id</name>
+				<description><![CDATA[The internal profile identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<entity-type>profiles.profile</entity-type>
+		</entity>
+
+	</family>
+</definitions>

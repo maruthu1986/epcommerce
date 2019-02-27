@@ -1,0 +1,217 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:noNamespaceSchemaLocation="ehcache.xsd"
+		 name="ep-default-cache"
+		 updateCheck="false">
+
+	<!--
+	   This file is provided as a default configuration for cache timeout values in a local developer environment.
+	   timeToIdleSeconds is provided as an environment variable for easy configuration as needed in the settings.xml file.
+	   The <defaultCache> configuration is used as the default for programmatically created caches.
+	   <cache> entries will not inherit configuration from <defaultCache>.
+	-->
+	<defaultCache
+			timeToIdleSeconds="1"
+			timeToLiveSeconds="1"
+			maxEntriesLocalHeap="10000"
+			eternal="false"
+			diskExpiryThreadIntervalSeconds="120"
+			memoryStoreEvictionPolicy="LRU"
+			statistics="true"
+	/>
+
+	<cache name="openjpa-querycache"
+		   timeToIdleSeconds="5"
+		   timeToLiveSeconds="5"
+		   maxEntriesLocalHeap="10000"
+		   eternal="false"
+		   statistics="true"
+	/>
+
+	<!--
+	   Override application cache configuration.
+	-->
+	<cache name="baseAmountCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="bundlePriceAdjustmentCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="catalogRuleBaseCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="categoryLookupCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="childCategoryLookupCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="dynamicContentDeliveryCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="groovyConditionCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="groovyEvaluationCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="groovyScriptCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="priceListAssignmentCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="productCharacteristicsCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="productLookupCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="productUidBySkuCodeCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="productUidBySkuGuidCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="productUidBySkuUidCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="ruleCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="ruleCodeByRuleNameCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="ruleCodeByRuleUidCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="ruleCodesByRuleUidsCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="ruleSessionConfigurationCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="skuExistsBySkuCodeCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="storeCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="tagDefinitionCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="tagDefinitionGuidCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="taxDocumentCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+	<cache name="threadlocalStoreCache"
+		   timeToIdleSeconds="${ep.local.cache.timeout}"
+		   timeToLiveSeconds="${ep.local.cache.timeout}"
+		   maxEntriesLocalHeap="10000"
+		   statistics="true"
+	/>
+
+</ehcache>
+

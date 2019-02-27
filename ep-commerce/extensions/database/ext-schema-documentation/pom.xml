@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>ext-database-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<!-- Based on com.elasticpath.db:schema-documentation -->
+	<artifactId>ext-schema-documentation</artifactId>
+	<packaging>pom</packaging>
+	<name>Extension Database Schema Documentation</name>
+	<description>This artifact generates database documentation against a configured (via data.population.* properties) database using SchemaSpy.</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath.extensions</groupId>
+			<artifactId>ext-data</artifactId>
+		</dependency>
+	</dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Check an environment profile has been specified so we use the correct database connection (inherits definition from ancestor pom). -->
+                <plugin>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>enforce-environment-profile</id>
+                            <phase>pre-site</phase>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <configuration>
+                        <reportPlugins>
+                            <plugin>
+                                <groupId>com.wakaleo.schemaspy</groupId>
+                                <artifactId>maven-schemaspy-plugin</artifactId>
+                                <version>1.0.4</version>
+                                <configuration>
+                                    <databaseType>${data.population.schemaspy.dbType}</databaseType>
+                                    <jdbcUrl>${data.population.url}</jdbcUrl>
+                                    <database>${data.population.databasename}</database>
+                                    <host>${data.population.host}</host>
+                                    <user>${data.population.username}</user>
+                                    <password>${data.population.password}</password>
+                                    <port>${data.population.port}</port>
+                                </configuration>
+                            </plugin>
+                        </reportPlugins>
+                    </configuration>
+                    <dependencies>
+                        <!-- Database JDBC driver -->
+                        <dependency>
+                            <groupId>${epdb.maven.groupId}</groupId>
+                            <artifactId>${epdb.maven.artifactId}</artifactId>
+                            <version>${epdb.maven.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

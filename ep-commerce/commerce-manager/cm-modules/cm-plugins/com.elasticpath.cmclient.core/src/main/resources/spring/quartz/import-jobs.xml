@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2017 Elastic Path Software Inc. All rights reserved.
+  -->
+
+<!-- All CSV-import related jobs are here -->
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<bean id="processImportJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="importJobProcessor"/>
+		<property name="targetMethod" value="launchImportJob"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+
+	<bean id="importJobProcessor" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.dataimport.impl.ImportJobProcessorImpl">
+				<property name="importService" ref="importService"/>
+				<property name="importJobStatusHandler" ref="importJobStatusHandler"/>
+				<property name="importNotificationDao" ref="importNotificationDao"/>
+				<property name="importJobStatusDao" ref="importJobStatusDao"/>
+				<property name="assetRepository" ref="assetRepository"/>
+				<property name="eventMessageFactory" ref="eventMessageFactory" />
+				<property name="eventMessagePublisher" ref="dataImportEventMessagePublisher" />
+				<property name="beanFactory" ref="coreBeanFactory"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="importCSVFileCleanupProcessorJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="importJobCleanupProcessor"/>
+		<property name="targetMethod" value="cleanupStaleImportCSVFiles"/>
+		<property name="concurrent" value="false"/>
+	</bean>
+
+	<bean id="importJobCleanupProcessor" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.service.dataimport.impl.ImportJobCleanupProcessorImpl">
+				<property name="assetRepository" ref="assetRepository"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="staleFileCleanupJob"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="staleFileCleanupServices"/>
+		</property>
+		<property name="targetMethod">
+			<value>executeMethod</value>
+		</property>
+		<property name="concurrent">
+			<value>false</value>
+		</property>
+	</bean>
+
+	<bean id="staleFileCleanupServices" class="com.elasticpath.cmclient.core.service.impl.StaleFileCleanupServicesImpl">
+		<property name="age">
+			<value>24</value>
+		</property>
+	</bean>
+	<bean id="importJobRunnerBaseAmount"
+		  class="com.elasticpath.csvimport.impl.ImportDtoJobRunnerCsvWithHeaderExtensionImpl"
+		  scope="prototype">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="importService" ref="importService"/>
+		<property name="insertUpdateDtoImporter" ref="baseAmountDtoInsertUpdateImporter"/>
+		<property name="dtoCsvLineReader" ref="baseAmountDtoCsvLineReaderWithHeaderExtension"/>
+		<property name="importJobStatusHandler" ref="importJobStatusHandler" />
+		<property name="baseAmountService" ref="baseAmountService"/>
+		<property name="priceListDescriptorService" ref="priceListDescriptorService" />
+		<property name="changeSetService" ref="changeSetService" />
+		<property name="persistenceListenerMetadataMap" ref="persistenceListenerMetadataMap" />
+		<property name="csvFileReader" ref="csvFileReader" />
+	</bean>
+
+	<bean id="baseAmountDtoInsertUpdateImporter"
+		  class="com.elasticpath.domain.pricing.csvimport.impl.BaseAmountDtoInsertUpdateImporterWithHeaderExtensionImpl">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="assembler" ref="baseAmountDtoAssemblerForCsvImport"/>
+		<property name="baseAmountService" ref="baseAmountService"/>
+		<property name="changeSetService" ref="changeSetService"/>
+		<property name="persistenceListenerMetadataMap" ref="persistenceListenerMetadataMap"/>
+		<property name="priceListDescriptorService" ref="priceListDescriptorService"/>
+	</bean>
+
+	<bean id="importJobRunnerCouponCode"
+		  class="com.elasticpath.csvimport.impl.ImportCouponUsageDtoRunnerCsvImpl"
+		  scope="prototype">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="importService" ref="importService"/>
+		<property name="insertUpdateDtoImporter" ref="couponUsageModelDtoInsertUpdateImporter"/>
+		<property name="dtoCsvLineReader" ref="couponCsvLineReader"/>
+		<property name="importJobStatusHandler" ref="importJobStatusHandler" />
+		<property name="changeSetService" ref="changeSetService" />
+		<property name="couponConfigService" ref="couponConfigService" />
+		<property name="persistenceListenerMetadataMap" ref="persistenceListenerMetadataMap" />
+		<property name="csvFileReader" ref="csvFileReader" />
+	</bean>
+
+	<bean id="couponUsageModelDtoInsertUpdateImporter" parent="txProxyTemplate">
+		<property name="target">
+			<bean class="com.elasticpath.domain.rules.csvimport.impl.CouponUsageModelDtoInsertUpdateImporterImpl">
+				<property name="beanFactory" ref="coreBeanFactory"/>
+				<property name="couponService" ref="couponService"/>
+				<property name="couponUsageService" ref="couponUsageService"/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="importJobRunnerInventory"
+		  class="com.elasticpath.service.dataimport.impl.ImportJobRunnerInventoryImpl"
+		  scope="prototype" parent="abstractImportJobRunner" init-method="init">
+		<property name="timeService" ref="timeService" />
+	</bean>
+
+	<bean id="importJobRunnerProduct"
+		  class="com.elasticpath.service.dataimport.impl.ImportJobRunnerProductImpl"
+		  scope="prototype" parent="abstractImportJobRunner" init-method="init">
+		<property name="timeService" ref="timeService" />
+	</bean>
+
+	<bean id="importJobRunnerProductAssociation"
+		  class="com.elasticpath.service.dataimport.impl.ImportJobRunnerProductAssociationImpl"
+		  scope="prototype" parent="abstractImportJobRunner" init-method="init">
+		<property name="timeService" ref="timeService" />
+		<property name="productAssociationService" ref="productAssociationService" />
+	</bean>
+
+	<bean id="importJobRunnerCategory"
+		  class="com.elasticpath.service.dataimport.impl.ImportJobRunnerCategoryImpl"
+		  scope="prototype" parent="abstractImportJobRunner" init-method="init">
+		<property name="timeService" ref="timeService" />
+	</bean>
+
+	<bean id="importJobRunnerProductSku"
+		  class="com.elasticpath.service.dataimport.impl.ImportJobRunnerProductSkuImpl"
+		  scope="prototype" parent="abstractImportJobRunner" init-method="init">
+		<property name="timeService" ref="timeService" />
+	</bean>
+
+	<bean id="importJobRunnerCustomer"
+		  class="com.elasticpath.service.dataimport.impl.ImportJobRunnerCustomerImpl"
+		  scope="prototype" parent="abstractImportJobRunner" init-method="init">
+		<property name="customerService" ref="customerService" />
+		<property name="timeService" ref="timeService" />
+	</bean>
+
+	<bean id="abstractImportJobRunner"
+		  class="com.elasticpath.service.dataimport.impl.AbstractImportJobRunnerImpl"
+		  scope="prototype">
+		<property name="persistenceEngine" ref="persistenceEngine" />
+		<property name="elasticPath" ref="elasticPath" />
+		<property name="utility" ref="utility" />
+		<property name="importService" ref="importService" />
+		<property name="importJobStatusHandler" ref="importJobStatusHandler" />
+		<property name="changeSetService" ref="changeSetService" />
+		<property name="persistenceListenerMetadataMap" ref="persistenceListenerMetadataMap" />
+		<property name="timeService" ref="timeService" />
+		<property name="environmentInfoService" ref="environmentInfoService" />
+	</bean>
+
+	<bean id="importGuidHelper"
+		  class="com.elasticpath.service.dataimport.impl.ImportGuidHelperImpl"
+		  scope="prototype">
+		<property name="persistenceEngine" ref="persistenceEngine" />
+		<property name="elasticPath" ref="elasticPath" />
+		<property name="categoryGuidUtil" ref="categoryGuidUtil"/>
+		<property name="categoryLookup" ref="categoryLookup"/>
+		<property name="categoryService" ref="categoryService"/>
+		<!--property name="fetchSize" value="20"/-->
+	</bean>
+
+	<bean id="couponDtoMediator" class="com.elasticpath.common.dto.CouponDtoMediatorImpl">
+		<property name="couponService" ref="couponService"/>
+		<property name="couponConfigService" ref="couponConfigService"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="couponUsageDtoMediator" class="com.elasticpath.common.dto.CouponUsageDtoMediatorImpl">
+		<property name="couponUsageService" ref="couponUsageService"/>
+		<property name="couponService" ref="couponService"/>
+		<property name="couponConfigService" ref="couponConfigService"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="importJobRunnerCouponCodeEmail" parent="importJobRunnerCouponCode" scope="prototype">
+		<property name="dtoCsvLineReader" ref="couponUsageCsvLineReader"/>
+	</bean>
+</beans>

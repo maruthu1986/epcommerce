@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<bean id="stringToStringConverter" class="com.elasticpath.converter.impl.StringToStringConverter"/>
+
+	<bean id="stringToBooleanConverter" class="com.elasticpath.converter.impl.StringToBooleanConverter"/>
+
+	<bean id="stringToIntegerConverter" class="com.elasticpath.converter.impl.StringToIntegerConverter"/>
+
+	<bean id="stringToBigDecimalConverter" class="com.elasticpath.converter.impl.StringToBigDecimalConverter"/>
+
+	<bean id="stringToLongConverter" class="com.elasticpath.converter.impl.StringToLongConverter"/>
+
+	<bean id="stringToFloatConverter" class="com.elasticpath.converter.impl.StringToFloatConverter"/>
+
+	<bean id="stringToCollectionConverter" class="com.elasticpath.converter.impl.StringToCollectionConverter"/>
+
+	<bean id="stringToMapConverter" class="com.elasticpath.converter.impl.StringToMapConverter"/>
+
+</beans>

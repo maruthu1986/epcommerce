@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>paymentmethods</name>
+		<description>
+			<![CDATA[
+Use a selector to select paymentmethod to use for the purchase. Follow the workflow to read the paymentmethodsinfo
+and then create a choice to select the paymentmethod to use for the purchase.
+			]]>
+		</description>
+
+		<resource>
+			<name>paymentmethods-selector</name>
+			<description><![CDATA[Selector to choose a payment method for an order.]]></description>
+			<uri>{base.family}/selector/{orders.order}</uri>
+			<entity>controls.selector</entity>
+		</resource>
+
+		<resource>
+			<name>paymentmethods-selector-choice</name>
+			<description><![CDATA[A payment methods selector choice.]]></description>
+			<uri>{paymentmethod}/selector/{orders.order}</uri>
+		</resource>
+
+		<relationship>
+			<name>selector-for-paymentmethod-info</name>
+			<description><![CDATA[Retrieve the selector for paymentmethod info.]]></description>
+			<rel>selector</rel>
+			<rev>paymentmethodinfo</rev>
+			<from>paymentmethod-info</from>
+			<to>paymentmethods-selector</to>
+		</relationship>
+
+		<relationship>
+			<name>choice-for-paymentmethods-selector</name>
+			<description><![CDATA[Retrieve a choice.]]></description>
+			<rel>choice</rel>
+			<rev>selector</rev>
+			<from>paymentmethods-selector</from>
+			<to>paymentmethods-selector-choice</to>
+		</relationship>
+
+		<relationship>
+			<name>description-for-paymentmethods-selector-choice</name>
+			<description><![CDATA[Retrieve a choice's description.]]></description>
+			<rel>description</rel>
+			<rev>selector</rev>
+			<from>paymentmethods-selector</from>
+			<to>paymentmethods-selector-choice</to>
+		</relationship>
+
+		<relationship>
+			<name>select-paymentmethods-choice</name>
+			<description><![CDATA[Select a choice.]]></description>
+			<rel>selectaction</rel>
+			<from>paymentmethods-selector-choice</from>
+			<to>paymentmethods-selector-choice</to>
+			<!-- result: paymentmethod -->
+		</relationship>
+
+	</family>
+</definitions>

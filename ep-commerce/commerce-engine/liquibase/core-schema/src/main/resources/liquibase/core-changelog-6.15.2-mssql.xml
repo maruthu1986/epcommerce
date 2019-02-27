@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+				   logicalFilePath="com/elasticpath/core/db/core-changelog-6.15.2-mssql.xml">
+
+	<!-- This is a special MSSQL-only liquibase changelog that is only required when upgrading
+		 from 6.15.0 or 6.15.1 due to improper handling of VARCHAR types in those releases.
+
+		 The pre-conditions below will ensure this change only runs for MSSQL DBs that have the incorrect data types.
+
+	-->
+	<changeSet id="mssql-use-nvarchar" author="elasticpath" dbms="mssql">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="varchar">
+				SELECT DATA_TYPE
+				FROM INFORMATION_SCHEMA.COLUMNS
+				WHERE
+				TABLE_NAME = 'TCATEGORY' AND
+				COLUMN_NAME = 'GUID'
+			</sqlCheck>
+		</preConditions>
+
+		<comment>Ensure NVARCHAR is used in MSSQL rather than VARCHAR</comment>
+
+		<!-- Drop default constraints. "Null" defaults are redundant anyway -->
+		<dropDefaultValue tableName="TCARTORDER" columnName="SHIPPING_ADDRESS_GUID"/>
+		<dropDefaultValue tableName="TCARTORDER" columnName="SHIPPING_SERVICE_LEVEL_GUID"/>
+		<dropDefaultValue tableName="TCUSTOMERAUTHENTICATION" columnName="SALT"/>
+
+		<!-- Drop PK constraints -->
+		<dropPrimaryKey tableName="TCARTORDERCOUPON"/>
+
+		<!-- Drop Unique constraints -->
+		<sql>
+			DECLARE @ConstraintName NVARCHAR(100)
+
+			SELECT @ConstraintName = ccu.CONSTRAINT_NAME FROM INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE AS ccu
+			WHERE ccu.TABLE_NAME = 'TCATEGORY'
+			AND ccu.COLUMN_NAME = 'GUID'
+
+			EXEC('ALTER TABLE TCATEGORY DROP CONSTRAINT ' + @ConstraintName)
+		</sql>
+		<dropUniqueConstraint tableName="TITEMCONFIGURATION" constraintName="TITEMCONFIGURATION_GUID_UNIQUE"/>
+		<dropUniqueConstraint tableName="TSEARCHTERMS" constraintName="TSEARCHTERMS_GUID_UNIQUE"/>
+
+		<!-- Drop indexes -->
+		<dropIndex tableName="TCATEGORY" indexName="I_CATEGORY_GUID"/>
+		<dropIndex tableName="TCATEGORY" indexName="I_CAT_PARENT_GUID"/>
+		<dropIndex tableName="TTAXJOURNAL" indexName="I_TAXJOURNAL_DOC"/>
+
+		<!-- Modify the data types to be NVARCHAR -->
+		<modifyDataType tableName="TADDRESS" columnName="ORGANIZATION" newDataType="NVARCHAR(200)"/>
+		<modifyDataType tableName="TAPPLIEDRULE" columnName="RULE_DESCRIPTION" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TAPPLIEDRULE" columnName="RULE_DISPLAY_NAME" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TAPPLIEDRULE" columnName="GUID" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TCARTITEM" columnName="SKU_GUID" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TCARTORDER" columnName="SHIPPING_ADDRESS_GUID" newDataType="NVARCHAR(64)"/>
+		<modifyDataType tableName="TCARTORDER" columnName="SHIPPING_SERVICE_LEVEL_GUID" newDataType="NVARCHAR(64)"/>
+		<modifyDataType tableName="TCARTORDERCOUPON" columnName="COUPON_GUID" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TCATEGORY" columnName="GUID" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TCATEGORY" columnName="PARENT_CATEGORY_GUID" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TCUSTOMER" columnName="STORECODE" newDataType="NVARCHAR(64)"/>
+		<modifyDataType tableName="TCUSTOMERAUTHENTICATION" columnName="SALT" newDataType="NVARCHAR(128)"/>
+		<modifyDataType tableName="TCUSTOMERGROUP" columnName="DESCRIPTION" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TITEMCONFIGURATION" columnName="GUID" newDataType="NVARCHAR(64)"/>
+		<modifyDataType tableName="TOAUTHACCESSTOKEN" columnName="CUSTOMER_GUID" newDataType="NVARCHAR(64)"/>
+		<modifyDataType tableName="TOAUTHACCESSTOKEN" columnName="CUSTOMER_ROLE" newDataType="NVARCHAR(64)"/>
+		<modifyDataType tableName="TORDER" columnName="TAX_EXEMPTION_ID" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TORDER" columnName="STORECODE" newDataType="NVARCHAR(64)"/>
+		<modifyDataType tableName="TORDERADDRESS" columnName="ORGANIZATION" newDataType="NVARCHAR(200)"/>
+		<modifyDataType tableName="TORDERDATA" columnName="ITEM_KEY" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TORDERDATA" columnName="ITEM_VALUE" newDataType="NVARCHAR(1024)"/>
+		<modifyDataType tableName="TORDERRETURN" columnName="TAX_DOCUMENT_ID" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TORDERSHIPMENT" columnName="SERVICE_LEVEL_GUID" newDataType="NVARCHAR(64)"/>
+		<modifyDataType tableName="TORDERSHIPMENT" columnName="TAX_DOCUMENT_ID" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TORDERSKU" columnName="SKU_GUID" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TPAYMENTTOKEN" columnName="VALUE" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TPAYMENTTOKEN" columnName="DISPLAY_VALUE" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TPAYMENTTOKEN" columnName="GATEWAY_GUID" newDataType="NVARCHAR(64)"/>
+		<modifyDataType tableName="TPAYMENTGATEWAYPROPERTIES" columnName="PROPVALUE" newDataType="NVARCHAR(1024)"/>
+		<modifyDataType tableName="TSEARCHTERMS" columnName="GUID" newDataType="NVARCHAR(64)"/>
+		<modifyDataType tableName="TSHOPPINGCART" columnName="STORECODE" newDataType="NVARCHAR(64)"/>
+		<modifyDataType tableName="TTAXJOURNAL" columnName="JOURNAL_TYPE" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TTAXJOURNAL" columnName="TRANSACTION_TYPE" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TTAXJOURNAL" columnName="ORDER_NUMBER" newDataType="NVARCHAR(64)"/>
+		<modifyDataType tableName="TTAXJOURNAL" columnName="DOCUMENT_ID" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TTAXJOURNAL" columnName="ITEM_OBJECT_TYPE" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TTAXJOURNAL" columnName="ITEM_GUID" newDataType="NVARCHAR(64)"/>
+		<modifyDataType tableName="TTAXJOURNAL" columnName="ITEM_CODE" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TTAXJOURNAL" columnName="TAX_NAME" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TTAXJOURNAL" columnName="TAX_CODE" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TTAXJOURNAL" columnName="TAX_REGION" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TTAXJOURNAL" columnName="TAX_PROVIDER" newDataType="NVARCHAR(255)"/>
+		<modifyDataType tableName="TTAXJOURNAL" columnName="STORE_CODE" newDataType="NVARCHAR(64)"/>
+		<modifyDataType tableName="TTAXJOURNAL" columnName="CURRENCY" newDataType="NVARCHAR(10)"/>
+
+		<!-- Restore default constraints (no need for null defaults). -->
+		<addDefaultValue tableName="TCUSTOMERAUTHENTICATION" columnName="SALT" defaultValue="UNDEFINED_SALT"/>
+
+		<!-- Restore Primary key constraints -->
+		<addNotNullConstraint tableName="TCARTORDERCOUPON" columnName="COUPON_GUID" columnDataType="NVARCHAR(255)"/>
+		<addPrimaryKey columnNames="CARTORDER_UID,COUPON_GUID"
+					   constraintName="PK_TCARTORDERCOUPON" tableName="TCARTORDERCOUPON" />
+
+		<!-- Restore Unique constraints -->
+		<addUniqueConstraint tableName="TCATEGORY" columnNames="GUID" constraintName="TCATEGORY_GUID_UNIQUE"/>
+		<addUniqueConstraint tableName="TITEMCONFIGURATION" columnNames="GUID" constraintName="TITEMCONFIGURATION_GUID_UNIQUE"/>
+		<addUniqueConstraint tableName="TSEARCHTERMS" columnNames="GUID" constraintName="TSEARCHTERMS_GUID_UNIQUE"/>
+
+		<!-- Restore indexes -->
+		<createIndex tableName="TCATEGORY" indexName="I_CATEGORY_GUID">
+			<column name="GUID"/>
+		</createIndex>
+		<createIndex tableName="TCATEGORY" indexName="I_CAT_PARENT_GUID">
+			<column name="PARENT_CATEGORY_GUID" />
+		</createIndex>
+		<createIndex tableName="TTAXJOURNAL" indexName="I_TAXJOURNAL_DOC">
+			<column name="DOCUMENT_ID" />
+		</createIndex>
+
+	</changeSet>
+
+</databaseChangeLog>

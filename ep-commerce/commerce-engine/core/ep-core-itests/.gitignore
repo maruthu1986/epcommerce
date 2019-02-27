@@ -1,0 +1,8 @@
+.checkstyle
+.classpath
+.pmd
+.pmdruleset
+.ruleset
+.springBeans
+ant.log.1
+log

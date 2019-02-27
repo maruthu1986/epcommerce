@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>shipments</name>
+		<plan>
+			<name>read-shipping-option-for-shipment</name>
+			<description><![CDATA[Retrieve the shipment options associated with a shipment.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from a shipment to the shipment options.]]></description>
+				<start>shipment</start>
+				<follow-link>shippingoption</follow-link>
+				<result>purchase-shipment-shipping-option</result>
+			</step>
+		</plan>
+
+	</family>
+
+</definitions>

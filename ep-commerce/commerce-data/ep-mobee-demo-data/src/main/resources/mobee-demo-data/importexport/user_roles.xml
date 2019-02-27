@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<user_roles>
+	<user_role guid="F64A4413-C442-980F-CF6B-C195A38CA4FD">
+		<name>Product Pricing Manager</name>
+		<description>Permissions Include: Manage Product Pricing</description>
+		<permissions>
+			<permission>PRICE_MANAGEMENT_MANAGE_PRICE_LISTS</permission>
+			<permission>PRICE_MANAGEMENT_IMPORT_PRICE_LIST_JOB</permission>
+			<permission>PRICE_MANAGEMENT_EXPORT_PRICE_LISTS</permission>
+			<permission>PRICE_MANAGEMENT_MANAGE_PRODUCT_PRICING</permission>
+		</permissions>
+	</user_role>
+	<!-- See ep-shared-demo-data for additional definitions -->
+</user_roles>

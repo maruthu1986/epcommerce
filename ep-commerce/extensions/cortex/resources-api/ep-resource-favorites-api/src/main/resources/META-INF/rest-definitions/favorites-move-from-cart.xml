@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<!-- MoveToFavoritesFormLinkHandler -->
+		<name>favorites</name>
+		<resource>
+			<name>move-to-favorite-form</name>
+			<description>Form for moving a cart line item to a favorite</description>
+			<uri>{favorites}/{carts.line-item}/form</uri>
+			<form>
+				<entity>move-to-favorite-form</entity>
+				<action-rel>movetofavoriteaction</action-rel>
+				<result>favorite-line-item</result>
+			</form>
+		</resource>
+
+		<entity>
+			<name>move-to-favorite-form</name>
+			<description>Form for adding an item to a favorite</description>
+		</entity>
+
+		<relationship>
+			<name>favorite-move-to-favorite-form</name>
+			<description>Link for a form used to move cart line item a favorite</description>
+			<rel>movetofavoriteform</rel>
+			<from>carts.line-item</from>
+			<to>move-to-favorite-form</to>
+		</relationship>
+
+	</family>
+</definitions>

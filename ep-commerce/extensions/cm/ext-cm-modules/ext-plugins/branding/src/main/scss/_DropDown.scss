@@ -1,0 +1,13 @@
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DropDown.html
+DropDown {
+	// DON'T SEE WHERE THI IS USED
+	border: 1px solid $widget_border_color;
+	border-radius: $widget_border_radius;
+	box-shadow: $dropdown_shadow;
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DropDown.html#DropDown-Item
+	&-Item {
+		@include list_item(false, 5px 10px);
+	}
+	
+}

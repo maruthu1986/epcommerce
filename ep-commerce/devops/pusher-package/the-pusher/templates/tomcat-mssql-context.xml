@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource auth="Container" name="mail/Session" type="javax.mail.Session"/>
+    <Resource name="jdbc/epjndi" auth="Container" scope="Shareable" type="javax.sql.DataSource" maxActive="100" maxIdle="30" maxWait="10000" removeAbandoned="true" username="${data_population_username}" password="${data_population_password}" driverClassName="${data_population_jdbc_driver}" url="jdbc:sqlserver://${data_population_host}:${data_population_port};databaseName={data_population_databasename}" poolPreparedStatements="true" maxOpenPreparedStatements="50" validationQuery="Select 1" validationInterval="60000" />
+	<Resource auth="Container" name="jms/JMSConnectionFactory" type="$jmsType" description="JMS Connection Factory" factory="$jmsFactory" brokerURL="$jmsBrokerUrl" maxConnections="25" maximumActiveSessionPerConnection="25" idleTimeout="10000"/>
+</Context>

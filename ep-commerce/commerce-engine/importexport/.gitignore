@@ -1,0 +1,17 @@
+*.zip
+.checkstyle
+.classpath
+.fbprefs
+.ispace
+.pmd
+.ruleset
+.springBeans
+ant.log.1
+bin
+build-stats
+docs
+libs
+log
+schema
+solrData
+velocity.log

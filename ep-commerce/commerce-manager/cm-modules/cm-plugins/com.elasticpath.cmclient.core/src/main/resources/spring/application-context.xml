@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!-- Local Spring context files -->
+	<import resource="models/domainModelCM.xml" />
+	<import resource="dataaccess/daoCM.xml" />
+	<import resource="service/serviceCM.xml" />
+	<import resource="security/security.xml" />
+	<import resource="util/utilCM.xml" />
+
+	<!-- Remote Spring context files - from ep-settings.jar and ep-core.jar -->
+	<import resource="classpath:spring/dataaccess/openjpa/openjpa.xml" />
+
+	<!-- Spring context files from other JARs (e.g. ep-settings, etc) -->
+	<import resource="classpath*:META-INF/conf/plugin-remote.xml" />
+
+	<context:property-placeholder ignore-resource-not-found="true" system-properties-mode="OVERRIDE"
+								  location="
+			classpath*:META-INF/elasticpath/conf/spring/plugin.properties,
+			classpath:module.properties,
+			file:/etc/ep/ep.properties,
+			file:/ep/conf/ep.properties,
+			file:/ep/conf/ep.cm.properties,
+			file:${user.home}/ep/ep.properties,
+			file:${user.home}/ep/conf/ep.properties,
+			file:${user.home}/ep/conf/ep.cm.properties
+		"/>
+
+	<!--
+	This element defines overrides of the format: beanName.property=value for existing bean properties.
+	If items in these property files do not conform to format convention, they will not be overridden in run-time
+	and as a result use the default value originally stated in the bean.
+	-->
+	<context:property-override ignore-resource-not-found="true" local-override="true"
+							   location="
+			file:/etc/ep/ep.override.properties,
+			file:/ep/conf/ep.override.properties,
+			file:/ep/conf/ep.cm.override.properties,
+			file:${user.home}/ep/ep.override.properties,
+			file:${user.home}/ep/conf/ep.override.properties,
+			file:${user.home}/ep/conf/ep.cm.override.properties" />
+
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/plugin.xml" />
+	<import resource="classpath*:META-INF/conf/ep-core-plugin.xml" />
+
+	<import resource="monitoring/ep-monitoring.xml" />
+
+	<!-- Overrides for the healthcheck monitor -->
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/ext-monitoring.xml" />
+
+</beans>

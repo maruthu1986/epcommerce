@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<price_list_assignments>
+<price_list_assignment>
+    <guid>00F68BF7-7554-3640-EEF3-6C7717D9FEAE</guid>
+    <name>Default Pricing for Search</name>
+    <priority>5</priority>
+    <catalog_guid>search_catalog</catalog_guid>
+    <price_list_guid>5241CE7D-3A39-6DAF-FA32-384C2B2A81CB</price_list_guid>
+    <selling_context>
+        <guid>4D1BC08A-1190-4B45-72A6-2752D28A4243</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>6BC3D107-E6FF-A19D-9109-62B77721067F</guid>
+                <name>1392040988413931</name>
+                <condition_string> { OR { SELLING_CHANNEL.equalTo 'searchbee' }  } </condition_string>
+                <dictionary_guid>STORES</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+
+<price_list_assignment>
+    <guid>5D66DC98-A458-1916-2B6A-1EBD369E3BE4</guid>
+    <name>Europe Pricing for Toastie</name>
+    <priority>5</priority>
+    <catalog_guid>Toastie</catalog_guid>
+    <price_list_guid>F8C6DDBE-DB57-950C-1734-21DA07D5FDD7</price_list_guid>
+    <selling_context>
+        <guid>E622ACC6-339B-1F57-FBEF-1E700B19F9FA</guid>
+        <name>SELLING_CONTEXT_NAME_Europe Pricing for Toastie</name>
+        <description>SELLING_CONTEXT_DESCR_Europe Pricing for Toastie</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>5AED7600-2238-F9F1-98F8-58639804022C</guid>
+                <name>858957410956219</name>
+                <condition_string> { OR { SELLING_CHANNEL.equalTo 'toastie' }  } </condition_string>
+                <dictionary_guid>STORES</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+
+<price_list_assignment>
+    <guid>7A377FD5-46C2-75BB-98B2-1C18DE1B6123</guid>
+    <name>Default Pricing for Mobee store in CAD</name>
+    <priority>5</priority>
+    <catalog_guid>Mobile</catalog_guid>
+    <price_list_guid>1A971BA1-D81F-A164-0FF0-53817D83B107</price_list_guid>
+    <selling_context>
+        <guid>76DED38E-7020-3281-114C-EE7A16BB6C3A</guid>
+        <name>SELLING_CONTEXT_NAME_Default Pricing for Mobee store in CAD</name>
+        <description>SELLING_CONTEXT_DESCR_Default Pricing for Mobee store in CAD</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>5530FE53-2DC2-DE57-0DB5-F4C47B47F7A3</guid>
+                <name>1321595719194057</name>
+                <condition_string> { AND { SHOPPING_START_TIME.greaterThan (1321062480000L) }  } </condition_string>
+                <dictionary_guid>TIME</dictionary_guid>
+            </condition>
+            <condition>
+                <guid>420A59B7-D64B-F57B-4DAA-29C3E67A55AC</guid>
+                <name>858930963305906</name>
+                <condition_string> { OR { SELLING_CHANNEL.equalTo 'MOBEE' }  } </condition_string>
+                <dictionary_guid>STORES</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+
+<price_list_assignment>
+    <guid>A645A716-5713-530C-628F-2E72F36D5A9E</guid>
+    <name>Default Pricing for Toastie</name>
+    <priority>5</priority>
+    <catalog_guid>Toastie</catalog_guid>
+    <price_list_guid>011D3611-7551-86C3-0E77-D3594AFA9961</price_list_guid>
+    <selling_context>
+        <guid>0CB42C4A-6EF5-56B7-9D2F-30919DD4FAFA</guid>
+        <name>SELLING_CONTEXT_NAME_Default Pricing for Toastie</name>
+        <description>SELLING_CONTEXT_DESCR_Default Pricing for Toastie</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>6916B0ED-B146-FBE1-AE0C-F9BCAC8BBEF6</guid>
+                <name>858878372025118</name>
+                <condition_string> { OR { SELLING_CHANNEL.equalTo 'toastie' }  } </condition_string>
+                <dictionary_guid>STORES</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+
+<price_list_assignment>
+    <guid>C28B1F3C-46F5-7350-56F6-C7C2A6595054</guid>
+    <name>Default Pricing for Tobee123</name>
+    <priority>5</priority>
+    <catalog_guid>MobileCatalog</catalog_guid>
+    <price_list_guid>0877BE38-1DD9-FD28-9F2F-6511C6967BBC</price_list_guid>
+    <selling_context>
+        <guid>48DF63CC-EBE7-0F12-0974-7182ABA15CE2</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>A2DA53A0-1F1F-F73D-12DD-D4D54C2BF12F</guid>
+                <name>338887071934026</name>
+                <condition_string> { OR { SELLING_CHANNEL.equalTo 'tobee123' }  } </condition_string>
+                <dictionary_guid>STORES</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+
+<price_list_assignment>
+    <guid>E16AAA75-1E6C-F58D-A07C-525C136AF327</guid>
+    <name>Default Pricing for Kobee</name>
+    <priority>5</priority>
+    <catalog_guid>Mobile</catalog_guid>
+    <price_list_guid>77B24E48-D11B-E3C1-3B44-6F67F80B41E0</price_list_guid>
+    <selling_context>
+        <guid>AFF14C3E-1EA9-325B-502F-AF938A8864A2</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>BFB29ABD-7965-7698-F99A-C7922860099D</guid>
+                <name>871346632584789</name>
+                <condition_string> { OR { SELLING_CHANNEL.equalTo 'Kobee' }  } </condition_string>
+                <dictionary_guid>STORES</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+
+<price_list_assignment>
+    <guid>c4dd669c-d556-4de2-b4c3-ad443641368f</guid>
+    <name>Default Pricing for Tokenee store in CAD</name>
+    <priority>5</priority>
+    <catalog_guid>TokeneeCatalog</catalog_guid>
+    <price_list_guid>1A971BA1-D81F-A164-0FF0-53817D83B107</price_list_guid>
+    <selling_context>
+        <guid>3b57cf1b-33a9-4ae9-8826-99e3b188777d</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+    </selling_context>
+</price_list_assignment>
+<price_list_assignment>
+    <guid>cd5627ba-895b-4137-a8fa-92f39682aa49</guid>
+    <name>Personalised Pricing for Mobee</name>
+    <priority>4</priority>
+    <catalog_guid>Mobile</catalog_guid>
+    <price_list_guid>9398b2e0-867a-4937-895c-2f8670361de9</price_list_guid>
+    <selling_context>
+        <guid>0bd85578-56ba-426c-94e2-31e4a1601244</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>8706ea0b-4664-4c56-9fcb-f29e8bbbe543</guid>
+                <name>2692938441780031</name>
+                <condition_string> { AND { AND { GEOIP_COUNTRY_CODE.equalsIgnoreCase 'CA' }  }  } </condition_string>
+                <dictionary_guid>PLA_SHOPPER</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+<price_list_assignment>
+    <guid>b0fe9fd0-9efd-4ff7-91c4-d90316767975</guid>
+    <name>Alternative Pricing for Mobee Based on Scope</name>
+    <priority>4</priority>
+    <catalog_guid>Mobile</catalog_guid>
+    <price_list_guid>b24981de-d7a3-40cd-abdc-0fed512e5fa1</price_list_guid>
+    <selling_context>
+        <guid>97b9a8be-1e01-4c49-82bd-97379687b569</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>1234a30c-2c2d-49c7-8db2-5947d3705e29</guid>
+                <name>2790792751276472</name>
+                <condition_string> { OR { SELLING_CHANNEL.equalTo 'MOBEE' }  } </condition_string>
+                <dictionary_guid>STORES</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+<price_list_assignment>
+    <guid>606c1507-901c-477b-ac67-ae9cd3b6544f</guid>
+    <name>Alternative Pricing for Mobee Based on Time</name>
+    <priority>4</priority>
+    <catalog_guid>Mobile</catalog_guid>
+    <price_list_guid>ffde669d-3d8e-4d9d-bb9a-832a60e0c110</price_list_guid>
+    <selling_context>
+        <guid>70a8e011-cfbb-4ed9-bbc1-5335430d1c07</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>acc01c30-346b-4d66-a824-4f660655cbaf</guid>
+                <name>2785799330702988</name>
+                <condition_string> { AND { SHOPPING_START_TIME.greaterThan (1394233200000L) }  { SHOPPING_START_TIME.lessThan (1924988400000L) }  } </condition_string>
+                <dictionary_guid>TIME</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+<price_list_assignment>
+    <guid>dbdc017a-aa0f-432a-87a9-4d0c3b9ba054</guid>
+    <name>Alternative Pricing for Mobee Based on Gender</name>
+    <priority>4</priority>
+    <catalog_guid>Mobile</catalog_guid>
+    <price_list_guid>0593e983-b24c-47c5-b7de-5e2b867af04d</price_list_guid>
+    <selling_context>
+        <guid>bf9c0ec6-8442-43c8-b647-11da4c26baa6</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>a9a23c5a-e9df-4814-8a56-34af56495154</guid>
+                <name>8069497707733</name>
+                <condition_string> { AND { AND { CUSTOMER_GENDER.equalTo 'F' }  }  } </condition_string>
+                <dictionary_guid>PLA_SHOPPER</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+<price_list_assignment>
+    <guid>92d23c24-59ec-4af8-8dee-e8d9adbaf1c2</guid>
+    <name>Alternative Pricing for Mobee Based on First Time Buyer</name>
+    <priority>4</priority>
+    <catalog_guid>Mobile</catalog_guid>
+    <price_list_guid>c77df022-1c10-4d40-9ce0-efc9c73019ef</price_list_guid>
+    <selling_context>
+        <guid>c98e2c0c-f9e1-428b-b58c-074e4a377c5b</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>542c93c1-c060-43f7-82e0-475d96bb1c1a</guid>
+                <name>3130810690093035</name>
+                <condition_string> { AND { AND { FIRST_TIME_BUYER.equalTo true }  }  } </condition_string>
+                <dictionary_guid>PLA_SHOPPER</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+<price_list_assignment>
+    <guid>1905705b-4197-464e-928b-40481a3a6387</guid>
+    <name>Alternative Pricing for Mobee Based on Age</name>
+    <priority>3</priority>
+    <catalog_guid>Mobile</catalog_guid>
+    <price_list_guid>b9ddddae-7c89-49a7-a0aa-33f8a37627c3</price_list_guid>
+    <selling_context>
+        <guid>3e713438-d49a-48d6-8296-2b51ec9baf01</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>065b4bfb-9826-4f6a-b296-d937c8a472cd</guid>
+                <name>3129589670626938</name>
+                <condition_string> { AND { AND { CUSTOMER_AGE_YEARS.greaterThan (50i) }  }  } </condition_string>
+                <dictionary_guid>PLA_SHOPPER</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+<price_list_assignment>
+    <guid>52f8ca8a-93e5-4794-bbc8-efb1039d010d</guid>
+    <name>Alternative Pricing for Mobee Based on Role</name>
+    <priority>4</priority>
+    <catalog_guid>Mobile</catalog_guid>
+    <price_list_guid>d8ef0867-75da-4731-90c1-eee357f7eaf0</price_list_guid>
+    <selling_context>
+        <guid>b2085d45-8f5c-4273-b80b-92be4850a1c2</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>e615b261-8cfb-4386-8061-6060b740a734</guid>
+                <name>422906881202387</name>
+                <condition_string> { AND { AND { REGISTERED_CUSTOMER.equalTo true }  }  } </condition_string>
+                <dictionary_guid>PLA_SHOPPER</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+<price_list_assignment>
+    <guid>99d77567-a0af-4e74-a6a0-6b4e594ad23a</guid>
+    <name>Alternative Pricing for Mobee GEOIP CA and BC</name>
+    <priority>3</priority>
+    <catalog_guid>Mobile</catalog_guid>
+    <price_list_guid>d24535b4-b044-4659-8f38-c5874ee703e0</price_list_guid>
+    <selling_context>
+        <guid>81f1e033-ffc8-4706-8c08-3f5376970d25</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>3cb20145-86c4-4156-b8e4-1f5fdee3c46e</guid>
+                <name>600343576365343</name>
+                <condition_string> { AND { AND { GEOIP_COUNTRY_CODE.equalsIgnoreCase 'CA' }  { GEOIP_STATE_OR_PROVINCE.equalsIgnoreCase 'BC' }  }  } </condition_string>
+                <dictionary_guid>PLA_SHOPPER</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+
+<price_list_assignment>
+    <guid>041df9d3-2dbe-4e8e-863d-57d2eb8990f6</guid>
+    <name>itestsegmentpricelistassignment</name>
+    <description>price list for cucumber customer segment</description>
+    <priority>1</priority>
+    <catalog_guid>Mobile</catalog_guid>
+    <price_list_guid>1e3530d3-0dff-4391-95c5-1bae092b92df</price_list_guid>
+    <selling_context>
+        <guid>68f144a3-7cc0-4b60-b1e5-ddf9a835b84b</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>587d11c8-59bf-4348-a5b5-3ff19b0f7ad6</guid>
+                <name>636653433788681</name>
+                <condition_string> { AND { AND { CUSTOMER_SEGMENT.includes 'ITEST_SEGMENT' }  }  } </condition_string>
+                <dictionary_guid>PLA_SHOPPER</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+<price_list_assignment>
+    <guid>49e59ba1-9657-4fed-89b4-cf0a48f51760</guid>
+    <name>Default Pricing for Mobee store in EUR</name>
+    <priority>5</priority>
+    <catalog_guid>Mobile</catalog_guid>
+    <price_list_guid>f2b16c04-e1a4-4bd5-be79-d05796ceb1f9</price_list_guid>
+    <selling_context>
+        <guid>159380b3-7850-47f2-8256-e75b663b74f1</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+        <conditions>
+            <condition>
+                <guid>d59a42e8-050c-49c9-a304-1b70b0becca1</guid>
+                <name>355680655988447</name>
+                <condition_string> { OR { SELLING_CHANNEL.equalTo 'MOBEE' }  } </condition_string>
+                <dictionary_guid>STORES</dictionary_guid>
+            </condition>
+        </conditions>
+    </selling_context>
+</price_list_assignment>
+
+</price_list_assignments>

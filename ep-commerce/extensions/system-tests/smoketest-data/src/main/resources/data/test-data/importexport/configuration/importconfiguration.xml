@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<importconfiguration>
+  <xmlvalidation>true</xmlvalidation>
+  <importstrategy></importstrategy>
+  <packager type="NONE"/>
+  <retrieval>
+    <method>FILE</method>
+    <source>${data.population.data.directory}/test-data/importexport/</source>
+  </retrieval>
+  <transformerschain/>
+</importconfiguration>

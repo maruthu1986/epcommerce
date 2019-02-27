@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>favorites</name>
+
+		<uri-part>
+			<name>line-item-id</name>
+			<description>
+				<![CDATA[
+The line item identifier. This ID is a unique number assigned by Cortex API when the [item][items]is added to a favorite.
+
+[items]: #items
+				]]>
+			</description>
+			<string/>
+		</uri-part>
+
+
+		<resource>
+			<name>favorite-line-items</name>
+			<description><![CDATA[The line items list in a favorite.]]></description>
+			<uri>{favorite}/lineitems</uri>
+			<list-of>favorite-line-item</list-of>
+		</resource>
+
+		<resource>
+			<name>favorite-line-item</name>
+			<description><![CDATA[An individual line item in a favorite.]]></description>
+			<uri>{favorite-line-items}/{line-item-id}</uri>
+			<entity>favorite-line-item</entity>
+		</resource>
+
+		<relationship>
+			<name>favorite-line-items-for-favorite</name>
+			<description><![CDATA[A collection of items that have been added to a favorite.]]></description>
+			<rel>lineitems</rel>
+			<rev>favorite</rev>
+			<from>favorite</from>
+			<to>favorite-line-items</to>
+		</relationship>
+
+		<relationship>
+			<name>favorite-line-items-for-favorite-line-item</name>
+			<description><![CDATA[A collection of items that have been added to a favorite.]]></description>
+			<rel>list</rel>
+			<from>favorite-line-item</from>
+			<to>favorite-line-items</to>
+		</relationship>
+
+		<relationship>
+			<name>favorite-for-favorite-line-item</name>
+			<description><![CDATA[Retrieve the favorite that has the given line item. This workflow is
+			useful when you need to determine which favorite the line item belongs to.]]></description>
+			<rel>favorite</rel>
+			<from>favorite-line-item</from>
+			<to>favorite</to>
+		</relationship>
+
+		<relationship>
+			<name>item-for-favorite-line-item</name>
+			<description>What's the item this line item points to?</description>
+			<rel>item</rel>
+			<from>favorite-line-item</from>
+			<to>items.item</to>
+		</relationship>
+
+		<entity>
+			<name>favorite-line-item</name>
+			<description><![CDATA[A line item in a favorite.]]></description>
+			<property>
+				<name>line-item-id</name>
+				<description><![CDATA[The internal line item identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>item-id</name>
+				<description><![CDATA[The internal item identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>favorite-id</name>
+				<description><![CDATA[The internal favorite identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>configuration</name>
+				<description><![CDATA[The details of the line item configuration.]]></description>
+				<is-a>carts.line-item-configuration</is-a>
+			</property>
+			<entity-type>favorites.favorite-line-item</entity-type>
+		</entity>
+	</family>
+</definitions>

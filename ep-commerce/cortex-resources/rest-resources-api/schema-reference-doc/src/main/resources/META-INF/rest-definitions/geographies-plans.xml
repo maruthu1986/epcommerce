@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>geographies</name>
+		<plan>
+			<name>read-countries</name>
+			<description><![CDATA[Retrieve a list of countries available to a scope.]]></description>
+			<step>
+				<description><![CDATA[Retrieve the list of countries.]]></description>
+				<start>countries</start>
+				<read-self/>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-country</name>
+			<description><![CDATA[Read a single country.]]></description>
+			<step>
+				<description><![CDATA[Read a country.]]></description>
+				<start>countries</start>
+				<follow-link>element</follow-link>
+				<result>country</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-region</name>
+			<description><![CDATA[Read a single region in a country.]]></description>
+			<step>
+				<description><![CDATA[Read a country.]]></description>
+				<start>country</start>
+				<follow-link>regions</follow-link>
+				<result>regions</result>
+			</step>
+			<step>
+				<description><![CDATA[Read a region.]]></description>
+				<start>regions</start>
+				<follow-link>element</follow-link>
+				<result>region</result>
+			</step>
+		</plan>
+	</family>
+</definitions>

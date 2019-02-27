@@ -1,0 +1,70 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:batch="http://www.springframework.org/schema/batch"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://www.springframework.org/schema/batch
+           http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
+
+    <bean id="jobRegistry"
+        class="org.springframework.batch.core.configuration.support.MapJobRegistry" />
+
+    <bean id="jobRepository-transactionManager"
+        class="org.springframework.batch.support.transaction.ResourcelessTransactionManager"/>
+
+    <bean id="jobRepository" class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean"/>
+
+    <bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+        <property name="jobRepository" ref="jobRepository"/>
+    </bean>
+
+    <bean id="priceListBatchJobCancellationListener"
+        class="com.elasticpath.cmclient.core.csv.PriceListBatchJobCancellationListener"/>
+
+    <batch:job id="priceListCsvExportJob" job-repository="jobRepository">
+        <batch:step id="exportPricingDataChunkedStep">
+            <batch:tasklet transaction-manager="jobRepository-transactionManager">
+                <!-- TODO: Configurable batch write size (setting?) -->
+                <batch:chunk reader="pricingItemReader" processor="pricingItemProcessor" writer="pricingItemWriter"
+                    commit-interval="100">
+                <batch:listeners>
+                    <batch:listener ref="priceListBatchJobCancellationListener"/>
+                </batch:listeners>
+            </batch:chunk>
+            </batch:tasklet>
+        </batch:step>
+    </batch:job>
+
+    <bean id="pricingItemReader" scope="step"
+        class="com.elasticpath.cmclient.core.csv.ChunkedBaseAmountDTOItemReader">
+        <property name="priceListService" ref="priceListService"/>
+        <!-- TODO: Configurable batch read size (setting?) -->
+        <property name="pageSize" value="100"/>
+        <property name="priceListGuid" value="#{jobParameters['com.elasticpath.etl.batch.csv.price.list.guid']}"/>
+        <property name="pricingLocale" value="#{jobParameters['com.elasticpath.etl.batch.csv.pricing.locale']}"/>
+    </bean>
+
+    <!-- Our reader (and the PriceListService handle both reading and transformation so just pass through. -->
+    <bean id="pricingItemProcessor" class="org.springframework.batch.item.support.PassThroughItemProcessor"/>
+
+    <bean id="pricingItemWriter" scope="step"
+        class="com.elasticpath.cmclient.core.csv.ConfigurableFlatFileItemWriter">
+        <property name="lineAggregator">
+            <bean class="com.elasticpath.cmclient.core.csv.CsvLineAggregator">
+                <property name="delimiter" value=","/>
+                <property name="fieldExtractor">
+                    <bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
+                        <property name="names" value="objectType,productName,productCode,skuCode,skuConfiguration,quantity,listValue,saleValue"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+        <property name="shouldDeleteIfExists" value="true" />
+        <property name="encoding" value="UTF-8"/>
+        <property name="priceListName" value="#{jobParameters['com.elasticpath.etl.batch.csv.price.list.name']}"/>
+        <property name="priceListCurrency" value="#{jobParameters['com.elasticpath.etl.batch.csv.price.list.currency']}"/>
+        <property name="resource" value="file://#{jobParameters['com.elasticpath.etl.batch.csv.price.list.output.file']}"/>
+    </bean>
+
+</beans>

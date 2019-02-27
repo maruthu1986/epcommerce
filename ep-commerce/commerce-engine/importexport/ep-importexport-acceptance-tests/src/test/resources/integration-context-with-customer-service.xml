@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:mockito="http://www.mockito.org/spring/mockito"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                http://www.mockito.org/spring/mockito classpath:spring/mockito.xsd">
+
+	<context:component-scan base-package="customer"/>
+	<context:annotation-config/>
+
+	<import resource="classpath*:spring/service/importexport-service.xml"/>
+	<import resource="classpath*:spring/importexport-adapters.xml"/>
+	<import resource="classpath*:spring/service/messages.xml" />
+	<import resource="classpath:integration-core-context.xml"/>
+	<import resource="classpath:ep-test-application.xml"/>
+
+	<bean id="glueCodeScope" class="cucumber.runtime.java.spring.GlueCodeScope"></bean>
+
+	<bean id="glueCodeScopeConfigurer" class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+		<property name="scopes">
+			<map>
+				<entry key="cucumber-glue" value-ref="glueCodeScope"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="testDomainMarshaller" class="com.elasticpath.commons.util.TestDomainMarshaller"/>
+
+	<bean id="testPaymentMethodBuilderFactory" class="com.elasticpath.importexport.common.factory.TestPaymentMethodBuilderFactory">
+	</bean>
+
+	<bean id="testPaymentDTOBuilderFactory" class="com.elasticpath.importexport.common.factory.TestPaymentDTOBuilderFactory"/>
+
+	<bean id="savingManager" class="com.elasticpath.importexport.importer.importers.impl.PersistenceSessionSavingManagerImpl">
+		<property name="persistenceEngine" ref="persistenceEngine" />
+	</bean>
+
+	<!--<mockito:mock id="savingManager" class="com.elasticpath.importexport.importer.importers.impl.PersistenceSessionSavingManagerImpl"/>-->
+	<mockito:mock id="epQLSearchEngine" class="com.elasticpath.search.searchengine.EpQLSearchEngine"/>
+	<mockito:mock id="eventMessageFactory" class="com.elasticpath.messaging.factory.EventMessageFactory"/>
+	<mockito:mock id="customerEventMessagePublisher" class="com.elasticpath.messaging.EventMessagePublisher"/>
+
+
+	<!-- Opt out of messaging. -->
+	<bean id="customerEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+	</bean>
+
+	<bean id="orderEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher"/>
+	</bean>
+
+	<bean id="orderEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+	</bean>
+
+	<!-- Extension point for plugging in additional test components. -->
+	<!-- This must occur as the last import in the context to facilitate overriding existing beans. -->
+
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/ep-itest-plugin.xml" />
+
+</beans>

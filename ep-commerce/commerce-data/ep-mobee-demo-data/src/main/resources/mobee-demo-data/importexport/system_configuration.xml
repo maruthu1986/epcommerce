@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<system_configuration>
+<!-- See ep-shared-demo-data for additional definitions -->
+
+<configuration_setting>
+    <name_space>COMMERCE/STORE/FILTEREDNAVIGATION/filteredNavigationConfiguration</name_space>
+    <description>The configuration XML for filtered (faceted) navigation.</description>
+    <default_value type="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!-- Configuration file for filtered navigation --&gt;&lt;!-- For range values, lower bounds are inclusive, upper values are exclusive. --&gt;&lt;IntelligentBrowsing&gt;&lt;/IntelligentBrowsing&gt;</default_value>
+    <max_overrides>-1</max_overrides>
+    <defined_values>
+        <value context="MOBEE">&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;lt;!-- Configuration file for filtered navigation --&amp;gt;&amp;lt;!-- For range values, lower bounds are inclusive, upper values are exclusive. --&amp;gt;&amp;lt;IntelligentBrowsing&amp;gt;&amp;lt;/IntelligentBrowsing&amp;gt;</value>
+        <value context="Kobee">&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;lt;!-- Configuration file for filtered navigation --&amp;gt;&amp;lt;!-- For range values, lower bounds are inclusive, upper values are exclusive. --&amp;gt;&amp;lt;IntelligentBrowsing&amp;gt;&amp;lt;/IntelligentBrowsing&amp;gt;</value>
+        <value context="searchbee">&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;lt;!-- Configuration file for filtered navigation --&amp;gt;&amp;lt;!-- For range values, lower bounds are inclusive, upper values are exclusive. --&amp;gt;&amp;lt;IntelligentBrowsing&amp;gt;&amp;lt;/IntelligentBrowsing&amp;gt;</value>
+		<value context="tokenee">&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;lt;!-- Configuration file for filtered navigation --&amp;gt;&amp;lt;!-- For range values, lower bounds are inclusive, upper values are exclusive. --&amp;gt;&amp;lt;IntelligentBrowsing&amp;gt;&amp;lt;/IntelligentBrowsing&amp;gt;</value>
+    </defined_values>
+    <setting_metadata>
+        <value key="environmentSpecific">false</value>
+        <value key="apiRefreshStrategy">interval:timeout=COMMERCE/Cache/Cache_2</value>
+    </setting_metadata>
+</configuration_setting>
+
+<configuration_setting>
+    <name_space>COMMERCE/STORE/ADVANCEDSEARCH/advancedSearchConfiguration</name_space>
+    <description>This xml file is used to control the configuration of the storefront advanced search on a per store basis. By providing the appropriate configuration search fields and values can be specified.</description>
+    <default_value type="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!-- Configuration file for advanced search --&gt;&lt;!-- For range values, lower bounds are inclusive, upper values are exclusive. --&gt;&lt;IntelligentBrowsing&gt;&lt;/IntelligentBrowsing&gt;</default_value>
+    <max_overrides>-1</max_overrides>
+    <defined_values>
+        <value context="MOBEE">&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;lt;!-- Configuration file for advanced search --&amp;gt;&amp;lt;!-- For range values, lower bounds are inclusive, upper values are exclusive. --&amp;gt;&amp;lt;IntelligentBrowsing&amp;gt;&amp;lt;/IntelligentBrowsing&amp;gt;</value>
+        <value context="Kobee">&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;lt;!-- Configuration file for advanced search --&amp;gt;&amp;lt;!-- For range values, lower bounds are inclusive, upper values are exclusive. --&amp;gt;&amp;lt;IntelligentBrowsing&amp;gt;&amp;lt;/IntelligentBrowsing&amp;gt;</value>
+        <value context="searchbee">&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;lt;!-- Configuration file for advanced search --&amp;gt;&amp;lt;!-- For range values, lower bounds are inclusive, upper values are exclusive. --&amp;gt;&amp;lt;IntelligentBrowsing&amp;gt;&amp;lt;/IntelligentBrowsing&amp;gt;</value>
+        <value context="tokenee">&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;&amp;lt;!-- Configuration file for advanced search --&amp;gt;&amp;lt;!-- For range values, lower bounds are inclusive, upper values are exclusive. --&amp;gt;&amp;lt;IntelligentBrowsing&amp;gt;&amp;lt;/IntelligentBrowsing&amp;gt;</value>
+    </defined_values>
+    <setting_metadata>
+        <value key="environmentSpecific">false</value>
+        <value key="apiRefreshStrategy">interval:timeout=COMMERCE/Cache/Cache_2</value>
+    </setting_metadata>
+</configuration_setting>
+
+<configuration_setting>
+	<name_space>COMMERCE/STORE/SEARCH/showBundlesFirst</name_space>
+	<description>Set to true to display product bundles before other products in storefront search results.</description>
+	<default_value type="Boolean">true</default_value>
+	<max_overrides>-1</max_overrides>
+	<defined_values>
+		<value context="MOBEE">false</value>
+	</defined_values>
+	<setting_metadata>
+		<value key="apiRefreshStrategy">interval:timeout=COMMERCE/Cache/Cache_1</value>
+		<value key="availableToMarketing">true</value>
+	</setting_metadata>
+</configuration_setting>
+
+<configuration_setting>
+    <name_space>COMMERCE/STORE/listPagination</name_space>
+    <description>The maximum number of list elements per page that the API resource will return for paginated objects.</description>
+    <default_value type="Integer">20</default_value>
+    <max_overrides>-1</max_overrides>
+    <defined_values>
+        <value context="MOBEE">5</value>
+        <value context="searchbee">5</value>
+        <value context="Kobee">0</value>
+		<value context="toastie">20</value>
+    </defined_values>
+    <setting_metadata/>
+</configuration_setting>
+
+<configuration_setting>
+	<name_space>COMMERCE/STORE/enableDataPolicies</name_space>
+	<description>Set to true if data policies are enabled for the store.</description>
+	<default_value type="Boolean">false</default_value>
+	<max_overrides>-1</max_overrides>
+	<defined_values>
+		<value context="MOBEE">true</value>
+	</defined_values>
+	<setting_metadata/>
+</configuration_setting>
+</system_configuration>

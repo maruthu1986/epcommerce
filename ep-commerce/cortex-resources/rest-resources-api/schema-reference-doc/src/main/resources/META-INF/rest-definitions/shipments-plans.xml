@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>shipments</name>
+		<plan>
+			<name>read-shipments-for-purchase</name>
+			<description><![CDATA[Retrieve the shipments associated with a purchase.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from a purchase to a list of shipments.]]></description>
+				<start>purchases.purchase</start>
+				<follow-link>shipments</follow-link>
+				<result>shipments</result>
+			</step>
+			<step>
+				<description><![CDATA[Follow a link from a list of shipments to a shipment.]]></description>
+				<start>shipments</start>
+				<follow-link>element</follow-link>
+				<result>shipment</result>
+			</step>
+		</plan>
+
+	</family>
+
+</definitions>

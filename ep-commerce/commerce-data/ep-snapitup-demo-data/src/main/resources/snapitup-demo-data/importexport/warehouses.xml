@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<warehouses>
+<warehouse code="UKWarehouse">
+    <name>UK Warehouse</name>
+    <pick_delay>120</pick_delay>
+    <street1>8 Ravenhurst Court</street1>
+	<street2>Birchwood</street2>
+    <city>Warrington</city>
+    <sub_country></sub_country>
+    <zip_postal_code>WA3 6PN</zip_postal_code>
+    <country>GB</country>
+</warehouse>
+
+<warehouse code="USWarehouse1">
+    <name>Warehouse_US</name>
+    <pick_delay>120</pick_delay>
+    <street1>7180 Placid Street</street1>
+    <city>Las Vegas</city>
+    <sub_country>NV</sub_country>
+    <zip_postal_code>89119</zip_postal_code>
+    <country>US</country>
+</warehouse>
+</warehouses>

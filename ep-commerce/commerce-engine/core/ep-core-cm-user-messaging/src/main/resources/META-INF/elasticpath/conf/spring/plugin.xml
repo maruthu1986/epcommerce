@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:camel="http://camel.apache.org/schema/spring"
+	xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+				http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+		">
+
+	<camel:camelContext id="ep-cm-user-messaging" xmlns="http://camel.apache.org/schema/spring" threadNamePattern="Camel (#camelId#) thread ##counter#">
+		<routeBuilder ref="cmUserEventBuilder" />
+		<endpoint id="cmUserEventInternalEndpoint" uri="direct:ep.cmusers" />
+	</camel:camelContext>
+
+	<bean name="ep-cm-user-messaging:beanPostProcessor" class="com.elasticpath.messaging.impl.FastCamelBeanPostProcessor">
+		<property name="annotatedClassList" ref="camelAnnotatedClassList"/>
+		<property name="camelId" value="ep-cm-user-messaging"/>
+	</bean>
+
+	<!-- This explicitly creates a Camel Proxy (http://camel.apache.org/using-camelproxy.html). -->
+	<!-- This works around a known defect; see https://issues.apache.org/jira/browse/CAMEL-5956. -->
+	<!-- Once that defect is resolved, this bean can be substituted by an XML declaration as per the documentation. -->
+	<bean id="cmUserEventMessagePublisher" class="org.apache.camel.component.bean.PojoProxyHelper" factory-method="createProxy">
+		<constructor-arg ref="cmUserEventInternalEndpoint" />
+		<constructor-arg>
+			<util:list>
+				<value>com.elasticpath.messaging.EventMessagePublisher</value>
+			</util:list>
+		</constructor-arg>
+	</bean>
+
+	<!-- This is marked abstract; child beans should supply a value for the 'camelContextId' field.
+
+	If this is not set, the endpoints are shared between Camel contexts, which is rarely the desired result.
+
+	Consider a case where one Camel context is responsible for publishing to an endpoint, and another (perhaps multiple) context(s)
+	consume from the same endpoint.  In this scenario, the publishing context would 'own' the endpoint, and would inherit the consumers' routes.
+	The routes will appear to function correctly, but will make testing very difficult (NotifyBuilders that inspect the endpoint will fail to
+	work, since they are bound to a particular context), and will result in confusing logging wherever the Camel context name is included in the log
+	message.
+	-->
+	<bean id="cmUserEventExternalEndpoint" class="com.elasticpath.messaging.camel.SettingValueBackedCamelEndpointFactoryBean" abstract="true">
+		<property name="path" value="COMMERCE/SYSTEM/MESSAGING/CMUSERS/channelUri" />
+		<property name="settingsReader" ref="settingsReader"/>
+	</bean>
+
+	<!-- Concrete bean to facilitate testing.  Used in cmUserEventBuilder; should not be used in other routes. -->
+	<bean id="epCmUserMessagingCmUserEventExternalEndpoint" parent="cmUserEventExternalEndpoint">
+		<property name="camelContextId" value="ep-cm-user-messaging" />
+	</bean>
+
+	<bean id="cmUserEventBuilder" class="com.elasticpath.messaging.camel.EventRouteBuilder">
+		<property name="incomingEndpoint" ref="cmUserEventInternalEndpoint" />
+		<property name="outgoingEndpoint" ref="epCmUserMessagingCmUserEventExternalEndpoint" />
+		<property name="eventMessageDataFormat" ref="eventMessageDataFormat" />
+	</bean>
+
+	<bean id="cmUserEventTypeProvider" class="com.elasticpath.messaging.spi.impl.EventTypeProviderImpl">
+		<property name="eventTypeClass" value="com.elasticpath.core.messaging.cmuser.CmUserEventType"/>
+		<property name="eventTypeLookup">
+			<bean class="com.elasticpath.core.messaging.cmuser.CmUserEventType$CmUserEventTypeLookup"/>
+		</property>
+	</bean>
+
+	<bean id="cmUserCreatedEventTypePredicate" class="com.elasticpath.messaging.predicate.impl.CompatibleEventTypePredicate">
+		<property name="compatibleEventTypes">
+			<util:list>
+				<util:constant static-field="com.elasticpath.core.messaging.cmuser.CmUserEventType.CM_USER_CREATED" />
+			</util:list>
+		</property>
+	</bean>
+
+	<bean id="cmUserPasswordResetEventTypePredicate" class="com.elasticpath.messaging.predicate.impl.CompatibleEventTypePredicate">
+		<property name="compatibleEventTypes">
+			<util:list>
+				<util:constant static-field="com.elasticpath.core.messaging.cmuser.CmUserEventType.PASSWORD_RESET" />
+			</util:list>
+		</property>
+	</bean>
+	
+	<bean id="cmUserPasswordChangedEventTypePredicate" class="com.elasticpath.messaging.predicate.impl.CompatibleEventTypePredicate">
+		<property name="compatibleEventTypes">
+			<util:list>
+				<util:constant static-field="com.elasticpath.core.messaging.cmuser.CmUserEventType.PASSWORD_CHANGED" />
+			</util:list>
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>promotions</name>
+		<description>
+			<![CDATA[
+Promotions are incentives offered to shoppers to promote the purchase of [items][items] in a store. A store’s marketer creates promotions
+and defines a set of conditions that must be met before the promotion is applied to a given shopper. Promotions may trigger discounts or
+may trigger other incentives such as free [items][items]. When a promotion triggers a discount, the discounts are automatically applied to
+the item price, cart line item price, shipping option cost, line items total, cart total, and the order [total][totals].
+
+Promotions are linked to a number of different resources:
+
+* [Promotions][promotions] - The promotions resource provides a list of all the promotions available for the store.
+* [Items][items] - Promotions are linked to items when a promotion exists for that item and the shopper is eligible to receive the promotion.
+* [Carts][carts] - Promotions are linked to carts when the contents of the shopper’s cart meet the conditions of the promotion.
+* Cart line items - Promotions are linked to cart line items when the line item meets the conditions of the promotion.
+* Shipping options - Promotions are linked to shipping options on an order shipment when the option meets the conditions of the promotion.
+* [Purchases][purchases] - Promotions are linked to purchases when the purchase had promotions applied to it.
+* [Coupons][coupons] - Promotion are linked to a coupon when the coupon triggered the promotions to apply.
+
+[orderdeliveries]: #order-deliveries
+[coupons]: #coupons
+			]]>
+		</description>
+
+		<uri-part>
+			<name>promotion-id</name>
+			<description><![CDATA[The promotion ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>promotion</name>
+			<description><![CDATA[A promotion.]]></description>
+			<uri>{base.family}/{base.scope}/{promotion-id}</uri>
+			<entity>promotion</entity>
+		</resource>
+
+		<!-- Lineitem -->
+		<resource>
+			<name>applied-promotions-for-cart-line-item</name>
+			<description><![CDATA[A list of promotions applied to a cart line item.]]></description>
+			<uri>{base.family}/{carts.line-item}/applied</uri>
+			<list-of>promotion</list-of>
+		</resource>
+
+		<relationship>
+			<name>applied-promotions-for-cart-line-item</name>
+			<description><![CDATA[Retrieve the promotions applied to a cart line item.]]></description>
+			<rel>appliedpromotions</rel>
+			<rev>lineitem</rev>
+			<from>carts.line-item</from>
+			<to>applied-promotions-for-cart-line-item</to>
+		</relationship>
+
+		<!-- Cart -->
+		<resource>
+			<name>possible-promotions-for-cart</name>
+			<description><![CDATA[A list of promotions possible for a cart.]]></description>
+			<uri>{base.family}/{carts.cart}/possible</uri>
+			<list-of>promotion</list-of>
+		</resource>
+
+		<resource>
+			<name>applied-promotions-for-cart</name>
+			<description><![CDATA[A list of promotions applied to a cart.]]></description>
+			<uri>{base.family}/{carts.cart}/applied</uri>
+			<list-of>promotion</list-of>
+		</resource>
+
+		<relationship>
+			<name>applied-promotions-for-cart</name>
+			<description><![CDATA[Retrieve promotions applied to a cart]]></description>
+			<rel>appliedpromotions</rel>
+			<rev>cart</rev>
+			<from>carts.cart</from>
+			<to>applied-promotions-for-cart</to>
+		</relationship>
+
+		<relationship>
+			<name>possible-promotions-for-cart</name>
+			<description><![CDATA[Retrieve possible promotions for a cart.]]></description>
+			<rel>possiblepromotions</rel>
+			<rev>cart</rev>
+			<from>carts.cart</from>
+			<to>possible-promotions-for-cart</to>
+		</relationship>
+
+		<!-- Purchase -->
+		<resource>
+			<name>purchase-promotion</name>
+			<description><![CDATA[A list of promotions applied for a purchase.]]></description>
+			<uri>{base.family}/{purchases.purchase}/{promotion-id}</uri>
+			<entity>promotion</entity>
+		</resource>
+
+		<resource>
+			<name>applied-promotions-for-purchase</name>
+			<description><![CDATA[A list of promotions applied for a purchase.]]></description>
+			<uri>{base.family}/{purchases.purchase}/applied</uri>
+			<list-of>purchase-promotion</list-of>
+		</resource>
+
+		<relationship>
+			<name>applied-promotions-for-purchase</name>
+			<description><![CDATA[Retrieve promotions applied to a purchase.]]></description>
+			<rel>appliedpromotions</rel>
+			<rev>purchase</rev>
+			<from>purchases.purchase</from>
+			<to>applied-promotions-for-purchase</to>
+		</relationship>
+
+		<!-- Item -->
+		<resource>
+			<name>applied-promotions-for-item</name>
+			<description><![CDATA[A list of promotions applied to an item.]]></description>
+			<uri>{base.family}/{items.item}/applied</uri>
+			<list-of>promotion</list-of>
+		</resource>
+
+		<resource>
+			<name>possible-promotions-for-item</name>
+			<description><![CDATA[A list of promotions possible for an item.]]></description>
+			<uri>{base.family}/{items.item}/possible</uri>
+			<list-of>promotion</list-of>
+		</resource>
+
+		<relationship>
+			<name>applied-promotions-for-item</name>
+			<description><![CDATA[Retrieve promotions applied to an item.]]></description>
+			<rel>appliedpromotions</rel>
+			<rev>item</rev>
+			<from>items.item</from>
+			<to>applied-promotions-for-item</to>
+		</relationship>
+
+		<relationship>
+			<name>possible-promotions-for-item</name>
+			<description><![CDATA[Retrieve possible promotions for an item.]]></description>
+			<rel>possiblepromotions</rel>
+			<rev>item</rev>
+			<from>items.item</from>
+			<to>possible-promotions-for-item</to>
+		</relationship>
+
+		<!-- Shipping -->
+		<resource>
+			<name>applied-promotions-for-shipping-option</name>
+			<description><![CDATA[A list of promotions applied to a shipping option.]]></description>
+			<uri>{base.family}/{shipmentdetails.shipping-option}/applied</uri>
+			<list-of>promotion</list-of>
+		</resource>
+
+		<relationship>
+			<name>applied-promotions-for-shipping-option</name>
+			<description><![CDATA[Retrieve promotions applied to a shipping option.]]></description>
+			<rel>appliedpromotions</rel>
+			<rev>shippingoption</rev>
+			<from>shipmentdetails.shipping-option</from>
+			<to>applied-promotions-for-shipping-option</to>
+		</relationship>
+
+		<!-- Coupon -->
+
+		<resource>
+			<name>applied-promotions-for-order-coupon</name>
+			<description><![CDATA[A list of promotions applied to a coupon.]]></description>
+			<uri>{base.family}/{coupons.order-coupon}/applied</uri>
+			<list-of>promotion</list-of>
+		</resource>
+
+		<relationship>
+			<name>promotion-for-order-coupon</name>
+			<description><![CDATA[Retrieve a promotion trigged by a coupon on an order.]]></description>
+			<rel>appliedpromotions</rel>
+			<rev>coupon</rev>
+			<from>coupons.order-coupon</from>
+			<to>applied-promotions-for-order-coupon</to>
+		</relationship>
+
+		<resource>
+			<name>purchase-coupon-promotion</name>
+			<description><![CDATA[A list of promotions applied to a coupon.]]></description>
+			<uri>{base.family}/{coupons.purchase-coupon}/{promotion-id}</uri>
+			<entity>promotion</entity>
+		</resource>
+
+		<resource>
+			<name>applied-promotions-for-purchase-coupon</name>
+			<description><![CDATA[A list of promotions applied to a coupon.]]></description>
+			<uri>{base.family}/{coupons.purchase-coupon}/applied</uri>
+			<list-of>purchase-coupon-promotion</list-of>
+		</resource>
+
+		<relationship>
+			<name>promotion-for-purchase-coupon</name>
+			<description><![CDATA[Retrieve a promotion trigged by a coupon on a purchase.]]></description>
+			<rel>appliedpromotions</rel>
+			<rev>coupon</rev>
+			<from>coupons.purchase-coupon</from>
+			<to>applied-promotions-for-purchase-coupon</to>
+		</relationship>
+
+		<entity>
+			<name>promotion</name>
+			<description><![CDATA[A promotion representation]]></description>
+			<property>
+				<name>promotion-id</name>
+				<description><![CDATA[The internal promotion identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>name</name>
+				<description><![CDATA[The promotion identifier.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[The promotion's localized name, intended for display in the client application.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>display-description</name>
+				<description><![CDATA[The promotion's localized marketing description, intended for display in the client application.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>display-conditions</name>
+				<description><![CDATA[The promotion's localized terms and conditions, intended for display in the client application.]]></description>
+				<string/>
+			</property>
+			<entity-type>promotions.promotion</entity-type>
+		</entity>
+	</family>
+</definitions>

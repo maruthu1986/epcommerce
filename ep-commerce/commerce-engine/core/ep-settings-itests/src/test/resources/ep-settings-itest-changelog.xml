@@ -1,0 +1,100 @@
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+	<changeSet id="insert-setting-definitions-for-itests" author="ep-settings-itests">
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" value="2000" />
+			<column name="PATH" value="COMMERCE/ITEST/SETTINGS/sampleStringSetting" />
+			<column name="DEFAULT_VALUE" value="Expected value" />
+			<column name="VALUE_TYPE" value="String" />
+			<column name="DESCRIPTION" value="Sample String Setting value for use within Settings integration tests" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+		</insert>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" value="2001" />
+			<column name="PATH" value="COMMERCE/ITEST/SETTINGS/sampleIntegerSetting" />
+			<column name="DEFAULT_VALUE" value="123" />
+			<column name="VALUE_TYPE" value="Integer" />
+			<column name="DESCRIPTION" value="Sample Integer Setting value for use within Settings integration tests" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+		</insert>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" value="2002" />
+			<column name="PATH" value="COMMERCE/ITEST/SETTINGS/sampleBooleanSetting" />
+			<column name="DEFAULT_VALUE" value="true" />
+			<column name="VALUE_TYPE" value="Boolean" />
+			<column name="DESCRIPTION" value="Sample boolean Setting value for use within Settings integration tests" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+		</insert>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" value="2003" />
+			<column name="PATH" value="COMMERCE/ITEST/SETTINGS/sampleCollectionSetting" />
+			<column name="DEFAULT_VALUE" value="VAL1,VAL2,VAL3" />
+			<column name="VALUE_TYPE" value="Collection" />
+			<column name="DESCRIPTION" value="Sample Collection Setting value for use within Settings integration tests" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+		</insert>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" value="2004" />
+			<column name="PATH" value="COMMERCE/ITEST/SETTINGS/sampleMapSetting" />
+			<column name="DEFAULT_VALUE" value="KEY1=VAL1,KEY2=VAL2,KEY3=VAL3" />
+			<column name="VALUE_TYPE" value="Map" />
+			<column name="DESCRIPTION" value="Sample Map Setting value for use within Settings integration tests" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+		</insert>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" value="2005" />
+			<column name="PATH" value="COMMERCE/ITEST/SETTINGS/sampleBigDecimalSetting" />
+			<column name="DEFAULT_VALUE" value="123.4" />
+			<column name="VALUE_TYPE" value="BigDecimal" />
+			<column name="DESCRIPTION" value="Sample BigDecimal Setting value for use within Settings integration tests" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+		</insert>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" value="2006" />
+			<column name="PATH" value="COMMERCE/ITEST/SETTINGS/sampleUrlSetting" />
+			<column name="DEFAULT_VALUE" value="http://domain:1234/path" />
+			<column name="VALUE_TYPE" value="url" />
+			<column name="DESCRIPTION" value="Sample Url Setting value for use within Settings integration tests" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+		</insert>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" value="2007" />
+			<column name="PATH" value="COMMERCE/ITEST/SETTINGS/sampleXmlSetting" />
+			<column name="DEFAULT_VALUE"><![CDATA[<?xml version="1.0" encoding="UTF-8"?><xmldocument><name>Sample XML for testing</name></xmldocument>]]></column>
+			<column name="VALUE_TYPE" value="url" />
+			<column name="DESCRIPTION" value="Sample xml Setting value for use within Settings integration tests" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+		</insert>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" value="2008" />
+			<column name="PATH" value="COMMERCE/ITEST/SETTINGS/sampleContextualSetting" />
+			<column name="DEFAULT_VALUE" value="Default value" />
+			<column name="VALUE_TYPE" value="String" />
+			<column name="DESCRIPTION" value="Sample contextual Setting value for use within Settings integration tests" />
+			<column name="MAX_OVERRIDE_VALUES" value="-1" />
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="2000" />
+			<column name="SETTING_DEFINITION_UID" value="2008"/>
+			<column name="CONTEXT" value="CONTEXT1" />
+			<column name="CONTEXT_VALUE" value="Context value 1" />
+		</insert>
+		<insert tableName="TSETTINGVALUE">
+			<column name="UIDPK" value="2001" />
+			<column name="SETTING_DEFINITION_UID" value="2008"/>
+			<column name="CONTEXT" value="CONTEXT2" />
+			<column name="CONTEXT_VALUE" value="Context value 2" />
+		</insert>
+		<rollback>
+			<![CDATA[
+				delete from TSETTINGDEFINITION where UIDPK >= 2000 and UIDPK <= 2008;
+				delete from TSETTINGVALUE where UIDPK >= 2000 and UIDPK <= 2001;
+			]]>
+		</rollback>
+	</changeSet>
+
+</databaseChangeLog>

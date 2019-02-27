@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>orders</name>
+		<plan>
+			<name>billingaddress-info-selector</name>
+			<description>
+				<![CDATA[
+Use a selector to select the billing address to use for the purchase. Follow the workflow to read the billing address info
+and then create a choice to select the billing address to use for the purchase.
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Retrieve the selector.]]></description>
+				<start>billingaddress-info</start>
+				<follow-link>selector</follow-link>
+				<link-back>billingaddressinfo</link-back>
+				<result>billingaddress-info-selector</result>
+			</step>
+			<step>
+				<description><![CDATA[Retrieve a choice.]]></description>
+				<start>billingaddress-info-selector</start>
+				<follow-link>choice</follow-link>
+				<link-back>selector</link-back>
+				<result>billingaddress-info-selector-choice</result>
+			</step>
+			<step>
+				<description><![CDATA[Retrieve a selected choice, if any.]]></description>
+				<start>billingaddress-info-selector</start>
+				<follow-link>chosen</follow-link>
+				<link-back>selector</link-back>
+				<result>billingaddress-info-selector-choice</result>
+			</step>
+			<step>
+				<description><![CDATA[Retrieve a choice's description.]]></description>
+				<start>billingaddress-info-selector-choice</start>
+				<follow-link>description</follow-link>
+				<result>addresses.address</result>
+			</step>
+			<step>
+				<description><![CDATA[Select a choice.]]></description>
+				<start>billingaddress-info-selector-choice</start>
+				<submit/>
+				<to>billingaddress-info-selector-choice</to>
+				<via-link>selectaction</via-link>
+				<result>addresses.address</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-billing-address</name>
+			<description><![CDATA[Read the currently selected billingaddress for the order.]]></description>
+			<step>
+				<description><![CDATA[Read billing address info from an order.]]></description>
+				<start>order</start>
+				<follow-link>billingaddressinfo</follow-link>
+				<link-back>order</link-back>
+				<result>billingaddress-info</result>
+			</step>
+			<step>
+				<description><![CDATA[Read address from billing address info.]]></description>
+				<start>billingaddress-info</start>
+				<follow-link>billingaddress</follow-link>
+				<result>addresses.address</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-billingaddress-needinfo-from-order</name>
+			<description><![CDATA[When a billingaddress needinfo appears on the order, it means
+			the billingaddress has not been selected for the purchase.
+			Follow the workflow to read the billingaddress needinfo.]]></description>
+			<step>
+				<description><![CDATA[Read billingaddress needinfo from order.]]></description>
+				<start>order</start>
+				<follow-link>needinfo</follow-link>
+				<result>billingaddress-info</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-billingaddress-needinfo-from-purchaseform</name>
+			<description><![CDATA[Read billingaddress needinfo.]]></description>
+			<step>
+				<description><![CDATA[Read billingaddress needinfo from purchaseform.]]></description>
+				<start>purchases.create-purchase-form</start>
+				<follow-link>needinfo</follow-link>
+				<result>billingaddress-info</result>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

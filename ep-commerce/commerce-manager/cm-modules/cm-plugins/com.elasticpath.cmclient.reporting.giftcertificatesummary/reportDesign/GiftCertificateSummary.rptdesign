@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.14" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 1.0.1 Build &lt;20051130-1157></property>
+    <property name="units">in</property>
+    <text-property name="title">Registration</text-property>
+    <property name="comments">Copyright (c) 2006 &lt;&lt;Your Company Name here>></property>
+    <property name="layoutPreference">auto layout</property>
+    <parameters>
+        <scalar-parameter name="store" id="489">
+            <text-property name="promptText">store</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">string</property>
+            <property name="defaultValue">""</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="startDate" id="490">
+            <text-property name="promptText">startDate</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">dateTime</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Long Date</property>
+                <property name="pattern">Long Date</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="endDate" id="491">
+            <text-property name="promptText">endDate</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">dateTime</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Long Date</property>
+                <property name="pattern">Long Date</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="currenciesNames" id="687">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <property name="distinct">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="EPScriptedDataSource" id="43"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Gift Certificate Summary Dataset" id="660">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">Store Name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">Currency</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">Initial Balance</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">Outstanding Balance</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">Store Name</property>
+                    <property name="displayName">Store Name</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Currency</property>
+                    <property name="displayName">Currency</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Initial Balance</property>
+                    <property name="displayName">Initial Balance</property>
+                </structure>
+                <structure>
+                    <property name="columnName">Outstanding Balance</property>
+                    <property name="displayName">Outstanding Balance</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">Store Name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">Currency</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">Initial Balance</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">Outstanding Balance</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">EPScriptedDataSource</property>
+            <method name="open"><![CDATA[giftCertificateSummaryReportService = new Packages.com.elasticpath.cmclient.reporting.giftcertificatesummary.service.impl.GiftCertificateSummaryServiceImpl;
+
+gcsummaries = giftCertificateSummaryReportService.giftCertificateData();
+// java.lang.System.out.println(gcsummaries);
+
+totalRows = gcsummaries.size();
+
+lastStoreName = "";
+currentRow = 0;]]></method>
+            <method name="fetch"><![CDATA[if (currentRow >= totalRows) {
+    return false;
+}
+
+var gcsummary = gcsummaries.get(currentRow);
+
+if (lastStoreName != "" && !lastStoreName.equals(gcsummary[0])) {
+	row["Store Name"] = "";
+	row["Currency"] = "";
+	row["Initial Balance"] = null;
+	row["Outstanding Balance"] = null;
+	lastStoreName = "";
+} else {
+	currentRow++;
+	row["Store Name"] = gcsummary[0];
+//	java.lang.System.out.println(gcsummary[0]);
+	row["Currency"] = gcsummary[1];
+//	java.lang.System.out.println(gcsummary[1]);
+	row["Initial Balance"] = gcsummary[2];
+//	java.lang.System.out.println(gcsummary[2]);
+	row["Outstanding Balance"] = gcsummary[3];
+//	java.lang.System.out.println(gcsummary[3]);
+	lastStoreName = gcsummary[0];
+}
+return true;]]></method>
+            <method name="close"><![CDATA[giftCertificateSummaryReportService = null;
+gcsummaries = null;
+
+totalRows = null;
+currentRow = null;]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="tableBorder" id="531">
+            <property name="borderBottomColor">#4F81BD</property>
+            <property name="borderLeftColor">#4F81BD</property>
+            <property name="borderRightColor">#4F81BD</property>
+            <property name="borderTopColor">#4F81BD</property>
+        </style>
+        <style name="HederRow" id="532">
+            <property name="backgroundColor">#4F81BD</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontWeight">bold</property>
+            <property name="color">#FFFFFF</property>
+        </style>
+        <style name="firstLevelGroup" id="533">
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+            <property name="fontWeight">bold</property>
+        </style>
+        <style name="secondLevelGroup" id="534">
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+            <property name="fontWeight">normal</property>
+            <property name="fontStyle">italic</property>
+        </style>
+        <style name="columnHeader" id="535">
+            <property name="backgroundColor">#DBE5F1</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+            <property name="fontWeight">bold</property>
+        </style>
+        <style name="dataRow" id="536">
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+        </style>
+        <style name="highlight" id="573">
+            <property name="backgroundColor">#DBE5F1</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">custom</property>
+            <property name="height">15in</property>
+            <property name="width">11.5in</property>
+            <property name="orientation">portrait</property>
+            <property name="topMargin">1in</property>
+            <property name="leftMargin">1.25in</property>
+            <property name="bottomMargin">1in</property>
+            <property name="rightMargin">1.25in</property>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="4">
+            <property name="style">tableBorder</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="width">100%</property>
+            <column id="5"/>
+            <row id="6">
+                <cell id="7">
+                    <text id="10">
+                        <property name="style">HederRow</property>
+                        <property name="fontFamily">"Arial"</property>
+                        <property name="paddingLeft">5pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[Gift Certificate Summary Report for <VALUE-OF>params["store"]</VALUE-OF><BR>
+(<VALUE-OF>params["startDate"]</VALUE-OF> - <VALUE-OF>params["endDate"]</VALUE-OF>; <VALUE-OF>params["currenciesNames"]</VALUE-OF>)]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="8">
+                <cell id="9">
+                    <table id="11">
+                        <property name="marginTop">0pt</property>
+                        <property name="height">2.2395833333in</property>
+                        <property name="width">100%</property>
+                        <property name="dataSet">Gift Certificate Summary Dataset</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">Store Name</property>
+                                <expression name="expression">dataSetRow["Store Name"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Currency</property>
+                                <expression name="expression">dataSetRow["Currency"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Initial Balance</property>
+                                <expression name="expression">dataSetRow["Initial Balance"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                            <structure>
+                                <property name="name">Outstanding Balance</property>
+                                <expression name="expression">dataSetRow["Outstanding Balance"]</expression>
+                                <property name="dataType">any</property>
+                            </structure>
+                        </list-property>
+                        <property name="pageBreakInterval">50</property>
+                        <column id="36">
+                            <property name="width">1.4583333333333333in</property>
+                        </column>
+                        <column id="40">
+                            <property name="width">0.6145833333333334in</property>
+                        </column>
+                        <column id="392">
+                            <property name="width">30mm</property>
+                        </column>
+                        <column id="41">
+                            <property name="width">30mm</property>
+                        </column>
+                        <header>
+                            <row id="688">
+                                <property name="height">30px</property>
+                                <cell id="689">
+                                    <label id="696">
+                                        <text-property name="text">Store Name</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="693">
+                                    <label id="700">
+                                        <text-property name="text">Currency</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="694">
+                                	<property name="textAlign">right</property>
+                                    <label id="701">
+                                        <text-property name="text">Initial Balance</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="695">
+                                	<property name="textAlign">right</property>
+                                    <label id="702">
+                                        <text-property name="text">Outstanding Balance</text-property>
+                                    </label>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="20">
+                                <property name="height">20px</property>
+                                <property name="style">dataRow</property>
+                                <list-property name="highlightRules">
+                                    <structure>
+                                        <property name="operator">eq</property>
+                                        <expression name="testExpr">row["__rownum"] % 2</expression>
+                                        <expression name="value1">0</expression>
+                                        <property name="style">highlight</property>
+                                    </structure>
+                                </list-property>
+                                <cell id="21">
+                                    <data id="663">
+                                        <property name="resultSetColumn">Store Name</property>
+                                    </data>
+                                </cell>
+                                <cell id="25">
+                                    <data id="667">
+                                        <property name="resultSetColumn">Currency</property>
+                                    </data>
+                                </cell>
+                                <cell id="389">
+                                    <property name="textAlign">right</property>
+                                    <data id="668">
+                                        <structure name="numberFormat">
+                                            <property name="category">Fixed</property>
+                                            <property name="pattern">Fixed</property>
+                                        </structure>
+                                        <property name="resultSetColumn">Initial Balance</property>
+                                    </data>
+                                </cell>
+                                <cell id="26">
+                                    <property name="textAlign">right</property>
+                                    <data id="669">
+                                        <structure name="numberFormat">
+                                            <property name="category">Fixed</property>
+                                            <property name="pattern">Fixed</property>
+                                        </structure>
+                                        <property name="resultSetColumn">Outstanding Balance</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="28">
+                                <property name="height">0.28125in</property>
+                                <cell id="29"/>
+                                <cell id="33"/>
+                                <cell id="391"/>
+                                <cell id="34"/>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+            </row>
+        </grid>
+    </body>
+    <list-property name="images">
+        <structure>
+            <property name="name">icon-list.gif</property>
+            <property name="data">
+                R0lGODlhEAAOAOYAAAAAAP///4am6nqPvH+Tvombwi9iyDFlzTly4j5240B240Z75Ep9406B5FaG5ViH
+                5WWV82KO5mqZ9XGd9WyU526X53ei9n2n+Hab6Hqf6YSr+X+h6Yuw+oSl6Za5/Iuq6oOXwI6gxZSlx5qq
+                yqCvzaa0z7G91JC1+5q9/Z/A/qLC/6u50rXB1rrF2NLX4LzS9qe728LW9qO0z7PD3Ku50LvI3b3I2tvn
+                +sDK2+Ps+8rS3+zy/K2/28nb96OyyKe2zNLh+LbB0cPO3/P3/TVJY5Oit5alup6uw5qpvtjc4fn7/f7+
+                /v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAEwALAAAAAAQAA4AAAebgEwf
+                gx8CGxgUEQ8NCwkITIIqKSgeJxwaFxYTEhAHkIQdGRURDgwKCKgGkD9Lra6tSkM7OUSQPks4ODZLLCYr
+                QyQjQbVMR6+wsjk3w5BISzYtLEsrJSQ5IiHMTEavsbM3QD00xEW8vsAjIkAFIDLkyN/hMS/ukOXU1tgF
+                MQQD9UxFlCRxoUNIjRk8YCj8V4SIw4cQH0KaSLHixEAAOw==
+            </property>
+        </structure>
+    </list-property>
+</report>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) Elastic Path Software Inc., 2017
+  -->
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+				   logicalFilePath="com/elasticpath/core/db/core-changelog-7.2.0.xml">
+
+	<changeSet id="7.2.0-add-creation-date-to-customer-profile-value-table" author="elasticpath">
+		<comment>[PB-3410] Add Created Date to Customer Profile Value</comment>
+
+		<addColumn tableName="TCUSTOMERPROFILEVALUE">
+			<column name="CREATION_DATE" defaultValueDate="CURRENT_TIMESTAMP" type="TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<sql>
+			UPDATE TCUSTOMERPROFILEVALUE SET TCUSTOMERPROFILEVALUE.CREATION_DATE = (SELECT CREATION_DATE FROM TCUSTOMER cust WHERE cust.UIDPK = TCUSTOMERPROFILEVALUE.CUSTOMER_UID)
+		</sql>
+	</changeSet>
+
+	<changeSet id="7.2.0-add-data-policy-related-tables" author="elasticpath">
+		<comment>[PB-3414] Data Policy Domain and Service support</comment>
+
+		<createTable tableName="TDATAPOINT">
+			<column name="UIDPK" type="BIGINT">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="GUID" type="VARCHAR(255)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="NAME" type="VARCHAR(255)">
+				<constraints nullable="false"  unique="true"/>
+			</column>
+			<column name="DATA_LOCATION" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="DATA_KEY" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="DESCRIPTION_KEY" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="REMOVABLE" type="TINYINT">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<addUniqueConstraint tableName="TDATAPOINT" columnNames="DATA_LOCATION,DATA_KEY"/>
+
+		<insert tableName="JPA_GENERATED_KEYS">
+			<column name="ID" value="TDATAPOINT"/>
+			<column name="LAST_VALUE" valueNumeric="100000"/>
+		</insert>
+
+		<createTable tableName="TDATAPOLICY">
+			<column name="UIDPK" type="BIGINT">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="GUID" type="VARCHAR(255)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="POLICY_NAME" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="RETENTION_PERIOD" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="RETENTION_TYPE" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="START_DATE" defaultValueDate="CURRENT_TIMESTAMP" type="TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+			<column name="END_DATE" type="TIMESTAMP"/>
+			<column name="STATE" type="INT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(255)"/>
+			<column name="REFERENCE_KEY" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<insert tableName="JPA_GENERATED_KEYS">
+			<column name="ID" value="TDATAPOLICY"/>
+			<column name="LAST_VALUE" valueNumeric="100000"/>
+		</insert>
+
+		<createTable tableName="TDATAPOLICYDATAPOINT">
+			<column name="DATAPOLICY_UID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="DATAPOINT_UID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="TDATAPOLICYDATAPOINT_IBFK_1" baseTableName="TDATAPOLICYDATAPOINT" baseColumnNames="DATAPOLICY_UID"
+								 referencedTableName="TDATAPOLICY" referencedColumnNames="UIDPK"/>
+
+		<addForeignKeyConstraint constraintName="TDATAPOLICYDATAPOINT_IBFK_2" baseTableName="TDATAPOLICYDATAPOINT" baseColumnNames="DATAPOINT_UID"
+								 referencedTableName="TDATAPOINT" referencedColumnNames="UIDPK"/>
+
+		<addUniqueConstraint tableName="TDATAPOLICYDATAPOINT" columnNames="DATAPOLICY_UID,DATAPOINT_UID"/>
+
+		<createTable tableName="TCUSTOMERCONSENT">
+			<column name="UIDPK" type="BIGINT">
+				<constraints primaryKey="true"/>
+			</column>
+			<column name="GUID" type="VARCHAR(255)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="DATAPOLICY_UID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CUSTOMER_GUID" type="VARCHAR(64)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CONSENT_DATE" defaultValueDate="CURRENT_TIMESTAMP" type="TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+			<column name="ACTION" type="INT">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="TCUSTOMERCONSENT_IBFK_1" baseTableName="TCUSTOMERCONSENT" baseColumnNames="DATAPOLICY_UID"
+								 referencedTableName="TDATAPOLICY" referencedColumnNames="UIDPK"/>
+
+		<addForeignKeyConstraint constraintName="TCUSTOMERCONSENT_IBFK_2" baseTableName="TCUSTOMERCONSENT" baseColumnNames="CUSTOMER_GUID"
+								 referencedTableName="TCUSTOMER" referencedColumnNames="GUID"/>
+
+		<insert tableName="JPA_GENERATED_KEYS">
+			<column name="ID" value="TCUSTOMERCONSENT"/>
+			<column name="LAST_VALUE" valueNumeric="100000"/>
+		</insert>
+
+	</changeSet>
+
+	<changeSet id="7.2.0-add-creation-date-to-address-tables" author="elasticpath" context="expand">
+		<comment>[PB-3411] Add Created and Updated Dates to Address</comment>
+
+		<addColumn tableName="TADDRESS">
+			<column name="LAST_MODIFIED_DATE" defaultValueDate="CURRENT_TIMESTAMP" type="TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CREATION_DATE" defaultValueDate="CURRENT_TIMESTAMP" type="TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<addColumn tableName="TORDERADDRESS">
+			<column name="LAST_MODIFIED_DATE" defaultValueDate="CURRENT_TIMESTAMP" type="TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CREATION_DATE" defaultValueDate="CURRENT_TIMESTAMP" type="TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<sql>
+			UPDATE TADDRESS SET TADDRESS.CREATION_DATE = (SELECT CREATION_DATE FROM TCUSTOMER cust WHERE cust.UIDPK = TADDRESS.CUSTOMER_UID);
+		</sql>
+		<sql>
+			UPDATE TORDERADDRESS
+			SET TORDERADDRESS.CREATION_DATE = (SELECT CREATED_DATE FROM TORDER ord WHERE ord.ORDER_BILLING_ADDRESS_UID = TORDERADDRESS.UIDPK);
+		</sql>
+
+	</changeSet>
+
+	<changeSet id="7.2.0-add-creation-date-to-cart-item-and-order-data" author="elasticpath" context="expand">
+		<comment>[PB-3411] Add Created and Updated dates to OrderData and CartItem</comment>
+
+		<addColumn tableName="TORDERDATA">
+			<column name="LAST_MODIFIED_DATE" defaultValueDate="CURRENT_TIMESTAMP" type="TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CREATION_DATE" defaultValueDate="CURRENT_TIMESTAMP" type="TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<addColumn tableName="TCARTITEM">
+			<column name="CREATION_DATE" defaultValueDate="CURRENT_TIMESTAMP" type="TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<sql>
+			UPDATE TORDERDATA SET TORDERDATA.CREATION_DATE = (SELECT CREATED_DATE FROM TORDER o WHERE o.UIDPK = TORDERDATA.ORDER_UID);
+			UPDATE TORDERDATA SET TORDERDATA.LAST_MODIFIED_DATE = (SELECT LAST_MODIFIED_DATE FROM TORDER o WHERE o.UIDPK = TORDERDATA.ORDER_UID);
+		</sql>
+		<sql>
+			UPDATE TCARTITEM SET TCARTITEM.CREATION_DATE = TCARTITEM.LAST_MODIFIED_DATE;
+		</sql>
+
+	</changeSet>
+
+	<changeSet id="7.2.0-add-creation-date-to-shopping-item-data" author="elasticpath" context="expand">
+		<comment>[PB-3411] Add Created and Updated dates to Shopping Item Data</comment>
+
+		<addColumn tableName="TSHOPPINGITEMDATA">
+			<column name="LAST_MODIFIED_DATE" defaultValueDate="CURRENT_TIMESTAMP" type="TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CREATION_DATE" defaultValueDate="CURRENT_TIMESTAMP" type="TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<sql>
+			UPDATE TSHOPPINGITEMDATA SET TSHOPPINGITEMDATA.CREATION_DATE = (SELECT CREATION_DATE FROM TCARTITEM i WHERE i.UIDPK = TSHOPPINGITEMDATA.CARTITEM_UID);
+			UPDATE TSHOPPINGITEMDATA SET TSHOPPINGITEMDATA.LAST_MODIFIED_DATE = (SELECT LAST_MODIFIED_DATE FROM TCARTITEM i WHERE i.UIDPK = TSHOPPINGITEMDATA.CARTITEM_UID);
+		</sql>
+
+	</changeSet>
+	
+	<changeSet id="7.2.0-add-table-and-map-data-policies-to-data-policy-segments" author="elasticpath" context="expand">
+
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="TDATAPOLICYSEGMENTS"/>
+			</not>
+		</preConditions>
+
+		<comment>[PB-3414] Map data policies to data policy segments</comment>
+
+		<createTable tableName="TDATAPOLICYSEGMENTS">
+			<column name="DATAPOLICY_UID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="SEGMENT_NAME" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK_DP_POLICY"
+								 baseTableName="TDATAPOLICYSEGMENTS"
+								 baseColumnNames="DATAPOLICY_UID"
+								 referencedTableName="TDATAPOLICY"
+								 referencedColumnNames="UIDPK"/>
+
+		<addUniqueConstraint tableName="TDATAPOLICYSEGMENTS" columnNames="DATAPOLICY_UID,SEGMENT_NAME"/>
+
+	</changeSet>
+	<changeSet id="7.2.0-add-data-policy-activities-table" author="elasticpath" context="expand">
+
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="TDATAPOLICYACTIVITIES"/>
+			</not>
+		</preConditions>
+
+		<comment>[PB-3552] Add data policy activities table and association</comment>
+
+		<createTable tableName="TDATAPOLICYACTIVITIES">
+			<column name="DATAPOLICY_UID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="ACTIVITY" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<addForeignKeyConstraint constraintName="FK_POLICY"
+								 baseTableName="TDATAPOLICYACTIVITIES"
+								 baseColumnNames="DATAPOLICY_UID"
+								 referencedTableName="TDATAPOLICY"
+								 referencedColumnNames="UIDPK"/>
+
+		<addUniqueConstraint tableName="TDATAPOLICYACTIVITIES" columnNames="DATAPOLICY_UID,ACTIVITY"/>
+
+	</changeSet>
+	
+	<changeSet id="7.2.0-add-TSETTINGDEFINITION-setting-for-enable-data-policies" author="elasticpath" context="expand">
+		<comment>[PB-3460] Store setting to enable Data Policies</comment>
+		<insert tableName="TSETTINGDEFINITION">
+			<column name="UIDPK" valueNumeric="137" />
+			<column name="PATH" value="COMMERCE/STORE/enableDataPolicies" />
+			<column name="DEFAULT_VALUE" value="false" />
+			<column name="VALUE_TYPE" value="boolean" />
+			<column name="DESCRIPTION" value="Set to true if data policies are enabled for the store." />
+			<column name="MAX_OVERRIDE_VALUES" valueNumeric="-1" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1362" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="137" />
+			<column name="METADATA_KEY" value="environmentSpecific" />
+			<column name="VALUE" value="false" />
+		</insert>
+
+		<insert tableName="TSETTINGMETADATA">
+			<column name="UIDPK" valueNumeric="1363" />
+			<column name="SETTING_DEFINITION_UID" valueNumeric="137" />
+			<column name="METADATA_KEY" value="apiRefreshStrategy" />
+			<column name="VALUE" value="application" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="7.2.0-add-dates-to-order-item-data" author="elasticpath" context="expand">
+		<comment>[PB-3630] Add Created and Last Modified dates to Order Item Data table</comment>
+
+		<addColumn tableName="TORDERITEMDATA">
+			<column name="LAST_MODIFIED_DATE" defaultValueDate="CURRENT_TIMESTAMP" type="TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CREATION_DATE" defaultValueDate="CURRENT_TIMESTAMP" type="TIMESTAMP">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<sql>
+			UPDATE TORDERITEMDATA SET TORDERITEMDATA.CREATION_DATE = (SELECT CREATED_DATE FROM TORDERSKU sku WHERE sku.UIDPK =
+			TORDERITEMDATA.ORDERSKU_UID);
+
+			UPDATE TORDERITEMDATA SET TORDERITEMDATA.LAST_MODIFIED_DATE = (SELECT LAST_MODIFIED_DATE FROM TORDERSKU sku WHERE sku.UIDPK =
+			TORDERITEMDATA.ORDERSKU_UID);
+		</sql>
+
+	</changeSet>
+</databaseChangeLog>

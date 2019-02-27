@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		">
+
+	<bean id="eventMessageFactory" class="com.elasticpath.messaging.factory.impl.EventMessageFactoryImpl"/>
+
+	<bean id="eventMessageObjectMapper" class="com.elasticpath.messaging.camel.jackson.EventMessageObjectMapper" init-method="init">
+		<property name="eventMessageFactory" ref="eventMessageFactory"/>
+	</bean>
+
+	<bean id="eventMessageDataFormat" class="org.apache.camel.component.jackson.JacksonDataFormat">
+		<constructor-arg name="mapper" ref="eventMessageObjectMapper"/>
+		<constructor-arg name="unmarshalType" value="com.elasticpath.messaging.EventMessage"/>
+	</bean>
+
+	<bean id="eventTypeRegistrationBeanPostProcessor" class="com.elasticpath.messaging.camel.jackson.spring.EventTypeRegistrationBeanPostProcessor">
+		<property name="eventMessageObjectMapper" ref="eventMessageObjectMapper"/>
+	</bean>
+
+	<bean id="camelAnnotatedClassList" class="com.elasticpath.messaging.impl.CamelAnnotatedClasses">
+		<property name="annotations">
+			<list value-type="java.lang.Class">
+				<value>org.apache.camel.EndpointInject</value>
+				<value>org.apache.camel.Produce</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>

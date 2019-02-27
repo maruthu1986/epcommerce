@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath</groupId>
+		<artifactId>commerce-parent</artifactId>
+		<version>703.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.elasticpath.rest.resource</groupId>
+	<artifactId>cortex-resource-parent</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.0-SNAPSHOT</version>
+	<name>EP ∷ Cortex Integration</name>
+
+	<description>Elastic Path REST - Rest Resources parent</description>
+
+	<modules>
+		<module>rest-resources-api</module>
+		<module>rest-resources</module>
+		<module>rest-resources-epcommerce</module>
+    </modules>
+
+	<organization>
+		<name>Elastic Path Software, Inc</name>
+		<url>http://www.elasticpath.com</url>
+	</organization>
+
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://jira.elasticpath.com</url>
+	</issueManagement>
+
+	<properties>
+		<!--Groovy-->
+		<groovy-all.version>2.4.15</groovy-all.version>
+		<groovy-eclipse-batch.version>2.4.15-01</groovy-eclipse-batch.version>
+		<groovy-eclipse-compiler.version>2.9.2-04</groovy-eclipse-compiler.version>
+
+		<!-- maven plugins -->
+		<sling-plugin.version>2.1.0</sling-plugin.version>
+
+		<!--Jacoco-->
+		<jacoco.instruction.covered-ratio>0.90</jacoco.instruction.covered-ratio>
+		<jacoco.branch.covered-ratio>0.90</jacoco.branch.covered-ratio>
+		<jacoco.line.covered-ratio>0.90</jacoco.line.covered-ratio>
+		<jacoco.complexity.covered-ratio>0.90</jacoco.complexity.covered-ratio>
+		<jacoco.method.covered-ratio>0.90</jacoco.method.covered-ratio>
+		<jacoco.class.covered-ratio>0.90</jacoco.class.covered-ratio>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>osgi-deploy</id>
+			<!-- This profile must enabled with ep-developer profile so that the felix console bundles are installed. -->
+			<properties>
+				<cortex.deploy.url>http://localhost:8080/cortex/system/console/install</cortex.deploy.url>
+				<felix.admin.user>admin</felix.admin.user>
+				<felix.admin.password>admin</felix.admin.password>
+			</properties>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.sling</groupId>
+							<artifactId>maven-sling-plugin</artifactId>
+							<version>${sling-plugin.version}</version>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.sling</groupId>
+						<artifactId>maven-sling-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>install-to-felix</id>
+								<phase>install</phase>
+								<goals>
+									<goal>install</goal>
+								</goals>
+								<configuration>
+									<slingUrl>${cortex.deploy.url}</slingUrl>
+									<user>${felix.admin.user}</user>
+									<password>${felix.admin.password}</password>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<distributionManagement>
+		<repository>
+			<id>ep-releases</id>
+			<url>${ep.releases.repository.url}</url>
+		</repository>
+		<snapshotRepository>
+			<id>ep-snapshots</id>
+			<url>${ep.snapshots.repository.url}</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>

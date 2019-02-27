@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+                   logicalFilePath="com/elasticpath/core/db/core-changelog-6.15.0.xml">
+
+    <!-- Reminder:
+        - Table names cannot exceed 30 characters (Oracle limitation)
+        - Column names cannot exceed 30 characters (Oracle limitation)
+        - Index names cannot exceed 18 characters (DB2 limitation)
+
+         Important:
+        - Using <preCondition> ? read: http://forum.liquibase.org/topic/unexpected-behaviour-of-preconditions-with-updatesql
+        - Using <preCondition> ? Consider adding onUpdateSql="TEST", but understand how it plays with updateSQL!
+    -->
+    <changeSet id="6.15.0-tax-related-customer-profile-attributes" author="elasticpath" context="expand">
+        <comment>[PB-1079] [PB-1080] Tax Related customer profile attributes</comment>
+        <insert tableName="TATTRIBUTE">
+            <column name="UIDPK" valueNumeric="613"/>
+            <column name="ATTRIBUTE_KEY" value="CP_BUSINESS_NUMBER"/>
+            <column name="LOCALE_DEPENDANT" valueNumeric="0"/>
+            <column name="ATTRIBUTE_TYPE" valueNumeric="1"/>
+            <column name="NAME" value="Business Number"/>
+            <column name="REQUIRED" valueNumeric="0"/>
+            <column name="VALUE_LOOKUP_ENABLED" valueNumeric="0"/>
+            <column name="ATTRIBUTE_USAGE" valueNumeric="4"/>
+            <column name="SYSTEM" valueNumeric="1"/>
+            <column name="ATTR_GLOBAL" valueNumeric="0"/>
+        </insert>
+        <insert tableName="TATTRIBUTE">
+            <column name="UIDPK" valueNumeric="614"/>
+            <column name="ATTRIBUTE_KEY" value="CP_TAX_EXEMPTION_ID"/>
+            <column name="LOCALE_DEPENDANT" valueNumeric="0"/>
+            <column name="ATTRIBUTE_TYPE" valueNumeric="1"/>
+            <column name="NAME" value="Tax Exemption ID"/>
+            <column name="REQUIRED" valueNumeric="0"/>
+            <column name="VALUE_LOOKUP_ENABLED" valueNumeric="0"/>
+            <column name="ATTRIBUTE_USAGE" valueNumeric="4"/>
+            <column name="SYSTEM" valueNumeric="1"/>
+            <column name="ATTR_GLOBAL" valueNumeric="0"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

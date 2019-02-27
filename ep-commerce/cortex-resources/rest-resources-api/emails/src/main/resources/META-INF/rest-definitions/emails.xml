@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>emails</name>
+		<description><![CDATA[The emails resource stores a customer's emails.]]></description>
+
+		<uri-part>
+			<name>email-id</name>
+			<description><![CDATA[A value representing the customer's email ID.]]></description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>emails</name>
+			<description><![CDATA[The email addresses associated with a customer.]]></description>
+			<uri>{base.family}/{base.scope}</uri>
+			<list-of>email</list-of>
+		</resource>
+
+		<resource>
+			<name>email</name>
+			<description><![CDATA[The email address associated with a customer.]]></description>
+			<uri>{emails}/{email-id}</uri>
+			<entity>email</entity>
+		</resource>
+
+		<relationship>
+			<name>email-to-emails</name>
+			<description><![CDATA[Relationship from email to emails.]]></description>
+			<rel>list</rel>
+			<from>email</from>
+			<to>emails</to>
+		</relationship>
+
+		<relationship>
+			<name>profile-to-emails</name>
+			<description><![CDATA[Read the list of the profile's email addresses.]]></description>
+			<rel>emails</rel>
+			<rev>profile</rev>
+			<from>profiles.profile</from>
+			<to>emails</to>
+		</relationship>
+
+		<relationship>
+			<name>email-to-profile</name>
+			<description><![CDATA[Link from an email to a profile.]]></description>
+			<rel>profile</rel>
+			<from>email</from>
+			<to>profiles.profile</to>
+		</relationship>
+
+		<entity>
+			<name>email</name>
+			<description><![CDATA[The email associated with a customer account.]]></description>
+			<property>
+				<name>email-id</name>
+				<description><![CDATA[The internal email identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>email</name>
+				<description><![CDATA[The email address.]]></description>
+				<string/>
+			</property>
+			<entity-type>emails.email</entity-type>
+		</entity>
+
+	</family>
+</definitions>

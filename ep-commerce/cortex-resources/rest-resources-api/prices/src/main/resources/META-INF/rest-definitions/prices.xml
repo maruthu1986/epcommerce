@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>prices</name>
+		<description>
+			<![CDATA[
+Prices describe the amount of money required to purchase an item or items. The prices resource server links prices to: [items][items], cart line items and [item definitions][itemdefinitions]
+
+[items]: #items
+[itemdefinitions]: #itemdefinitions
+			]]>
+		</description>
+
+		<resource>
+			<name>price-for-item</name>
+			<description><![CDATA[The item price resource.]]></description>
+			<uri>{base.family}/{items.item}</uri>
+			<entity>item-price</entity>
+		</resource>
+
+		<resource>
+			<name>price-for-cart-line-item</name>
+			<description><![CDATA[The cart line item price resource.]]></description>
+			<uri>{base.family}/{carts.line-item}</uri>
+			<entity>cart-line-item-price</entity>
+		</resource>
+
+		<resource>
+			<name>price-for-itemdefinition</name>
+			<description><![CDATA[The item definition price resource.]]></description>
+			<uri>{base.family}/{itemdefinitions.item-definition}</uri>
+			<entity>price-range</entity>
+		</resource>
+
+		<resource>
+			<name>price-for-shipment-line-item</name>
+			<description><![CDATA[The price of the shipment line item.]]></description>
+			<uri>{base.family}/{shipments.shipment-line-item}</uri>
+			<entity>shipment-line-item-price</entity>
+		</resource>
+
+		<relationship>
+			<name>price-for-item</name>
+			<description>
+				<![CDATA[Read the unit price of an [item][items]. The unit price of an item is the price for one unit (quantity = 1) ]]></description>
+			<rel>price</rel>
+			<rev>item</rev>
+			<from>items.item</from>
+			<to>price-for-item</to>
+		</relationship>
+
+		<relationship>
+			<name>price-for-cart-line-item</name>
+			<description><![CDATA[Read the unit price of a cart line item. The unit price of a cart line item is the price for one unit when a given quantity is purchased (the line item quantity).]]></description>
+			<rel>price</rel>
+			<rev>lineitem</rev>
+			<from>carts.line-item</from>
+			<to>price-for-cart-line-item</to>
+		</relationship>
+
+		<relationship>
+			<name>lowest-price-for-item-definition</name>
+			<description>
+				<![CDATA[Read the price of the item option with the lowest price. This link will only appear if the item has options.]]></description>
+			<rel>fromprice</rel>
+			<rev>definition</rev>
+			<from>itemdefinitions.item-definition</from>
+			<to>price-for-itemdefinition</to>
+		</relationship>
+
+		<relationship>
+			<name>price-for-shipment-line-item</name>
+			<description><![CDATA[Retrieves the price of a shipment line item.]]></description>
+			<rel>price</rel>
+			<rev>lineitem</rev>
+			<from>shipments.shipment-line-item</from>
+			<to>price-for-shipment-line-item</to>
+		</relationship>
+
+		<entity>
+			<name>item-price</name>
+			<description><![CDATA[The unit price of an item.]]></description>
+			<property>
+				<name>list-price</name>
+				<description><![CDATA[The unit price of an item before catalog discounts are applied.]]></description>
+				<array>
+					<is-a>base.cost</is-a>
+				</array>
+			</property>
+			<property>
+				<name>purchase-price</name>
+				<description><![CDATA[The unit price of an item after catalog discounts are applied. ]]></description>
+				<array>
+					<is-a>base.cost</is-a>
+				</array>
+			</property>
+			<property>
+				<name>item-id</name>
+				<description><![CDATA[The internal item identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+		</entity>
+
+		<entity>
+			<name>cart-line-item-price</name>
+			<description><![CDATA[The unit price of an item in the shopper’s cart.]]></description>
+			<property>
+				<name>list-price</name>
+				<description><![CDATA[The unit price of an item in the shopper’s cart before shopping cart discounts are applied.]]></description>
+				<array>
+					<is-a>base.cost</is-a>
+				</array>
+			</property>
+			<property>
+				<name>purchase-price</name>
+				<description>
+					<![CDATA[
+The unit price of an item in the shopper’s cart after shopping cart discounts are applied. This represents the price the shopper will
+actually pay for each unit. If no discounts have been applied, the list and purchase price will be the same.
+					]]>
+				</description>
+				<array>
+					<is-a>base.cost</is-a>
+				</array>
+			</property>
+			<property>
+				<name>line-item-id</name>
+				<description><![CDATA[The internal line item identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>cart-id</name>
+				<description><![CDATA[The internal cart identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+		</entity>
+
+		<entity>
+			<name>price-range</name>
+			<description><![CDATA[The price range describes a price for an item or cart line item.]]></description>
+			<property>
+				<name>from-price</name>
+				<description><![CDATA[The price of the item's least expensive option.]]></description>
+				<array>
+					<is-a>base.cost</is-a>
+				</array>
+			</property>
+			<property>
+				<name>item-id</name>
+				<description><![CDATA[The internal item identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+		</entity>
+
+		<entity>
+			<name>shipment-line-item-price</name>
+			<description><![CDATA[The price of a shipment line item.]]></description>
+			<property>
+				<name>list-price</name>
+				<description><![CDATA[The price of a shipment line item before discounts are applied.]]></description>
+				<array>
+					<is-a>base.cost</is-a>
+				</array>
+			</property>
+			<property>
+				<name>purchase-price</name>
+				<description><![CDATA[The price of a shipment line item after discounts are applied. If no discounts have been applied, the list and purchase price will be the same.]]></description>
+				<array>
+					<is-a>base.cost</is-a>
+				</array>
+			</property>
+			<property>
+				<name>shipment-line-item-id</name>
+				<description><![CDATA[The internal lineitem identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>shipment-id</name>
+				<description><![CDATA[The internal shipment identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>purchase-id</name>
+				<description><![CDATA[The internal purchase identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+		</entity>
+
+	</family>
+</definitions>

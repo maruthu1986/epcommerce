@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>items</name>
+		<description>
+			<![CDATA[
+An item is a purchasable good like a T-shirt, a movie, a song, a subscription, etc. The Items resource's responsibility
+is to simply identify an item. This should not be confused with [itemdefinitions][itemdefinitions], which are
+descriptions of the item.
+
+Items can be discovered by using the following resources:
+
+- [searches][searches]
+
+- [navigations][navigations]
+
+- [lookups][lookups]
+
+[itemdefinitions]: #itemdefinitions
+[searches]: #searches
+[navigations]: #navigations
+			]]>
+		</description>
+
+		<uri-part>
+			<name>item-id</name>
+			<description><![CDATA[The item identifier. This ID is a unique value across the scope.]]></description>
+			<composite/>
+		</uri-part>
+
+		<!-- this resource is not implemented. -->
+		<resource>
+			<name>items</name>
+			<description><![CDATA[List of all the items.]]></description>
+			<uri>/{base.family}/{base.scope}</uri>
+			<list-of>item</list-of>
+		</resource>
+
+		<resource>
+			<name>item</name>
+			<description><![CDATA[An item is a purchasable good like a T-shirt, a movie, a song, a subscription, etc.]]></description>
+			<uri>/{items}/{item-id}</uri>
+			<entity>item</entity>
+		</resource>
+
+		<relationship>
+			<name>items-from-root</name>
+			<description>Link from root resource to items.</description>
+			<rel>items</rel>
+			<from>base.root</from>
+			<to>items</to>
+		</relationship>
+
+		<entity>
+			<name>item</name>
+			<description><![CDATA[Defines the item type.]]></description>
+			<property>
+				<name>item-id</name>
+				<description><![CDATA[The item identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+		</entity>
+
+	</family>
+</definitions>

@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %fragmentName
+Bundle-SymbolicName: com.elasticpath.cmclient.admin.warehouses.nl1; singleton:=true
+Bundle-Version: 703.0.0.qualifier
+Bundle-Vendor: %fragmentProvider
+Bundle-Localization: nl_fragment
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Fragment-Host: com.elasticpath.cmclient.admin.warehouses

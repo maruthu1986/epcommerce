@@ -1,0 +1,22 @@
+// Pagination section styles - custom
+.Pagination {
+	// arrow icon ToolItem
+	&_ToolItem {
+
+	}
+
+	// outer of Labels
+	&_Composite {
+		padding: 0; // NOT WORKING
+	}
+
+	// "Page", "of x", "Results xx - xx of xx" Label
+	&_Label {
+		padding: 0; // NOT WORKING
+	}
+}
+
+.StyleBold {
+
+} 
+

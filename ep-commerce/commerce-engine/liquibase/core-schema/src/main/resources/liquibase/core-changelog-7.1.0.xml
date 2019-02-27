@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) Elastic Path Software Inc., 2017
+  -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+				   logicalFilePath="com/elasticpath/core/db/core-changelog-7.1.0.xml">
+
+	<changeSet id="7.1.0-customer-last-edit-index" author="elasticpath" failOnError="false">
+		<comment>Add a DB index on the LAST_EDIT_DATE column of TCUSTOMER</comment>
+		<createIndex tableName="TCUSTOMER" indexName="I_CUST_EDIT_DATE">
+			<column name="LAST_EDIT_DATE"></column>
+		</createIndex>
+	</changeSet>
+	<changeSet id="7.1.0-update-schema" author="elasticpath" failOnError="true">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="TMASTERCATEGORY" columnName="IS_VIRTUAL"/>
+			</not>
+		</preConditions>
+		<comment>Change column in TMASTERCATEGORY table from VIRTUAL" to IS_VIRTUAL to reflect MySQL 5.7 upgrade</comment>
+		<renameColumn tableName="TMASTERCATEGORY" oldColumnName="VIRTUAL" newColumnName="IS_VIRTUAL" columnDataType="INT(11)"/>
+	</changeSet>
+
+	<changeSet id="7.1.0-cleanup-duplicate-setting-metadata" author="elasticpath" failOnError="false">
+		<comment>Remove sfRefreshStrategy metadata where there is also an apiRefreshStrategy defined</comment>
+		<delete tableName="TSETTINGMETADATA">
+			<where>METADATA_KEY='sfRefreshStrategy' and SETTING_DEFINITION_UID in (7, 40)</where>
+		</delete>
+	</changeSet>
+	
+	<changeSet id="7.1.0-cleanup-obsolete-setting-metadata" author="elasticpath" failOnError="false">
+		<comment>Rename sfRefreshStrategy keys</comment>
+		<update tableName="TSETTINGMETADATA">
+			<column name="METADATA_KEY" value="apiRefreshStrategy"/>
+			<where>METADATA_KEY='sfRefreshStrategy'</where>
+		</update>
+		<comment>Update obsolete session refresh strategy</comment>
+		<update tableName="TSETTINGMETADATA">
+			<column name="VALUE" value="interval:timeout=COMMERCE/Cache/Cache_3"/>
+			<where>VALUE='session'</where>
+		</update>
+
+	</changeSet>
+
+	<changeSet id="7.1.0-ordersku-parent-child-lookup" author="elasticpath" context="expand">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="TORDERSKUPARENT"/>
+			</not>
+		</preConditions>
+
+		<comment>Create new parent-child table and migrate data from TORDERSKU to TORDERSKUPARENT</comment>
+
+		<createTable tableName="TORDERSKUPARENT">
+			<column name="CHILD_UID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="PARENT_UID" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<sql>
+			INSERT INTO TORDERSKUPARENT(CHILD_UID, PARENT_UID)
+			SELECT UIDPK, PARENT_ITEM_UID FROM TORDERSKU WHERE PARENT_ITEM_UID IS NOT NULL
+		</sql>
+		<createIndex tableName="TORDERSKUPARENT" indexName="I_OSKUPARENT_CHILD">
+			<column name="CHILD_UID"/>
+		</createIndex>
+		<createIndex tableName="TORDERSKUPARENT" indexName="I_OSKUPARENT_PARENT">
+			<column name="PARENT_UID"/>
+		</createIndex>
+		<addForeignKeyConstraint constraintName="FK_OSKUPARENT_CHILD"
+								 baseTableName="TORDERSKUPARENT"
+								 baseColumnNames="CHILD_UID"
+								 referencedTableName="TORDERSKU"
+								 referencedColumnNames="UIDPK"/>
+		<addForeignKeyConstraint constraintName="FK_OSKUPARENT_PARENT"
+								 baseTableName="TORDERSKUPARENT"
+								 baseColumnNames="PARENT_UID"
+								 referencedTableName="TORDERSKU"
+								 referencedColumnNames="UIDPK"/>
+	</changeSet>
+
+	<changeSet id="7.1.0-ordersku-drop-parent-column" author="elasticpath" context="contract" failOnError="false">
+		<preConditions onFail="MARK_RAN">
+				<tableExists tableName="TORDERSKUPARENT"/>
+		</preConditions>
+
+		<comment>Drop PARENT_ITEM_UID column and associated FK and index</comment>
+		<dropForeignKeyConstraint baseTableName="TORDERSKU" constraintName="TOSKU_FK_TOSKU"/>
+		<dropIndex tableName="TORDERSKU" indexName="I_OS_PARENT_ITEM_UID"/>
+		<dropColumn tableName="TORDERSKU" columnName="PARENT_ITEM_UID"/>
+	</changeSet>
+
+	<changeSet id="7.1.0-add-cart-status-column" author="elasticpath" context="expand">
+		<comment>Add cart status column to defer deletion of cart items and prevent excessive db calls during purchase</comment>
+
+		<!-- all carts will be active by default -->
+		<addColumn tableName="TSHOPPINGCART">
+			<column name="STATUS" defaultValue="ACTIVE" type="VARCHAR(20)">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<createIndex tableName="TSHOPPINGCART" indexName="I_CART_STATUS">
+			<column name="STATUS"/>
+		</createIndex>
+	</changeSet>
+</databaseChangeLog>

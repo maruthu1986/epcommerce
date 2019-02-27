@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2017 Elastic Path Software Inc. All rights reserved.
+  -->
+
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:settings="http://www.elasticpath.com/schema/settings"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.elasticpath.com/schema/settings http://www.elasticpath.com/schema/settings/settings.xsd
+	">
+
+	<!-- pulled from openjpa-osgi-wrapper.jar -
+	   MUST BE imported before ep-core/spring/service/service.xml and before first DB call is made,
+	   otherwise external ehcache.xml will never be properly loaded.
+	   OpenJpa framework tries to pull a query from cache and if cache is not initialized,  it will create one.-->
+	<import resource="classpath:spring/openjpa-osgi-wrapper/ehcache-jmx.xml" />
+	<!-- pulled from ep-core.jar -->
+	<import resource="classpath:spring/service/service.xml" />
+
+	<bean id="applicationName" class="java.lang.String">
+		<constructor-arg value="Batch Server"/>
+	</bean>
+
+	<alias name="settingsService" alias="settingsReader"/>
+
+	<bean id="servicePreInterceptors" class="java.util.ArrayList" />
+
+	<bean id="productRecommendationServiceTargetTemplate" class="com.elasticpath.service.catalog.impl.ProductRecommendationServiceImpl"
+		  abstract="true">
+		<property name="productService" ref="productService"/>
+		<property name="productAssociationService" ref="productAssociationService"/>
+		<property name="storeService" ref="nonCachingStoreService"/>
+		<property name="persistenceEngine" ref="persistenceEngine"/>
+		<property name="elasticPath" ref="elasticPath"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="maxHistoryDaysSettingProvider">
+			<settings:setting path="COMMERCE/STORE/PRODUCTRECOMMENDATIONS/numberOrderHistoryDays"/>
+		</property>
+		<property name="maxRecommendationsSettingProvider">
+			<settings:setting path="COMMERCE/STORE/PRODUCTRECOMMENDATIONS/numberMaxRecommendations"/>
+		</property>
+	</bean>
+
+	<bean id="productRecommendationServiceTarget" parent="productRecommendationServiceTargetTemplate"
+		  abstract="true"/>
+
+	<bean id="productRecommendationService" parent="txProxyTemplate">
+		<property name="target">
+			<bean parent="productRecommendationServiceTarget"/>
+		</property>
+	</bean>
+
+	<bean id="importJobCleanupProcessor" parent="txProxyTemplate">
+		<property name="target">
+			<bean parent="importJobCleanupProcessorTarget"/>
+		</property>
+	</bean>
+
+	<bean id="importJobCleanupProcessorTargetTemplate" class="com.elasticpath.service.dataimport.impl.ImportJobCleanupProcessorImpl" abstract="true">
+		<property name="importNotificationDao" ref="importNotificationDao"/>
+		<property name="importJobStatusDao" ref="importJobStatusDao"/>
+		<property name="staleImportNotificationProcessor" ref="staleImportJobProcessor"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="maximumImportJobAgeDaysProvider">
+			<settings:setting path="COMMERCE/SYSTEM/IMPORT/importJobMaxAge"/>
+		</property>
+		<property name="staleImportJobStatusThresholdMinsProvider">
+			<settings:setting path="COMMERCE/SYSTEM/IMPORT/staleImportJobTimeout"/>
+		</property>
+	</bean>
+
+	<bean id="importJobCleanupProcessorTarget" parent="importJobCleanupProcessorTargetTemplate"
+		abstract="true"/>
+
+	<bean id="staleImportJobProcessor" class="com.elasticpath.service.dataimport.impl.ResetStatusStaleImportNotificationProcessorImpl">
+		<property name="importNotificationDao" ref="importNotificationDao"/>
+	</bean>
+
+	<!-- required by solrManager in spring/dataaccess/dao.xml -->
+	<bean id="searchHostLocatorTemplate" class="com.elasticpath.service.search.impl.SettingsSearchHostLocatorImpl" abstract="true">
+		<property name="defaultSearchHostLocationProvider">
+			<settings:setting path="COMMERCE/SYSTEM/SEARCH/searchHost" context="default"/>
+		</property>
+		<property name="masterSearchHostLocationProvider">
+			<settings:setting path="COMMERCE/SYSTEM/SEARCH/searchHost" context="master"/>
+		</property>
+	</bean>
+
+	<bean id="searchHostLocator" parent="searchHostLocatorTemplate"/>
+
+	<bean id="searchConfigFactoryTemplate" class="com.elasticpath.service.search.impl.CMSearchConfigFactoryImpl"
+		  abstract="true">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="searchHostLocator" ref="searchHostLocator"/>
+		<property name="accuracyProvider">
+			<settings:setting path="COMMERCE/SEARCH/accuracy"/>
+		</property>
+		<property name="boostValuesProvider">
+			<settings:setting path="COMMERCE/SEARCH/boosts"/>
+		</property>
+		<property name="exclusiveAttributeListProvider">
+			<settings:setting path="COMMERCE/SEARCH/excludeAttributes"/>
+		</property>
+		<property name="maximumResultsThresholdProvider">
+			<settings:setting path="COMMERCE/SEARCH/maximumResultsThreshold"/>
+		</property>
+		<property name="maximumReturnNumberProvider">
+			<settings:setting path="COMMERCE/SEARCH/maxReturnNumber"/>
+		</property>
+		<property name="maximumSuggestionsPerWordProvider">
+			<settings:setting path="COMMERCE/SEARCH/maximumSuggestionsPerWord"/>
+		</property>
+		<property name="minimumResultsThresholdProvider">
+			<settings:setting path="COMMERCE/SEARCH/minimumResultsThreshold"/>
+		</property>
+		<property name="minimumSimilarityProvider">
+			<settings:setting path="COMMERCE/SEARCH/minimumSimilarity"/>
+		</property>
+		<property name="prefixLengthProvider">
+			<settings:setting path="COMMERCE/SEARCH/prefixLength"/>
+		</property>
+	</bean>
+
+	<bean id="searchConfigFactory" parent="searchConfigFactoryTemplate"/>
+
+</beans>

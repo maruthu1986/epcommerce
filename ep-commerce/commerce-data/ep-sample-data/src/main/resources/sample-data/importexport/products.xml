@@ -1,0 +1,4684 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<products>
+<product>
+    <code>localized_SKU</code>
+    <name>
+        <value language="es">Nombre del producto en mexicano español </value>
+        <value language="es_MX">localized_SKU</value>
+        <value language="fr">Nom du produit en français</value>
+        <value language="en">Product Name in English</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-25T18:01:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="Attribute_2">
+            <value language="en">Additional product attribute content in English </value>
+        </attribute>
+        <attribute key="Attribute_1">
+            <value language="es">Indica el contenido de los atributos en español</value>
+            <value language="fr">Indica el contenido de los atributos en francés</value>
+            <value language="en">This indicates the attribute contents provided in English </value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="71e2168f-0eb0-4cdb-b692-08f9d95e01e2">
+            <code>localized_SKU</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Dig_Min_Qty_5</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Dig_Min_Qty_5</value>
+        <value language="fr"></value>
+        <value language="en">Dig_Min_Qty_5</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>Tax2</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-23T23:17:00-08:00</enabledate>
+        <minorderqty>5</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="Attribute_1">
+            <value language="en">product cannot be purchased in quantities &lt;5</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="cf2eaca9-b5c5-4d14-82bb-98d47e7aa4a0">
+            <code>Dig_Min_Qty_5</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Dig_Non-Discountable</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Dig_Non-Discountable</value>
+        <value language="fr"></value>
+        <value language="en">Non-Discountable Product Type</value>
+    </name>
+    <type>Non_Promotable</type>
+    <taxcode>Tax2</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-02-08T22:23:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="7e63884f-5570-46a7-a087-cf5c1f31ad56">
+            <code>Dig_Non-Discountable</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>configurable_Produc</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">configurable_Produc</value>
+        <value language="fr"></value>
+        <value language="en">configurable_Produc</value>
+    </name>
+    <type>Config_Prod_Type</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-02-08T01:22:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">This is a configurable product with every field type prepresented.  Some fields are required.</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="085b630d-fe55-4cac-b812-8a7c1f792a14">
+            <code>configProduct_SKU1</code>
+            <skuoptions/>
+            <availability>
+                <enabledate>2017-01-31T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>merchandising_Upsell</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">merchandising_Upsell</value>
+        <value language="fr"></value>
+        <value language="en">merchandising_Upsell</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-02-02T00:13:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="Attribute_1">
+            <value language="en">this product contains upsells - random other products in the catalog are used as the upsell product</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="9a882071-a4b6-4592-88da-ff6e7eaea05e">
+            <code>merchandising_Upsell</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>merchandising_CrossSell</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">merchandising_CrossSell</value>
+        <value language="fr"></value>
+        <value language="en">merchandising_CrossSell</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>Tax2</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-02-07T00:29:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="Attribute_1">
+            <value language="en">product used to demonstrate cross sell only - rando products in catalog used to show </value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="86957d2a-879c-4082-9af0-805abbf2729e">
+            <code>merchandising_CrossSell</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_CrossSell1</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_CrossSell1</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_CrossSell1</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>noTax</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:45:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="13796195-c610-437e-9a37-4587ba1923e4">
+            <code>usedMerchandising_CrossSell1</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_CrossSell2</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_CrossSell2</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_CrossSell2</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>noTax</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:46:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="41692858-bc47-4832-8b34-6fa055faec77">
+            <code>usedMerchandising_CrossSell2</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_CrossSell3</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_CrossSell3</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_CrossSell3</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>noTax</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:47:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="ee3ec601-4e8f-48ee-906a-93ce8a0cc7c2">
+            <code>usedMerchandising_CrossSell3</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_CrossSell4</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_CrossSell4</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_CrossSell4</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>noTax</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>false</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:48:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="7cf4eaa2-85f6-4a16-beed-6d88acdc8cbb">
+            <code>usedMerchandising_CrossSell4</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_CrossSell5</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_CrossSell5</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_CrossSell5</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>noTax</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:48:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="a3ab6f67-758b-4347-a5c1-624da6a876f7">
+            <code>usedMerchandising_CrossSell5</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_CrossSell6</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_CrossSell6</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_CrossSell6</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>noTax</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:49:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="ac3f9c05-8ab3-4a42-aa00-6c0d4747a0af">
+            <code>usedMerchandising_CrossSell6</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_UpSell1</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_UpSell1</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_UpSell1</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>noTax</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:50:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="e7402b20-584d-46ce-80b1-e5f39f741df9">
+            <code>usedMerchandising_UpSell1</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_UpSell2</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_UpSell2</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_UpSell2</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>noTax</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:50:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="c4bce9c4-dfeb-43b3-89d3-d05a4b6c329b">
+            <code>usedMerchandising_UpSell2</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_UpSell3</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_UpSell3</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_UpSell3</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>noTax</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:52:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="7dd52c70-e908-4ed8-8c87-10a9c44ec146">
+            <code>usedMerchandising_UpSell3</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_Warrenty1</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_Warrenty1</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_Warrenty1</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>noTax</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:53:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="8ee2cc79-d16b-4ff3-819c-44fb7d214335">
+            <code>usedMerchandising_Warrenty1</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>merchandising_Warranty</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">merchandising_Warranty</value>
+        <value language="fr"></value>
+        <value language="en">merchandising_Warranty</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T20:15:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="72621237-0d50-426f-bab6-1602c5d73dae">
+            <code>merchandising_Warranty</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"></value>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"></value>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"></value>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"></value>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>merchandising_Accessory</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">merchandising_Accessory</value>
+        <value language="fr"></value>
+        <value language="en">merchandising_Accessory</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T20:17:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="84c6c78f-7e2c-4367-84b1-d4543ec365e4">
+            <code>merchandising_Accessory</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>merchandising_Replacement</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">merchandising_Replacement</value>
+        <value language="fr"></value>
+        <value language="en">merchandising_Replacement</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T20:18:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="5cc0ae8b-33db-42c2-8cd0-bb188a38e5cb">
+            <code>merchandising_Replacement</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>foundProduct_inExcludedCategory</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">foundProduct_inExcludedCategory</value>
+        <value language="fr"></value>
+        <value language="en">foundProduct_inExcludedCategory</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>noTax</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T20:34:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="f6b5ef30-5b38-4c1e-a9be-c9146ef863c7">
+            <code>foundProduct_inExcludedCategory</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_Accessory3</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_Accessory3</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_Accessory3</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>noTax</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:58:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="72740a51-38d1-491a-9bb9-35a06d56d578">
+            <code>usedMerchandising_Accessory3</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_Accessory5</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_Accessory5</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_Accessory5</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>noTax</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:59:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="03641952-6880-4620-ac12-2c53a31ae73e">
+            <code>usedMerchandising_Accessory5</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_Accessory6</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_Accessory6</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_Accessory6</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>noTax</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T20:00:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="074e0209-6619-482c-b03b-0afb87d8294a">
+            <code>usedMerchandising_Accessory6</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_Replacement1</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_Replacement1</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_Replacement1</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>noTax</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T20:01:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="621649f6-9dbe-4dfb-a50e-08cbd77413cc">
+            <code>usedMerchandising_Replacement1</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>cartPromo_timeDisabled</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">cartPromo_timeDisabled</value>
+        <value language="fr"></value>
+        <value language="en">cartPromo_timeDisabled</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T00:02:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="9d5a6fe3-bd05-4442-a2f2-e943d8c1de6a">
+            <code>cartPromo_timeDisabled</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>cartPromo_profileAttribute1</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">cartPromo_profileAttribute1</value>
+        <value language="fr"></value>
+        <value language="en">cartPromo_profileAttribute1</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>noTax</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T01:23:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="bbe8e877-2cdc-4e00-a118-a6d59199d735">
+            <code>cartPromo_profileAttribute1</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>cartPromo_Segment</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">cartPromo_Segment</value>
+        <value language="fr"></value>
+        <value language="en">cartPromo_Segment</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>noTax</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T01:41:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="e638cda0-aef6-46cf-8d8f-0df34bb820ce">
+            <code>cartPromo_Segment</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>bundle_Constituent1</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_Constituent1</value>
+        <value language="fr"></value>
+        <value language="en">bundle_Constituent1</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>noTax</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T02:58:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="83dc5c0d-eb20-4609-863e-2c03ab11b1af">
+            <code>bundle_Constituent1</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>bundle_Constituent2</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_Constituent2</value>
+        <value language="fr"></value>
+        <value language="en">bundle_Constituent2</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>noTax</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T03:02:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="d04e2a9d-401d-45f5-987a-fd6881ae6cb0">
+            <code>bundle_Constituent2</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>bundle_Constituent3</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_Constituent3</value>
+        <value language="fr"></value>
+        <value language="en">bundle_Constituent3</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>noTax</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T03:04:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="6c7db36d-3c37-4f69-bcdf-e7f10917b57a">
+            <code>bundle_Constituent3</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>bundle_Constituent6</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_Constituent6</value>
+        <value language="fr"></value>
+        <value language="en">bundle_Constituent6</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T03:07:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="247c8d9d-be51-4c02-b98d-a313202d1d45">
+            <code>bundle_Constituent6</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>bundle_Constituent8</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_Constituent8</value>
+        <value language="fr"></value>
+        <value language="en">bundle_Constituent8</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T03:08:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="39aa4362-2d0b-485d-bd4e-ac9feddd1352">
+            <code>bundle_Constituent8</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="assigned">
+    <code>bundleNested_AssignedFixed</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundleNested_AssignedFixed</value>
+        <value language="fr"></value>
+        <value language="en">bundleNested_AssignedFixed</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T03:22:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="d1eada5e-114a-424b-ba09-498d219a219c">
+            <code>bundleNested_AssignedFixed</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="assigned">
+    <code>bundleNested_AssignedDynamic</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundleNested_AssignedDynamic</value>
+        <value language="fr"></value>
+        <value language="en">bundleNested_AssignedDynamic</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T03:26:01-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="134efb59-07d3-420c-828e-74d315441c1b">
+            <code>bundleNested_AssignedDynamic</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="assigned">
+    <code>bundle_AssignedFixed_Nested</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_AssignedFixed_Nested</value>
+        <value language="fr"></value>
+        <value language="en">bundle_AssignedFixed_Nested</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T03:44:50-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="a01a1c8c-a78a-4655-8730-a61255bdffb0">
+            <code>bundle_AssignedFixed_Nested</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="calculated">
+    <code>bundle_CalculatedFixed_Nested</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_CalculatedFixed_Nested</value>
+        <value language="fr"></value>
+        <value language="en">bundle_CalculatedFixed_Nested</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T03:50:47-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="4d3ddae6-53bd-487a-9e34-568fed59e31f">
+            <code>bundle_CalculatedFixed_Nested</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>bundle_Constituent5_multiSKU</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_Constituent5_multiSKU</value>
+        <value language="fr"></value>
+        <value language="en">bundle_Constituent5_multiSKU</value>
+    </name>
+    <type>Multi_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T04:02:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="b348bb38-ff62-4b5c-ae1d-f6268c598784">
+            <code>bundle_Constituent5_multiSKU1</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value1</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-03-07T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+            <attributes/>
+        </sku>
+        <sku guid="6539773a-28c5-458b-8576-5ed8495c404a">
+            <code>bundle_Constituent5_multiSKU2</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value2</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-03-07T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+            <taxcodeoverride>Tax1</taxcodeoverride>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="calculated">
+    <code>bundle_CalculatedFixed_noInv</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_CalculatedFixed_noInv</value>
+        <value language="fr"></value>
+        <value language="en">bundle_CalculatedFixed_noInv</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T04:08:19-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>AVAILABLE_WHEN_IN_STOCK</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="8ec18bdb-9d6a-4c2d-8b78-33ba87b15a6a">
+            <code>bundle_CalculatedFixed_noInv</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="assigned">
+    <code>bundle_AssignedFixed_constituentSKU</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_AssignedFixed_constituentSKU</value>
+        <value language="fr"></value>
+        <value language="en">bundle_AssignedFixed_constituentSKU</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T04:13:46-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="aab53126-b01c-4680-a0e1-3a85c41dc3ad">
+            <code>bundle_AssignedFixed_constituentSKU</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>bundle_Constituent9</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_Constituent9</value>
+        <value language="fr"></value>
+        <value language="en">bundle_Constituent9</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T04:19:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="0e4a2ff8-4d52-4590-9945-5330cce73a53">
+            <code>bundle_Constituent9</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Ship_Single_Sku_Back_Order</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Ship_Single_Sku_Back_Order</value>
+        <value language="fr"></value>
+        <value language="en">Ship_Single_Sku_Back_Order</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-23T23:55:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>AVAILABLE_FOR_BACK_ORDER</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">item can be ordered on back order, but there is currently no inventory</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="f6fe9cf2-9a7d-41f2-a973-2c796f076108">
+            <code>Ship_Single_Sku_Back_Order</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Ship_Single_Sku_Always-Avail</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Ship_Single_Sku_Always-Avail</value>
+        <value language="fr"></value>
+        <value language="en">Ship_Single_Sku_Always-Avail</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-23T23:57:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">product is set as always available; however product has inventory currently so should still be able to purchase</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="cc041f8c-9e8f-432f-bced-542b11409ff3">
+            <code>Ship_Single_Sku_Always-Avail</code>
+            <shippable enabled="true">
+                <weight units="KG">1.00</weight>
+                <width units="CM">1.00</width>
+                <length units="CM">1.00</length>
+                <height units="CM">1.00</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Ship_Single_Sku_Always-Avail_NoInv</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Ship_Single_Sku_Always-Avail_NoInv</value>
+        <value language="fr"></value>
+        <value language="en">Ship_Single_Sku_Always-Avail_NoInv</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>GOODS</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-24T00:27:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>AVAILABLE_WHEN_IN_STOCK</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">product can be purchased only when there is stock available and there is currently no inventory so cannot be purchased</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="fe8ec02d-cfeb-49b0-98e3-a021f0464855">
+            <code>Ship_Single_Sku_Always-Avail_NoInv</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Ship_MultiSku-Inv</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Ship_MultiSku-Inv</value>
+        <value language="fr"></value>
+        <value language="en">Ship_MultiSku-Inv</value>
+    </name>
+    <type>Multi_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-25T19:25:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>AVAILABLE_WHEN_IN_STOCK</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">multiSKU product sellable only if in stock, SKU inventory levels set such that some are sellable and some are not</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="db9dc91b-c50f-437b-ad59-c9fa7272785a">
+            <code>Ship_MultiSku-Val1-Inv</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value1</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-01-24T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+            <attributes/>
+            <taxcodeoverride>Tax1</taxcodeoverride>
+        </sku>
+        <sku guid="f21f8a6f-2622-4270-94b3-bbaeaae77e3e">
+            <code>Ship_MultiSku-Val2-Inv</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value2</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-01-24T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+            <attributes/>
+            <taxcodeoverride>Tax1</taxcodeoverride>
+        </sku>
+        <sku guid="bd88af4b-4fcc-43c0-a031-1b989034908e">
+            <code>Ship_MultiSku-Val4-Inv</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value4</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-01-24T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+            <attributes/>
+            <taxcodeoverride>Tax1</taxcodeoverride>
+        </sku>
+        <sku guid="1109f8d5-5046-493e-8ba4-0eb856c692cb">
+            <code>Ship_MultiSku-Val3-NoInv</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value3</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-01-24T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+            <attributes/>
+            <taxcodeoverride>Tax1</taxcodeoverride>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Dig_MultiSku-Tax-SKU</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Dig_MultiSku-Tax-SKU</value>
+        <value language="fr"></value>
+        <value language="en">Dig_MultiSku-Tax-SKU</value>
+    </name>
+    <type>Multi_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-25T20:10:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">Product tax code is set but the SKUs with their own tax code assignment to override that set at the product level.</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="267981de-1dc3-408b-b02b-ddce6ae5a04d">
+            <code>Dig_MultiSku-Val1-productTax</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value1</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-02-01T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+        </sku>
+        <sku guid="fad0e658-ca75-4387-8af9-dc33ee4dffba">
+            <code>Dig_MultiSku-Val4-noTax</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value4</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-02-08T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+            <taxcodeoverride>noTax</taxcodeoverride>
+        </sku>
+        <sku guid="69a06f05-465c-4851-ae23-b3a72577b6e8">
+            <code>Dig_MultiSku-Val3-Tax2</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value3</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-02-08T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+            <taxcodeoverride>Tax2</taxcodeoverride>
+        </sku>
+        <sku guid="4df37669-d417-4c99-be8c-9e126445179c">
+            <code>Dig_MultiSku-Val2-Tax1</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value2</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-02-01T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+            <taxcodeoverride>Tax1</taxcodeoverride>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Dig_Not_Visible</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Dig_Not_Visible</value>
+        <value language="fr"></value>
+        <value language="en">Dig_Not_Visible</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax2</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>false</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-23T23:12:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">product is set to not be visible in the store so should not be discoverable even though can be purchased (re: inventory)</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="144c16f9-21b7-4386-9c11-17dce8cfa62a">
+            <code>Dig_Not_Visible</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Dig_Multi-Category</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Dig_Multi-Category</value>
+        <value language="fr"></value>
+        <value language="en">Dig_Multi-Category</value>
+    </name>
+    <type>Multi_SKU</type>
+    <taxcode>Tax2</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-02-13T00:28:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">product listed in multiple categories in the same catalog</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="f08e0a98-61ec-4e8f-9c72-9796ae60ba13">
+            <code>Dig_Multi-Category</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value1</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-02-07T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_Accessory2</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_Accessory2</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_Accessory2</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>noTax</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:57:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="a4058828-9c93-4e27-bfcb-68c972766b79">
+            <code>usedMerchandising_Accessory2</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_Accessory4</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_Accessory4</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_Accessory4</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>noTax</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:58:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="9af86b83-a567-46b4-ac3f-2e536898cd07">
+            <code>usedMerchandising_Accessory4</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>cartPromo_timeEnabled</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">cartPromo_timeEnabled</value>
+        <value language="fr"></value>
+        <value language="en">cartPromo_timeEnabled</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T23:55:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="ba218758-84d4-4e3e-ab02-a3bfb3f1d97e">
+            <code>cartPromo_timeEnabled</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>bundle_Constituent7</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_Constituent7</value>
+        <value language="fr"></value>
+        <value language="en">bundle_Constituent7</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T03:07:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="5ee4b5c4-e79f-4bfa-a5cc-0beb69421665">
+            <code>bundle_Constituent7</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="calculated">
+    <code>bundleNested_CalculatedFixed</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundleNested_CalculatedFixed</value>
+        <value language="fr"></value>
+        <value language="en">bundleNested_CalculatedFixed</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T03:29:30-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="6a85aae2-43d4-4f24-a426-feb1600ac60e">
+            <code>bundleNested_CalculatedFixed</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="calculated">
+    <code>bundleNested_CalculatedDynamic</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundleNested_CalculatedDynamic</value>
+        <value language="fr"></value>
+        <value language="en">bundleNested_CalculatedDynamic</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T03:31:58-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="1c40d254-8e9d-4042-9060-16321bf500fc">
+            <code>bundleNested_CalculatedDynamic</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="assigned">
+    <code>bundle_AssignedFixed</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_AssignedFixed</value>
+        <value language="fr"></value>
+        <value language="en">bundle_AssignedFixed</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T03:33:56-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="5539ec29-d005-42fe-8ec8-f3bc42305043">
+            <code>bundle_AssignedFixed</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="calculated">
+    <code>bundle_CalculatedFixed</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_CalculatedFixed</value>
+        <value language="fr"></value>
+        <value language="en">bundle_CalculatedFixed</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T03:39:34-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="10ab0cae-39ce-45e6-809c-af136e4f31b6">
+            <code>bundle_CalculatedFixed</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>bundle_Constituent4_noInv</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_Constituent4_noInv</value>
+        <value language="fr"></value>
+        <value language="en">bundle_Constituent4_noInv</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T03:59:19-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>AVAILABLE_WHEN_IN_STOCK</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="87d76b60-89f8-4432-ab10-b6886c4fe6e0">
+            <code>bundle_Constituent4_noInv</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="assigned">
+    <code>bundle_AssignedFixed_noInv</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_AssignedFixed_noInv</value>
+        <value language="fr"></value>
+        <value language="en">bundle_AssignedFixed_noInv</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T04:06:24-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>AVAILABLE_WHEN_IN_STOCK</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="5953f041-2e80-4eab-8b70-15633a8dd2e2">
+            <code>bundle_AssignedFixed_noInv</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="calculated">
+    <code>bundle_CalculatedFixed_constituentSKU</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_CalculatedFixed_constituentSKU</value>
+        <value language="fr"></value>
+        <value language="en">bundle_CalculatedFixed_constituentSKU</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T04:15:55-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="f046dbdf-3b24-453b-981a-e09ce5963267">
+            <code>bundle_CalculatedFixed_constituentSKU</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="assigned">
+    <code>bundle_AssignedFixed_mixed</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_AssignedFixed_mixed</value>
+        <value language="fr"></value>
+        <value language="en">bundle_AssignedFixed_mixed</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T04:22:08-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="34f9244e-e4f1-46df-bd66-37ebe66531c6">
+            <code>bundle_AssignedFixed_mixed</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="calculated">
+    <code>bundle_CalculatedFixed_mixed</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">bundle_CalculatedFixed_mixed</value>
+        <value language="fr"></value>
+        <value language="en">bundle_CalculatedFixed_mixed</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-07T04:23:46-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="8682b2f5-e6c4-4ca3-8453-84b0fe3b1261">
+            <code>bundle_CalculatedFixed_mixed</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>giftCertificate_Mobee</code>
+    <name>
+        <value language="fr_CA"></value>
+        <value language="fr"></value>
+        <value language="en">Gift Certificate</value>
+        <value language="en_US">giftCertificate_Mobee</value>
+    </name>
+    <type>Gift Certificate</type>
+    <taxcode>NONE</taxcode>
+    <brand>None</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2008-07-03T07:00:00-07:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="description">
+            <value language="en">Gift certificate text</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="a1f79d15-715e-4527-bbdc-fe773dabf379">
+            <code>berries_20</code>
+            <skuoptions>
+                <skuoption code="GC_Themes">
+                    <skuoptionvalue>berries_theme</skuoptionvalue>
+                </skuoption>
+                <skuoption code="GC_Denominations">
+                    <skuoptionvalue>TWENTY_VALUE</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2009-10-01T07:00:00-07:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+        </sku>
+        <sku guid="f336e708-82bd-4750-a135-baf4a494edd7">
+            <code>hummingbird_50</code>
+            <skuoptions>
+                <skuoption code="GC_Themes">
+                    <skuoptionvalue>hummingbird_theme</skuoptionvalue>
+                </skuoption>
+                <skuoption code="GC_Denominations">
+                    <skuoptionvalue>FIFTY_VALUE</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2009-10-01T07:00:00-07:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+        </sku>
+        <sku guid="bb007472-8a94-4c2c-8618-1231a208a6ab">
+            <code>hummingbird_100</code>
+            <skuoptions>
+                <skuoption code="GC_Themes">
+                    <skuoptionvalue>hummingbird_theme</skuoptionvalue>
+                </skuoption>
+                <skuoption code="GC_Denominations">
+                    <skuoptionvalue>ONE_HUNDRED_VALUE</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2009-10-01T07:00:00-07:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+        </sku>
+        <sku guid="556a89f9-6843-4c69-8180-884ac7268192">
+            <code>berries_100</code>
+            <skuoptions>
+                <skuoption code="GC_Themes">
+                    <skuoptionvalue>berries_theme</skuoptionvalue>
+                </skuoption>
+                <skuoption code="GC_Denominations">
+                    <skuoptionvalue>ONE_HUNDRED_VALUE</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2009-10-01T07:00:00-07:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+        </sku>
+        <sku guid="46dfa6d5-18eb-4557-b147-0dce28809ee1">
+            <code>hummingbird_20</code>
+            <skuoptions>
+                <skuoption code="GC_Themes">
+                    <skuoptionvalue>hummingbird_theme</skuoptionvalue>
+                </skuoption>
+                <skuoption code="GC_Denominations">
+                    <skuoptionvalue>TWENTY_VALUE</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2009-10-01T07:00:00-07:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+        </sku>
+        <sku guid="8e6b2308-80ae-42e4-a4f2-5c2790acd894">
+            <code>berries_50</code>
+            <skuoptions>
+                <skuoption code="GC_Themes">
+                    <skuoptionvalue>berries_theme</skuoptionvalue>
+                </skuoption>
+                <skuoption code="GC_Denominations">
+                    <skuoptionvalue>FIFTY_VALUE</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2009-10-01T07:00:00-07:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="fr_CA"></value>
+            <value language="fr"></value>
+            <value language="en"></value>
+            <value language="en_US"></value>
+        </url>
+        <title>
+            <value language="fr_CA"></value>
+            <value language="fr"></value>
+            <value language="en">Gift Certificate</value>
+            <value language="en_US"></value>
+        </title>
+        <keywords>
+            <value language="fr_CA"></value>
+            <value language="fr"></value>
+            <value language="en">Gift Certificate</value>
+            <value language="en_US"></value>
+        </keywords>
+        <description>
+            <value language="fr_CA"></value>
+            <value language="fr"></value>
+            <value language="en">Gift Certificate</value>
+            <value language="en_US"></value>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Ship_Single_Sku_Pre_Order</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Ship_Single_Sku_Pre_Order</value>
+        <value language="fr"></value>
+        <value language="en">Ship_Single_Sku_Pre_Order</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-23T23:52:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>AVAILABLE_FOR_PRE_ORDER</availabilityrule>
+        <orderlimit>0</orderlimit>
+        <expectedreleasedate>2025-01-23T00:00:00-08:00</expectedreleasedate>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">this is a new item enabling user to pre-order but item is not expected and so will have no inventory for many years</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="35f3a088-badb-4f9e-9cdd-dffff7b98e94">
+            <code>Ship_Single_Sku_Pre_Order</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Ship_Single_Sku_InStock-NoInv</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Ship_Single_Sku_InStock-NoInv</value>
+        <value language="fr"></value>
+        <value language="en">Ship_Single_Sku_InStock-NoInv</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-24T00:00:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>AVAILABLE_WHEN_IN_STOCK</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">Product is set to be available only when there is inventory and currently there is no inventory so product cannot be purchased</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="d20ee1c4-e317-491d-812c-3e6740752081">
+            <code>Ship_Single_Sku_InStock-NoInv</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Ship_Single_Sku_InStock-Inv</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Ship_Single_Sku_InStock-Inv</value>
+        <value language="fr"></value>
+        <value language="en">Ship_Single_Sku_InStock-Inv</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-24T00:02:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>AVAILABLE_WHEN_IN_STOCK</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">this product is set to only be sold if available and there is currently inventory</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="6263e5ab-4690-446a-be4a-62ed5a2689cd">
+            <code>Ship_Single_Sku_InStock-Inv</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Ship_Sku_Expired-Inv</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Ship_Sku_Expired-Inv</value>
+        <value language="fr"></value>
+        <value language="en">Ship_Sku_Expired-Inv</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-17T05:37:00-08:00</enabledate>
+        <disabledate>2017-01-24T05:37:00-08:00</disabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">Product is set to always available but disable date is in the past and product has inventory.  Even so the product should no longer be sold given it has been disabled</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="4049141a-0041-45fe-a823-34e12b2a9e05">
+            <code>Ship_Sku_Expired-Inv</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Ship_Sku_Expired-NoInv</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Ship_Sku_Expired-NoInv</value>
+        <value language="fr"></value>
+        <value language="en">Ship_Sku_Expired-NoInv</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-17T05:39:00-08:00</enabledate>
+        <disabledate>2017-01-24T05:39:00-08:00</disabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">product has no inventory and is set to always available; however the disable date is in the past making it unavailable for purchase</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="1adb62ea-4e69-4a24-9f75-47dd2dd2c4fd">
+            <code>Ship_Sku_Expired-NoInv</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Dig_MultiSku-Price</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Dig_MultiSku-Price</value>
+        <value language="fr"></value>
+        <value language="en">Dig_MultiSku-Price</value>
+    </name>
+    <type>Multi_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-25T20:01:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">Product pricing is set differently Val1 and Val4 SKUs are set to inherit their pricing from that set for the product; whereas, Val2 and Val3 have pricing set at the SKU level</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="f7406e06-300e-41ff-8def-6ee202003ffc">
+            <code>Dig_MultiSku-Val4-Price-Prod</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value4</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-01-24T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+            <taxcodeoverride>Tax1</taxcodeoverride>
+        </sku>
+        <sku guid="b5bfd6dd-9155-44fc-84fa-ffe5cab0963e">
+            <code>Dig_MultiSku-Val3-Price-SKU</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value3</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-01-24T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+            <taxcodeoverride>Tax1</taxcodeoverride>
+        </sku>
+        <sku guid="bd761f33-6ca5-4a5d-9606-2c8be2f8640d">
+            <code>Dig_MultiSku-Val2-Price-SKU</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value2</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-01-24T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+            <taxcodeoverride>Tax1</taxcodeoverride>
+        </sku>
+        <sku guid="49ed7edf-ae7b-4ccb-bc2c-d1af368def2f">
+            <code>Dig_MultiSku-Val1-Price-Prod</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value1</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-01-24T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+            <taxcodeoverride>Tax1</taxcodeoverride>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Mix_MultiSku-SKU-Type</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Mix_MultiSku-SKU-Type</value>
+        <value language="fr"></value>
+        <value language="en">Mix_MultiSku-SKU-Type</value>
+    </name>
+    <type>Multi_SKU</type>
+    <taxcode>Tax1</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-30T22:43:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>AVAILABLE_WHEN_IN_STOCK</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">each sku of this multi-SKU product is set to be a different type, ship w/inventory, ship without inventory, digital</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="f15ed536-ca71-4e48-bf40-c0d9674906d2">
+            <code>Mix_Dig-Val2-NoInv</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value2</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-01-23T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+            <taxcodeoverride>Tax1</taxcodeoverride>
+        </sku>
+        <sku guid="a571a734-2ace-4fab-9140-25219f5f57f5">
+            <code>Mix_Ship-Val1-Inv</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value1</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-01-23T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+            <attributes/>
+            <taxcodeoverride>Tax1</taxcodeoverride>
+        </sku>
+        <sku guid="f6673776-fd6b-4ac5-8737-18258fc48278">
+            <code>Mix_Ship-Val3-NoInv</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value3</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-01-23T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+            <attributes/>
+            <taxcodeoverride>Tax1</taxcodeoverride>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Dig_Not_Sold_Sep</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Dig_Not_Sold_Sep</value>
+        <value language="fr"></value>
+        <value language="en">Dig_Not_Sold_Sep</value>
+    </name>
+    <type>Multi_SKU</type>
+    <taxcode>Tax2</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>true</notsoldseperately>
+        <enabledate>2017-01-23T22:53:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">not sold separately value checked and so item cannot be added to the cart when sold alone.  Can be discovered but not purchased on its own.  Purchasable only when purchasing Bun_Not_Sold_Sep</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="81a5c128-616f-4cee-8902-0dbd48e132e0">
+            <code>Dig_Not_Sold_Sep</code>
+            <skuoptions>
+                <skuoption code="SKU_Option1">
+                    <skuoptionvalue>Op1_Value1</skuoptionvalue>
+                </skuoption>
+            </skuoptions>
+            <availability>
+                <enabledate>2017-01-23T00:00:00-08:00</enabledate>
+            </availability>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+            <attributes/>
+            <taxcodeoverride>Tax2</taxcodeoverride>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product bundle="true" pricingMechanism="calculated">
+    <code>Bun_Not_Sold_Sep</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Bun_Not_Sold_Sep</value>
+        <value language="fr"></value>
+        <value language="en">Bun_Not_Sold_Sep</value>
+    </name>
+    <type>Single_SKU</type>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-30T22:59:45-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">this bundle contains a constituent which cannot be purchased outside the bundle (Dig_Not_Sold_Sep)</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="5d5229ca-e6cd-41ab-8fb4-b005ea8d933e">
+            <code>Bun_Not_Sold_Sep</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>Ship_Not_Visible</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">Ship_Not_Visible</value>
+        <value language="fr"></value>
+        <value language="en">Ship_Not_Visible</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>Tax2</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>false</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-01-23T23:22:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="features">
+            <value language="en">shipable product set to not be visible and so should not be discoverable even though inventory make it purchasable</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="de18bd58-82d0-41bc-b37f-71e34e39e44e">
+            <code>Ship_Not_Visible</code>
+            <shippable enabled="true">
+                <weight units="KG">0</weight>
+                <width units="CM">0</width>
+                <length units="CM">0</length>
+                <height units="CM">0</height>
+            </shippable>
+            <digitalasset enabled="false"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>excluded_Product</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">excluded_Product</value>
+        <value language="fr"></value>
+        <value language="en">excluded_Product</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>noTax</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-02-08T16:43:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="Attribute_1">
+            <value language="en">this product is in the MasterB catalog but is excluded from the Virtual Catalog</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="939a7465-3519-4854-b1cb-57ecca2caca1">
+            <code>excluded_Product</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>product_inExcludedCategory</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">product_inExcludedCategory</value>
+        <value language="fr"></value>
+        <value language="en">product_inExcludedCategory</value>
+    </name>
+    <type>Special_Products</type>
+    <taxcode>noTax</taxcode>
+    <brand>Gen_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-02-03T20:42:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes>
+        <attribute key="Attribute_1">
+            <value language="en">product when searched for in store-MasterB is found but when searched for in store-VirtualAB is not found as its corresponding category has been excluded from the virtual catalog</value>
+        </attribute>
+    </attributes>
+    <skus>
+        <sku guid="7f5e1572-6df5-4600-9d09-1b143f6618d8">
+            <code>product_inExcludedCategory</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+
+<product>
+    <code>usedMerchandising_Accessory1</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX">usedMerchandising_Accessory1</value>
+        <value language="fr"></value>
+        <value language="en">usedMerchandising_Accessory1</value>
+    </name>
+    <type>Single_SKU</type>
+    <taxcode>noTax</taxcode>
+    <brand>Generic_Brand</brand>
+    <availability>
+        <storevisible>true</storevisible>
+        <notsoldseperately>false</notsoldseperately>
+        <enabledate>2017-03-06T19:56:00-08:00</enabledate>
+        <minorderqty>1</minorderqty>
+        <availabilityrule>ALWAYS_AVAILABLE</availabilityrule>
+        <orderlimit>0</orderlimit>
+    </availability>
+    <attributes/>
+    <skus>
+        <sku guid="a6042214-e327-4cf8-acf4-7bd1cff762d2">
+            <code>usedMerchandising_Accessory1</code>
+            <shippable enabled="false"/>
+            <digitalasset enabled="true"/>
+        </sku>
+    </skus>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+</product>
+</products>

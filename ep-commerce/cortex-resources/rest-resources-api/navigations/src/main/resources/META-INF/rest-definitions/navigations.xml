@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>navigations</name>
+		<description>
+			<![CDATA[
+####Entry Point: /navigations/{scope}
+
+Navigation nodes organize your store's catalogs by providing containers to group related items into. Each navigation node
+can contain details (attributes), any number of [items][items], and other child nodes. Your company's marketers create these navigation nodes, also known as categories, using the Commerce Manager. You may need
+to coordinate with your marketers for how the navigation nodes should be used in your client application.
+
+[items]: #items
+]]></description>
+
+		<uri-part>
+			<name>node-id</name>
+			<description>
+				<![CDATA[The navigation ID. Navigation nodes can have other child nodes.
+				The node-id is a list of all ids denoting the path from the root node.
+				For the root node, the navigation id is a list containing one element.]]>
+			</description>
+			<string/>
+		</uri-part>
+
+		<resource>
+			<name>navigations</name>
+			<description><![CDATA[All the top level navigation nodes for a store.]]></description>
+			<uri>{base.family}/{base.scope}</uri>
+			<list-of>navigation</list-of>
+		</resource>
+
+		<resource>
+			<name>navigation</name>
+			<description><![CDATA[A single navigation node.]]></description>
+			<uri>{navigations}/{node-id}</uri>
+			<entity>navigation</entity>
+		</resource>
+
+		<relationship>
+			<name>navigations-from-root</name>
+			<description><![CDATA[Navigations can be found from the root resource.]]></description>
+			<rel>navigations</rel>
+			<from>base.root</from>
+			<to>navigations</to>
+		</relationship>
+
+		<relationship>
+			<name>navigation-to-top</name>
+			<description><![CDATA[The navigation to the top navigations resource.]]></description>
+			<rel>top</rel>
+			<from>navigation</from>
+			<to>navigations</to>
+		</relationship>
+
+		<relationship>
+			<name>parent-node-to-child</name>
+			<description><![CDATA[Navigate from a parent to a child navigation.]]></description>
+			<rel>child</rel>
+			<rev>parent</rev>
+			<from>navigation</from>
+			<to>navigation</to>
+		</relationship>
+
+		<entity>
+			<name>navigation</name>
+			<description><![CDATA[A single navigation node.]]></description>
+			<property>
+				<name>name</name>
+				<description><![CDATA[The Cortex system's name for the node.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>display-name</name>
+				<description><![CDATA[The localized name of the node, intended for display in the client application.]]></description>
+				<string/>
+			</property>
+			<property>
+				<name>node-id</name>
+				<description><![CDATA[The internal node identifier.]]></description>
+				<internal/>
+				<string/>
+			</property>
+			<property>
+				<name>details</name>
+				<description>
+					<![CDATA[
+An array of the navigation node's attributes. Attributes describe the details of the navigation node, like the node's name,
+description, associated subcategories, etc. Attributes are different each store. To get a list of navigation attributes, you'll need to coordinate with your store marketer who creates these navigation nodes and attributes.
+					]]>
+				</description>
+				<array>
+					<is-a>base.details</is-a>
+				</array>
+			</property>
+			<entity-type>elasticpath.navigations.node</entity-type>
+		</entity>
+
+	</family>
+</definitions>

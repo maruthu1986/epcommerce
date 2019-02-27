@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 xmlns:context="http://www.springframework.org/schema/context"
+			 xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!-- Load all plugin.xml for health monitoring accelerator. -->
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/plugin.xml" />
+	<import resource="monitoring/ep-monitoring.xml"/>
+
+	<!-- Overrides for the healthcheck monitor. This should always come AFTER ep-monitoring.xml -->
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/ext-monitoring.xml" />
+
+	<import resource="classpath:META-INF/spring/applicationContext-webapp-housing.xml" />
+
+	<bean name="osgiFrameworkProperties" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="org.osgi.framework.startlevel.beginning" value="6"/>
+				<entry key="felix.startlevel.bundle" value="5"/>
+
+				<!-- development-friendly -->
+				<entry key="org.osgi.framework.storage" value="target/osgi-cache"/>
+				<entry key="felix.cm.dir" value="target/osgi-config-data"/>
+				<entry key="org.osgi.framework.storage.clean" value="onFirstInit"/>
+				<entry key="felix.cache.locking" value="false"/>
+				<entry key="felix.fileinstall.dir"
+					   value="${felix.fileinstall.dir:${user.home}/ep/conf/cortex/permissions,${user.home}/ep/conf/cortex,/ep/conf/cortex/permissions,/ep/conf/cortex,/etc/ep/cortex/resources/config/permissions,/etc/ep/cortex/system/config}"/>
+
+				<!-- Gemini requirements -->
+				<entry key="org.osgi.framework.bundle.parent" value="framework"/>
+				<!-- https://bugs.eclipse.org/bugs/show_bug.cgi?id=329314 -->
+				<entry key="osgi.resolver.preferSystemPackages" value="true"/>
+				<!--
+						added servlet classes so that felix servlet bridge would work
+						http://felix.apache.org/site/apache-felix-http-service.html#ApacheFelixHTTPService-ConfigurationProperties
+				-->
+				<!-- sun.misc is added for openjdk compat -->
+				<entry key="org.osgi.framework.system.packages.extra" value="
+									javax.inject;version=1.0,
+									javax.jms;version=1.1.1,
+									javax.validation;version=1.1.0,
+									javax.validation.bootstrap,
+									javax.validation.constraints,
+									javax.validation.groups,
+									javax.validation.metadata;version=1.1.0,
+									javax.validation.spi,
+									javax.servlet;javax.servlet.descriptor;javax.servlet.http;version=3.0,
+									javax.servlet.annotation;version=3.0,
+									sun.misc,
+									org.w3c.dom.traversal,
+									org.w3c.dom.ranges,
+									org.slf4j;org.slf4j.spi;org.slf4j.helpers;version=1.7.25
+							"/>
+				<!-- Why are these packages declared here? Mostly to support libraries that don't support OSGi properly.
+					 These libraries are typically loading a class from a package not declared in their Import-Package
+					 header, or are using the Thread Context Class Loader (TCCL), and do not provide a way to supply an
+					 alternative ClassLoader
+					 - weblogic.xml.jaxp: For whatever reason, the XML Parser implementation is class loaded by the
+						 code that instantiates it. Oracle provides it's own XML Parser and so this package needs to be
+						 visible to anyone who might instantiate it
+					- oracle.sql: OpenJPA's OracleDictionary does a Class.forName using the TCCL:
+						 org.apache.openjpa.jdbc.sql.OracleDictionary.getEmptyClob(OracleDictionary.java:1016)
+					 - others? primarily to support the ep-commerce-engine-wrapper bundle whose MANIFEST is not yet generated
+						 correctly.
+
+				Added because spring does a class load for javax.inject rather than an import-package -->
+				<entry key="org.osgi.framework.bootdelegation"
+						value="weblogic.xml.jaxp,
+								javax.inject,
+								javax.validation,
+								javax.validation.bootstrap,
+								javax.validation.spi,
+								javax.validation.metadata,
+								javax.validation.executable,
+								javax.validation.constraints,
+								javax.validation.constraintvalidation,
+								sun.util.calendar,
+								sun.misc,
+								sun.reflect,
+								oracle.sql"/>
+
+				<!-- Added to prevent role transition event handler from quietly getting blacklisted due to timeout -->
+				<entry key="org.apache.felix.eventadmin.Timeout"
+					   value="0"/>
+
+				<!-- Added to override default behavior of bundle lazy starting, specified through Bundle-ActivationPolicy=lazy.
+				 	Bundle like org.glassfish.hk2.osgi-resource-locator is vital for proper operation but its activation
+				 	policy is lazy. Add more values, comma separated.
+				 -->
+				<entry key="override.lazy.behavior.for.bundles"
+					   value="org.glassfish.hk2.osgi-resource-locator"/>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<!-- target specific packages instead of the world because jars exist in WEB-INF/lib that we don't want to scan -->
+	<context:component-scan base-package="com.elasticpath.rest.relos.webapp"
+			scope-resolver="org.springframework.context.annotation.Jsr330ScopeMetadataResolver"/>
+</beans>

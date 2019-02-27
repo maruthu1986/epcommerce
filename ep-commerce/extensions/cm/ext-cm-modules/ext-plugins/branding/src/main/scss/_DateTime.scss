@@ -1,0 +1,149 @@
+$datetime_bg: $widget_body_color;;
+
+// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html
+DateTime {
+	background-color: $datetime_bg;
+	background-image: none;
+	border: none;
+	border-radius: 6px; 
+	color: $default-font-color;
+	font: $default-font;
+	// padding: 20px; THIS DOESN'T DO ANYTHING
+	text-shadow: none;
+	box-shadow: $dropdown_shadow; //THIS DOESN'T DO ANYTHING
+
+
+	// border to be spacious (doesn't show actual borders)
+	&[BORDER] {
+		// border: 1px solid $gray-lighter;
+		border: 10px solid $datetime_bg;
+		// padding: 20px; //THIS ADDS PADDING AROUND DROPDOWN
+		// border-radius: 0;
+		box-shadow: none;
+		&:focused {
+			// border: 1px solid $gray-light;
+			border: 10px solid $datetime_bg;
+			box-shadow: none;
+		}
+
+		&:disabled {
+			// border: 1px solid $gray-fair;
+			border: 10px solid $datetime_bg;
+			box-shadow: none;
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html#DateTime-Field
+	// Fields for date, month, year, hours, minutes, seconds
+	&-Field {
+		background-color: transparent;
+		color: $gray-dark;
+		// padding: 10px 5px;
+		text-shadow: none;
+
+		&:selected {
+			border: 1px solid $primary-color; // NOT WORKING
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html#DateTime-Calendar-Day
+	&-Calendar-Day {
+		background-color: transparent;
+		padding: 10px; // DOESN'T DO ANYTHING
+		color: inherit;
+		text-shadow: none;
+
+		&:hover {
+			background-color: $gray-lighter;
+		}
+
+		&:selected {
+			background-color: $primary-color;
+			color: $secondary-color;
+
+			&:hover {
+				background-color: $primary-color2;
+			}
+			&:unfocused {
+				background-color: $gray;
+			}
+		}
+
+		&:today {
+			background-color: transparent;
+			border: none;
+			color: $danger-color;
+		}
+
+		&:otherMonth {
+			background-color: transparent;
+			color: $gray-light;
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html#DateTime-Calendar-Navbar
+	&-Calendar-Navbar {
+		background-color: transparent;
+		background-image: none;
+		border: none;
+		border-bottom: 3px solid $datetime_bg;
+		font: $default-font;
+		color: #000;
+		text-shadow: none;
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html#DateTime-Calendar-PreviousMonthButton
+	&-Calendar-PreviousMonthButton {
+		background-image: url('themes/icons/DateTime-Calendar-PreviousMonthButton.png');
+		cursor: pointer;
+		&:hover {
+			background-image: url('themes/icons/DateTime-Calendar-PreviousMonthButton_hover.png');
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html#DateTime-Calendar-NextMonthButton
+	&-Calendar-NextMonthButton {
+		background-image: url('themes/icons/DateTime-Calendar-NextMonthButton.png');
+		cursor: pointer;
+		&:hover {
+			background-image: url('themes/icons/DateTime-Calendar-NextMonthButton_hover.png');
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html#DateTime-Calendar-PreviousYearButton
+	&-Calendar-PreviousYearButton {
+		background-image: url('themes/icons/DateTime-Calendar-PreviousYearButton.png');
+		cursor: pointer;
+		&:hover {
+			background-image: url('themes/icons/DateTime-Calendar-PreviousYearButton_hover.png');
+		}
+	}
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html#DateTime-Calendar-NextYearButton
+	&-Calendar-NextYearButton {
+		background-image: url('themes/icons/DateTime-Calendar-NextYearButton.png');
+		cursor: pointer;
+		&:hover {
+			background-image: url('themes/icons/DateTime-Calendar-NextYearButton_hover.png');
+		}
+	}
+
+	@include updown_buttons();
+
+
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html#DateTime-DropDownButton
+	&-DropDownButton {
+		// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html#DateTime-DropDownButton-Icon
+		&-Icon {
+
+		}
+	}
+
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/DateTime.html#DateTime-DropDownCalendar
+	// The DateTime drop-down calendar. Applies when the SWT.DROP_DOWN style is used.
+	&-DropDownCalendar {
+
+	}
+}

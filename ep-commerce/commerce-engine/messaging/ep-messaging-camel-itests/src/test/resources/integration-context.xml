@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:camel="http://camel.apache.org/schema/spring"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+		">
+
+	<import resource="classpath:integration-core-context.xml"/>
+	<import resource="classpath:ep-test-application.xml"/>
+
+	<camel:camelContext id="ep-messaging-camel-itest" xmlns="http://camel.apache.org/schema/spring">
+	</camel:camelContext>
+
+	<bean name="ep-messaging-camel-itest:beanPostProcessor" class="com.elasticpath.messaging.impl.FastCamelBeanPostProcessor">
+		<property name="annotatedClassList" ref="camelAnnotatedClassList"/>
+		<property name="camelId" value="ep-messaging-camel-itest"/>
+	</bean>
+
+	<bean id="schemaExtension" class="liquibase.integration.spring.SpringLiquibase" scope="prototype">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="changeLog" value="classpath:ep-messaging-camel-itest-changelog.xml"/>
+	</bean>
+
+	<bean id="abstractSettingValueBackedCamelEndpointFactoryBean" class="com.elasticpath.messaging.camel.SettingValueBackedCamelEndpointFactoryBean"
+			abstract="true">
+		<property name="camelContextId" value="ep-messaging-camel-itest"/>
+		<property name="settingsReader" ref="settingsReader"/>
+	</bean>
+
+	<bean id="noContextMessageEndpoint" parent="abstractSettingValueBackedCamelEndpointFactoryBean" depends-on="schemaExtension">
+		<property name="path" value="COMMERCE/ITEST/MESSAGING/messageChannelUri"/>
+	</bean>
+
+	<bean id="noMatchingContextMessageEndpoint" parent="abstractSettingValueBackedCamelEndpointFactoryBean" depends-on="schemaExtension">
+		<property name="path" value="COMMERCE/ITEST/MESSAGING/messageChannelUri"/>
+		<property name="context" value="NOSUCHCONTEXT"/>
+	</bean>
+
+	<bean id="context1MessageEndpoint" parent="abstractSettingValueBackedCamelEndpointFactoryBean" depends-on="schemaExtension">
+		<property name="path" value="COMMERCE/ITEST/MESSAGING/messageChannelUri"/>
+		<property name="context" value="CONTEXT1"/>
+	</bean>
+
+	<bean id="context2MessageEndpoint" parent="abstractSettingValueBackedCamelEndpointFactoryBean" depends-on="schemaExtension">
+		<property name="path" value="COMMERCE/ITEST/MESSAGING/messageChannelUri"/>
+		<property name="context" value="CONTEXT2"/>
+	</bean>
+
+	<bean id="publishingEndpoint" parent="abstractSettingValueBackedCamelEndpointFactoryBean" depends-on="schemaExtension">
+		<property name="path" value="COMMERCE/ITEST/MESSAGING/virtualTopicDestinationUri"/>
+	</bean>
+
+	<bean id="consumerEndpointOne" parent="abstractSettingValueBackedCamelEndpointFactoryBean" depends-on="schemaExtension">
+		<property name="path" value="COMMERCE/ITEST/MESSAGING/virtualTopicDestinationUri"/>
+		<property name="context" value="ConsumerOne"/>
+	</bean>
+
+	<bean id="consumerEndpointTwo" parent="abstractSettingValueBackedCamelEndpointFactoryBean" depends-on="schemaExtension">
+		<property name="path" value="COMMERCE/ITEST/MESSAGING/virtualTopicDestinationUri"/>
+		<property name="context" value="ConsumerTwo"/>
+	</bean>
+
+	<!-- Opt out of messaging. -->
+	<bean id="eventMessageFactory" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.factory.EventMessageFactory"/>
+	</bean>
+
+	<bean id="customerEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher" />
+	</bean>
+
+	<bean id="customerEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+		<property name="camelContextId" value="ep-messaging-camel-itest"/>
+	</bean>
+
+	<bean id="orderEventMessagePublisher" class="com.elasticpath.commons.beanframework.NoOpProxyFactoryBean">
+		<property name="serviceInterface" value="com.elasticpath.messaging.EventMessagePublisher"/>
+	</bean>
+
+	<bean id="orderEventExternalEndpoint" class="org.apache.camel.spring.CamelEndpointFactoryBean">
+		<property name="uri" value="direct:/dev/null" />
+		<property name="camelContextId" value="ep-messaging-camel-itest"/>
+	</bean>
+
+	<!-- Extension point for plugging in additional test components. -->
+	<!-- This must occur as the last import in the context to facilitate overriding existing beans. -->
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/ep-itest-plugin.xml"/>
+
+</beans>

@@ -1,0 +1,8 @@
+// DON'T SEE THIS IS USED
+$ctab_padding: 7px 15px 7px 12px; // because left icons have space in image
+Tab {
+
+	// http://download.eclipse.org/rt/rap/doc/3.1/guide/reference/theming/TabFolder.html
+	@include tab_style();
+}
+

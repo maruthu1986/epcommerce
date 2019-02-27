@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath</groupId>
+		<artifactId>ep-data-population-cli-parent</artifactId>
+		<version>703.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ep-data-population-cli-plugins</artifactId>
+	<packaging>pom</packaging>
+	<name>EP Data Population CLI Plugins</name>
+	<description>Parent pom for the Data Population CLI plugins.</description>
+
+	<modules>
+		<!-- Configuration modules -->
+		<module>ep-dp-cli-data-dir-plugin</module>
+		<module>ep-dp-cli-conf-dir-plugin</module>
+
+		<!-- Top-Level Command modules -->
+		<module>ep-dp-cli-db-update-plugin</module>
+		<module>ep-dp-cli-db-reset-plugin</module>
+		<module>ep-dp-cli-filter-data-plugin</module>
+	</modules>
+</project>

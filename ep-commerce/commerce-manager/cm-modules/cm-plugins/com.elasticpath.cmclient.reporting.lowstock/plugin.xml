@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+  
+  <extension
+         point="com.elasticpath.cmclient.core.authorizations">
+      <permissions>
+         <permission
+               activityId="com.elasticpath.cmclient.reporting.authorizations.activity"
+               key="REPORTING_LOW_STOCK_MANAGE"
+               name="%lowStockPermission">
+         </permission>
+      </permissions>
+   </extension>
+  <extension
+        point="com.elasticpath.cmclient.reporting.reports">
+     <report
+           class="com.elasticpath.cmclient.reporting.lowstock.InventoryLowStockReportSection"
+           designFile="reportDesign/LowStock.rptdesign"
+           id="com.elasticpath.cmclient.reporting.lowstock.InventoryLowStockReportSection"
+           name="%report.name">
+     </report>
+  </extension>
+</plugin>

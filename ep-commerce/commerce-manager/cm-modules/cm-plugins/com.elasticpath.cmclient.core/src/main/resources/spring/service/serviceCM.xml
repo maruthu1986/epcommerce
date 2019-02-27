@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:settings="http://www.elasticpath.com/schema/settings"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+            http://www.elasticpath.com/schema/settings http://www.elasticpath.com/schema/settings/settings.xsd
+	">
+
+	<!-- pulled from openjpa-osgi-wrapper.jar -
+	   MUST BE imported before ep-core/spring/service/service.xml and before first DB call is made,
+	   otherwise external ehcache.xml will never be properly loaded.
+	   OpenJpa framework tries to pull a query from cache and if cache is not initialized,  it will create one.-->
+	<import resource="classpath:spring/openjpa-osgi-wrapper/ehcache-jmx.xml" />
+
+	<!-- Importing GEOIP config and create an alias used in geoip.xml -->
+	<import resource="classpath:spring/geoip/geoip-demo.xml"/>
+	<!-- pulled from ep-core.jar -->
+	<import resource="classpath:spring/commons/validators.xml" /><!-- required by core service/service.xml -->
+	<import resource="classpath:spring/service/service.xml" />
+	<import resource="classpath:spring/service/changeset-services.xml" />
+	<import resource="classpath:spring/service/checkout.xml" />
+	<import resource="classpath:spring/service/serviceEPQL.xml"/>
+	<import resource="classpath:spring/service/reporting-service.xml"/>
+
+	<import resource="batch-jobs.xml"/>
+	<import resource="../quartz/quartz.xml"/>
+
+	<bean id="applicationName" class="java.lang.String">
+		<constructor-arg value="Commerce Manager"/>
+	</bean>
+
+	<alias name="settingsService" alias="settingsReader"/>
+
+	<bean id="servicePreInterceptors" class="java.util.ArrayList" />
+
+	<bean id="remoteResourceRetrievalService" class="com.elasticpath.service.remote.impl.ResourceRetrievalServiceImpl">
+		<property name="propertiesDao" ref="propertiesDao" />
+	</bean>
+
+	<bean id="indexSearchService" class="com.elasticpath.service.search.solr.query.SolrIndexSearchServiceImpl">
+		<property name="spellIndexSearcher" ref="spellIndexSearcher"/>
+		<property name="beanFactory" ref="coreBeanFactory" />
+	</bean>
+
+	<bean id="productModelService"
+		  class="com.elasticpath.cmclient.core.service.impl.ProductModelServiceImpl">
+		<property name="priceListService" ref="priceListService" />
+		<property name="priceListHelperService" ref="priceListHelperService" />
+		<property name="productLookup" ref="productLookup"/>
+		<property name="productSkuLookup" ref="productSkuLookup"/>
+		<property name="beanFactory" ref="coreBeanFactory"/>
+	</bean>
+
+	<bean id="selectableTagValuesService" class="com.elasticpath.tags.service.impl.SelectableTagValueFacadeImpl">
+		<property name="selectableTagValueServiceLocator">
+			<ref bean="selectableTagValueServiceLocator"/>
+		</property>
+	</bean>
+
+	<bean id="abstractInternalSelectableTagValueProvider" abstract="true">
+		<property name="orderingComparator" ref="orderingComparator"/>
+	</bean>
+
+	<bean id="selectableTagValueServiceLocator" class="com.elasticpath.tags.service.impl.SelectableTagValueServiceLocatorImpl">
+		<property name="valueProviders">
+			<map>
+				<entry>
+					<key>
+						<value>gender</value>
+					</key>
+					<bean class="com.elasticpath.tags.service.impl.InternalSelectableStringTagValueProviderImpl"
+						  parent="abstractInternalSelectableTagValueProvider"/>
+				</entry>
+				<entry>
+					<key>
+						<value>registered</value>
+					</key>
+					<bean class="com.elasticpath.tags.service.impl.InternalSelectableStringTagValueProviderImpl"
+						  parent="abstractInternalSelectableTagValueProvider"/>
+				</entry>
+				<entry>
+					<key>
+						<value>first_time_buyer</value>
+					</key>
+					<bean class="com.elasticpath.tags.service.impl.InternalSelectableStringTagValueProviderImpl"
+						  parent="abstractInternalSelectableTagValueProvider"/>
+				</entry>
+				<entry>
+					<key>
+						<value>country_code</value>
+					</key>
+					<bean class="com.elasticpath.tags.service.impl.ExternalSelectableTagValueProviderProxyImpl">
+						<property name="selectableTagValueProvider" ref="countryCodeSelectableValueProvider"/>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>time_zone</value>
+					</key>
+					<bean class="com.elasticpath.tags.service.impl.ExternalSelectableTagValueProviderProxyImpl">
+						<property name="selectableTagValueProvider" ref="timeZoneSelectableValueProvider"/>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>ip_routing_type</value>
+					</key>
+					<bean class="com.elasticpath.tags.service.impl.ExternalSelectableTagValueProviderProxyImpl">
+						<property name="selectableTagValueProvider" ref="ipRoutingTypeSelectableValueProvider"/>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>ip_connection_type</value>
+					</key>
+					<bean class="com.elasticpath.tags.service.impl.ExternalSelectableTagValueProviderProxyImpl">
+						<property name="selectableTagValueProvider" ref="ipConnectionTypeSelectableValueProvider"/>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>continent</value>
+					</key>
+					<bean class="com.elasticpath.tags.service.impl.ExternalSelectableTagValueProviderProxyImpl">
+						<property name="selectableTagValueProvider" ref="continentSelectableValueProvider"/>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>state</value>
+					</key>
+					<bean class="com.elasticpath.tags.service.impl.ExternalSelectableTagValueProviderProxyImpl">
+						<property name="selectableTagValueProvider" ref="stateSelectableValueProvider"/>
+					</bean>
+				</entry>
+				<entry>
+					<key>
+						<value>city</value>
+					</key>
+					<bean class="com.elasticpath.tags.service.impl.ExternalSelectableTagValueProviderProxyImpl">
+						<property name="selectableTagValueProvider" ref="citySelectableValueProvider"/>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="cmPasswordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"/>
+
+	<bean id="searchHostLocatorTemplate" class="com.elasticpath.service.search.impl.SettingsSearchHostLocatorImpl" abstract="true">
+		<!-- Setting for clustered search server deployments. -->
+		<!-- <property name="requiresMaster" value="true" /> -->
+		<property name="defaultSearchHostLocationProvider">
+			<settings:setting path="COMMERCE/SYSTEM/SEARCH/searchHost" context="default"/>
+		</property>
+		<property name="masterSearchHostLocationProvider">
+			<settings:setting path="COMMERCE/SYSTEM/SEARCH/searchHost" context="master"/>
+		</property>
+	</bean>
+
+	<bean id="searchHostLocator" parent="searchHostLocatorTemplate"/>
+
+	<bean id="searchConfigFactoryTemplate" class="com.elasticpath.service.search.impl.CMSearchConfigFactoryImpl"
+		  abstract="true">
+		<property name="beanFactory" ref="coreBeanFactory"/>
+		<property name="searchHostLocator" ref="searchHostLocator"/>
+		<property name="accuracyProvider">
+			<settings:setting path="COMMERCE/SEARCH/accuracy"/>
+		</property>
+		<property name="boostValuesProvider">
+			<settings:setting path="COMMERCE/SEARCH/boosts"/>
+		</property>
+		<property name="exclusiveAttributeListProvider">
+			<settings:setting path="COMMERCE/SEARCH/excludeAttributes"/>
+		</property>
+		<property name="maximumResultsThresholdProvider">
+			<settings:setting path="COMMERCE/SEARCH/maximumResultsThreshold"/>
+		</property>
+		<property name="maximumReturnNumberProvider">
+			<settings:setting path="COMMERCE/SEARCH/maxReturnNumber"/>
+		</property>
+		<property name="maximumSuggestionsPerWordProvider">
+			<settings:setting path="COMMERCE/SEARCH/maximumSuggestionsPerWord"/>
+		</property>
+		<property name="minimumResultsThresholdProvider">
+			<settings:setting path="COMMERCE/SEARCH/minimumResultsThreshold"/>
+		</property>
+		<property name="minimumSimilarityProvider">
+			<settings:setting path="COMMERCE/SEARCH/minimumSimilarity"/>
+		</property>
+		<property name="prefixLengthProvider">
+			<settings:setting path="COMMERCE/SEARCH/prefixLength"/>
+		</property>
+	</bean>
+
+	<bean id="searchConfigFactory" parent="searchConfigFactoryTemplate"/>
+
+	<bean id="intervalRefreshStrategy" class="com.elasticpath.settings.refreshstrategy.impl.IntervalRefreshStrategyImpl">
+		<property name="settingsReader" ref="settingsService"/>
+		<property name="timeoutParamKey" value="timeout"/>
+	</bean>
+
+	<bean id="immediateRefreshStrategy" class="com.elasticpath.settings.refreshstrategy.impl.ImmediateRefreshStrategyImpl">
+		<property name="settingsReader" ref="settingsService"/>
+	</bean>
+
+	<bean id="applicationLifetimeRefreshStrategy" class="com.elasticpath.settings.refreshstrategy.impl.ApplicationLifetimeRefreshStrategyImpl">
+		<property name="settingsReader" ref="settingsService"/>
+	</bean>
+
+	<bean id="cachedSettingsReader" class="com.elasticpath.settings.impl.CachedSettingsReaderImpl">
+		<property name="settingsService" ref="settingsService"/>
+		<property name="refreshStrategies">
+			<map>
+				<entry key="interval" value-ref="intervalRefreshStrategy"/>
+				<entry key="immediate" value-ref="immediateRefreshStrategy"/>
+				<entry key="application" value-ref="applicationLifetimeRefreshStrategy"/>
+			</map>
+		</property>
+		<property name="refreshStrategyKey" value="adminRefreshStrategy"/>
+		<property name="defaultRefreshStrategy" ref="immediateRefreshStrategy"/>
+	</bean>
+
+	<bean id="cmChangeSetHelper" class="com.elasticpath.cmclient.core.helpers.ChangeSetHelper">
+		<property name="changeSetService" ref="changeSetService"/>
+		<property name="timeService" ref="timeService"/>
+		<property name="settingsReader" ref="cachedSettingsReader"/>
+	</bean>
+
+</beans>

@@ -1,0 +1,334 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Elastic Path Query Language</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<LINK href="index_files/main-action.css" type="text/css" rel="stylesheet">
+<STYLE type="text/css">
+body, h1, h2, h3 {BACKGROUND-COLOR: #ffffff}
+H1 {FONT-SIZE: 20px; margin-top: 0}
+H2 {FONT-SIZE: 16px}
+H3 {FONT-SIZE: 12px}
+</STYLE>
+</head>
+<BODY>
+<TABLE class="pagecontent" cellSpacing="0" cellPadding="0" width="100%" border="0">
+  <TBODY>
+  <TR>
+    <TD class="pagebody" vAlign="top">
+      <H1><SPAN class="pagetitle">Elastic Path Query Language</H1>
+      
+      <TABLE cellSpacing="0" cellPadding="0" width="100%" border="0">
+        <TBODY>
+        <TR>
+          <TD class="pagebody" vAlign="top">
+            <TABLE style="CLEAR: both" cellSpacing="0" cellPadding="0" width="100%" 
+            border="0">
+              <TBODY>
+              <TR>
+                <TD class="pagecontent" vAlign="top" width="100%">
+                  <TABLE style="MARGIN-BOTTOM: 5px" cellSpacing="0" 
+                    width="100%"><TBODY>
+                    <TR>
+                      <TD vAlign="top" align="left"></TD>
+                      <TD vAlign="top" align="right"></TD></TR></TBODY></TABLE>
+                    <UL>
+                      <LI><A href="#AdvancedSearch-Basicqueryformat">Query format</A>
+                      <LI><A href="#AdvancedSearch-Casesensitivity">Case sensitivity</A> 
+                      <LI><A href="#AdvancedSearch-Supportedoperators">Supported operators</A> 
+                      <LI><A href="#AdvancedSearch-Supportedfields">Supported fields</A> 
+                      <LI><A href="#AdvancedSearch-Localizedfieldsandattributes">Localized fields and attributes</A> 
+                      <LI><A href="#AdvancedSearch-Combiningexpressions">Combining expressions</A> 
+                      <LI><A href="#AdvancedSearch-Limitingtheresultsetsize">Limiting the result set size</A> 
+                      <LI><A href="#AdvancedSearch-Specifyingthefirstmatch">Specifying the first match</A> 
+                      </LI>
+                      </UL>
+                  </DIV>
+                  
+                  <H2><A name="AdvancedSearch-Basicqueryformat"></A>Query format</H2>
+                  <P>A simple query consists of a single expression. An expression has the following form:</P>
+                  <DIV class="code">
+                  <DIV class="codeContent"><PRE class="code-java">&lt;field&gt; &lt;<SPAN class="code-keyword">operator</SPAN>&gt; &lt;value&gt;</PRE></DIV></DIV>
+                  <P>where</P>
+                  <UL>
+                    <LI><EM>&lt;field&gt;</EM> is the field you are searching. 
+                    For example, if you want to look for products of a specific 
+                    brand, you would include the <TT>BrandCode</TT> field in 
+                    your query. The supported fields are described in <A 
+                    href="#AdvancedSearch-Supportedfields">Supported 
+                    fields</A> further in this article. 
+                    <LI><EM>&lt;operator&gt;</EM> is the operator you are using 
+                    to perform the comparison. 
+                    <LI><EM>&lt;value&gt;</EM> is the literal value you want to 
+                    compare to the field value. 
+                    <TABLE class="noteMacro" cellSpacing="8" cellPadding="5" 
+                    width="85%" align="center" border="0">
+                      <COLGROUP>
+                      <COL width="24">
+                      <COL></COLGROUP>
+                      <TBODY>
+                      <TR>
+                        <TD vAlign="top"><IMG height="16" alt="" 
+                          src="index_files/warning.gif" width="16" align="absMiddle" 
+                          border="0"></TD>
+                        <TD>Literal string values must be enclosed in single quotes. Numeric and currency values must not be 
+                          enclosed in single quotes.</TD></TR></TBODY></TABLE></LI></UL>
+                  <P>For example, the following query matches the product whose 
+                  code is <TT>10030205</TT>:</P>
+                  <DIV class="code">
+                  <DIV class="codeContent"><PRE class="code-java">ProductCode = '10030205'</PRE></DIV></DIV>
+                  <P>In addition to searching for field values, you can also 
+                  search for attribute values. To search for a value in an 
+                  attribute, the expression has the following form:</P>
+                  <DIV class="code">
+                  <DIV class="codeContent"><PRE class="code-java">AttributeName{&lt;attribute_name&gt;} &lt;<SPAN class="code-keyword">operator</SPAN>&gt; &lt;value&gt;</PRE></DIV></DIV>
+                  <P>where <EM>&lt;attribute_name&gt;</EM> is the name of a 
+                  product attribute or product SKU attribute.</P>
+                  <P>For example, the following query matches all products that 
+                  have the Header / Model attribute set to <TT>MX</TT>:</P>
+                  <DIV class="code">
+                  <DIV class="codeContent"><PRE class="code-java">AttributeName{Header / Model} = 'MX'</PRE></DIV></DIV>
+                  <H2><A name="AdvancedSearch-Casesensitivity"></A>Case sensitivity</H2>
+                  <P>The following <B>are</B> case-sensitive:</P>
+                  <UL>
+                    <LI>Keywords, such as <TT>AND</TT>, <TT>OR</TT>, and 
+                    <TT>AttributeName</TT> 
+                    <LI>Field names 
+                    <LI>Attribute names 
+                    <LI>Currency codes (must be in upper case letters) 
+                    </LI></UL>
+                  <P>The following are <B>not</B> case-sensitive:</P>
+                  <UL>
+                    <LI>Literal values 
+                    <LI>Locale/language </LI></UL>
+                  <H2><A name="AdvancedSearch-Supportedoperators"></A>Data types and supported operators</H2>
+                  <P>The following operators can be used in queries:</P>
+                  <TABLE class="confluenceTable">
+                    <TBODY>
+                    <TR>
+                      <TH class="confluenceTh">Data type</TH>
+                      <TH class="confluenceTh">Supported operators</TH>
+                      <TH class="confluenceTh">Notes</TH>
+                      <TH class="confluenceTh">Examples</TH>
+                    </TR>
+                      <TD class="confluenceTd">DateTime </TD>
+                      <TD class="confluenceTd">=, !=, &lt;, =&lt;, &gt;, &gt;= </TD>
+                      <TD class="confluenceTd">The DateTime format is as follows:<BR/><TT>YYYY-MM-DDThh:mm:ss</TT></TD>
+                      <TD class="confluenceTd"><PRE>'2008-08-30T17:19:00'
+'2009-12-21T07:06:00'
+</PRE></TD>
+                    </TR>
+                    <TR>
+                      <TD class="confluenceTd">Decimal </TD>
+                      <TD class="confluenceTd">=, !=, &lt;, =&lt;, &gt;, &gt;= </TD>
+                      <TD class="confluenceTd">The decimal point is optional.</TD>
+                      <TD class="confluenceTd"><PRE>100.00
+20199</PRE></TD>
+                    </TR>
+                    <TR>
+                      <TD class="confluenceTd">Integer </TD>
+                      <TD class="confluenceTd">=, !=, &lt;, =&lt;, &gt;, &gt;= </TD>
+                      <TD class="confluenceTd">&nbsp;</TD>
+                      <TD class="confluenceTd"><PRE>1</PRE></TD>
+                    </TR>
+                    <TR>
+                      <TD class="confluenceTd">String </TD>
+                      <TD class="confluenceTd">=, != </TD>
+                      <TD class="confluenceTd">Strings must be
+surrounded by single quotes ('). If a string contains a single quote, it must be preceded by a backslash.</TD>
+                      <TD class="confluenceTd"><PRE>'StringValue'
+'Canon - Kit d\'accessoires pour appareil photo'
+</PRE></TD>
+                      </TR></TBODY></TABLE>
+                      
+                  <H2><A name="AdvancedSearch-Supportedfields"></A>Supported fields</H2>
+                  <P>The following fields can be used in product queries:</P>
+                  <TABLE class="confluenceTable">
+                    <TBODY>
+                    <TR>
+                      <TH class="confluenceTh">Field name</TH>
+                      <TH class="confluenceTh">Description</TH>
+                      <TH class="confluenceTh">Data type</TH>
+                      <TH class="confluenceTh">Localized</TH></TR>
+                    <TR>
+                      <TD class="confluenceTd"><TT>BrandCode</TT></TD>
+                      <TD class="confluenceTd">Brand code</TD>
+                      <TD class="confluenceTd">String</TD>
+                      <TD class="confluenceTd"><IMG class="emoticon" height="16" 
+                        alt="" src="index_files/error.gif" width="16" 
+                        align="absMiddle" border="0"></TD></TR>
+                    <TR>
+                      <TD class="confluenceTd"><TT>BrandName</TT></TD>
+                      <TD class="confluenceTd">Brand name</TD>
+                      <TD class="confluenceTd">String</TD>
+                      <TD class="confluenceTd"><IMG class="emoticon" height="16" 
+                        alt="" src="index_files/check.gif" width="16" 
+                        align="absMiddle" border="0"></TD></TR>
+                    <TR>
+                      <TD class="confluenceTd"><TT>CatalogCode</TT></TD>
+                      <TD class="confluenceTd">Catalog code</TD>
+                      <TD class="confluenceTd">String</TD>
+                      <TD class="confluenceTd"><IMG class="emoticon" height="16" 
+                        alt="" src="index_files/error.gif" width="16" 
+                        align="absMiddle" border="0"></TD></TR>
+                    <TR>
+                      <TD class="confluenceTd"><TT>CategoryCode</TT></TD>
+                      <TD class="confluenceTd">Category code</TD>
+                      <TD class="confluenceTd">String</TD>
+                      <TD class="confluenceTd"><IMG class="emoticon" height="16" 
+                        alt="" src="index_files/error.gif" width="16" 
+                        align="absMiddle" border="0"></TD></TR>
+                    <TR>
+                      <TD class="confluenceTd"><TT>CategoryName</TT></TD>
+                      <TD class="confluenceTd">Category name</TD>
+                      <TD class="confluenceTd">String</TD>
+                      <TD class="confluenceTd"><IMG class="emoticon" height="16" 
+                        alt="" src="index_files/check.gif" width="16" 
+                        align="absMiddle" border="0"></TD></TR>
+                    <TR>
+                      <TD class="confluenceTd"><TT>CreateDate</TT></TD>
+                      <TD class="confluenceTd">Product created date</TD>
+                      <TD class="confluenceTd">Datetime</TD>
+                      <TD class="confluenceTd"><IMG class="emoticon" height="16" 
+                        alt="" src="index_files/error.gif" width="16" 
+                        align="absMiddle" border="0"></TD></TR>
+                    <TR>
+                      <TD class="confluenceTd"><TT>LastModifiedDate</TT></TD>
+                      <TD class="confluenceTd">Product last modified date</TD>
+                      <TD class="confluenceTd">Datetime</TD>
+                      <TD class="confluenceTd"><IMG class="emoticon" height="16" 
+                        alt="" src="index_files/error.gif" width="16" 
+                        align="absMiddle" border="0"></TD></TR>
+                    <TR>
+                      <TD class="confluenceTd"><TT>ProductActive</TT></TD>
+                      <TD class="confluenceTd">Product active</TD>
+                      <TD class="confluenceTd">Boolean</TD>
+                      <TD class="confluenceTd"><IMG class="emoticon" height="16" 
+                        alt="" src="index_files/error.gif" width="16" 
+                        align="absMiddle" border="0"></TD></TR>
+                    <TR>
+                      <TD class="confluenceTd"><TT>ProductCode</TT></TD>
+                      <TD class="confluenceTd">Product code</TD>
+                      <TD class="confluenceTd">String</TD>
+                      <TD class="confluenceTd"><IMG class="emoticon" height="16" 
+                        alt="" src="index_files/error.gif" width="16" 
+                        align="absMiddle" border="0"></TD></TR>
+                    <TR>
+                      <TD class="confluenceTd"><TT>ProductName</TT></TD>
+                      <TD class="confluenceTd">Product name</TD>
+                      <TD class="confluenceTd">String</TD>
+                      <TD class="confluenceTd"><IMG class="emoticon" height="16" 
+                        alt="" src="index_files/check.gif" width="16" 
+                        align="absMiddle" border="0"></TD></TR>
+                    <TR>
+                      <TD class="confluenceTd"><TT>SkuCode</TT></TD>
+                      <TD class="confluenceTd">Product SKU code</TD>
+                      <TD class="confluenceTd">String</TD>
+                      <TD class="confluenceTd"><IMG class="emoticon" height="16" 
+                        alt="" src="index_files/error.gif" width="16" 
+                        align="absMiddle" border="0"></TD></TR>
+                    <TR>
+                      <TD class="confluenceTd"><TT>StoreCode</TT></TD>
+                      <TD class="confluenceTd">Store code</TD>
+                      <TD class="confluenceTd">String</TD>
+                      <TD class="confluenceTd"><IMG class="emoticon" height="16" 
+                        alt="" src="index_files/error.gif" width="16" 
+                        align="absMiddle" border="0"></TD></TR></TBODY></TABLE>
+
+                  <H2><A 
+                  name="AdvancedSearch-Localizedfieldsandattributes"></A>Localized 
+                  fields and attributes</H2>
+                  <P>Some fields contain localized values. To include a 
+                  localized field in your query, you must specify the language 
+                  that you want to search. For example, the following query 
+                  matches the product whose French name is <TT>Canon - Kit 
+                  d\'accessoires pour appareil photo</TT>.</P>
+                  <DIV class="code">
+                  <DIV class="codeContent"><PRE class="code-java">ProductName[fr] = 'Canon - Kit d\'accessoires pour appareil photo'</PRE></DIV></DIV>
+                  <P>The value between the square brackets indicates the 
+                  language. You can use either the two-letter language code or 
+                  the full language name.</P>
+                  
+<TABLE class="noteMacro" cellSpacing="8" cellPadding="5" width="85%" 
+                  align="center" border="0">
+                    <COLGROUP>
+                    <COL width="24">
+                    <COL></COLGROUP>
+                    <TBODY>
+                    <TR>
+                      <TD vAlign="top"><IMG height="16" alt="" 
+                        src="index_files/warning.gif" width="16" align="absMiddle" 
+                        border="0"></TD>
+                      <TD>The apostrophe in <TT>d'accessoires</TT> must be preceded by a backslash. Whenever a string
+contains this character, it must be escaped with a backslash, otherwise it will be interpreted as
+the end of the string and cause a parsing error when the query is validated.</TD></TR></TBODY></TABLE>
+
+<P>Attributes may also contain localized values. For example, 
+the following query matches all products that have the English 
+value of the Lens System / Type attribute set to <TT>Zoom 
+lens</TT>.</P>
+                  
+                  <DIV class="code">
+                  <DIV class="codeContent"><PRE class="code-java">AttributeName{Lens <SPAN class="code-object">System</SPAN> / Type}[en] = 'Zoom lens'</PRE></DIV></DIV>
+                  <H2><A name="AdvancedSearch-Combiningexpressions"></A>Combining 
+                  expressions</H2>
+                  <P>You can use <TT>AND</TT> or <TT>OR</TT> to combine multiple 
+                  expressions. For example, the following query uses AND to match all Kodak zoom 
+                  lens items (based on the value of the Lens System / Type 
+                  attribute):</P>
+                  <DIV class="code">
+                  <DIV class="codeContent"><PRE class="code-java">AttributeName{Lens System / Type}[en] = 'Zoom lens' AND BrandName[en] = 'Kodak'</PRE></DIV></DIV>
+
+The following query uses OR to match all Pentax and Kodak products.
+<DIV class="code">
+<DIV class="codeContent"><PRE class="code-java">
+BrandName[en] = 'Pentax' OR BrandName[en] = 'Kodak'</PRE></DIV></DIV>
+You can use parentheses (the ( and ) characters) to set the order in which expressions are evaluated.
+Expressions in parentheses are evaluated first. You can nest expression groups.
+
+      <H2><A name="AdvancedSearch-Limitingtheresultsetsize"></A>Limiting the result set size</H2>
+                  <P>You can limit the number of results returned by adding 
+                  <TT>LIMIT &lt;number&gt;</TT>, where <EM>&lt;number&gt;</EM> 
+                  specifies the maximum number of items to include in the 
+                  results. For example, to return the first ten products with 
+                  "case" in the name, execute the following:</P>
+                  <DIV class="code">
+                  <DIV class="codeContent"><PRE class="code-java">BrandName[en] = 'Pentax' LIMIT 10</PRE></DIV></DIV>
+                  <H2><A 
+                  name="AdvancedSearch-Specifyingthefirstmatch"></A>Specifying the 
+                  first match</H2>
+                  <P>You can specify the position of the first match to return 
+                  within the results by adding <TT>START &lt;number&gt;</TT>, 
+                  where <EM>&lt;number&gt;</EM> is the position of the first 
+                  match you want to return. For example, the following query 
+                  returns the first ten matches starting at the twentieth 
+                  match.</P>
+                  <DIV class="code">
+                  <DIV class="codeContent"><PRE class="code-java">BrandName[en] = 'Pentax' LIMIT 10 START 20</PRE></DIV></DIV>
+                  <TABLE class="noteMacro" cellSpacing="8" cellPadding="5" width="85%" 
+                  align="center" border="0">
+                    <COLGROUP>
+                    <COL width="24">
+                    <COL></COLGROUP>
+                    <TBODY>
+                    <TR>
+                      <TD vAlign="top"><IMG height="16" alt="" 
+                        src="index_files/warning.gif" width="16" align="absMiddle" 
+                        border="0"></TD>
+                      <TD>Currently, it is not possible to sort results. This 
+                        is primarily used in search queries executed by the 
+                        Import-Export tool to split result sets into more 
+                        manageable "chunks". For example, the following query 
+                        returns 274 matches for the Snap It Up master catalog: 
+                        <DIV class="code">
+                        <DIV class="codeContent"><PRE class="code-java">BrandName[en] = 'Pentax'</PRE></DIV></DIV>
+                        <P>You can split those matches into three separate 
+                        result sets by executing the following three 
+queries:</P>
+                        <DIV class="code">
+                        <DIV class="codeContent"><PRE class="code-java">BrandName[en] = 'Pentax' LIMIT 100
+BrandName[en] = 'Pentax' START 101 LIMIT 100
+BrandName[en] = 'Pentax' START 201</PRE></DIV></DIV>
+                        <P>The first query returns matches 1 to 100. The second 
+                        returns 101 to 200. The third returns from 201 to the 
+                        last match (274).</P></TD></TR></TBODY></TABLE></DIV>
+</BODY>
+</HTML>

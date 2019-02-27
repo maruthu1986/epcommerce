@@ -1,0 +1,18 @@
+#*
+* Copyright (c) Elastic Path Software Inc., 2006
+*#
+## customerForgottenPasswd.txt.vm
+#emailInit()
+#setManageAccountUrl("MANAGE_ACCOUNT_URL")
+$dateTool.get('MMMM d, yyyy')
+    
+#emailMessage("email.globals.dear") $!customer.firstName $!customer.lastName,
+    
+#emailMessage("email.forgottenPasswd.message1")#**#
+$newPassword
+
+#emailMessage("email.forgottenPasswd.message2")#**#
+$store.getUrl()/$manageAccountUrl
+
+$store.getName()
+$store.getUrl()

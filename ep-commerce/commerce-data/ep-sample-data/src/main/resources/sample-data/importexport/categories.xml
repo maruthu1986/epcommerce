@@ -1,0 +1,766 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<categories>
+<category mastercatalog="Master_A">
+    <guid>9ba0d40b-0b31-4cc9-9799-fc67b1436164</guid>
+    <parentcategory></parentcategory>
+    <code>Single_SKU_Products</code>
+    <name>
+        <value language="es"/>
+        <value language="es_MX"/>
+        <value language="fr"/>
+        <value language="en">Single SKU Products</value>
+    </name>
+    <type>Cat_Type</type>
+    <order>1</order>
+    <availability>
+        <storevisible>true</storevisible>
+        <enabledate>2017-01-18T23:45:00-08:00</enabledate>
+    </availability>
+    <attributes>
+        <attribute key="catName">
+            <value language="en">category contains single sku products only</value>
+        </attribute>
+    </attributes>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+    <linkedcategories>
+        <linkedcategory virtualcatalog="Virtual_CatAB_SP">
+            <guid>791f1850-e6f5-4243-81d9-2deab46c19c8</guid>
+            <order>1</order>
+            <excluded>false</excluded>
+        </linkedcategory>
+    </linkedcategories>
+</category>
+
+<category mastercatalog="Master_B">
+    <guid>fb90f6a2-4485-4d4a-a550-6b3a4f499982</guid>
+    <parentcategory></parentcategory>
+    <code>Special_Products</code>
+    <name>
+        <value language="es"/>
+        <value language="es_MX"/>
+        <value language="fr"/>
+        <value language="en">Specialty Products</value>
+    </name>
+    <type>Category_Type</type>
+    <order>1</order>
+    <availability>
+        <storevisible>true</storevisible>
+        <enabledate>2017-01-19T00:07:00-08:00</enabledate>
+    </availability>
+    <attributes/>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+    <linkedcategories>
+        <linkedcategory virtualcatalog="Virtual_CatAB_SP">
+            <guid>d06b77cb-197d-4912-8b83-332cd029b969</guid>
+            <order>1</order>
+            <excluded>false</excluded>
+        </linkedcategory>
+    </linkedcategories>
+</category>
+
+<category mastercatalog="Master_A">
+    <guid>bd0f1ba9-c573-47fe-8f8b-86d192981a0e</guid>
+    <parentcategory></parentcategory>
+    <code>bundle_Products</code>
+    <name>
+        <value language="es"/>
+        <value language="es_MX"/>
+        <value language="fr"/>
+        <value language="en">Bundle Products</value>
+    </name>
+    <type>Cat_Type</type>
+    <order>4</order>
+    <availability>
+        <storevisible>true</storevisible>
+        <enabledate>2017-03-07T02:49:00-08:00</enabledate>
+    </availability>
+    <attributes>
+        <attribute key="catName">
+            <value language="en">products in this category either participate in bundles as constituents or are bundles themselves</value>
+        </attribute>
+    </attributes>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+    <linkedcategories>
+        <linkedcategory virtualcatalog="Virtual_CatAB_SP">
+            <guid>9caf94e5-a8fd-44c6-9722-bb3990cb5b69</guid>
+            <order>4</order>
+            <excluded>false</excluded>
+        </linkedcategory>
+    </linkedcategories>
+</category>
+
+<category mastercatalog="Master_A">
+    <guid>a4f5460a-5f66-492d-96ba-9f9e69d14a27</guid>
+    <parentcategory>Single_SKU_Products</parentcategory>
+    <code>Sellable_Products</code>
+    <name>
+        <value language="es"/>
+        <value language="es_MX"/>
+        <value language="fr"/>
+        <value language="en">Sellable Products</value>
+    </name>
+    <type>Cat_Type</type>
+    <order>1</order>
+    <availability>
+        <storevisible>true</storevisible>
+        <enabledate>2017-01-19T00:08:00-08:00</enabledate>
+    </availability>
+    <attributes>
+        <attribute key="catName">
+            <value language="en">all products in this category are sellable (re:inventory, etc)</value>
+        </attribute>
+    </attributes>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+    <linkedcategories>
+        <linkedcategory virtualcatalog="Virtual_CatAB_SP">
+            <guid>b8b9b912-3f2b-4104-9092-80aa0305495f</guid>
+            <order>1</order>
+            <excluded>false</excluded>
+        </linkedcategory>
+    </linkedcategories>
+</category>
+
+<category mastercatalog="Master_A">
+    <guid>735b878a-1270-4e64-b393-3b15c375652b</guid>
+    <parentcategory></parentcategory>
+    <code>Mulit_SKU_Products</code>
+    <name>
+        <value language="es"/>
+        <value language="es_MX"/>
+        <value language="fr"/>
+        <value language="en">Multi SKU Products</value>
+    </name>
+    <type>Cat_Type</type>
+    <order>2</order>
+    <availability>
+        <storevisible>true</storevisible>
+        <enabledate>2017-01-18T23:46:00-08:00</enabledate>
+    </availability>
+    <attributes>
+        <attribute key="catName">
+            <value language="en">category contains multi-SKU products only</value>
+        </attribute>
+    </attributes>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+    <linkedcategories>
+        <linkedcategory virtualcatalog="Virtual_CatAB_SP">
+            <guid>e54f9073-086b-4515-8b14-acc8a32433cd</guid>
+            <order>2</order>
+            <excluded>false</excluded>
+        </linkedcategory>
+    </linkedcategories>
+</category>
+
+<category mastercatalog="Master_A">
+    <guid>9ca8d0f6-6796-47dc-b95e-62d86e4ab0c1</guid>
+    <parentcategory>Single_SKU_Products</parentcategory>
+    <code>Non_Sell_Products</code>
+    <name>
+        <value language="es"/>
+        <value language="es_MX"/>
+        <value language="fr"/>
+        <value language="en">Non-Sellable Products</value>
+    </name>
+    <type>Cat_Type</type>
+    <order>2</order>
+    <availability>
+        <storevisible>true</storevisible>
+        <enabledate>2017-01-19T00:10:00-08:00</enabledate>
+    </availability>
+    <attributes>
+        <attribute key="catName">
+            <value language="en">all products in this category are not sellable (re: no inventory, not sold alone, etc)</value>
+        </attribute>
+    </attributes>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+    <linkedcategories>
+        <linkedcategory virtualcatalog="Virtual_CatAB_SP">
+            <guid>e3796671-5fb9-44ba-a8a3-3ebbe685913f</guid>
+            <order>2</order>
+            <excluded>false</excluded>
+        </linkedcategory>
+    </linkedcategories>
+</category>
+
+<category mastercatalog="Master_B">
+    <guid>f9488d4c-cc85-4e14-ac57-76b9670390f6</guid>
+    <parentcategory>Special_Products</parentcategory>
+    <code>excluded_Category</code>
+    <name>
+        <value language="es"/>
+        <value language="es_MX"/>
+        <value language="fr"/>
+        <value language="en">excluded_Category</value>
+    </name>
+    <type>Category_Type</type>
+    <order>1</order>
+    <availability>
+        <storevisible>true</storevisible>
+        <enabledate>2017-01-30T20:37:00-08:00</enabledate>
+    </availability>
+    <attributes/>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+    <linkedcategories>
+        <linkedcategory virtualcatalog="Virtual_CatAB_SP">
+            <guid>654dee0b-4d3c-4e96-ac11-ee579b3ccf5f</guid>
+            <order>1</order>
+            <excluded>true</excluded>
+        </linkedcategory>
+    </linkedcategories>
+</category>
+
+<category mastercatalog="Virtual_CatAB_SP">
+    <guid>26bba3a3-fcf5-4042-bfbd-5372b8701403</guid>
+    <parentcategory></parentcategory>
+    <code>Misc_Products</code>
+    <name>
+        <value language="es"></value>
+        <value language="es_MX"></value>
+        <value language="fr"/>
+        <value language="en">Misc_Products</value>
+    </name>
+    <type>Category_Type</type>
+    <order>3</order>
+    <availability>
+        <storevisible>true</storevisible>
+        <enabledate>2017-02-07T00:21:00-08:00</enabledate>
+    </availability>
+    <attributes/>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"></value>
+            <value language="es_MX"></value>
+            <value language="fr"></value>
+            <value language="en"></value>
+        </title>
+        <keywords>
+            <value language="es"></value>
+            <value language="es_MX"></value>
+            <value language="fr"></value>
+            <value language="en"></value>
+        </keywords>
+        <description>
+            <value language="es"></value>
+            <value language="es_MX"></value>
+            <value language="fr"></value>
+            <value language="en"></value>
+        </description>
+    </seo>
+</category>
+
+<category mastercatalog="Master_A">
+    <guid>c1f7828c-6d7a-41b0-9e34-e009fad9b6cb</guid>
+    <parentcategory>Single_SKU_Products</parentcategory>
+    <code>Merchandized_Products2</code>
+    <name>
+        <value language="es"/>
+        <value language="es_MX"/>
+        <value language="fr"/>
+        <value language="en">Merchandized_Products2</value>
+    </name>
+    <type>Cat_Type</type>
+    <order>3</order>
+    <availability>
+        <storevisible>true</storevisible>
+        <enabledate>2017-03-06T19:55:00-08:00</enabledate>
+    </availability>
+    <attributes>
+        <attribute key="catName">
+            <value language="en">category used to hold products used in merchandising associations</value>
+        </attribute>
+    </attributes>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+    <linkedcategories>
+        <linkedcategory virtualcatalog="Virtual_CatAB_SP">
+            <guid>9ed872d1-546e-438b-b859-8929be59757d</guid>
+            <order>3</order>
+            <excluded>false</excluded>
+        </linkedcategory>
+    </linkedcategories>
+</category>
+
+<category mastercatalog="Master_B">
+    <guid>6d775b25-0a13-43fe-8d24-f3f22bc94543</guid>
+    <parentcategory>Special_Products</parentcategory>
+    <code>Merchandised_Products</code>
+    <name>
+        <value language="es"/>
+        <value language="es_MX"/>
+        <value language="fr"/>
+        <value language="en">Merchandised_Products</value>
+    </name>
+    <type>Category_Type</type>
+    <order>2</order>
+    <availability>
+        <storevisible>true</storevisible>
+        <enabledate>2017-02-09T00:22:00-08:00</enabledate>
+    </availability>
+    <attributes/>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+    <linkedcategories>
+        <linkedcategory virtualcatalog="Virtual_CatAB_SP">
+            <guid>86a5c96d-cc88-4b8f-9174-2b0301c1bb0b</guid>
+            <order>2</order>
+            <excluded>false</excluded>
+        </linkedcategory>
+    </linkedcategories>
+</category>
+
+<category mastercatalog="Master_A">
+    <guid>43efcf8e-6547-4aa0-8989-31afbc4cc7c9</guid>
+    <parentcategory></parentcategory>
+    <code>promotedProducts</code>
+    <name>
+        <value language="es"/>
+        <value language="es_MX"/>
+        <value language="fr"/>
+        <value language="en">Promoted Products</value>
+    </name>
+    <type>Cat_Type</type>
+    <order>3</order>
+    <availability>
+        <storevisible>true</storevisible>
+        <enabledate>2017-03-05T01:09:00-08:00</enabledate>
+    </availability>
+    <attributes>
+        <attribute key="catName">
+            <value language="en">products in this category are used in various types / configurations of promotions</value>
+        </attribute>
+    </attributes>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+    <linkedcategories>
+        <linkedcategory virtualcatalog="Virtual_CatAB_SP">
+            <guid>fbd00357-d68c-4831-8cf3-015bc0577292</guid>
+            <order>3</order>
+            <excluded>false</excluded>
+        </linkedcategory>
+    </linkedcategories>
+</category>
+
+<category mastercatalog="Master_A">
+    <guid>5b86d857-6089-4e1c-a3ec-173f2189e52d</guid>
+    <parentcategory>bundle_Products</parentcategory>
+    <code>bundled_Products</code>
+    <name>
+        <value language="es"/>
+        <value language="es_MX"/>
+        <value language="fr"/>
+        <value language="en">Bundled Products</value>
+    </name>
+    <type>Cat_Type</type>
+    <order>2</order>
+    <availability>
+        <storevisible>true</storevisible>
+        <enabledate>2017-02-26T02:52:00-08:00</enabledate>
+    </availability>
+    <attributes>
+        <attribute key="catName">
+            <value language="en">products in this category are bundles</value>
+        </attribute>
+    </attributes>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+    <linkedcategories>
+        <linkedcategory virtualcatalog="Virtual_CatAB_SP">
+            <guid>cc787f4f-9194-4ae5-b110-441eaab2b9e8</guid>
+            <order>2</order>
+            <excluded>false</excluded>
+        </linkedcategory>
+    </linkedcategories>
+</category>
+
+<category mastercatalog="Master_A">
+    <guid>1d49e82f-2fbd-4c77-bfca-ebf8135d08e2</guid>
+    <parentcategory>bundle_Products</parentcategory>
+    <code>bundle_Constituents</code>
+    <name>
+        <value language="es"/>
+        <value language="es_MX"/>
+        <value language="fr"/>
+        <value language="en">Bundle Constituents</value>
+    </name>
+    <type>Cat_Type</type>
+    <order>1</order>
+    <availability>
+        <storevisible>true</storevisible>
+        <enabledate>2017-02-27T02:51:00-08:00</enabledate>
+    </availability>
+    <attributes>
+        <attribute key="catName">
+            <value language="en">products in this category are bundle constituents</value>
+        </attribute>
+    </attributes>
+    <seo>
+        <url>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </url>
+        <title>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </title>
+        <keywords>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </keywords>
+        <description>
+            <value language="es"/>
+            <value language="es_MX"/>
+            <value language="fr"/>
+            <value language="en"/>
+        </description>
+    </seo>
+    <linkedcategories>
+        <linkedcategory virtualcatalog="Virtual_CatAB_SP">
+            <guid>cae49234-2105-459c-bd0d-ccdf884c449d</guid>
+            <order>1</order>
+            <excluded>false</excluded>
+        </linkedcategory>
+    </linkedcategories>
+</category>
+
+<category mastercatalog="MobileCatalog">
+    <guid>294700e6-1740-4b14-b0a2-baa214de4ea3</guid>
+    <parentcategory></parentcategory>
+    <code>GiftCertificate</code>
+    <name>
+        <value language="fr_CA"></value>
+        <value language="fr"></value>
+        <value language="en">Gift Certificate</value>
+        <value language="en_US">Gift Certificate</value>
+    </name>
+    <type>GiftCertificate</type>
+    <order>9</order>
+    <availability>
+        <storevisible>true</storevisible>
+        <enabledate>2008-06-08T07:00:00-07:00</enabledate>
+    </availability>
+    <attributes>
+        <attribute key="catDescription">
+            <value>Gift certificates</value>
+        </attribute>
+        <attribute key="catImage">
+            <value></value>
+        </attribute>
+    </attributes>
+    <seo>
+        <url>
+            <value language="fr_CA"></value>
+            <value language="fr"></value>
+            <value language="en"></value>
+            <value language="en_US"></value>
+        </url>
+        <title>
+            <value language="fr_CA"></value>
+            <value language="fr"></value>
+            <value language="en"></value>
+            <value language="en_US"></value>
+        </title>
+        <keywords>
+            <value language="fr_CA"></value>
+            <value language="fr"></value>
+            <value language="en"></value>
+            <value language="en_US"></value>
+        </keywords>
+        <description>
+            <value language="fr_CA"></value>
+            <value language="fr"></value>
+            <value language="en"></value>
+            <value language="en_US"></value>
+        </description>
+    </seo>
+    <linkedcategories>
+        <linkedcategory virtualcatalog="Mobile">
+            <guid>5add1c37-2f13-4132-9602-9e7375fdb2dc</guid>
+            <order>9</order>
+            <excluded>false</excluded>
+        </linkedcategory>
+    </linkedcategories>
+</category>
+</categories>

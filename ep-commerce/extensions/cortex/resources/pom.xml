@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.extensions</groupId>
+		<artifactId>ext-cortex-ce-parent</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+    <groupId>com.elasticpath.extensions.rest</groupId>
+	<artifactId>ext-cortex-resources-parent</artifactId>
+	<packaging>pom</packaging>
+
+	<name>Extension Cortex CE Resources Parent</name>
+
+	<!-- Add extension resources as modules here. -->
+	<modules>
+	</modules>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <instructions>
+                            <Export-Service>com.elasticpath.rest.resource.ResourceServer</Export-Service>
+                            <Import-Package>
+                                com.elasticpath.rest.authorization.parameter,
+                                com.elasticpath.rest.command.read,
+                                com.elasticpath.rest.schema.transform,
+                                org.springframework.context.annotation,
+                                *
+                            </Import-Package>
+                        </instructions>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

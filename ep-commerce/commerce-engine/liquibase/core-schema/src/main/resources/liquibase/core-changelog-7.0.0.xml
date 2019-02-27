@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) Elastic Path Software Inc., 2017
+  -->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+				   logicalFilePath="com/elasticpath/core/db/core-changelog-7.0.0.xml">
+
+	<changeSet id="7.0.0-remove-cryptotool" author="elasticpath">
+		<comment>Remove reference to CryptoTool</comment>
+		<update tableName="TSETTINGDEFINITION">
+			<column name="DESCRIPTION" value="Determines whether credit card numbers can be saved in customer accounts for later use. If you change this to false on a system where credit card information has already been saved, the existing information remains in the system until you remove it."/>
+			<where>PATH = 'COMMERCE/SYSTEM/storeCustomerCreditCards'</where>
+		</update>
+	</changeSet>
+
+	<changeSet id="7.0.0-remove-unused-cm-properties" author="elasticpath">
+		<comment>Remove unused CM properties </comment>
+		<delete tableName="TSETTINGMETADATA">
+			<where>SETTING_DEFINITION_UID=(SELECT UIDPK FROM TSETTINGDEFINITION WHERE PATH = 'COMMERCE/SYSTEM/IMAGES/dynamicImageSizingNoImage')</where>
+		</delete>
+
+		<delete tableName="TSETTINGDEFINITION">
+			<where>PATH = 'COMMERCE/SYSTEM/IMAGES/dynamicImageSizingNoImage'</where>
+		</delete>
+
+		<delete tableName="TSETTINGMETADATA">
+			<where>SETTING_DEFINITION_UID=(SELECT UIDPK FROM TSETTINGDEFINITION WHERE PATH = 'COMMERCE/SYSTEM/EMAIL/emailCmUrl')</where>
+		</delete>
+
+		<delete tableName="TSETTINGDEFINITION">
+			<where>PATH = 'COMMERCE/SYSTEM/EMAIL/emailCmUrl'</where>
+		</delete>
+	</changeSet>
+
+	<changeSet id="7.0.0-update-meta" author="elasticpath">
+		<update tableName="TSETTINGMETADATA">
+			<column name="METADATA_KEY" value="adminRefreshStrategy"/>
+			<column name="VALUE" value="application"/>
+			<where>METADATA_KEY = 'sfRefreshStrategy' and SETTING_DEFINITION_UID=(select UIDPK from TSETTINGDEFINITION
+				where PATH='COMMERCE/SYSTEM/CHANGESETS/enable')
+			</where>
+		</update>
+	</changeSet>
+
+	<changeSet id="7.0.0-remove-template-column" author="elasticpath" context="contract">
+		<comment>Remove unused template column from TPRODUCTTYPE and TCATEGORYTYPE tables</comment>
+		<dropColumn tableName="TCATEGORYTYPE" columnName="TEMPLATE" />
+		<dropColumn tableName="TPRODUCTTYPE" columnName="TEMPLATE" />
+	</changeSet>
+
+	<changeSet id="7.0.0-remove-asset-properties" author="elasticpath" context="contract">
+		<comment>Remove unused obsolete asset properties</comment>
+		<delete tableName="TSETTINGMETADATA">
+			<where>SETTING_DEFINITION_UID in (SELECT UIDPK FROM TSETTINGDEFINITION WHERE PATH in
+													('COMMERCE/SYSTEM/ASSETS/imageAssetsSubfolder',
+													'COMMERCE/SYSTEM/ASSETS/digitalGoodsAssetsSubfolder',
+													'COMMERCE/SYSTEM/ASSETS/storeAssetsSubfolder',
+													'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsProtocol',
+													'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsHost',
+													'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsPort',
+													'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsUsername',
+													'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsPassword',
+													'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsRootpath',
+													'COMMERCE/SYSTEM/ASSETS/dynamicContentAssetsSubfolder',
+													'COMMERCE/STORE/ASSETS/assetServerBaseUrl',
+													'COMMERCE/SYSTEM/IMAGES/dynamicImageSizingJpegQuality',
+													'COMMERCE/SYSTEM/assetHttpHost')
+											)
+			</where>
+		</delete>
+
+		<delete tableName="TSETTINGVALUE">
+			<where>SETTING_DEFINITION_UID IN (SELECT UIDPK FROM TSETTINGDEFINITION WHERE PATH in
+												('COMMERCE/SYSTEM/ASSETS/imageAssetsSubfolder',
+												'COMMERCE/SYSTEM/ASSETS/digitalGoodsAssetsSubfolder',
+												'COMMERCE/SYSTEM/ASSETS/storeAssetsSubfolder',
+												'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsProtocol',
+												'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsHost',
+												'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsPort',
+												'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsUsername',
+												'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsPassword',
+												'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsRootpath',
+												'COMMERCE/SYSTEM/ASSETS/dynamicContentAssetsSubfolder',
+												'COMMERCE/STORE/ASSETS/assetServerBaseUrl',
+												'COMMERCE/SYSTEM/IMAGES/dynamicImageSizingJpegQuality',
+												'COMMERCE/SYSTEM/assetHttpHost')
+											)
+			</where>
+		</delete>
+
+		<delete tableName="TSETTINGDEFINITION">
+			<where>PATH in ('COMMERCE/SYSTEM/ASSETS/imageAssetsSubfolder',
+				'COMMERCE/SYSTEM/ASSETS/digitalGoodsAssetsSubfolder',
+				'COMMERCE/SYSTEM/ASSETS/storeAssetsSubfolder',
+				'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsProtocol',
+				'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsHost',
+				'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsPort',
+				'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsUsername',
+				'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsPassword',
+				'COMMERCE/APPSPECIFIC/RCP/ASSETS/vfsRootpath',
+				'COMMERCE/SYSTEM/ASSETS/dynamicContentAssetsSubfolder',
+				'COMMERCE/STORE/ASSETS/assetServerBaseUrl',
+				'COMMERCE/SYSTEM/IMAGES/dynamicImageSizingJpegQuality',
+				'COMMERCE/SYSTEM/assetHttpHost')
+			</where>
+		</delete>
+	</changeSet>
+	<changeSet id="7.0.0-remove-obsolete-properties" author="elasticpath" context="contract">
+		<comment>PB-2446 Remove obsolete properties</comment>
+
+		<delete tableName="TSETTINGMETADATA">
+			<where>SETTING_DEFINITION_UID in (SELECT UIDPK FROM TSETTINGDEFINITION WHERE PATH in
+				('COMMERCE/APPSPECIFIC/RCP/updateSiteEnabled',
+				'COMMERCE/APPSPECIFIC/RCP/updateSiteHomebase',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/enable',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/enablePrice',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/enableThumbnail',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/numberOfResults',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/productDescriptionMaxLength',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/productNameMaxLength',
+				'COMMERCE/STORE/POWERREVIEWS/powerreviewsEnabled',
+				'COMMERCE/STORE/POWERREVIEWS/powerReviewsMerchantid',
+				'COMMERCE/STORE/restrictedAccessPasscode',
+				'COMMERCE/STORE/seoEnabled',
+				'COMMERCE/SYSTEM/ASYNC/ThreadKeepAlive',
+				'COMMERCE/SYSTEM/ASYNC/ThreadMaxPoolSize',
+				'COMMERCE/SYSTEM/ASYNC/ThreadPoolCoreSize',
+				'COMMERCE/SYSTEM/ASYNC/ThreadQueueSize',
+				'COMMERCE/SYSTEM/GEOIP/enable',
+				'COMMERCE/SYSTEM/GEOIP/QUOVA/onDemandEndpointUrl',
+				'COMMERCE/SYSTEM/GEOIP/QUOVA/Password',
+				'COMMERCE/SYSTEM/GEOIP/QUOVA/Username',
+				'COMMERCE/SYSTEM/storeCustomerCreditCards',
+				'COMMERCE/SYSTEM/URLREWRITE/fieldSeparator',
+				'COMMERCE/SYSTEM/urlRewriteConfig',
+				'COMMERCE/SYSTEM/userMaintainMode')
+				)
+			</where>
+		</delete>
+
+		<delete tableName="TSETTINGVALUE">
+			<where>SETTING_DEFINITION_UID IN (SELECT UIDPK FROM TSETTINGDEFINITION WHERE PATH in
+				('COMMERCE/APPSPECIFIC/RCP/updateSiteEnabled',
+				'COMMERCE/APPSPECIFIC/RCP/updateSiteHomebase',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/enable',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/enablePrice',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/enableThumbnail',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/numberOfResults',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/productDescriptionMaxLength',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/productNameMaxLength',
+				'COMMERCE/STORE/POWERREVIEWS/powerreviewsEnabled',
+				'COMMERCE/STORE/POWERREVIEWS/powerReviewsMerchantid',
+				'COMMERCE/STORE/restrictedAccessPasscode',
+				'COMMERCE/STORE/seoEnabled',
+				'COMMERCE/SYSTEM/ASYNC/ThreadKeepAlive',
+				'COMMERCE/SYSTEM/ASYNC/ThreadMaxPoolSize',
+				'COMMERCE/SYSTEM/ASYNC/ThreadPoolCoreSize',
+				'COMMERCE/SYSTEM/ASYNC/ThreadQueueSize',
+				'COMMERCE/SYSTEM/GEOIP/enable',
+				'COMMERCE/SYSTEM/GEOIP/QUOVA/onDemandEndpointUrl',
+				'COMMERCE/SYSTEM/GEOIP/QUOVA/Password',
+				'COMMERCE/SYSTEM/GEOIP/QUOVA/Username',
+				'COMMERCE/SYSTEM/storeCustomerCreditCards',
+				'COMMERCE/SYSTEM/URLREWRITE/fieldSeparator',
+				'COMMERCE/SYSTEM/urlRewriteConfig',
+				'COMMERCE/SYSTEM/userMaintainMode')
+				)
+			</where>
+		</delete>
+
+		<delete tableName="TSETTINGDEFINITION">
+			<where>PATH in
+				('COMMERCE/APPSPECIFIC/RCP/updateSiteEnabled',
+				'COMMERCE/APPSPECIFIC/RCP/updateSiteHomebase',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/enable',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/enablePrice',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/enableThumbnail',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/numberOfResults',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/productDescriptionMaxLength',
+				'COMMERCE/STORE/AUTOCOMPLETESEARCH/productNameMaxLength',
+				'COMMERCE/STORE/POWERREVIEWS/powerreviewsEnabled',
+				'COMMERCE/STORE/POWERREVIEWS/powerReviewsMerchantid',
+				'COMMERCE/STORE/restrictedAccessPasscode',
+				'COMMERCE/STORE/seoEnabled',
+				'COMMERCE/SYSTEM/ASYNC/ThreadKeepAlive',
+				'COMMERCE/SYSTEM/ASYNC/ThreadMaxPoolSize',
+				'COMMERCE/SYSTEM/ASYNC/ThreadPoolCoreSize',
+				'COMMERCE/SYSTEM/ASYNC/ThreadQueueSize',
+				'COMMERCE/SYSTEM/GEOIP/enable',
+				'COMMERCE/SYSTEM/GEOIP/QUOVA/onDemandEndpointUrl',
+				'COMMERCE/SYSTEM/GEOIP/QUOVA/Password',
+				'COMMERCE/SYSTEM/GEOIP/QUOVA/Username',
+				'COMMERCE/SYSTEM/storeCustomerCreditCards',
+				'COMMERCE/SYSTEM/URLREWRITE/fieldSeparator',
+				'COMMERCE/SYSTEM/urlRewriteConfig',
+				'COMMERCE/SYSTEM/userMaintainMode')
+			</where>
+		</delete>
+	</changeSet>
+
+	<changeSet id="7.0.0-remove-anonymous-coupon-usages" author="elasticpath" context="contract">
+		<comment>PB-2860 Remove TCOUPONUSAGE records for anonymous customers</comment>
+		<delete tableName="TCOUPONUSAGE">
+			<where>CUSTOMER_EMAIL_ADDRESS='public@ep-cortex.com'</where>
+		</delete>
+	</changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>promotions</name>
+
+		<plan>
+			<name>read-applied-item-promotions</name>
+			<description><![CDATA[Retrieve promotions applied to an item.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from item to the list of applied promotions.]]></description>
+				<start>items.item</start>
+				<follow-link>appliedpromotions</follow-link>
+				<result>applied-promotions-for-item</result>
+			</step>
+			<step>
+				<description><![CDATA[Follow a link from list of applied promotions to a single promotion.]]></description>
+				<start>applied-promotions-for-item</start>
+				<follow-link>element</follow-link>
+				<result>promotion</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-applied-cart-promotions</name>
+			<description><![CDATA[Retrieve promotions applied to a cart.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from cart to the list of applied promotions.]]></description>
+				<start>carts.cart</start>
+				<follow-link>appliedpromotions</follow-link>
+				<result>applied-promotions-for-cart</result>
+			</step>
+			<step>
+				<description><![CDATA[Follow a link from list of applied promotions to a single promotion.]]></description>
+				<start>applied-promotions-for-cart</start>
+				<follow-link>element</follow-link>
+				<result>promotion</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-applied-cart-line-item-promotions</name>
+			<description><![CDATA[Retrieve the promotions applied to a cart line item.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from line item to the list of promotions.]]></description>
+				<start>carts.line-item</start>
+				<follow-link>appliedpromotions</follow-link>
+				<result>applied-promotions-for-cart-line-item</result>
+			</step>
+			<step>
+				<description><![CDATA[Follow a link from list of promotions to a single promotion.]]></description>
+				<start>applied-promotions-for-cart-line-item</start>
+				<follow-link>element</follow-link>
+				<result>promotion</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-applied-shipping-option-promotions</name>
+			<description><![CDATA[Retrieve promotions applied to a shipping option.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from a shipping option to the list of applied promotions.]]></description>
+				<start>shipmentdetails.shipping-option</start>
+				<follow-link>appliedpromotions</follow-link>
+				<result>applied-promotions-for-shipping-option</result>
+			</step>
+			<step>
+				<description><![CDATA[Follow a link from list of applied promotions to a single promotion.]]></description>
+				<start>applied-promotions-for-shipping-option</start>
+				<follow-link>element</follow-link>
+				<result>promotion</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-promotions-triggered-by-order-coupon</name>
+			<description><![CDATA[Retrieve a promotion trigged by a coupon on an order.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from a coupon on an order.]]></description>
+				<start>coupons.order-coupon</start>
+				<follow-link>promotion</follow-link>
+				<result>promotion</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-applied-purchase-promotions</name>
+			<description><![CDATA[Retrieve promotions applied to a purchase.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from purchase to the list of applied promotions.]]></description>
+				<start>purchases.purchase</start>
+				<follow-link>appliedpromotions</follow-link>
+				<result>applied-promotions-for-purchase</result>
+			</step>
+			<step>
+				<description><![CDATA[Follow a link from list of applied promotions to a single promotion.]]></description>
+				<start>applied-promotions-for-purchase</start>
+				<follow-link>element</follow-link>
+				<result>promotion</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-promotions-triggered-by-purchase-coupon</name>
+			<description><![CDATA[Retrieve a promotion trigged by a coupon on a purchase.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from a coupon on a purchase.]]></description>
+				<start>coupons.purchase-coupon</start>
+				<follow-link>promotion</follow-link>
+				<result>promotion</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-possible-item-promotions</name>
+			<description><![CDATA[Retrieve possible promotions for an item. This API is currently not available.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from item to the list of possible promotions.]]></description>
+				<start>items.item</start>
+				<follow-link>possiblepromotions</follow-link>
+				<result>possible-promotions-for-item</result>
+			</step>
+			<step>
+				<description><![CDATA[Follow a link from list of possible promotions to a single promotion.]]></description>
+				<start>possible-promotions-for-item</start>
+				<follow-link>element</follow-link>
+				<result>promotion</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-possible-cart-promotions</name>
+			<description><![CDATA[Retrieve possible promotions for a cart. This API is currently not available.]]></description>
+			<step>
+				<description><![CDATA[Follow a link from cart to the list of possible promotions.]]></description>
+				<start>carts.cart</start>
+				<follow-link>possiblepromotions</follow-link>
+				<result>possible-promotions-for-cart</result>
+			</step>
+			<step>
+				<description><![CDATA[Follow a link from list of possible promotions to a single promotion.]]></description>
+				<start>possible-promotions-for-cart</start>
+				<follow-link>element</follow-link>
+				<result>promotion</result>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

@@ -1,0 +1,9 @@
+.checkstyle
+.classpath
+.pmd
+.pmdruleset
+.ruleset
+bin
+build-modified.xml
+build.xml
+temp.folder

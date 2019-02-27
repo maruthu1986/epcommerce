@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<price_list_assignments>
+<price_list_assignment>
+    <guid>fe8c9910-7960-4e4e-9134-68539610af5f</guid>
+    <name>PLA_BasePrice_USD</name>
+    <description>base price list using USD</description>
+    <priority>10</priority>
+    <catalog_guid>Virtual_CatAB_SP</catalog_guid>
+    <price_list_guid>1b55a219-c43d-4eeb-86cd-63b20357c6b5</price_list_guid>
+    <selling_context>
+        <guid>097422e1-3eb7-4bce-acb2-35dbaaebcd95</guid>
+        <name>SELLING_CONTEXT_NAME_null</name>
+        <description>SELLING_CONTEXT_DESCR_null</description>
+        <priority>0</priority>
+    </selling_context>
+</price_list_assignment>
+<price_list_assignment>
+	<guid>PLA_BasePrice_EUR</guid>
+	<name>PLA_BasePrice_EUR</name>
+	<description>base price list using EUR</description>
+	<priority>10</priority>
+	<catalog_guid>Virtual_CatAB_SP</catalog_guid>
+	<price_list_guid>93de7d97-0a50-4093-b7f2-b78b98722a4a</price_list_guid>
+	<selling_context>
+		<guid>selling_context_for_PLA_EUR</guid>
+		<name>SELLING_CONTEXT_NAME_null</name>
+		<description>SELLING_CONTEXT_DESCR_null</description>
+		<priority>0</priority>
+	</selling_context>
+</price_list_assignment>
+</price_list_assignments>

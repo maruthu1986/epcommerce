@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>orders</name>
+		<plan>
+			<name>read-order-delivery</name>
+			<description><![CDATA[Read a delivery from a list of [deliveries](#order-deliveries)]]></description>
+			<template>
+				<name>collections.list-element-template</name>
+				<replace>
+					<key>start-resource</key>
+					<value>order</value>
+				</replace>
+				<replace>
+					<key>start-name</key>
+					<value>order</value>
+				</replace>
+				<replace>
+					<key>list-resource</key>
+					<value>deliveries</value>
+				</replace>
+				<replace>
+					<key>list-name</key>
+					<value>deliveries</value>
+				</replace>
+				<replace>
+					<key>element-resource</key>
+					<value>delivery</value>
+				</replace>
+			</template>
+		</plan>
+
+	</family>
+</definitions>

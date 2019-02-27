@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customer_groups>
+<customer_group guid="400" name="PUBLIC" description="PUBLIC">
+    <enabled>true</enabled>
+    <customer_roles>
+        <customer_role authority="ROLE_CUSTOMER"/>
+    </customer_roles>
+</customer_group>
+</customer_groups>

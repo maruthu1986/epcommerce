@@ -1,0 +1,27 @@
+-- Stored procedure to kill sessions for all connected users, then drop and recreate Oracle database
+DECLARE ora_user VARCHAR2(30) DEFAULT UPPER('${data.population.username}');db_count NUMBER;
+BEGIN
+    SELECT COUNT(*) INTO db_count FROM dba_users WHERE username = ora_user;
+    IF db_count > 0 THEN
+		EXECUTE IMMEDIATE 'ALTER USER '||ora_user||' ACCOUNT LOCK';
+		FOR crs IN (SELECT sid, serial# FROM v$session WHERE username = ora_user) loop
+			EXECUTE IMMEDIATE 'ALTER SYSTEM KILL SESSION '''||crs.sid||','||crs.serial#||'''';
+		END loop;
+    END IF;
+
+    BEGIN
+        -- SQL to drop the current EP database if exists.
+        IF db_count > 0 THEN
+            EXECUTE IMMEDIATE 'DROP USER ${data.population.username} CASCADE';
+        END IF;
+
+        -- SQL to create the EP database
+        EXECUTE IMMEDIATE 'CREATE USER ${data.population.username} PROFILE DEFAULT IDENTIFIED BY ${data.population.password}
+        DEFAULT TABLESPACE ${data.population.default.tablespace}
+        TEMPORARY TABLESPACE ${data.population.temporary.tablespace}
+        QUOTA UNLIMITED ON ${data.population.default.tablespace} ACCOUNT UNLOCK';
+
+        -- SQL to grant the necessary database permissions on a new EP database
+        EXECUTE IMMEDIATE 'GRANT CONNECT, CREATE TABLE, CREATE SEQUENCE, CREATE PROCEDURE TO ${data.population.username}';
+    END;
+END;

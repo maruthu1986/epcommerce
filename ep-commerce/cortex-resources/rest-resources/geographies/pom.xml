@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.rest.resource.cortex</groupId>
+		<artifactId>rest-resources</artifactId>
+		<version>0.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>ep-resource-geographies</artifactId>
+	<packaging>bundle</packaging>
+	<name>EP ∷ / Geographies</name>
+	<description>Elastic Path REST - Geographies Resource</description>
+
+	<properties>
+		<!--Jacoco-->
+		<jacoco.instruction.covered-ratio>0.59</jacoco.instruction.covered-ratio>
+		<jacoco.branch.covered-ratio>0.99</jacoco.branch.covered-ratio>
+		<jacoco.line.covered-ratio>0.66</jacoco.line.covered-ratio>
+		<jacoco.complexity.covered-ratio>0.59</jacoco.complexity.covered-ratio>
+		<jacoco.method.covered-ratio>0.56</jacoco.method.covered-ratio>
+		<jacoco.class.covered-ratio>0.75</jacoco.class.covered-ratio>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.elasticpath.rest</groupId>
+			<artifactId>ep-rs-annotated-dispatch</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.resource.cortex</groupId>
+			<artifactId>ep-resource-uribuilder-apis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.integration.epcommerce</groupId>
+			<artifactId>ep-rest-repositories-epcommerce</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.definitions</groupId>
+			<artifactId>ep-resource-geographies-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.helix</groupId>
+			<artifactId>helix-data-injectors</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.elasticpath.rest.helix</groupId>
+			<artifactId>helix-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j</groupId>
+			<artifactId>peaberry</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<configuration>
+					<instructions>
+						<Require-Capability>osgi.service;
+							filter:="(objectClass=com.elasticpath.rest.helix.client.extender.BootstrapExtender)"; effective:=active,
+						</Require-Capability>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.elasticpath.rest.helix</groupId>
+				<artifactId>helix-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

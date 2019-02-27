@@ -1,0 +1,266 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+
+	<family>
+		<name>shipmentdetails</name>
+
+		<plan>
+			<name>read-order-destination-info</name>
+			<description>
+				<![CDATA[
+Retrieves the order's destinationinfo, which contains links to:
+
+* A selector for choosing the order's shipping address: [Select Shipping Address](#shipmentdetails_select-shipping-address)
+* The shipping address currently selected for the order: [Read Order Shipping Address](#shipmentdetails_select_read-order-shipping-address)
+* The delivery the destinationinfo belongs to: [Read Order Delivery](#orders_read-order-delivery)
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Read the destinationinfo for the order.]]></description>
+				<start>orders.delivery</start>
+				<follow-link>destinationinfo</follow-link>
+				<link-back>delivery</link-back>
+				<result>destination-info</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-order-shipping-address</name>
+			<description><![CDATA[Retrieve the shipping address that is currently selected for the order.]]></description>
+			<step>
+				<description><![CDATA[Read the shipping address that is currently selected for the order.]]></description>
+				<start>destination-info</start>
+				<follow-link>destination</follow-link>
+				<result>addresses.address</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>select-shipping-address</name>
+			<description><![CDATA[Uses a Selector to select a shipping option (i.e. FedEx, Canada Post, etc) to use for the order.]]></description>
+			<step>
+				<description><![CDATA[Retrieve the selector.]]></description>
+				<start>destination-info</start>
+				<follow-link>selector</follow-link>
+				<link-back>destinationinfo</link-back>
+				<result>destination-info-selector</result>
+			</step>
+			<step>
+				<description><![CDATA[Retrieve a choice.]]></description>
+				<start>destination-info-selector</start>
+				<follow-link>choice</follow-link>
+				<link-back>selector</link-back>
+				<result>destination-info-selector-choice</result>
+			</step>
+			<step>
+				<description><![CDATA[Retrieve a selected choice, if any.]]></description>
+				<start>destination-info-selector</start>
+				<follow-link>chosen</follow-link>
+				<link-back>selector</link-back>
+				<result>destination-info-selector-choice</result>
+			</step>
+			<step>
+				<description><![CDATA[Retrieve a choice's description.]]></description>
+				<start>destination-info-selector-choice</start>
+				<follow-link>description</follow-link>
+				<result>addresses.address</result>
+			</step>
+			<step>
+				<description><![CDATA[Select a choice.]]></description>
+				<start>destination-info-selector-choice</start>
+				<submit/>
+				<to>destination-info-selector-choice</to>
+				<via-link>selectaction</via-link>
+				<result>addresses.address</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-order-address-form</name>
+			<description><![CDATA[Retrieve the address form to create a new shipping address for the order.]]></description>
+			<step>
+				<description><![CDATA[The address form.]]></description>
+				<start>destination-info</start>
+				<follow-link>addressform</follow-link>
+				<result>addresses.address-form</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-order-shipping-option-info</name>
+			<description>
+				<![CDATA[
+Retrieves the order's shippingoptioninfo, which contains links to:
+
+* A selector for choosing the order's shipping option: [Select Shipping Choice](#shipmentdetails_select-shipping-choice)
+* The shipping option selected for the order: [Read Order Shipping Option](#shipmentdetails_read-order-shipping-option)
+* The delivery the shipping option belongs to: [Read Order Delivery](#orders_read-order-delivery)
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Read the shippingoptioninfo for the order.]]></description>
+				<start>orders.delivery</start>
+				<follow-link>shippingoptioninfo</follow-link>
+				<link-back>delivery</link-back>
+				<result>shipping-option-info</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-order-shipping-option</name>
+			<description>
+				<![CDATA[
+Retrieves the shipping option that is currently selected for the order. The shipping option is how the order will be shipped,
+i.e. (FedEx, Canada Post, etc). If a shipping option has not been selected for the order, the shipping option link will
+not appear on the shippingoptioninfo. For information on how to select the shippingoption,
+see [Select Shipping Choice](#shipmentdetails_select-shipping-choice)
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Read the shipping option that is currently selected for the order.]]></description>
+				<start>shipping-option-info</start>
+				<follow-link>shippingoption</follow-link>
+				<result>shipping-option</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>select-shipping-option</name>
+			<description>
+				<![CDATA[
+Uses a Selector to choose the shipping option for the order. The shipping option is how the order will be
+shipped, i.e. (FedEx, Canada Post, etc). The shipping options available for your shipment depend on which shipping regions
+and shipping options are configured for your store. Check with your store's administrator for more information on
+these options.
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Retrieve the selector.]]></description>
+				<start>shipping-option-info</start>
+				<follow-link>selector</follow-link>
+				<link-back>shippingoptioninfo</link-back>
+				<result>shipping-option-info-selector</result>
+			</step>
+			<step>
+				<description><![CDATA[Retrieve a choice.]]></description>
+				<start>shipping-option-info-selector</start>
+				<follow-link>choice</follow-link>
+				<link-back>selector</link-back>
+				<result>shipping-option-info-selector-choice</result>
+			</step>
+			<step>
+				<description><![CDATA[Retrieve a selected choice, if any.]]></description>
+				<start>shipping-option-info-selector</start>
+				<follow-link>chosen</follow-link>
+				<link-back>selector</link-back>
+				<result>shipping-option-info-selector-choice</result>
+			</step>
+			<step>
+				<description><![CDATA[Retrieve a choice's description.]]></description>
+				<start>shipping-option-info-selector-choice</start>
+				<follow-link>description</follow-link>
+				<link-back>choice</link-back>
+				<result>shipping-option</result>
+			</step>
+			<step>
+				<description><![CDATA[Select a choice.]]></description>
+				<start>shipping-option-info-selector-choice</start>
+				<submit/>
+				<to>shipping-option-info-selector-choice</to>
+				<via-link>selectaction</via-link>
+				<result>shipping-option</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-destination-needinfo-from-order</name>
+			<description>
+				<![CDATA[
+Read the needinfo link for the shipping address. If this link appears on the order, it means the shipping address
+has not been selected or created for the order. Needinfo links can appear on the order, the purchase form, and the delivery.
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Read destination address needinfo from order.]]></description>
+				<start>orders.order</start>
+				<follow-link>needinfo</follow-link>
+				<result>destination-info</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-destination-needinfo-from-delivery</name>
+			<description><![CDATA[Read the needinfo link for the shipping address from the delivery. Needinfo links can appear on the order, the purchase form, and the delivery.]]></description>
+			<step>
+				<description><![CDATA[Read destination address needinfo from delivery.]]></description>
+				<start>orders.delivery</start>
+				<follow-link>needinfo</follow-link>
+				<result>destination-info</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-destination-needinfo-from-purchaseform</name>
+			<description><![CDATA[Read the needinfo link for the shipping address from the purchase form. Needinfo links can appear on the order, the purchase form, and the delivery.]]></description>
+			<step>
+				<description><![CDATA[Read destination address needinfo from purchaseform.]]></description>
+				<start>purchases.create-purchase-form</start>
+				<follow-link>needinfo</follow-link>
+				<result>destination-info</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-shippingoption-needinfo-from-order</name>
+			<description>
+				<![CDATA[
+Read the needinfo for the shipping option from the order. This needinfo appears when a shipping option has not been selected for the order.
+Needinfo links can appear on the order, the purchase form, and the delivery.
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Read destination address needinfo from order.]]></description>
+				<start>orders.order</start>
+				<follow-link>needinfo</follow-link>
+				<result>shipping-option-info</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-shippingoption-needinfo-from-delivery</name>
+			<description>
+				<![CDATA[
+					Read the needinfo for the shipping option from the order. This needinfo appears when a shipping option has not been selected for
+					the order. Needinfo links can appear on the order, the purchase form, and the delivery.
+				]]>
+			</description>
+			<step>
+				<description><![CDATA[Read destination address needinfo from delivery.]]></description>
+				<start>orders.delivery</start>
+				<follow-link>needinfo</follow-link>
+				<result>shipping-option-info</result>
+			</step>
+		</plan>
+
+		<plan>
+			<name>read-shippingoption-needinfo-from-purchaseform</name>
+			<description>
+				<![CDATA[
+					Read the needinfo for the shipping option from the purchaseform. This needinfo appears when a shiping option has not been selected
+					for the order. Needinfo links can appear on the order, the purchase form, and the delivery.
+				]]>
+			</description>
+			<step>
+				<description>
+					<![CDATA[Read the needinfo for the shipping option from the purchaseform. This needinfo appears when a shipping option has not
+					been selected for the order. Needinfo links can appear on the order, the purchase form, and the delivery.
+					]]>
+				</description>
+				<start>purchases.create-purchase-form</start>
+				<follow-link>needinfo</follow-link>
+				<result>shipping-option-info</result>
+			</step>
+		</plan>
+
+	</family>
+</definitions>

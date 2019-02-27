@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		">
+
+	<!-- Activates the @Autowire annotations on registered beans -->
+	<context:annotation-config/>
+
+	<!--
+	This element will substitute ${} placeholders found in the listed property files. 
+	If the placeholder is not found after searching locations, or JVM system properties, it will remain in the ${} form, 
+	(with no substitution performed) and as a result could cause spurious results at run-time. 
+	-->
+	<context:property-placeholder ignore-resource-not-found="true" system-properties-mode="OVERRIDE"
+		location="
+			classpath*:META-INF/elasticpath/conf/spring/plugin.properties,
+			classpath:module.properties,
+			file:/etc/ep/ep.properties,
+			file:/ep/conf/ep.properties,
+			file:/ep/conf/ep.integration.properties,
+			file:${user.home}/ep/ep.properties,
+			file:${user.home}/ep/conf/ep.properties,
+			file:${user.home}/ep/conf/ep.integration.properties
+		"/>
+
+	<!-- This element defines overrides of the format: beanName.property=value 
+		for existing bean properties. If items in these property files do not conform 
+		to format convention, they will not be overridden in run-time and as a result 
+		use the default value originally stated in the bean. -->
+	<context:property-override ignore-resource-not-found="true" local-override="true"
+		location="
+    		file:/etc/ep/ep.override.properties,
+			file:/ep/conf/ep.override.properties,
+			file:/ep/conf/ep.integration.override.properties,
+			file:${user.home}/ep/ep.override.properties,
+			file:${user.home}/ep/conf/ep.override.properties,
+			file:${user.home}/ep/conf/ep.integration.override.properties" />
+
+	<!-- ep-core jar wiring -->
+	<import resource="classpath:ep-integration-context.xml"/>
+
+	<!-- elastic path plugin wiring -->
+	<import resource="classpath*:META-INF/elasticpath/conf/spring/plugin.xml"/>
+
+	<!-- ext-core jar wiring -->
+	<import resource="classpath*:META-INF/conf/ep-core-plugin.xml"/>
+
+	<!-- integration war wiring -->
+	<import resource="spring/dataaccess/daoIntegration.xml"/>
+	<import resource="spring/security/security.xml"/>
+	<import resource="spring/service/serviceIntegration.xml"/>
+	<import resource="spring/service/serviceVelocityEmail.xml"/>
+
+	<import resource="spring/monitoring/ep-monitoring.xml" />
+</beans>

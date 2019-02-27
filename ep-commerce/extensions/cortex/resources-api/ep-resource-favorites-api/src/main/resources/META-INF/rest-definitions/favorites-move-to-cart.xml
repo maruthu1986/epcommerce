@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+	<family>
+		<name>favorites</name>
+
+		<resource>
+			<name>move-to-cart-form</name>
+			<description>Form for moving a cart line item to a favorite</description>
+			<uri>{favorite-line-item}/carts/form</uri>
+			<!-- /favorites/scope/favoriteId/lineitems/lineItemId/carts/form -->
+			<form>
+				<entity>carts.line-item</entity>
+				<action-rel>movetocartaction</action-rel>
+				<result>carts.line-item</result>
+			</form>
+		</resource>
+
+		<advisor>
+			<name>move-to-cart-form</name>
+			<description>Move to cart pre-conditions check</description>
+			<blocks>move-to-cart-form</blocks>
+		</advisor>
+
+		<relationship>
+			<name>favorite-move-to-cart-form</name>
+			<description>Link for a form used to move favorite item to a cart</description>
+			<rel>movetocartform</rel>
+			<from>favorite-line-item</from>
+			<to>move-to-cart-form</to>
+		</relationship>
+
+	</family>
+</definitions>
