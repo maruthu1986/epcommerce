@@ -113,7 +113,7 @@
         <org.apache.servicemix.spring.version>4.3.16.RELEASE_1</org.apache.servicemix.spring.version>
         <org.apache.servicemix.spring.security.version>4.2.4.RELEASE_1</org.apache.servicemix.spring.security.version>
         <org.eclipse.emf.version>2.12.0.v20160420-0247</org.eclipse.emf.version>
-        <org.hibernate.version>5.2.4.Final</org.hibernate.version>
+        <org.hibernate.version>5.3.6.Final</org.hibernate.version>
         <org.json.version>20170516</org.json.version>
         <org.kubek2k.version>1.0.8</org.kubek2k.version>
         <org.liquibase.version>3.4.2</org.liquibase.version>
