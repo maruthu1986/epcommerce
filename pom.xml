@@ -89,7 +89,7 @@
         <jersey.version>2.26</jersey.version>
         <jmock.version>2.6.0</jmock.version>
         <jregex.version>1.2_01-ep1.0.0</jregex.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <javassist.version>3.22.0-GA</javassist.version>
         <javax.servlet.version>3.0.1</javax.servlet.version>
 
