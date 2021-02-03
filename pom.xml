@@ -103,7 +103,7 @@
         <natty.version>0.13</natty.version>
 
         <org.apache.activemq.version>5.14.3</org.apache.activemq.version>
-        <org.apache.ant.version>1.7.1</org.apache.ant.version>
+        <org.apache.ant.version>1.10.9</org.apache.ant.version>
         <org.apache.batic.version>1.6.0.v201011041432</org.apache.batic.version>
         <org.apache.camel.version>2.21.1</org.apache.camel.version>
         <org.apache.commons.lang3.version>3.7</org.apache.commons.lang3.version>
