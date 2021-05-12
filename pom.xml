@@ -132,7 +132,7 @@
         <shiro-core.version>1.3.0</shiro-core.version>
         <sisu.version>0.3.2</sisu.version>
         <slf4j.version>1.7.25</slf4j.version>
-        <solr.version>4.5.1</solr.version>
+        <solr.version>8.8.2</solr.version>
         <springsource.org.json.version>1.0.0</springsource.org.json.version>
 
         <tomcat.version>7.0.81</tomcat.version>
