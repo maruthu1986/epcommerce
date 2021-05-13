@@ -135,7 +135,7 @@
         <solr.version>4.5.1</solr.version>
         <springsource.org.json.version>1.0.0</springsource.org.json.version>
 
-        <tomcat.version>7.0.81</tomcat.version>
+        <tomcat.version>7.0.107</tomcat.version>
 
         <ws-rs.version>2.1</ws-rs.version>
 
