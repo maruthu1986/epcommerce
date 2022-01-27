@@ -139,7 +139,7 @@
 
         <ws-rs.version>2.1</ws-rs.version>
 
-        <xerces.version>2.9.1</xerces.version>
+        <xerces.version>2.12.2</xerces.version>
         <org.mybatis.version>3.2.3</org.mybatis.version>
         <org.reflections.version>0.9.10</org.reflections.version>
 
