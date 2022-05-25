@@ -117,7 +117,7 @@
         <org.json.version>20170516</org.json.version>
         <org.kubek2k.version>1.0.8</org.kubek2k.version>
         <org.liquibase.version>3.4.2</org.liquibase.version>
-        <org.springframework.security.version>4.2.6.RELEASE</org.springframework.security.version>
+        <org.springframework.security.version>5.5.7</org.springframework.security.version>
         <org.springframework.version>4.3.16.RELEASE</org.springframework.version>
         <org.springframework.shell.version>1.0.0.RELEASE</org.springframework.shell.version>
         <org.springframework.security-oauth2.version>2.3.3.RELEASE</org.springframework.security-oauth2.version>
