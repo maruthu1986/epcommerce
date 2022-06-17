@@ -39,7 +39,7 @@
         <cxf-uritemplate-utils.version>1.13</cxf-uritemplate-utils.version>
 
         <dce.version>703.0.0-SNAPSHOT</dce.version>
-        <drools.version>7.6.0.Final</drools.version>
+        <drools.version>7.60.0.Final</drools.version>
 
         <ep.health.monitoring.version>703.0.0-SNAPSHOT</ep.health.monitoring.version>
         <esapi.version>2.1.0.1</esapi.version>
