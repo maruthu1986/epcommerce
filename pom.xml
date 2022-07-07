@@ -118,7 +118,7 @@
         <org.kubek2k.version>1.0.8</org.kubek2k.version>
         <org.liquibase.version>3.4.2</org.liquibase.version>
         <org.springframework.security.version>4.2.6.RELEASE</org.springframework.security.version>
-        <org.springframework.version>4.3.16.RELEASE</org.springframework.version>
+        <org.springframework.version>5.2.21.RELEASE</org.springframework.version>
         <org.springframework.shell.version>1.0.0.RELEASE</org.springframework.shell.version>
         <org.springframework.security-oauth2.version>2.3.3.RELEASE</org.springframework.security-oauth2.version>
         <org.springframework.spring.batch.version>4.0.1.RELEASE</org.springframework.spring.batch.version>
