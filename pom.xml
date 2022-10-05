@@ -79,7 +79,7 @@
         <gherkin.version>5.0.0</gherkin.version>
         <cucumber-groovy.version>2.0.1</cucumber-groovy.version>
 
-        <jackson.version>2.9.5</jackson.version>
+        <jackson.version>2.12.6.1</jackson.version>
         <javax.annotation.version>1.2</javax.annotation.version>
         <javax.cache.version>1.0.0</javax.cache.version>
         <javax.el.version>2.2.4</javax.el.version>
